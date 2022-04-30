@@ -1,0 +1,48 @@
+query Article($filters: ArticleFiltersInput) {
+  articles(filters: $filters) {
+    data {
+      id
+      attributes {
+        body
+        title
+        slug
+        heroImage {
+          data {
+            attributes {
+              url
+            }
+            id
+          }
+        }
+        author {
+          data {
+            id
+            attributes {
+              fullName
+            }
+          }
+        }
+        SEO {
+          id
+          title
+          description
+          url
+          image
+          type
+          locale
+        }
+        category {
+          data {
+            id
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+        blurb
+        updatedAt
+      }
+    }
+  }
+}

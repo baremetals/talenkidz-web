@@ -1,0 +1,33 @@
+query Listings($pagination: PaginationArg, $sort: [String]) {
+  listings(pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        description
+        startDate
+        endDate
+        slug
+        startTime
+        listImage
+        createdAt
+        category {
+          data {
+            attributes {
+              slug
+            }
+          }
+        }
+        host {
+          data {
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+      }
+    }
+  }
+}

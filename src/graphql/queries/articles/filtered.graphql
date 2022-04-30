@@ -1,0 +1,43 @@
+query FilteredArticles(
+  $filters: ArticleFiltersInput
+  $pagination: PaginationArg
+  $sort: [String]
+) {
+  articles(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        body
+        title
+        slug
+        blurb
+        createdAt
+        updatedAt
+        heroImage {
+          data {
+            id
+            attributes {
+              url
+            }
+          }
+        }
+        author {
+          data {
+            id
+            attributes {
+              fullName
+            }
+          }
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}

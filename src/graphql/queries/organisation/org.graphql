@@ -1,0 +1,27 @@
+query Org($filters: OrganisationFiltersInput) {
+  organisations(filters: $filters) {
+    data {
+      id
+      attributes {
+        name
+        slug
+        logo
+        fullProfile
+        createdAt
+        profile {
+          data {
+            id
+            attributes {
+              username
+              fullName
+              avatar
+              backgroundImg
+              userType
+              createdAt
+            }
+          }
+        }
+      }
+    }
+  }
+}

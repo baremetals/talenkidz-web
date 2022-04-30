@@ -1,0 +1,15 @@
+query User($filters: UsersPermissionsUserFiltersInput) {
+  usersPermissionsUsers(filters: $filters) {
+    data {
+      id
+      attributes {
+        username
+        email
+        fullName
+        avatar
+        backgroundImg
+        createdAt
+      }
+    }
+  }
+}

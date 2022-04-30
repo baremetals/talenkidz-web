@@ -1,0 +1,53 @@
+query List($filters: ListingFiltersInput) {
+  listings(filters: $filters) {
+    data {
+      id
+      attributes {
+        title
+        description
+        body
+        startDate
+        endDate
+        slug
+        createdAt
+        startTime
+        endTime
+        listImage
+        SEO {
+          id
+          title
+          description
+          url
+          image
+          type
+          locale
+        }
+        host {
+          data {
+            id
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        Location {
+          id
+          numberOrName
+          street
+          town
+          postCode
+        }
+        category {
+          data {
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}

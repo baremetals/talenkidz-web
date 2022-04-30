@@ -1,0 +1,11 @@
+query Categories($pagination: PaginationArg, $sort: [String]) {
+  categories(pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        slug
+        name
+      }
+    }
+  }
+}
