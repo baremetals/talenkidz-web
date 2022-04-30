@@ -2,7 +2,7 @@ import React from "react";
 // import dynamic from "next/dynamic"; 
 // import htmlToDraft from "html-to-draftjs";
 // import { ContentState, EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import { Editor, EditorState, EditorProps } from "react-draft-wysiwyg";
 
 // const Editor =
 //   dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {
@@ -11,7 +11,12 @@ import { Editor } from "react-draft-wysiwyg";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const PostEditor = ({ onEditorStateChange, editorState, ...props }: any) => {
+type editorProps = {
+  onEditorStateChange: any
+  editorState: EditorState
+}
+
+const PostEditor = ({ onEditorStateChange, editorState, ...props }: editorProps) => {
 
   // const blocksFromHtml = htmlToDraft(content);
   // const { contentBlocks, entityMap } = blocksFromHtml;
