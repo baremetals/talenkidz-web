@@ -58,7 +58,7 @@ type FileType = {
     webkitRelativePath: string;
 }
 
-const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+// const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 const Form = ({ formType, id }: form) => {
     const router = useRouter();
@@ -85,7 +85,7 @@ const Form = ({ formType, id }: form) => {
         register,
         handleSubmit,
         setValue,
-        formState: { errors },
+        // formState: { _errors },
     } = useForm<FormProps>();
 
     const handleImageChange =
@@ -121,23 +121,23 @@ const Form = ({ formType, id }: form) => {
         const testingRef = ref(storage, `testing folder/${name}`)
         const file = upload;
 
-        // const fileUrl = await uploadBytes(testingRef, file as any).then(async () => {
-        //     return getDownloadURL(testingRef);
+        const fileUrl = await uploadBytes(testingRef, file as any).then(async () => {
+            return getDownloadURL(testingRef);
 
-        // });
+        });
         
         const data = {
             title: info.title,
             body: info.body,
             category: category[1],
-            host: "1",
+            host: id,
             slug,
             description: info.description,
             startDate: info.startDate,
             endDate: info.endDate,
             startTime: info.startTime,
             endTime: info.endTime,
-            // listImage: fileUrl,
+            listImage: fileUrl,
             Location: {
                 numberOrName: info.numberOrName,
                 street: info.street,
@@ -147,7 +147,7 @@ const Form = ({ formType, id }: form) => {
             SEO: {
                 title: info.title,
                 description: info.description,
-                // image: fileUrl,
+                image: fileUrl,
                 url: formType === "event" ? eventUrl : activityUrl,
                 type: formType === "event" ? 'event' : 'activity'
             }
@@ -161,9 +161,9 @@ const Form = ({ formType, id }: form) => {
                 console.log(res.data.data)
                 if (res.status === 200) {
                     setSubmitting(false)
-                    // if (formType === 'events') {
-                    //     router.push(eventUrl)
-                    // } else router.push(activityUrl)
+                    if (formType === 'events') {
+                        router.push(eventUrl)
+                    } else router.push(activityUrl)
                 }
             })
             .catch((err) => {
