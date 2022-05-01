@@ -52,6 +52,7 @@ export function initializeApollo(initialState: null | undefined, token: string) 
 }
 
 export function useApollo(initialState: null | undefined, token?: string) {
-  const store = useMemo(() => initializeApollo(initialState, token as string), [initialState],);
+  const store = useMemo(() => initializeApollo(initialState, token as string), [initialState, token],);
   return store;
+  
 }

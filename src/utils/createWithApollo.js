@@ -164,7 +164,7 @@ export const createWithApollo = (ac) => {
 
               // getDataFromTree does not call componentWillUnmount
               // head side effect therefore need to be cleared manually
-              Head.rewind;
+              Head.rewind();
             }
           }
 
@@ -183,7 +183,7 @@ export const createWithApollo = (ac) => {
     };
 };
 
-export const createApolloClient = (apolloClient, initialState, ctx) => {
+export const createApolloClient = (apolloClient, _initialState, _ctx) => {
   // The `ctx` (NextPageContext) will only be present on the server.
   // use it to extract auth headers (ctx.req) or similar.
   // apolloClient.ssrMode = Boolean(ctx);
