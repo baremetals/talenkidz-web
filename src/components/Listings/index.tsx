@@ -1,6 +1,6 @@
+import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { SetStateAction, useEffect, useState } from 'react'
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
 import { upperCase } from 'lib/helpers'
 

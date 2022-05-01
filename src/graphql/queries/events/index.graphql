@@ -1,0 +1,28 @@
+query Events($pagination: PaginationArg, $sort: [String]) {
+  events(pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        createdAt
+        host {
+          data {
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+      }
+    }
+  }
+}
