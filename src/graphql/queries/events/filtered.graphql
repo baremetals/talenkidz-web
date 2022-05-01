@@ -1,5 +1,9 @@
-query Events($pagination: PaginationArg, $sort: [String]) {
-  events(pagination: $pagination, sort: $sort) {
+query FilteredEvents(
+  $filters: EventFiltersInput
+  $pagination: PaginationArg
+  $sort: [String]
+) {
+  events(filters: $filters, pagination: $pagination, sort: $sort) {
     data {
       id
       attributes {

@@ -1995,13 +1995,29 @@ export type CategoriesQueryVariables = Exact<{
 
 export type CategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null }> } | null };
 
+export type EventQueryVariables = Exact<{
+  filters?: InputMaybe<EventFiltersInput>;
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null } | null }> } | null };
+
+export type FilteredEventsQueryVariables = Exact<{
+  filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+
 export type EventsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
+export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
@@ -2303,6 +2319,158 @@ export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const EventDocument = gql`
+    query Event($filters: EventFiltersInput) {
+  events(filters: $filters) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        updatedAt
+        category {
+          data {
+            id
+            attributes {
+              slug
+              name
+            }
+          }
+        }
+        host {
+          data {
+            id
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        Location {
+          id
+          numberOrName
+          street
+          town
+          postCode
+        }
+        SEO {
+          id
+          title
+          description
+          url
+          image
+          type
+          locale
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions?: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const FilteredEventsDocument = gql`
+    query FilteredEvents($filters: EventFiltersInput, $pagination: PaginationArg, $sort: [String]) {
+  events(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        createdAt
+        host {
+          data {
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFilteredEventsQuery__
+ *
+ * To run a query within a React component, call `useFilteredEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilteredEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilteredEventsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useFilteredEventsQuery(baseOptions?: Apollo.QueryHookOptions<FilteredEventsQuery, FilteredEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FilteredEventsQuery, FilteredEventsQueryVariables>(FilteredEventsDocument, options);
+      }
+export function useFilteredEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilteredEventsQuery, FilteredEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FilteredEventsQuery, FilteredEventsQueryVariables>(FilteredEventsDocument, options);
+        }
+export type FilteredEventsQueryHookResult = ReturnType<typeof useFilteredEventsQuery>;
+export type FilteredEventsLazyQueryHookResult = ReturnType<typeof useFilteredEventsLazyQuery>;
+export type FilteredEventsQueryResult = Apollo.QueryResult<FilteredEventsQuery, FilteredEventsQueryVariables>;
 export const EventsDocument = gql`
     query Events($pagination: PaginationArg, $sort: [String]) {
   events(pagination: $pagination, sort: $sort) {
@@ -2325,6 +2493,14 @@ export const EventsDocument = gql`
               name
               slug
               logo
+            }
+          }
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
             }
           }
         }

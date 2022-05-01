@@ -84,6 +84,7 @@ const Events = ({ events, categories }: pageProps) => {
         category: '',
         search: '',
     });
+    console.log(events)
 
 
     useEffect(() => {
