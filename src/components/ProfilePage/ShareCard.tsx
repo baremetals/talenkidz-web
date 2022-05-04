@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+import Post from '../Post'
 import {
     ShareContainer,
     ShareWrapper,
@@ -24,47 +25,55 @@ type cardProps = {
 }
 
 export const ShareCard = ({ avatar }: cardProps) => {
-  return (
-    <ShareContainer>
-          <ShareWrapper>
-              <ShareTop>
-                  <ProfileImage src={avatar} alt="user profile image" />
-                  <Input placeholder={`what's on your mind ?`} />
-              </ShareTop>
-              <ShareHr />
+    const [showModal, setShowModal] = useState(false);
+    return (
+        <>
+            <ShareContainer>
+                <ShareWrapper>
+                    <ShareTop>
+                        <ProfileImage src={avatar} alt="user profile image" />
+                        <Input onClick={() => setShowModal(true)} placeholder={`what's on your mind ?`} />
+                    </ShareTop>
+                    <ShareHr />
 
-              <ShareBottomWrap>
-                  <ShareOptions >
-                      <ShareOptionItem>
-                          <ShareOptionsIcon>
-                              <PhotoLine />
-                          </ShareOptionsIcon>
-                          <ShareOptionstext>Photo</ShareOptionstext>
-                      </ShareOptionItem>
-                  </ShareOptions>
+                    <ShareBottomWrap>
+                        <ShareOptions onClick={() => setShowModal(true)}>
+                            <ShareOptionItem>
+                                <ShareOptionsIcon>
+                                    <PhotoLine />
+                                </ShareOptionsIcon>
+                                <ShareOptionstext>Photo</ShareOptionstext>
+                            </ShareOptionItem>
+                        </ShareOptions>
 
-                  <ShareOptions >
-                      <ShareOptionItem>
-                          <ShareOptionsIcon>
-                              <VideoLine />
-                          </ShareOptionsIcon>
-                          <ShareOptionstext>Video</ShareOptionstext>
-                      </ShareOptionItem>
-                  </ShareOptions>
+                        <ShareOptions onClick={() => setShowModal(true)}>
+                            <ShareOptionItem>
+                                <ShareOptionsIcon>
+                                    <VideoLine />
+                                </ShareOptionsIcon>
+                                <ShareOptionstext>Video</ShareOptionstext>
+                            </ShareOptionItem>
+                        </ShareOptions>
 
-                  <ShareOptions >
-                      <ShareOptionItem>
-                          <ShareOptionsIcon>
-                              <CommentLines />
-                          </ShareOptionsIcon>
-                          <ShareOptionstext>Text</ShareOptionstext>
-                      </ShareOptionItem>
-                  </ShareOptions>
+                        <ShareOptions onClick={() => setShowModal(true)}>
+                            <ShareOptionItem>
+                                <ShareOptionsIcon>
+                                    <CommentLines />
+                                </ShareOptionsIcon>
+                                <ShareOptionstext>Text</ShareOptionstext>
+                            </ShareOptionItem>
+                        </ShareOptions>
 
-                  <ShareButton >send</ShareButton>
-              </ShareBottomWrap>
-          </ShareWrapper>
-      </ShareContainer>
-  )
+                        <ShareButton onClick={() => setShowModal(true)}>Post</ShareButton>
+                    </ShareBottomWrap>
+                </ShareWrapper>
+            </ShareContainer>
+            <Post
+                showModal={showModal}
+                closeM={() => setShowModal(false)}
+                setShowModal={setShowModal}
+            />
+        </>
+    )
 }
 

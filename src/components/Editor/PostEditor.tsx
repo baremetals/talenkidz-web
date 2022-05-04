@@ -1,13 +1,6 @@
 import React from "react";
-// import dynamic from "next/dynamic"; 
-// import htmlToDraft from "html-to-draftjs";
-// import { ContentState, EditorState } from "draft-js";
 import { Editor, EditorState } from "react-draft-wysiwyg";
 
-// const Editor =
-//   dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {
-//     ssr: false,
-//   });
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
