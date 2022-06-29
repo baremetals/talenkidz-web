@@ -10,22 +10,10 @@ import {
     Image,
     SiteFooter,
     FooterLinks,
-    Text,
     FooterTitle,
-
     MediaObject,
-    MediaObjectItem,
-    MediaObjectThumb,
-    MediaObjectBody,
-    MediaObjectDate,
-    MediaObjectTitle,
-    
-    FooterContact,
 } from "../../styles/common.styles";
 
-import { MapPin } from '../../../public/assets/icons/MapPin'
-import { Phone } from '../../../public/assets/icons/Phone'
-import { Mail } from '../../../public/assets/icons/Mail'
 import { NewsCard } from './NewsCard'
 
 function Footer(): ReactElement {

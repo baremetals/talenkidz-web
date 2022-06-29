@@ -165,7 +165,7 @@ const Events = ({ events, categories }: pageProps) => {
                               <WidgetPanelListing>
 
                                   {categories?.map((cat, id) => (
-                                      <WidgetPanelLink key={id} ><Link href={`/events/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
+                                      <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/events/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
                                   ))}
                               </WidgetPanelListing>
 

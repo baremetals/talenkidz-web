@@ -29,8 +29,8 @@ export const InnerContainer = styled.div`
 `;
 
 export const SiteHeader = styled.header`
-    padding-top: 1.625rem;
-    padding-bottom: 1.625rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     position: relative;
     z-index: 100;
     @media (max-width: 991px) {
@@ -81,7 +81,9 @@ export const Logo = styled.div`
     font-size: 2rem;
     line-height: 1;
     img {
-        width: 150px;
+        width: 200px;
+        aspect-ratio: inherit;
+        object-fit: contain;
         @media (max-width: 991px) {
             width: 120px;
         }
@@ -296,6 +298,8 @@ export const ListingsItem = styled.li`
 export const Image = styled.img`
     display: block;
     width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
 `;
 
 // Hero Banner
@@ -718,6 +722,15 @@ export const WidgetPanelListing = styled.div`
 
 export const WidgetPanelLink = styled.div`
     margin-bottom: .5rem;
+    text-transform: capitalize;
+    img{
+        display: inline;
+        width: 20px;
+        height: 20px;
+        border-radius: 0;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
     @media (max-width: 991px) {
         font-size: .875rem;
     }
@@ -988,4 +1001,202 @@ export const InboxDes = styled.div`
     a {
         text-decoration: underline;
     }
+`;
+
+
+export const Avatar = styled.div`
+  display:flex;
+  align-items: center;
+  img{
+      margin-right:5px;
+  }
+`;
+
+export const AvatarRow = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    > div{
+        font-size: inherit;
+        &:before{
+            content: "|";
+            margin: 0 1rem;
+        }
+        &:first-child:before{
+            display: none;
+        }
+    }
+`;
+
+export const AddressMap = styled.div`
+    display:block;
+    border-radius: 0.625rem;
+    overflow: hidden;
+    position:relative;
+    margin-top:3rem;
+    div{
+        color: white;
+        font-size: 1rem;
+    }
+`
+export const Iframe = styled.iframe`
+    width: 100%;
+    border: none;
+    border-radius: 0.625rem;
+    
+`
+
+export const AddressCard = styled.div`
+    position: absolute;
+    background: #bc70ade3;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    width: 310px;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    
+`
+
+// Payment Details
+
+export const AlignCentered = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const PaymentOuter = styled.div`
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+export const CardStyle = styled.div`
+    padding: 1.875rem;
+    box-shadow: 0 0 40px 0 rgb(0 0 0 / 10%);
+    background-color: #FFF;
+    border-radius: 1.25rem;
+    margin-bottom: 1.875rem;
+`;
+
+export const PaymentInner = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+`;
+
+export const PaymentDetail = styled.div`
+    margin-right: 5%;
+    width: 47.5%;
+    @media (max-width: 767px) {
+        width: 100%; 
+        margin-right: 0;  
+    }
+`;
+
+export const PaymentForm = styled.div`
+    width: 47.5%;
+    @media (max-width: 767px) {
+        width: 100%;   
+    }
+`;
+
+export const H6 = styled.h6`
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .625rem;
+    color: inherit; 
+    line-height: 1.2;
+    margin-bottom: .5rem;
+    opacity: .5;
+`;
+
+export const H3 = styled.h3`
+    margin-bottom: .75rem;
+    line-height: 1.6;
+    font-size: 1rem;
+`;
+
+export const Paragraph = styled.p`
+    font-size: .875rem;
+    color: inherit;
+    line-height: 1.6;
+    opacity: .7;
+`;
+
+export const StepTabs = styled.div`
+    display: flex;
+    margin-left: -.5rem;
+    margin-right: -.5rem;
+`;
+
+export const StepItem = styled.div`
+    width: 25%;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    text-align: center;
+    position: relative;
+    h3 {
+        margin-bottom: 0;
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 60%;
+        height: 1px;
+        background-color: #bc70ad;
+        top: 1.125rem;
+        left: 70%;
+    }
+    &:last-child {
+        &:after {
+            display: none;
+        }
+    }
+`;
+
+export const StepHead = styled.div`
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
+    border-radius: 100%;
+    margin: 0 auto 1rem;
+    background-color: #bc70ad;
+    color: #FFF;
+    font-weight: 600;
+    box-shadow: 0 0 0px 6px rgb(188 112 173 / 20%);
+    position: relative;
+`;
+
+
+export const CardFormGroup = styled.div`
+    margin-bottom: 1rem;
+    .cardinput {
+        border: 1px solid #ced4da;
+        border-radius: .357rem;
+    }
+`;
+
+export const LabelText = styled.label`
+    display: block;
+    text-transform: uppercase;
+    font-size: .75rem;
+    letter-spacing: 1px;
+    margin-bottom: .25rem;
+`;
+
+export const Input = styled.input`
+    height: 46px;
+    border-radius: .357rem;
 `;

@@ -24,7 +24,7 @@ const PostEditor = dynamic(() => import("components/Editor/PostEditor"), {
 import { Error, ErrorMsg } from "../Input";
 import Button from 'components/Auth/Button';
 import { FormWrapper, InnerFormWrapper, FormWrap, FormGroup, FormInput, Select, CategoryOptions, TextArea, UploadWrapper, UploadLabel, UploadIcon, UploadInput, EditorTextWrapper, UploadImage } from './styles';
-import { InnerContainer, Title } from 'styles/common.styles';
+import { Column, Row, InnerContainer, Title } from 'styles/common.styles';
 
 
 export type FormProps = {
@@ -125,7 +125,7 @@ const Form = ({ formType, id }: form) => {
             return getDownloadURL(testingRef);
 
         });
-        
+
         const data = {
             title: info.title,
             body: info.body,
@@ -195,40 +195,62 @@ const Form = ({ formType, id }: form) => {
                                 <CategoryOptions value="music 3">Music</CategoryOptions>
                             </Select>
                         </FormGroup>
-                        <FormGroup>
-                            <UploadLabel>Start Date</UploadLabel>
-                            <FormInput type='date' {...register("startDate", { required: true })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <UploadLabel>End Date</UploadLabel>
-                            <FormInput type='date' {...register("endDate", { required: true })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <UploadLabel>Start Date</UploadLabel>
-                            <FormInput type='time' {...register("startTime", { required: true })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <UploadLabel>End Date</UploadLabel>
-                            <FormInput type='time' {...register("endTime", { required: true })} />
-                        </FormGroup>
+                        <Row>
+                            <Column>
+                                <FormGroup>
+                                    <UploadLabel>Start Date</UploadLabel>
+                                    <FormInput type='date' {...register("startDate", { required: true })} />
+                                </FormGroup>
+                            </Column>
+                            <Column>
+                                <FormGroup>
+                                    <UploadLabel>End Date</UploadLabel>
+                                    <FormInput type='date' {...register("endDate", { required: true })} />
+                                </FormGroup>
+                            </Column>
+                        </Row>
+                        <Row>
+                            <Column>
+                                <FormGroup>
+                                    <UploadLabel>Start Date</UploadLabel>
+                                    <FormInput type='time' {...register("startTime", { required: true })} />
+                                </FormGroup>
+                            </Column>
+                            <Column>
+                                <FormGroup>
+                                    <UploadLabel>End Date</UploadLabel>
+                                    <FormInput type='time' {...register("endTime", { required: true })} />
+                                </FormGroup>
+                            </Column>
+                        </Row>
+
                         <UploadLabel>Location</UploadLabel>
                         <FormGroup>
                             <FormInput type='text' placeholder='Number or name' {...register("numberOrName", { required: true })} />
                         </FormGroup>
-                        <FormGroup>
-                            <FormInput type='text' placeholder='street' {...register("street", { required: true })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <FormInput type='text' placeholder='town' {...register("town", { required: true })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <FormInput type='text' placeholder='post code' {...register("postCode", { required: true })} />
-                        </FormGroup>
+                        <Row>
+                            <Column><FormGroup>
+                                <FormInput type='text' placeholder='street' {...register("street", { required: true })} />
+                            </FormGroup></Column>
+
+                            <Column>
+                                <FormGroup>
+                                    <FormInput type='text' placeholder='town' {...register("town", { required: true })} />
+                                </FormGroup>
+                            </Column>
+
+                            <Column>
+                                <FormGroup>
+                                    <FormInput type='text' placeholder='post code' {...register("postCode", { required: true })} />
+                                </FormGroup>
+                            </Column>
+                        </Row>
+
                         <FormGroup>
                             {imgSizeErr && <ErrorMsg>{msg}</ErrorMsg>}
                             <UploadLabel>upload</UploadLabel>
                             <UploadWrapper>
-                                <UploadIcon />
+                                {/* <UploadIcon /> */}
                                 <UploadInput type='file' onChange={handleImageChange("listImage")} name="listImage" />
 
                             </UploadWrapper>
@@ -248,7 +270,7 @@ const Form = ({ formType, id }: form) => {
                         </EditorTextWrapper>
                         <FormGroup className='submit-button'>
                             <Button content="Sign up" type="submit"
-                            disabled={submitting} loading={submitting}                                         
+                                disabled={submitting} loading={submitting}
                             />
                         </FormGroup>
                     </FormWrap>

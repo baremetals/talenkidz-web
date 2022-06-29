@@ -54,6 +54,7 @@ const Login = () => {
     const handleSubmit = async ({ ...values }: logingProps) => {
         let err: string;
         // console.log(values)
+
         await axios.post("/api/auth", {
             data: {
                 usernameOrEmail: values.usernameOrEmail,
@@ -63,16 +64,9 @@ const Login = () => {
         })
             .then((res) => {
                 // console.log(res);
-                if (res.data.data !== null) {
-                    dispatch(setSuccess('login successful'));
-                    dispatch(setUser(res.data));
-                    if (res.data.userType === 'organisation'){
-                        router.push(`/account/${res.data.username}`);
-                    }
-                    router.push(`/user-profile/${res.data.username}`);
-                } else {
+                if (res.data.data === null) {
+                    console.log('I am the data', res.data.error);
                     const errMsgData = res.data.error
-                    // console.log(errMsgData);
                     if (errMsgData.name === 'ValidationError') {
                         err = "incorrect details provided"
                         initialValues.error = err;
@@ -83,11 +77,23 @@ const Login = () => {
                         initialValues.error = err;
                         setErrorMsg(true);
                         dispatch(setError(err));
+                    }                   
+                }
+                if (res.status === 200 && res.data.id){
+                    dispatch(setSuccess('login successful'));
+                    dispatch(setUser(res.data));
+                    if (res.data.userType === 'organisation'){
+                        router.push(`/account/${res.data.username}`);
                     }
+                    router.push(`/user-profile/${res.data.username}`);
                 }
             })
             .catch((error) => {
                 console.log(error)
+                err = "something went wrong please try again later"
+                initialValues.error = err;
+                setErrorMsg(true);
+                dispatch(setError(err));
             })
     };
     return (

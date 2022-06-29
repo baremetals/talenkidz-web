@@ -37,6 +37,7 @@ export default async function passwordReset(
   res: NextApiResponse<Data>
 ) {
   const { data } = req.body;
+  console.log(baseUrl)
 
   if (data.flag === 'FORGOTPASSWORD') {
     try {

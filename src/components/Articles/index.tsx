@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import dayjs from "dayjs";
 import { upperCase } from 'lib/helpers'
 
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+// import { useAppSelector } from "app/hooks";
+// import { isUser } from "features/auth/selectors";
 
 import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
@@ -41,7 +41,6 @@ import {
 } from 'styles/common.styles';
 
 import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp'
-// import { BookMark } from '../../../public/assets/icons/BookMark'
 import { Article, ArticleEntity, CategoryEntity } from 'generated/graphql';
 
 type articleProps = {
@@ -178,7 +177,7 @@ const Articles = ({ articles, categories }: pageProps) => {
                                 <WidgetPanelListing>
 
                                     {categories?.map((cat, id) => (
-                                        <WidgetPanelLink key={id} ><Link href={`/articles/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
+                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/articles/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
                                     ))}
                                 </WidgetPanelListing>
 

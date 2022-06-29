@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
+// console.log('baseUrl', baseUrl)
 type Data = {
   message?: string;
   resp?: string;
@@ -66,6 +67,7 @@ export default async function auth(
   // Login request
   if (data.flag === 'LOGIN') {
     const { usernameOrEmail, password } = data;
+    // console.log(baseUrl);
 
     try {
       // console.log("failing here");
@@ -75,32 +77,16 @@ export default async function auth(
         data: { identifier: usernameOrEmail, password },
       });
 
-      
-
-      const user: user = {
-        id: response.data.user.id,
-        username: response.data.user.username,
-        fullName: response.data.user.fullName,
-        avatar: response.data.user.avatar,
-        backgroundImg: response.data.user.backgroundImg,
-        userType: response.data.user.userType,
-        jwt: response.data.jwt,
-      };
-
-      const org: org = {
-        id: response.data.user.id,
-        username: response.data.user.username,
-        backgroundImg: response.data.user.backgroundImg,
-        userType: response.data.user.userType,
-        jwt: response.data.jwt,
-        orgId: response.data.user.organisation.id,
-        slug: response.data.user.organisation.slug,
-        orgName: response.data.user.organisation.name,
-        logo: response.data.user.organisation.logo,
-        fullProfile: response.data.user.organisation.fullProfile
-      };
-
       if (response.data.user.userType === 'candidate') {
+        const user: user = {
+          id: response.data.user.id,
+          username: response.data.user.username,
+          fullName: response.data.user.fullName,
+          avatar: response.data.user.avatar,
+          backgroundImg: response.data.user.backgroundImg,
+          userType: response.data.user.userType,
+          jwt: response.data.jwt,
+        };
         res.setHeader(
           'Set-Cookie',
           cookie.serialize(
@@ -109,13 +95,25 @@ export default async function auth(
             {
               httpOnly: true,
               secure: process.env.NODE_ENV !== 'development',
-              maxAge: 60 * 60 * 24 * 5, // 2 days
+              maxAge: 60 * 60 * 24 * 5, // 5 days
               sameSite: 'strict',
               path: '/',
             }
           )
         );
       } else {
+        const org: org = {
+          id: response.data.user.id,
+          username: response.data.user.username,
+          backgroundImg: response.data.user.backgroundImg,
+          userType: response.data.user.userType,
+          jwt: response.data.jwt,
+          orgId: response.data.user.organisation.id,
+          slug: response.data.user.organisation.slug,
+          orgName: response.data.user.organisation.name,
+          logo: response.data.user.organisation.logo,
+          fullProfile: response.data.user.organisation.fullProfile,
+        };
         res.setHeader(
           'Set-Cookie',
           cookie.serialize(
@@ -132,11 +130,9 @@ export default async function auth(
         );
       }
         
-
-      // console.log(response)
       res.send(response.data.user);
     } catch (err: any) {
-      // console.log(err.response.data);
+      console.log(err.response.data);
       res.send(err.response.data);
     }
   }
