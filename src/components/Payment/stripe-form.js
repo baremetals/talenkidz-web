@@ -38,16 +38,16 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-type paymentProps = {
-  type: string;
-  card: StripeCardNumberElement | null;
-  billing_details: {
-    name: string;
-    address: {
-      postal_code: string;
-    };
-  };
-} | {};
+// type paymentProps = {
+//   type: string;
+//   card: StripeCardNumberElement | null;
+//   billing_details: {
+//     name: string;
+//     address: {
+//       postal_code: string;
+//     };
+//   };
+// } | {};
 
 const CheckoutForm = () => {
   const elements = useElements();
@@ -55,7 +55,7 @@ const CheckoutForm = () => {
   const [name, setName] = useState('');
   const [postal, setPostal] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<paymentProps>({});
+  const [paymentMethod, setPaymentMethod] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -66,7 +66,7 @@ const CheckoutForm = () => {
       return;
     }
 
-    const card: StripeCardNumberElement | null =
+    const card =
       elements.getElement(CardNumberElement);
 
     if (card == null) {
@@ -86,11 +86,11 @@ const CheckoutForm = () => {
 
     if (payload.error) {
       console.log('[error]', payload.error);
-      setErrorMessage(payload?.error?.message as SetStateAction<string>);
+      setErrorMessage(payload?.error?.message);
       setPaymentMethod({});
     } else {
       console.log('[PaymentMethod]', payload.paymentMethod);
-      setPaymentMethod(payload.paymentMethod as paymentProps);
+      setPaymentMethod(payload.paymentMethod);
       setErrorMessage('');
     }
   };
@@ -146,7 +146,7 @@ const CheckoutForm = () => {
 
       <CardFormGroup style={{marginBottom: '0'}}>
         {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
-        {paymentMethod && <Result>Got PaymentMethod: {paymentMethod.id}</Result>}
+        {paymentMethod && <Result>Got PaymentMethod: {paymentMethod?.id}</Result>}
         <button type="submit" style={{ width: '100%'}} disabled={!stripe}>
           Pay
         </button>

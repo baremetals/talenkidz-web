@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 import React, {useState, useEffect} from 'react';
 
-export const logEvent = (name: string) => (event) => {
+export const logEvent = (name: string) => (event: void) => {
   console.log(`[${name}]`, event);
 };
 
-export const Result = ({children}) => <div className="result">{children}</div>;
+export const Result = ({children}: any) => <div className="result">{children}</div>;
 
-export const ErrorResult = ({children}) => (
+export const ErrorResult = ({ children }: any) => (
   <div className="error">{children}</div>
 );
 

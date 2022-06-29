@@ -16,6 +16,6 @@
     "incremental": true,
     "baseUrl": "src"
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/components/Payment/stripe-form.js", ],
   "exclude": ["node_modules"]
 }
