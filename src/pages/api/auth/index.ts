@@ -44,7 +44,7 @@ export default async function auth(
   // Register request
   if (data.flag === 'REGISTER') {
     try {
-      // console.log('register me!', data.flag);
+      // console.log('register me!', baseUrl);
       const resp = await axios({
         method: 'POST',
         url: `${baseUrl}/auth/local/register`,

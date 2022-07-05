@@ -18,7 +18,7 @@ function OrganisationPage(props: { laodings: boolean, data: { data: { organisati
     const org =
         props?.data?.data?.organisations?.data[0]?.attributes as Organisation;
     useIsAuth();
-    // console.log(org)
+    // console.log(props)
     return (
         <>
             <Head>
@@ -73,6 +73,7 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
                 },
             },
         });
+        console.log("new data: ",data);
         return {
             props: { data },
         };

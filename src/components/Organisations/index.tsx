@@ -48,7 +48,7 @@ import { Send } from '../../../public/assets/icons/Send'
 const Organisations = (props: {props: Organisation}) => {
     const { user: user } = useAppSelector(isUser);
 
-    console.log(props)
+    // console.log(props)
 
     const { logo, name, slug, createdAt } = props?.props
   return (
