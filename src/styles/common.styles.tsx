@@ -933,7 +933,35 @@ export const WidgetTitle = styled.h3`
     display: flex;
 `;
 
+export const WidgetHeader = styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.875rem;
+    h3 {
+        margin-bottom: 0;
+    }
+`
+
 export const WidgetBody = styled.div``;
+
+export const WidgetText  = styled.p`
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: #74787C;
+`
+
+export const WidgetHeaderLink = styled.a`
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-decoration-line: underline;
+    transition: 0.2s;
+`
 
 export const DropdownMenu = styled.ul`
     display: none;

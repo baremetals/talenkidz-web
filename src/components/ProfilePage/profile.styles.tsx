@@ -1,15 +1,26 @@
+import TextareaAutosize from 'react-textarea-autosize';
 import styled from "styled-components"
 
 export const Dashboard = styled.div``;
 
 export const ProfileCoverImage = styled.img`
     border-radius: 0;
+    height: 18.75rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
 `;
 
 export const UserProfileImage = styled.img`
-    border: 5px solid #FFF;
+    border: 3px solid #FFF;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center center;
     @media (min-width: 992px) {
-        margin-top: -4rem;
+        margin-top: -3.5rem;
+        margin-right: 2.1875rem;
+        margin-left: 0.625rem;
     }
 `;
 
@@ -21,11 +32,20 @@ export const ProfileInfo = styled.div`
     position: relative;
     margin-bottom: 2.5rem;
     margin-top: 2rem;
+    display: flex;
     @media (min-width: 992px) {
-        padding: 1.875rem;
+        padding: 1.875rem 2.5rem;
         margin-top: -4rem;
     }
 `;
+
+export const ProfileActions = styled.div`
+    text-align: right;
+`
+
+export const ProfileBasicInfo = styled.div`
+    flex: 1;
+`
 
 export const UserName = styled.div`
     font-weight: 600;
@@ -43,21 +63,40 @@ export const ProfileButtons = styled.div`
     }
 `;
 
-export const SendButton = styled.button`
+export const FollowButton = styled.button`
+    background-color: #BC70AD;
+    color: #fff;
+    font-size: 1rem;
+    border: 0.0625rem solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9375rem 1.9531rem;
+    gap: 0.625rem;
+    border-radius: 6.25rem;
+    line-height: 1;
+    font-weight: 400;
+    transition: all 0.2s ease-in-out;
+
+    @media (max-width: 991px) {
+        font-size: .875rem;
+        padding: .75rem 1.5rem;
+    }
+    &:hover {
+        background-color: #333;
+        color: #FFF;
+    }
+`;
+
+export const SendButton = styled(FollowButton)`
     color: #000;
     border: none;
     background-color: transparent;
-    padding: .625rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 10rem;
-    svg {
-        vertical-align: middle;
-        margin-right: .25rem;
-    }
-    @media (max-width: 991px) {
-        padding: .625rem 1rem;
-        font-size: .875rem;
+
+    &:hover {
+        background-color: transparent;
+        color: #000;
+        opacity: 0.6;
     }
 `;
 
@@ -66,13 +105,34 @@ export const ActiveUsers = styled.div`
     justify-content: end;
     img {
         width: 3.125rem;
+        height: 3.125rem;
         border: 3px solid #fff;
         border-radius: 100%;
         margin-left: -1rem;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+        object-fit: cover;
+        object-position: center center;
     }
 `;
 
 export const Image = styled.img``;
+
+export const ActiveUsersCounter = styled.div`
+    width: 3.125rem;
+    height: 3.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+    border-radius: 100%;
+    background-color: rgba(16, 55, 65, 0.7);
+    margin-left: -1rem;
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1));
+    color: #fff;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    font-weight: 600;
+`;
 
 export const ProfileContent = styled.div``;
 
@@ -91,7 +151,8 @@ export const ShareWrapper = styled.div`
 
 export const ShareTop = styled.div`
     display: flex;
-    padding: 1.5rem 1.875rem;
+    padding: 1.5625rem 1.875rem;
+    align-items: flex-start;
     @media (max-width: 991px) {
         padding: 1.25rem;
     }
@@ -119,6 +180,19 @@ export const Input = styled.input`
     padding: .5rem;
     &:focus {
         outline: none;
+    }
+`;
+
+export const TextArea = styled(TextareaAutosize)`
+    border: none;
+    flex: auto;
+    background-color: transparent;
+    padding: .5rem;
+    resize: none;
+    align-self: center;
+    &:focus {
+        outline: none;
+        box-shadow: none;
     }
 `;
 
@@ -154,6 +228,10 @@ export const ShareBottomWrap = styled.div`
 
 export const ShareOptions = styled.div`
     display: flex;
+    transition: 0.2s;
+    &:hover {
+        opacity: 0.6;
+    }
 `;
 
 export const ShareOptionItem = styled.div`
@@ -164,7 +242,7 @@ export const ShareOptionItem = styled.div`
 
 export const ShareOptionsIcon = styled.label`
     font-size: 1rem;
-    margin-right: .625rem;
+    margin-right: 0.75rem;
     @media (max-width: 991px) {
         font-size: .75rem;
         margin-right: .25rem;
@@ -182,7 +260,6 @@ export const ShareOptionsIcon = styled.label`
 
 export const ShareOptionstext = styled.span`
     font-size: 1rem;
-    font-weight: 500;
     @media (max-width: 991px) {
         font-size: .75rem;
     }
@@ -197,8 +274,9 @@ export const ShareButton = styled.button`
     cursor: pointer;
     font-size: 1rem;
     text-transform: capitalize;
-    padding: .375rem 1.75rem;
+    padding: .375rem 2rem;
     line-height: 1.5;
+    transition: 0.2s;
     @media (max-width: 991px) {
         font-size: .75rem;
         padding: .25rem 1rem;
@@ -311,3 +389,41 @@ export const BottomRightWrap = styled.div`
     display: flex;
     align-items: center;
 `;
+
+export const PhotoGallery = styled.div`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8125rem;
+    img {
+        border-radius: 0.625rem;
+        width: 6rem;
+        height: 6rem;
+        object-fit: cover;
+        object-position: center center;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+`
+
+export const VideoGallery = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        object-position: center center;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+`

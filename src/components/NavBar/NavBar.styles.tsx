@@ -4,15 +4,14 @@ export const PageContainer = styled.h1``;
 
 export const ProfileSetting = styled.div`
   position: relative;
-  margin-left: 2rem;
   @media (max-width: 991px) {
     margin-left: 1rem;
   }
 `;
 
 export const ProfileImg = styled.img`
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 4rem;
   border: 1px solid #cacaca;
   object-fit: cover;
