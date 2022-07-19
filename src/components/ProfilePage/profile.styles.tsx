@@ -17,10 +17,16 @@ export const UserProfileImage = styled.img`
     height: 200px;
     object-fit: cover;
     object-position: center center;
-    @media (min-width: 992px) {
-        margin-top: -3.5rem;
-        margin-right: 2.1875rem;
+    margin-right: 2.1875rem;
+    margin-top: -3.5rem;
+    @media (min-width: 991px) {
         margin-left: 0.625rem;
+    }
+    @media (max-width: 767px) {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+        margin-right: 0;
     }
 `;
 
@@ -28,23 +34,45 @@ export const ProfileInfo = styled.div`
     background-color: #FFF;
     box-shadow: 0 .25rem .625rem rgba(0,0,0,.08);
     border-radius: .625rem;
-    padding: 1.25rem;
     position: relative;
     margin-bottom: 2.5rem;
     margin-top: 2rem;
     display: flex;
-    @media (min-width: 992px) {
-        padding: 1.875rem 2.5rem;
-        margin-top: -4rem;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 8%);
+    margin-top: -4rem;
+    padding: 1.875rem 2.5rem;
+    @media (max-width: 991px) {
+        padding: 1.25rem;
+        flex-wrap: wrap;
+    }
+    @media (max-width: 767px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 `;
 
 export const ProfileActions = styled.div`
     text-align: right;
+
+    @media (max-width: 991px) {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+    @media (max-width: 767px) {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 `
 
 export const ProfileBasicInfo = styled.div`
     flex: 1;
+    @media (max-width: 767px) {
+        text-align: center;
+    }
 `
 
 export const UsernameWrapper = styled.div`
@@ -65,7 +93,7 @@ export const UserDescription = styled.div``;
 export const ProfileButtons = styled.div`
     margin-bottom: 1.875rem;
     @media (max-width: 991px) {
-        margin-bottom: 1rem;
+        margin-bottom: 0;
         display: flex;
         justify-content: space-between;
     }

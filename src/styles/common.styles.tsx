@@ -61,11 +61,14 @@ export const ToggleBar = styled.button`
     background-color: transparent;
     display: block;
     cursor: pointer;
+    &:hover {
+        background-color: transparent;
+    }
     span {
         display: block;
         border-radius: .25rem;
         height: 4px;
-        background-color: #000;
+        background-color: #BC70AD;
         margin: .25rem 0;
     }
 `;
