@@ -96,24 +96,18 @@ export const Card = ({ avatar, username, body, createdAt, content}: cardProps) =
                 </PostStatsWrapper>
 
                 <PostActionsWrapper>
-                    <Column className='py-0'>
-                        <PostAction>
-                            <HotLike />
-                            Like
-                        </PostAction>
-                    </Column>
-                    <Column className='py-0'>
-                        <PostAction>
-                            <CommentPost />
-                            Comment
-                        </PostAction>
-                    </Column>
-                    <Column className='py-0'>
-                        <PostAction>
-                            <Shortcut />
-                            Share
-                        </PostAction>
-                    </Column>
+                    <PostAction>
+                        <HotLike />
+                        Like
+                    </PostAction>
+                    <PostAction>
+                        <CommentPost />
+                        Comment
+                    </PostAction>
+                    <PostAction>
+                        <Shortcut />
+                        Share
+                    </PostAction>
                 </PostActionsWrapper>
               </PostBottomWrapper>
           </Widget>

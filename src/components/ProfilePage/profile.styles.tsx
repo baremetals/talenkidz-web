@@ -199,8 +199,12 @@ export const ProfileImage = styled.img`
     height: 3.125rem;
     border-radius: 10rem;
     object-fit: cover;
-    @media (min-width: 992px) {
-        margin-right: 1.375rem;
+    margin-right: 1.375rem;
+
+    @media (max-width: 991px) {
+        width: 2.25rem;
+        height: 2.25rem;
+        margin-right: 0.5rem;
     }
 `;
 
@@ -229,6 +233,10 @@ export const TextArea = styled(TextareaAutosize)`
     &:focus {
         outline: none;
         box-shadow: none;
+    }
+
+    @media (max-width: 991px) {
+        font-size: .875rem;
     }
 `;
 
@@ -499,6 +507,10 @@ export const PostStatsWrapper = styled.div`
         cursor: pointer;
         transition: 0.2s;
 
+        @media (max-width: 991px) {
+            font-size: .875rem;
+        }
+
         &:hover {
             color: #333;
         }
@@ -536,6 +548,17 @@ export const PostAction = styled.div`
     line-height: 1.375rem;
     transition: 0.2s;
     cursor: pointer;
+    flex: 1;
+
+    @media (max-width: 991px) {
+        font-size: .875rem;
+    }
+
+    svg {
+        @media (max-width: 991px) {
+            width: 1rem;
+        }
+    }
 
     &:hover {
         color: #BC70AD;
