@@ -474,6 +474,16 @@ export const VideoGallery = styled.div`
         &:hover {
             opacity: 0.8;
         }
+
+        @media (max-width: 991px) {
+            width: calc(50% - 1.5rem);
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 991px) {
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 `
 
