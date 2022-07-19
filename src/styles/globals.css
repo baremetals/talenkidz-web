@@ -152,3 +152,8 @@ button.primary-outline:hover{
   padding: 0;
 }
 .form-group{margin-bottom: 1rem;}
+
+.py-0 {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}

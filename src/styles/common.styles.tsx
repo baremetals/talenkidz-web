@@ -983,12 +983,16 @@ export const DropdownMenu = styled.ul`
 export const DropdownMenuItem = styled.li`
     padding: .375rem .75rem;
     font-size: .75rem;
+    transition: 0.2s;
     svg {
         vertical-align: -3px;
         margin-right: .5rem;
     }
     &:hover {
         background-color: #e9e9e9;
+        svg {
+            fill: #BC70AD;
+        }
     }
 `;
 

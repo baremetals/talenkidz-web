@@ -6,7 +6,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 import {
-    UserName,
+    UsernameWrapper,
+    Username,
     Image,
     PostTop,
     PostLeftWrap,
@@ -14,25 +15,30 @@ import {
     PostTopRightWrap,
     PostCenterWrap,
     PostBottomWrapper,
-    BottomLeftWrap,
-    LikeCounter,
-    BottomRightWrap,
     PostDropdown,
-    LikeGroup,
-    ViewMore,
+    PostMedia,
+    PostTextWrapper,
+    PostStatsWrapper,
+    PostStatsReactions,
+    PostStatsCommentsShare,
+    PostActionsWrapper,
+    PostAction
 } from './profile.styles';
 
 import {
     Text,
     Widget,
     DropdownMenu,
-    DropdownMenuItem
+    DropdownMenuItem,
+    Column
 } from 'styles/common.styles';
 
 import { Edit } from '../../../public/assets/icons/Edit'
 import { Delete } from '../../../public/assets/icons/Delete'
 import { Union } from '../../../public/assets/icons/Union'
 import { HotLike } from '../../../public/assets/icons/HotLike'
+import { CommentPost } from '../../../public/assets/icons/CommentPost'
+import { Shortcut } from '../../../public/assets/icons/Shortcut'
 
 type cardProps = {
     avatar: string
@@ -50,10 +56,10 @@ export const Card = ({ avatar, username, body, createdAt, content}: cardProps) =
               <PostTop>
                   <PostLeftWrap>
                       <Image src={avatar} alt="user profile image" />
-                      <UserName>
-                          {username}
+                      <UsernameWrapper>
+                          <Username>{username}</Username>
                           <PostDate>{dayjs(createdAt).fromNow()}</PostDate>
-                      </UserName>
+                      </UsernameWrapper>
                   </PostLeftWrap>
 
                   <PostTopRightWrap>
@@ -69,21 +75,46 @@ export const Card = ({ avatar, username, body, createdAt, content}: cardProps) =
                   </PostTopRightWrap>
               </PostTop>
 
-              <PostCenterWrap style={{ marginTop: '1.5rem' }}>
-                  <Text style={{ fontSize: '.875rem' }}>{body}</Text>
+              <PostCenterWrap>
+                <PostTextWrapper>
+                  <Text>{body}</Text>
+                </PostTextWrapper>
+                <PostMedia>
                   <Image src={content} alt="Post image" />
+                </PostMedia>
               </PostCenterWrap>
 
               <PostBottomWrapper>
-                  <BottomLeftWrap>
-                      <LikeGroup>
-                          <HotLike />
-                          <LikeCounter>Like</LikeCounter>
-                      </LikeGroup>
-                  </BottomLeftWrap>
-                  <BottomRightWrap>
-                      <ViewMore>View more</ViewMore>
-                  </BottomRightWrap>
+                <PostStatsWrapper>
+                    <PostStatsReactions>
+                        <span>Joe Saap and 40 others</span>
+                    </PostStatsReactions>
+                    <PostStatsCommentsShare>
+                        <span>1 comment</span>
+                        <span>1 share</span>
+                    </PostStatsCommentsShare>
+                </PostStatsWrapper>
+
+                <PostActionsWrapper>
+                    <Column className='py-0'>
+                        <PostAction>
+                            <HotLike />
+                            Like
+                        </PostAction>
+                    </Column>
+                    <Column className='py-0'>
+                        <PostAction>
+                            <CommentPost />
+                            Comment
+                        </PostAction>
+                    </Column>
+                    <Column className='py-0'>
+                        <PostAction>
+                            <Shortcut />
+                            Share
+                        </PostAction>
+                    </Column>
+                </PostActionsWrapper>
               </PostBottomWrapper>
           </Widget>
     </>

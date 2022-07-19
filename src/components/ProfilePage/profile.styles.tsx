@@ -47,10 +47,18 @@ export const ProfileBasicInfo = styled.div`
     flex: 1;
 `
 
-export const UserName = styled.div`
-    font-weight: 600;
-    line-height: 1.3;
+export const UsernameWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.1875rem;
+    margin-bottom: 0.125rem;
 `;
+
+export const Username = styled.div`
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1;
+`
 
 export const UserDescription = styled.div``;
 
@@ -301,7 +309,11 @@ export const PostDropdown = styled.div`
     .DropDownIcon {
         cursor: pointer;
         svg {
+            transition: 0.2s;
             display: block;
+        }
+        &:hover svg {
+            fill: #BC70AD;
         }
     }
 `;
@@ -320,7 +332,7 @@ export const PostTop = styled.div`
 
 export const PostLeftWrap = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     img {
         width: 2.5rem;
         height: 2.5rem;
@@ -330,25 +342,33 @@ export const PostLeftWrap = styled.div`
 `;
 
 export const PostDate = styled.span`
-    font-size: 0.75rem;
-    color: #b5b5b5;
-    display: block;
-    font-weight: 400;
+    font-size: 0.8125rem;
+    line-height: 1;
+    letter-spacing: 0.025em;
+    color: #66676B;
 `;
 
 export const PostTopRightWrap = styled.div``;
 
 export const PostCenterWrap = styled.div``;
 
+export const PostMedia = styled.div`
+    width: calc(100% + 60px);
+    margin: 0 -30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
 export const PostTitle = styled.h2`
     font-size: 1.5rem;
     margin-bottom: 1rem;
 `;
 
-export const PostText = styled.span`
-    display: block;
-    margin-bottom: 1rem;
-    margin-top: auto;
+export const PostTextWrapper = styled.div`
+    font-size: .875rem;
+    line-height: 1.3125rem;
+    margin-bottom: 2.25rem;
 `;
 
 export const PostMediaImage = styled.img`
@@ -369,9 +389,10 @@ export const PostMediaVideo = styled.video`
 
 export const PostBottomWrapper = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 1.5rem;
+    justify-content: center;
+    margin-top: 1.875rem;
 `;
 
 export const BottomLeftWrap = styled.div`
@@ -424,6 +445,67 @@ export const VideoGallery = styled.div`
         transition: 0.2s;
         &:hover {
             opacity: 0.8;
+        }
+    }
+`
+
+export const PostStatsWrapper = styled.div`
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    span {
+        font-size: 15px;
+        line-height: 22px;
+        color: #66676B;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+            color: #333;
+        }
+    }
+`
+
+export const PostStatsReactions = styled.div`
+
+`
+
+export const PostStatsCommentsShare = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.875rem;
+`
+
+export const PostActionsWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 1.25rem;
+    border-top: 0.0625rem solid #CFD0D4;
+    margin-top: 1.25rem;
+`
+
+export const PostAction = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #66676B;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: #BC70AD;
+
+        svg {
+            path {
+                stroke: #BC70AD;
+            }
         }
     }
 `
