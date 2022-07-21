@@ -64,11 +64,11 @@ h6 {
     line-height: 1;
 }
 
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
     br { 
         display: none;
     }
-}
+} */
 input, textarea, select,
 .StripeElement,
 .StripeElementIdeal,
