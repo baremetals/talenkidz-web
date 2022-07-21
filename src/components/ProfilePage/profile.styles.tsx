@@ -518,7 +518,8 @@ export const PostStatsWrapper = styled.div`
 `
 
 export const PostStatsReactions = styled.div`
-
+    display: flex;
+    align-items: center;
 `
 
 export const PostStatsCommentsShare = styled.div`
@@ -549,6 +550,14 @@ export const PostAction = styled.div`
     transition: 0.2s;
     cursor: pointer;
     flex: 1;
+    position: relative;
+
+    & > div {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+    }
 
     @media (max-width: 991px) {
         font-size: .875rem;
@@ -569,4 +578,9 @@ export const PostAction = styled.div`
             }
         }
     }
+`
+
+export const GivenReactionsWrapper = styled.div`
+    margin-right: 0.9375rem;
+    display: flex;
 `

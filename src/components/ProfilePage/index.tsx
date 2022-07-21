@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react';
 
 import { UsersPermissionsUser } from 'generated/graphql';
 import { useAppSelector } from "app/hooks";
