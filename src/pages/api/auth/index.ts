@@ -66,17 +66,21 @@ export default async function auth(
   }
   // Login request
   if (data.flag === 'LOGIN') {
+    
     const { usernameOrEmail, password } = data;
     // console.log(baseUrl);
 
     try {
-      // console.log("failing here");
+      console.log(data);
+
       const response = await axios({
         method: 'POST',
         url: `${baseUrl}/auth/local`,
         data: { identifier: usernameOrEmail, password },
       });
-
+      console.log("did we get here")
+      
+     
       if (response.data.user.userType === 'candidate') {
         const user: user = {
           id: response.data.user.id,
@@ -132,7 +136,8 @@ export default async function auth(
         
       res.send(response.data.user);
     } catch (err: any) {
-      console.log(err.response.data);
+      
+      console.log("ISSUE HERE",err.response.data);
       res.send(err.response.data);
     }
   }
