@@ -105,10 +105,13 @@ input:focus, textarea:focus, select:focus,
     box-shadow: 0 0 0 .25rem rgba(118,112,173,.25);
 }
 
-button {font-family: 'Poppins', sans-serif;background-color: #bc70ad;
+button {
+    font-family: 'Poppins', sans-serif;
+    background-color: #bc70ad;
     color: #FFF;
     padding: .75rem 1.375rem;
-    border-radius: 10rem;border: none;font-size: 1rem;
+    border-radius: 10rem;border: none;
+    font-size: 1rem;
     cursor: pointer;
     border: 1px solid #bc70ad;
 }
@@ -152,3 +155,26 @@ button.primary-outline:hover{
   padding: 0;
 }
 .form-group{margin-bottom: 1rem;}
+
+input,
+span,
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  line-height: 0.8;
+}
+
+input:hover {
+  box-shadow: none;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #BC70AD;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #BC70AD;
+}
