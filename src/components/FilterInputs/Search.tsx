@@ -31,7 +31,7 @@ function Search({ setCategory }: PageProps) {
                   type="checkbox"
                   value={`categroy ${i}`}
                   className="checked:bg-blue-400 ml-3 p-2 w-5 h-5"
-                  onClick={(e) => setCategory(e.target.value)}
+                  onChange={(e) => setCategory(e.target.value)}
                 />
                 <p className=" text-md">category {i} </p>
               </div>
