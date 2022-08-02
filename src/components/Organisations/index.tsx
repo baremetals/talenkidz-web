@@ -169,7 +169,7 @@ const Organisations = (props: { props: Organisation }) => {
             <div className=" sm:col-span-4 lg:col-span-3   rounded-lg ">
               <div className="bg-white flex justify-evenly items-center  rounded-lg pt-14 pb-4  ">
                 <div className="flex items-center space-x-2 font-semibold cursor-pointer ">
-                  <img src="/Activity.svg" className="mt-3 w-9 h-9" />
+                  <img src="/activity.svg" className="mt-3 w-9 h-9" />
                   <p>Activity</p>
                 </div>
 
