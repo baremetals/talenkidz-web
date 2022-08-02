@@ -4,10 +4,14 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+    },
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
+    require("@tailwindcss/line-clamp"),
     // ...
   ],
-}
+};
