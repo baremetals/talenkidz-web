@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Page404 = styled.div`
+export const ErrorPage = styled.div`
   height: 75vh;
   text-align: center;
   display: flex;
@@ -11,6 +11,11 @@ export const Page404 = styled.div`
 
 export const NotFoundIcon = styled.img`
   width: 8.75rem;
+  margin-bottom: 1.2rem;
+`
+
+export const ErrorIcon = styled.img`
+  width: 6.25rem;
   margin-bottom: 1.2rem;
 `
 

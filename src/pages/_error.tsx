@@ -10,7 +10,7 @@ import {
   ErrorMessage,
   ErrorMessageWrapper,
   GoBackButton,
-  NotFoundIcon
+  ErrorIcon
 } from 'styles/errors.styles'
 
 export default function Custom404() {
@@ -22,19 +22,19 @@ export default function Custom404() {
 
   return <>
     <Head>
-      <title>404 | Talentkids</title>
+      <title>500 | Talentkids</title>
     </Head>
     <NavBar />
     <ErrorPage>
       <ErrorMessageWrapper>
-        <NotFoundIcon src={'/no-results.png'} alt="404 icon" />
+        <ErrorIcon src={'/error.png'} alt="error icon" />
         <ErrorMessage>
           <ErrorCode>
-            404
+            500
           </ErrorCode>
           <ErrorTextWrapper>
             <ErrorText>
-              This page could not be found
+              Internal Error
             </ErrorText>
           </ErrorTextWrapper>
         </ErrorMessage>
