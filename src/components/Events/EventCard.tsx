@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 type pageProps = {
   i: number;
-  title: string;
-  description: string;
-  src: string;
-  host: string;
-  date: string;
+  title: string | undefined;
+  description: string | undefined;
+  src: string | undefined;
+  host: string | undefined;
+  date: string | undefined;
 };
 
 export default function EventCard({

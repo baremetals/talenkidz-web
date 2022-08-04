@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState, useEffect } from "react";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { client } from "lib/initApollo";
@@ -16,6 +16,9 @@ import Events from "components/Events";
 import NavBar from "components/NavBar";
 import EventCard from "components/Events/EventCard";
 import Search from "components/FilterInputs/Search";
+import Link from "next/link";
+import dayjs from "dayjs";
+import Image from "next/image";
 
 type pageProps = {
   eve: { events: { data: EventEntity[] } };
@@ -25,7 +28,20 @@ type pageProps = {
 const EventsPage = (props: pageProps) => {
   const { cats, eve } = props;
   const [Category, setCategory] = useState("");
-
+  const [FilteredEvents, setFilteredEvents] = useState([]);
+  const Search = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredEvents(
+      eve?.events?.data.filter((event) =>
+        event?.attributes?.title
+          ?.toLowerCase()
+          .includes(e.target.value.toLowerCase())
+      ) as SetStateAction<never[]>
+    );
+  };
+  useEffect(
+    () => setFilteredEvents(eve?.events?.data as SetStateAction<never[]>),
+    [eve]
+  );
   useNoAuthPages();
   return (
     <>
@@ -53,21 +69,61 @@ const EventsPage = (props: pageProps) => {
       </div>
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-x-6 max-w-[1600px] py-16 px-6 ">
         <div className="order-last md:order-1  lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-y-9 gap-x-5 mt-16">
-          {Array(5)
-            .fill(null)
-            .map((_, i) => (
+          {FilteredEvents?.map((event: any, i: number) => (
+            <Link
+              href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
+              passHref
+              key={i}
+            >
               <EventCard
-                key={i}
                 i={i}
-                src="./blog-post01.jpg"
-                host="Pepsi Ltd"
-                date="14 april 2022"
-                title="title sample"
-                description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius odit nobis, blanditiis ea fugiat accusantium. Voluptate repellendus sequi labore provident molestiae, alias distinctio minus ratione inventore sit maiores numquam sapiente vel nesciunt cum praesentium debitis iste suscipit consectetur non, quam veniam error delectus! Ducimus voluptates unde excepturi! Voluptate, quibusdam?"
+                src={event?.attributes?.listImage || "/default-list-img.jpg"}
+                host={event?.attributes?.host?.data?.attributes?.name}
+                date={`${dayjs(event?.attributes?.startDate).format(
+                  "DD MMMM YYYY"
+                )} - ${dayjs(event?.attributes?.endDate).format(
+                  "DD MMMM YYYY"
+                )}`}
+                title={event?.attributes?.title}
+                description={event?.attributes?.description}
               />
-            ))}
+            </Link>
+          ))}
         </div>
-        <Search setCategory={setCategory} />
+        <div className="p-6 rounded-lg space-y-4 md:order-last">
+          {/* Take this into a component */}
+          <div className="w-full bg-yellow-400  py-6 px-3 rounded-xl  max-h-[250px]">
+            <div className="relative">
+              <img
+                src="/search.svg"
+                className="w-6 h-6 absolute left-1 top-2"
+              />
+              <input
+                placeholder="Search"
+                className="pl-8 py-2 rounded-lg text-md placeholder-black "
+                onChange={(e) => Search(e)}
+              />
+            </div>
+          </div>
+          {/* Take this into a component */}
+          <div className="">
+            <div className="p-4  rounded-t-xl bg-blue-500 border-t-1 border-gray-500 ">
+              <p className="font-semibold text-white text-center text-xl rounded-t-lg">
+                Categories
+              </p>
+            </div>
+            <div className="border-b border-l border-r border-gray-400 space-y-2 py-7">
+              {cats?.data?.categories?.data?.map((category: any, i) => (
+                <div key={i} className="flex ml-3 items-center space-x-4">
+                  <Image src="/checkbox.svg" width={15} height={15} />
+                  <Link href={`/articles/${category?.attributes?.slug}`}>
+                    {category?.attributes?.slug}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       {/* <Events events={eve?.events?.data} categories={cats?.data?.categories?.data} /> */}
     </>

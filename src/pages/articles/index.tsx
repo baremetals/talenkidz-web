@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import Head from "next/head";
 import Articles from "components/Articles";
 import { GetServerSidePropsContext } from "next";
@@ -15,6 +15,9 @@ import { useNoAuthPages } from "lib/noAuth";
 
 import NavBar from "components/NavBar";
 import ArticleCard from "components/Articles/ArticleCard";
+import Image from "next/image";
+import dayjs from "dayjs";
+import Link from "next/link";
 type pageProps = {
   art: { articles: { data: ArticleEntity[] } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
@@ -24,6 +27,19 @@ function ArticlesPage(props: pageProps) {
   const { cats, art } = props;
   // console.log(cats?.data?.categories?.data);
   useNoAuthPages();
+  const [FilteredArticles, setFilteredArticles] = useState([]);
+  const Search = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredArticles(
+      art?.articles?.data.filter((article) =>
+        article?.attributes?.title
+          ?.toLowerCase()
+          .includes(e.target.value.toLowerCase())
+      ) as SetStateAction<never[]>
+    );
+  };
+  useEffect(() => {
+    setFilteredArticles((art?.articles?.data as SetStateAction<never[]>) || []);
+  }, [art]);
   return (
     <>
       <Head>
@@ -51,19 +67,24 @@ function ArticlesPage(props: pageProps) {
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-x-6 max-w-[1600px] py-16 px-6 ">
         <div className="order-last md:order-1  lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-y-9 gap-x-5 mt-16">
-          {Array(5)
-            .fill(null)
-            .map((_, i) => (
+          {FilteredArticles?.map((article: any, i) => (
+            <Link
+              key={i}
+              href={`/articles/${article?.attributes?.category?.data?.attributes?.slug}/${article?.attributes?.slug}`}
+              passHref
+            >
               <ArticleCard
-                key={i}
                 i={i}
-                src="./Aleah.jpg"
-                author="Daniel Asante"
-                date="14 april 2022"
-                title="title sample"
-                description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius odit nobis, blanditiis ea fugiat accusantium. Voluptate repellendus sequi labore provident molestiae, alias distinctio minus ratione inventore sit maiores numquam sapiente vel nesciunt cum praesentium debitis iste suscipit consectetur non, quam veniam error delectus! Ducimus voluptates unde excepturi! Voluptate, quibusdam?"
+                src={article?.attributes?.heroImage?.data?.attributes?.url}
+                author={article?.attributes?.author?.data?.attributes?.fullName}
+                date={dayjs(article?.attributes?.updatedAt).format(
+                  "DD MMMM YYYY"
+                )}
+                title={article?.attributes?.title}
+                description={article?.attributes?.blurb}
               />
-            ))}
+            </Link>
+          ))}
         </div>
         <div className="p-6 rounded-lg space-y-4 md:order-last">
           {/* Take this into a component */}
@@ -76,6 +97,7 @@ function ArticlesPage(props: pageProps) {
               <input
                 placeholder="Search"
                 className="pl-8 py-2 rounded-lg text-md placeholder-black "
+                onChange={(e) => Search(e)}
               />
             </div>
           </div>
@@ -87,17 +109,14 @@ function ArticlesPage(props: pageProps) {
               </p>
             </div>
             <div className="border-b border-l border-r border-gray-400 space-y-2 py-7">
-              {Array(4)
-                .fill(null)
-                .map((_, i) => (
-                  <div key={i} className="flex ml-3 items-center space-x-4">
-                    <input
-                      type="checkbox"
-                      className="checked:bg-blue-400 ml-3 p-2 w-5 h-5"
-                    />
-                    <p className=" text-md">category {i} </p>
-                  </div>
-                ))}
+              {cats?.data?.categories?.data?.map((category: any, i) => (
+                <div key={i} className="flex ml-3 items-center space-x-4">
+                  <Image src="/checkbox.svg" width={15} height={15} />
+                  <Link href={`/articles/${category?.attributes?.slug}`}>
+                    {category?.attributes?.slug}
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -128,6 +147,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: "slug:asc",
     },
   });
+
   return {
     props: { art: data, cats }, // will be passed to the page component as props
   };

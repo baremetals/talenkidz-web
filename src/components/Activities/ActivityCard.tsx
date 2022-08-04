@@ -2,8 +2,8 @@ import React from "react";
 
 type pageProps = {
   i: number;
-  title: string;
-  description: string;
+  title: string | undefined | null;
+  description: string | undefined | null;
 };
 export default function ActivityCard({ i, title, description }: pageProps) {
   return (
