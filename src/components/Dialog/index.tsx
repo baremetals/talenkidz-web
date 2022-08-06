@@ -15,9 +15,7 @@ const Dialog = ({ children, open, close, onButtonClick, buttonText }: Props) => 
   return (
     <MUIDialog onClose={close} open={open}>
       <DialogContent>
-        <DialogContentText>
-          { children }
-        </DialogContentText>
+        { children }
       </DialogContent>
       {buttonText && (
         <CustomDialogActions>
