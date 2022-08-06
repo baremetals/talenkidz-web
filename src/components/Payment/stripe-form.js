@@ -17,9 +17,12 @@ import {
   CardFormGroup,
   H3,
   Input,
-  LabelText
+  LabelText,
 } from 'styles/common.styles';
 
+import { ErrorDialogContent, ErrorIcon } from './styles'
+
+import Dialog from 'components/Dialog';
 import {logEvent, Result, ErrorResult} from './utils';
 
 const ELEMENT_OPTIONS = {
@@ -56,6 +59,11 @@ const CheckoutForm = () => {
   const [postal, setPostal] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [paymentMethod, setPaymentMethod] = useState({});
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  const closeErrorModal = () => {
+    setShowErrorModal(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -88,6 +96,7 @@ const CheckoutForm = () => {
       console.log('[error]', payload.error);
       setErrorMessage(payload?.error?.message);
       setPaymentMethod({});
+      setShowErrorModal(true);
     } else {
       console.log('[PaymentMethod]', payload.paymentMethod);
       setPaymentMethod(payload.paymentMethod);
@@ -145,15 +154,25 @@ const CheckoutForm = () => {
       </CardFormGroup>
 
       <CardFormGroup style={{marginBottom: '0'}}>
-        {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
         {paymentMethod && <Result>Got PaymentMethod: {paymentMethod?.id}</Result>}
         <button type="submit" style={{ width: '100%'}} disabled={!stripe}>
           Pay
         </button>
       </CardFormGroup>
 
-      
+      <Dialog
+        close={closeErrorModal}
+        open={showErrorModal}
+        onButtonClick={closeErrorModal}
+        buttonText="Retry"
+      >
+        <ErrorDialogContent>
+          <ErrorIcon src={'/error.png'} alt="error icon" />
+          <ErrorResult>{errorMessage}</ErrorResult>
+        </ErrorDialogContent>
+      </Dialog>
     </form>
+    
   );
 };
 
