@@ -23,7 +23,7 @@ export default function EventCard({
         i == 2 ? "col-span-full" : ""
       }`}
     >
-      <img src={src} className="max-h-[450px] w-full" />
+      <img src={src} className="max-h-[550px] w-full" />
       <div className="space-y-4 mt-4">
         <h1 className={`font-bold text-3xl ${i == 1 ? "text-pink-700" : ""}`}>
           {title}

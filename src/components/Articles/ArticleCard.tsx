@@ -18,17 +18,11 @@ export default function ArticleCard({
   date,
 }: pageProps) {
   return (
-    <div
-      className={`relative w-full rounded-lg overflow-hidden ${
-        i == 2 ? "col-span-full" : ""
-      }`}
-    >
-      <img src={src} className="max-h-[450px] w-full" />
+    <div className={`relative w-full`}>
+      <img src={src} className=" w-full" />
       <div className="space-y-4 mt-4">
-        <h1 className={`font-bold text-3xl ${i == 1 ? "text-pink-700" : ""}`}>
-          {title}
-        </h1>
-        <p className="text-sm text-gray-600 line-clamp-6">{description}</p>
+        <h1 className={`font-bold text-3xl `}>{title}</h1>
+        <p className="text-lg text-gray-600 line-clamp-6">{description}</p>
         <div className="flex justify-between pr-6">
           <p className="text-sm text-gray-600 line-clamp-6 ">
             By {author} | {date}

@@ -70,25 +70,30 @@ function ListingsPage(props: pageProps) {
         </div>
       </div>
 
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-x-4 max-w-[1600px] py-16 px-6 ">
-        <div className="order-last md:order-1  lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-y-9 gap-x-5 mt-16">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 pb-16  lg:grid-cols-6 max-w-[1330px] ">
+        <div className="order-last lg:order-1  lg:col-span-4 grid grid-cols-1 lg:grid-cols-2 gap-y-9 gap-x-2 px-4 mt-16">
           {filteredActivities?.map((activity: any, i: number) => (
-            <Link
+            <a
               key={i}
               href={`/activities/${activity?.attributes?.category?.data?.attributes?.slug}/${activity?.attributes?.slug}`}
-              passHref
+              className={`${
+                filteredActivities.length % 2 != 0 &&
+                i == filteredActivities.length - 1
+                  ? "col-span-full"
+                  : ""
+              }`}
             >
               <ActivityCard
                 i={i}
                 title={activity?.attributes?.title}
                 description={activity?.attributes?.description}
               />
-            </Link>
+            </a>
           ))}
         </div>
-        <div className="p-6 rounded-lg space-y-4 md:order-last">
+        <div className="order-1 lg:order-last py-6 rounded-lg col-span-2 md:order-last lg:mt-9 px-3 cursor-pointer space-y-9 flex flex-col flex-1">
           {/* Take this into a component */}
-          <div className="w-full bg-yellow-400  py-6 px-3 rounded-xl  max-h-[250px]">
+          <div className="w-full bg-[#FFC000]  py-8 px-5 rounded-xl  max-h-[250px]">
             <div className="relative">
               <img
                 src="/search.svg"
@@ -96,29 +101,30 @@ function ListingsPage(props: pageProps) {
               />
               <input
                 placeholder="Search"
-                className="pl-8 py-2 rounded-lg text-md placeholder-black "
+                className="pl-8 py-3 rounded-lg text-md placeholder-black "
                 onChange={(e) => Search(e)}
               />
             </div>
           </div>
           {/* Take this into a component */}
           <div className="">
-            <div className="p-4  rounded-t-xl bg-blue-500 border-t-1 border-gray-500 ">
+            <div className="p-4  rounded-t-xl bg-[#1AB9FF] border-t-1 border-gray-500 ">
               <p className="font-semibold text-white text-center text-xl rounded-t-lg">
                 Categories
               </p>
             </div>
-            <div className="border-b border-l border-r border-gray-400 space-y-2 py-7">
-              <div className="container mx-auto px-4 space-y-3  ">
-                {cats?.data?.categories?.data?.map((cat, id) => (
-                  <div className="flex  space-x-4" key={id}>
-                    <Image src="/checkbox.svg" alt="" width="20" height="20" />
-                    <Link href={`/activities/${cat?.attributes?.slug}`}>
-                      {cat?.attributes?.slug}
-                    </Link>
-                  </div>
-                ))}
-              </div>
+            <div className="border border-b rounded-b-xl border-gray-400 space-y-2 py-7">
+              {cats?.data?.categories?.data?.map((category: any, i) => (
+                <div key={i} className="flex ml-3 items-center space-x-4">
+                  <Image src="/checkbox.svg" width={15} height={15} />
+                  <a
+                    href={`/articles/${category?.attributes?.slug}`}
+                    className="capitalize"
+                  >
+                    {category?.attributes?.slug}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>

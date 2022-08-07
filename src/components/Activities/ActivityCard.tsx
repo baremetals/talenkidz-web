@@ -7,7 +7,7 @@ type pageProps = {
 };
 export default function ActivityCard({ i, title, description }: pageProps) {
   return (
-    <div className="grid relative grid-cols-1 place-items-center rounded-lg h-full p-14 space-y-4 border border-gray-400 ">
+    <div className="grid relative grid-cols-1 place-items-center  h-full p-14 space-y-4 border border-gray-400 ">
       <div className="absolute flex items-center space-x-2 -top-7 bg-white">
         <img src="/toggle.svg" className="w-10 h-14" />
         <p className="font-semibold">Logo</p>
