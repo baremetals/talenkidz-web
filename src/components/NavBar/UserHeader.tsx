@@ -67,7 +67,7 @@ export default function UserHeader() {
                         </ToggleBar>
                         <NavbarCollapse className={`${toggle ? "opened" : ""}`} onClick={() => setToggle(!toggle)}>
                             <NavBarNav>
-                                <NavBarItem><Link href={user?.id ? `user-profile/${user?.username}` : '/'}>Home</Link></NavBarItem>
+                                <NavBarItem><Link href={'/'}>Home</Link></NavBarItem>
                                 {/* <NavBarItem><Link href={'/'}>About Us</Link></NavBarItem> */}
                                 <NavBarItem><Link href={'/events'}>Events</Link></NavBarItem>
                                 <NavBarItem><Link href={'/activities'}>Activities</Link></NavBarItem>
