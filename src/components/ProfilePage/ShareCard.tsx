@@ -13,7 +13,7 @@ import {
     ShareOptionsIcon,
     ShareOptionstext,
     ShareButton,
-    Input
+    TextArea
 } from './profile.styles';
 
 import { PhotoLine } from '../../../public/assets/icons/PhotoLine'
@@ -26,13 +26,14 @@ type cardProps = {
 
 export const ShareCard = ({ avatar }: cardProps) => {
     const [showModal, setShowModal] = useState(false);
+
     return (
         <>
             <ShareContainer>
                 <ShareWrapper>
                     <ShareTop>
                         <ProfileImage src={avatar} alt="user profile image" />
-                        <Input onClick={() => setShowModal(true)} placeholder={`what's on your mind ?`} />
+                        <TextArea rows={1} onClick={() => setShowModal(false)} placeholder={`what's on your mind?`} />
                     </ShareTop>
                     <ShareHr />
 
@@ -64,7 +65,7 @@ export const ShareCard = ({ avatar }: cardProps) => {
                             </ShareOptionItem>
                         </ShareOptions>
 
-                        <ShareButton onClick={() => setShowModal(true)}>Post</ShareButton>
+                        <ShareButton onClick={() => setShowModal(true)}>Send</ShareButton>
                     </ShareBottomWrap>
                 </ShareWrapper>
             </ShareContainer>
