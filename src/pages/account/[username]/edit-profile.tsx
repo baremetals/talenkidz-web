@@ -21,6 +21,7 @@ type Props ={
 }
 
 const EditProfilePage = (props: Props) => {
+  console.log('EditProfilePage')
   const user = props?.data?.data?.usersPermissionsUsers?.data[0]?.attributes as UsersPermissionsUser;
   useIsAuth();
   return (
@@ -39,11 +40,11 @@ const EditProfilePage = (props: Props) => {
           <meta property="og:type" content="user-edit-profile" />
           <meta
               property="og:url"
-              content={`https://telentkids.io/user-profile/${user?.username}/edit-profile` || ""}
+              content={`https://telentkids.io/account/${user?.username}/edit-profile` || ""}
           />
           <link
               rel="canonical"
-              href={`https://telentkids.io/user-profile/${user?.username}/edit-profile` || ""}
+              href={`https://telentkids.io/account/${user?.username}/edit-profile` || ""}
           />
       </Head>
       <EditProfile user={user}/>
@@ -55,15 +56,7 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
   async (ctx) => {
     const { username } = ctx.query;
     const cookies = JSON.parse(ctx.req.cookies.talentedKid);
-    const { jwt, userType, username: slug} = cookies;
-    if (userType === 'organisation' && username === slug) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: `/account/${slug}`,
-        },
-      };
-    }
+    const { jwt } = cookies;
     const token = `Bearer ${jwt}`;
     const apolloClient = initializeApollo(null, token);
     const data = await apolloClient.query<UserQueryResult>({
