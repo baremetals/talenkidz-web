@@ -13,15 +13,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: any;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** The `Long` scalar type represents 52-bit integers */
   Long: any;
-  /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
 
@@ -888,7 +883,7 @@ export type Mutation = {
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
-  /** Update an existing user */
+  /** Delete an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
@@ -1220,14 +1215,17 @@ export type MutationUploadArgs = {
 
 export type Organisation = {
   __typename?: 'Organisation';
+  bio?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   fullProfile?: Maybe<Scalars['Boolean']>;
   logo?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  organisationType?: Maybe<Scalars['String']>;
   profile?: Maybe<UsersPermissionsUserEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  website?: Maybe<Scalars['String']>;
 };
 
 export type OrganisationEntity = {
@@ -1249,6 +1247,7 @@ export type OrganisationEntityResponseCollection = {
 
 export type OrganisationFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<OrganisationFiltersInput>>>;
+  bio?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   fullProfile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -1256,19 +1255,24 @@ export type OrganisationFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<OrganisationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<OrganisationFiltersInput>>>;
+  organisationType?: InputMaybe<StringFilterInput>;
   profile?: InputMaybe<UsersPermissionsUserFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  website?: InputMaybe<StringFilterInput>;
 };
 
 export type OrganisationInput = {
+  bio?: InputMaybe<Scalars['String']>;
   fullProfile?: InputMaybe<Scalars['Boolean']>;
   logo?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  organisationType?: InputMaybe<Scalars['String']>;
   profile?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
+  website?: InputMaybe<Scalars['String']>;
 };
 
 export type Pagination = {
@@ -1886,12 +1890,15 @@ export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
   avatar?: Maybe<Scalars['String']>;
   backgroundImg?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   fullName: Scalars['String'];
+  gender?: Maybe<Scalars['String']>;
   organisation?: Maybe<OrganisationEntityResponse>;
+  pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1921,17 +1928,20 @@ export type UsersPermissionsUserFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   avatar?: InputMaybe<StringFilterInput>;
   backgroundImg?: InputMaybe<StringFilterInput>;
+  bio?: InputMaybe<StringFilterInput>;
   blocked?: InputMaybe<BooleanFilterInput>;
   confirmationToken?: InputMaybe<StringFilterInput>;
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   email?: InputMaybe<StringFilterInput>;
   fullName?: InputMaybe<StringFilterInput>;
+  gender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   organisation?: InputMaybe<OrganisationFiltersInput>;
   password?: InputMaybe<StringFilterInput>;
+  pronoun?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -1944,13 +1954,16 @@ export type UsersPermissionsUserInput = {
   DateOfBirth?: InputMaybe<Scalars['Date']>;
   avatar?: InputMaybe<Scalars['String']>;
   backgroundImg?: InputMaybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
   blocked?: InputMaybe<Scalars['Boolean']>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   fullName?: InputMaybe<Scalars['String']>;
+  gender?: InputMaybe<Scalars['String']>;
   organisation?: InputMaybe<Scalars['ID']>;
   password?: InputMaybe<Scalars['String']>;
+  pronoun?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
@@ -2048,14 +2061,14 @@ export type OrgQueryVariables = Exact<{
 }>;
 
 
-export type OrgQuery = { __typename?: 'Query', organisations?: { __typename?: 'OrganisationEntityResponseCollection', data: Array<{ __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, fullProfile?: boolean | null, createdAt?: any | null, profile?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, userType: Enum_Userspermissionsuser_Usertype, createdAt?: any | null } | null } | null } | null } | null }> } | null };
+export type OrgQuery = { __typename?: 'Query', organisations?: { __typename?: 'OrganisationEntityResponseCollection', data: Array<{ __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, fullProfile?: boolean | null, createdAt?: any | null, bio?: string | null, organisationType?: string | null, website?: string | null, profile?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, fullName: string, email: string, avatar?: string | null, backgroundImg?: string | null, userType: Enum_Userspermissionsuser_Usertype, createdAt?: any | null } | null } | null } | null } | null }> } | null };
 
 export type UserQueryVariables = Exact<{
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', usersPermissionsUsers?: { __typename?: 'UsersPermissionsUserEntityResponseCollection', data: Array<{ __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, email: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, createdAt?: any | null } | null }> } | null };
+export type UserQuery = { __typename?: 'Query', usersPermissionsUsers?: { __typename?: 'UsersPermissionsUserEntityResponseCollection', data: Array<{ __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', bio?: string | null, username: string, email: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, pronoun?: string | null, gender?: string | null, createdAt?: any | null, userType: Enum_Userspermissionsuser_Usertype } | null }> } | null };
 
 
 export const ArticleDocument = gql`
@@ -2761,12 +2774,16 @@ export const OrgDocument = gql`
         logo
         fullProfile
         createdAt
+        bio
+        organisationType
+        website
         profile {
           data {
             id
             attributes {
               username
               fullName
+              email
               avatar
               backgroundImg
               userType
@@ -2813,12 +2830,16 @@ export const UserDocument = gql`
     data {
       id
       attributes {
+        bio
         username
         email
         fullName
         avatar
         backgroundImg
+        pronoun
+        gender
         createdAt
+        userType
       }
     }
   }

@@ -148,12 +148,12 @@ const Articles = ({ articles, categories }: pageProps) => {
                                                 </PostThumb>
                                                 <PostBody>
                                                     <PostTitle>{art?.attributes?.title}</PostTitle>
-                                                    <Text>{art?.attributes?.blurb}</Text>
+                                                    {/* <Text>{art?.attributes?.blurb}</Text> */}
                                                     <Bottom>
 
                                                         <PostDate>By : {art?.attributes?.author?.data?.attributes?.fullName}  |  {dayjs(art?.attributes?.updatedAt).format('DD MMMM YYYY')} </PostDate>
                                                         <PostMedia>
-                                                            <Link href={'/posts'}><a><ThumbsUp /></a></Link>
+                                                            {/* <Link href={'/posts'}><a><ThumbsUp /></a></Link> */}
                                                             {/* <Link href={'/posts'}><a><BookMark /></a></Link> */}
                                                         </PostMedia>
                                                     </Bottom>
