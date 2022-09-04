@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Tabs, Tab } from '@mui/material';
 import { useAppSelector } from "app/hooks";
 import { isUser } from "features/auth/selectors";
@@ -20,10 +20,12 @@ import {
   InnerSidebar,
   Navigation,
   TabContent,
+  ProfilePicturePlaceHolder
 } from './editProfile.styles';
 
 import { BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../public/assets/icons/Edit';
+import { toBase64 } from './utils';
 
 type Props = {
   user: UsersPermissionsUser
@@ -39,6 +41,7 @@ const menuItems = ['#profile', '#billing']
 const EditProfile = ({ user }: mixProps) => {
   const { user: usr } = useAppSelector(isUser);
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [profileImg, setProfileImg] = useState<string>('');
 
   useEffect(() => {
     if (location.hash && menuItems.indexOf(location.hash) !== -1) {
@@ -46,10 +49,21 @@ const EditProfile = ({ user }: mixProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (usr && (usr.logo || usr.avatar))
+      setProfileImg(usr.userType === 'candidate' ? usr.avatar : usr.logo)
+  }, [usr])
+
   const onTabChange = (_: SyntheticEvent, tabIndex: number) => {
     setActiveTab(tabIndex);
     location.hash = menuItems[tabIndex];
   };
+
+  const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    const base64 = await toBase64(event.target.files[0]);
+    setProfileImg(base64);
+  }
 
   const a11yProps = (index: number) => {
     return {
@@ -67,13 +81,27 @@ const EditProfile = ({ user }: mixProps) => {
               <InnerSidebar>
                 <ImageWrapper>
                   <div className="overlay"></div>
-                  {usr?.userType === 'candidate' && <Image src={usr?.avatar} alt="profile picture"  />}
-                  {usr?.userType === 'organisation' && <Image src={usr?.logo } alt="profile picture" />}
+                  {profileImg && <Image src={profileImg} alt="profile picture" />}
+                  {!profileImg && (
+                    <ProfilePicturePlaceHolder>
+                      No profile picture yet.
+                    </ProfilePicturePlaceHolder>
+                  )}
                   <ImageActions>
                     <ActionButton>
-                      <Edit />
+                      <label htmlFor="upload-profile-photo">
+                        <input
+                          style={{ display: "none" }}
+                          id="upload-profile-photo"
+                          name="upload-profile-photo"
+                          type="file"
+                          onChange={(e) => handleImgChange(e)}
+                        />
+                        <Edit />
+                      </label>
                     </ActionButton>
-                    <ActionButton>
+                    <ActionButton onClick={() => setProfileImg('')}>
+                    {/* <ActionButton> */}
                       <BsTrash />
                     </ActionButton>
                   </ImageActions>

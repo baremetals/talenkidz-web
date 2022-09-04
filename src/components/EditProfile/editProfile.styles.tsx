@@ -49,6 +49,17 @@ export const TabContent = styled.div`
   max-width: 100%;
 `
 
+export const ProfilePicturePlaceHolder = styled.div`
+  width: 12.5rem;
+  height: 12.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #989898;
+  font-size: 0.875rem;
+  color: #eaeaea;
+`
+
 export const ImageWrapper = styled.div`
   display: flex;
   position: relative;
@@ -97,6 +108,10 @@ export const ActionButton = styled.div`
   justify-content: center;
   cursor: pointer;
   transition: 0.3s;
+
+  label {
+    cursor: pointer;
+  }
 
   svg {
     transition: 0.3s;
