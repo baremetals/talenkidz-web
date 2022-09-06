@@ -61,6 +61,7 @@ export const ToggleBar = styled.button`
     background-color: transparent;
     display: block;
     cursor: pointer;
+    z-index: 1;
     &:hover {
         background-color: transparent;
     }
@@ -95,6 +96,7 @@ export const Logo = styled.div`
 
 export const NavbarCollapse = styled.div`
     @media (max-width: 991px) {
+        margin-top: 60px;
         position: fixed;
         background-color: #fff;
         top: 0;
