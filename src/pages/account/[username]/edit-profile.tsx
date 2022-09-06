@@ -3,8 +3,10 @@ import { GetServerSideProps } from "next";
 import { requireAuthentication } from 'lib/requireAuthentication';
 import { initializeApollo } from "lib/apolloClient";
 import {
-    UserDocument,
-    UserQueryResult,
+  Organisation,
+    OrganisationEntityResponseCollection,
+    OrgDocument,
+    OrgQueryResult,
     UsersPermissionsUser,
     UsersPermissionsUserEntityResponseCollection,
 } from "generated/graphql";
@@ -20,9 +22,11 @@ type Props ={
   }
 }
 
-const EditProfilePage = (props: Props) => {
-  console.log('EditProfilePage')
-  const user = props?.data?.data?.usersPermissionsUsers?.data[0]?.attributes as UsersPermissionsUser;
+const EditProfilePage = (props: { laodings: boolean, data: { data: { organisations: OrganisationEntityResponseCollection } } }) => {
+  // console.log('EditProfilePage')
+  // const org = props?.data?.data?.usersPermissionsUsers?.data[0]?.attributes as UsersPermissionsUser;
+  const org =
+    props?.data?.data?.organisations?.data[0]?.attributes as Organisation;
   useIsAuth();
   return (
     <>
@@ -40,14 +44,14 @@ const EditProfilePage = (props: Props) => {
           <meta property="og:type" content="user-edit-profile" />
           <meta
               property="og:url"
-              content={`https://telentkids.io/account/${user?.username}/edit-profile` || ""}
+              content={`https://telentkids.io/account/${org?.slug}/edit-profile` || ""}
           />
           <link
               rel="canonical"
-              href={`https://telentkids.io/account/${user?.username}/edit-profile` || ""}
+              href={`https://telentkids.io/account/${org?.slug}/edit-profile` || ""}
           />
       </Head>
-      <EditProfile user={user}/>
+      <EditProfile user={org}/>
     </>
   )
 };
@@ -59,11 +63,11 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
     const { jwt } = cookies;
     const token = `Bearer ${jwt}`;
     const apolloClient = initializeApollo(null, token);
-    const data = await apolloClient.query<UserQueryResult>({
-      query: UserDocument,
+    const data = await apolloClient.query<OrgQueryResult>({
+      query: OrgDocument,
       variables: {
         filters: {
-          username: {
+          slug: {
             eq: username,
           },
         },

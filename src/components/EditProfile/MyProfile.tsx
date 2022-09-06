@@ -1,4 +1,4 @@
-import React, { useState, BaseSyntheticEvent } from 'react';
+import React, { useState, BaseSyntheticEvent, SetStateAction } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import { UsersPermissionsUser } from 'generated/graphql';
@@ -75,9 +75,9 @@ const MyProfile = ({ user }: Props) => {
                 <InputLabel>Gender</InputLabel>
                 <Select
                   labelId="gender-select-label"
-                  value={gender}
+                  value={user.gender}
                   label="Gender"
-                  onChange={(e) => setGender(e.target.value)}
+                  onChange={(e) => setGender(e.target.value as SetStateAction<string>)}
                 >
                   <MenuItem value={'M'}>Male</MenuItem>
                   <MenuItem value={'F'}>Female</MenuItem>
@@ -89,9 +89,9 @@ const MyProfile = ({ user }: Props) => {
                 <InputLabel>Pronoun</InputLabel>
                 <Select
                   labelId="pronoun-select-label"
-                  value={pronoun}
+                  value={user.pronoun}
                   label="Pronoun"
-                  onChange={(e) => setPronoun(e.target.value)}
+                  onChange={(e) => setPronoun(e.target.value as SetStateAction<string>)}
                 >
                   <MenuItem value={'Mr'}>Mr.</MenuItem>
                   <MenuItem value={'Mrs'}>Mrs</MenuItem>
@@ -138,7 +138,7 @@ const MyProfile = ({ user }: Props) => {
             multiline
             fullWidth
             rows={4}
-            value={bio}
+            value={user.bio}
             onChange={(e) => setBio(e.target.value)}
           />
           <SubmitButton>Save Changes</SubmitButton>
