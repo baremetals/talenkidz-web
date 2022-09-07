@@ -617,19 +617,31 @@ export const InnerBanner = styled.section`
     background-repeat: no-repeat;
 `;
 
-export const Post = styled.div``;
+export const Post = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
 
 export const PostThumb = styled.div`
     margin-bottom: 1.125rem;
 `;
 
-export const PostBody = styled.div``;
+export const PostBody = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+`;
 
 export const PostTitle = styled.h3`
     font-size: 1.625rem;
     margin-bottom: .75rem;
     line-height: 1.3;
 `;
+
+export const Top = styled.div`
+    flex: 1;
+`
 
 export const Bottom = styled.div`
     display: flex;
