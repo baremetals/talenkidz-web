@@ -35,7 +35,7 @@ function ArticlesPage(props: pageProps) {
                 <meta property="og:locale" content="en_GB" />
                 <link rel="canonical" href="https://talentkids.io/articles" />
             </Head>
-            <Articles articles={[...art?.articles?.data, ...art?.articles?.data]} categories={cats?.data?.categories?.data}/>
+            <Articles articles={art?.articles?.data} categories={cats?.data?.categories?.data}/>
         </>
     );
 }
