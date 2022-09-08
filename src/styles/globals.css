@@ -157,6 +157,10 @@ button.primary-outline:hover{
 }
 .form-group{margin-bottom: 1rem;}
 
+.MuiDialog-paperScrollPaper {
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
 input,
 span,
 .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,

@@ -89,3 +89,13 @@ export const UploadImage = styled.img`
   }
 `;
 
+export const ErrorDialogContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`
+
+export const ErrorIcon = styled.img`
+  width: 3.5rem;
+`

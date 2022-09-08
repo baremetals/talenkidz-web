@@ -7,8 +7,8 @@ export const logEvent = (name: string) => (event: void) => {
 
 export const Result = ({children}: any) => <div className="result">{children}</div>;
 
-export const ErrorResult = ({ children }: any) => (
-  <div className="error">{children}</div>
+export const ErrorResult = ({ children, ...props }: any) => (
+  <div className="error" {...props}>{children}</div>
 );
 
 // Demo hook to dynamically change font size based on window size.

@@ -1,4 +1,4 @@
-import React, { useState, BaseSyntheticEvent, SetStateAction } from 'react';
+import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import { UsersPermissionsUser } from 'generated/graphql';
@@ -22,6 +22,7 @@ import {
 
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../public/assets/icons/Edit';
+import { toBase64 } from './utils';
 
 type Props = {
   user: UsersPermissionsUser
@@ -33,6 +34,13 @@ const MyProfile = ({ user }: Props) => {
   const [pronoun, setPronoun] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [bio, setBio] = useState<string>('');
+  const [backgroundImg, setBackgroundImg] = useState<any>(user.backgroundImg);
+
+  const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    const base64 = await toBase64(event.target.files[0]);
+    setBackgroundImg(base64);
+  }
 
   const handleSubmit = (event: BaseSyntheticEvent) => {
     event.preventDefault();
@@ -43,8 +51,6 @@ const MyProfile = ({ user }: Props) => {
       bio,
       gender
     }
-
-    console.log('data', data)
   }
 
   return (
@@ -109,16 +115,25 @@ const MyProfile = ({ user }: Props) => {
               fullWidth
               type="file"
             />
-            { user.backgroundImg ? (
+            { backgroundImg ? (
               <>
                 <CoverPictureWrapper>
                   <div className="overlay"></div>
-                  <Image src={user.backgroundImg} alt="User cover picture" />
+                  <Image src={backgroundImg} alt="User cover picture" />
                   <ImageActions>
                     <ActionButton>
-                      <Edit />
+                      <label htmlFor="upload-bg-photo">
+                        <input
+                          style={{ display: "none" }}
+                          id="upload-bg-photo"
+                          name="upload-bg-photo"
+                          type="file"
+                          onChange={(e) => handleImgChange(e)}
+                        />
+                        <Edit />
+                      </label>
                     </ActionButton>
-                    <ActionButton>
+                    <ActionButton onClick={() => setBackgroundImg(null)}>
                       <BsTrash />
                     </ActionButton>
                   </ImageActions>
@@ -126,10 +141,19 @@ const MyProfile = ({ user }: Props) => {
               </>
             ) : (
               <NoCoverPictureWrapper>
-                <SelectCoverPictureButton>
-                  <BsCloudArrowUp />
-                  Select a cover picture
-                </SelectCoverPictureButton>
+                  <label htmlFor="upload-bg-photo">
+                    <input
+                      style={{ display: "none" }}
+                      id="upload-bg-photo"
+                      name="upload-bg-photo"
+                      type="file"
+                      onChange={(e) => handleImgChange(e)}
+                    />
+                    <SelectCoverPictureButton>
+                      <BsCloudArrowUp />
+                      Select a cover picture
+                    </SelectCoverPictureButton>
+                  </label>
               </NoCoverPictureWrapper>
             ) }
           </CoverPictureUploaderWrapper>

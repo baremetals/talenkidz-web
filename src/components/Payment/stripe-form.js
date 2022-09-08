@@ -17,10 +17,14 @@ import {
   CardFormGroup,
   H3,
   Input,
-  LabelText
+  LabelText,
 } from 'styles/common.styles';
 
+import { ErrorDialogContent, ErrorIcon } from './styles'
+
+import Dialog from 'components/Dialog';
 import {logEvent, Result, ErrorResult} from './utils';
+import Button from 'components/Button';
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -54,11 +58,19 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const [name, setName] = useState('');
   const [postal, setPostal] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
   const [paymentMethod, setPaymentMethod] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
@@ -86,13 +98,18 @@ const CheckoutForm = () => {
 
     if (payload.error) {
       console.log('[error]', payload.error);
-      setErrorMessage(payload?.error?.message);
+      setModalMessage(payload?.error?.message);
       setPaymentMethod({});
+      setIsPaymentSuccessful(false);
+      setShowModal(true);
     } else {
       console.log('[PaymentMethod]', payload.paymentMethod);
       setPaymentMethod(payload.paymentMethod);
-      setErrorMessage('');
+      setIsPaymentSuccessful(true);
+      setModalMessage('Your payment was successful!');
+      setShowModal(true);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -145,15 +162,25 @@ const CheckoutForm = () => {
       </CardFormGroup>
 
       <CardFormGroup style={{marginBottom: '0'}}>
-        {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
-        {paymentMethod && <Result>Got PaymentMethod: {paymentMethod?.id}</Result>}
-        <button type="submit" style={{ width: '100%'}} disabled={!stripe}>
+        {/* paymentMethod && <Result>Got PaymentMethod: {paymentMethod?.id}</Result> */}
+        <Button type="submit" style={{ width: '100%'}} disabled={isSubmitting} loading={isSubmitting}>
           Pay
-        </button>
+        </Button>
       </CardFormGroup>
 
-      
+      <Dialog
+        close={closeModal}
+        open={showModal}
+        onButtonClick={closeModal}
+        buttonText={isPaymentSuccessful ? 'OK' : 'Retry'}
+      >
+        <ErrorDialogContent>
+          <ErrorIcon src={isPaymentSuccessful ? '/checked.png' : '/error.png'} alt={`${isPaymentSuccessful ? 'success' : 'error'} icon`} />
+          <ErrorResult style={{ textAlign: 'center' }}>{modalMessage}</ErrorResult>
+        </ErrorDialogContent>
+      </Dialog>
     </form>
+    
   );
 };
 
