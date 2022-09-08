@@ -24,6 +24,7 @@ import {
     PostThumb,
     PostBody,
     PostTitle,
+    Top,
     Bottom,
     PostDate,
     PostMedia,
@@ -147,8 +148,10 @@ const Articles = ({ articles, categories }: pageProps) => {
                                                     <Image src={art?.attributes?.heroImage?.data?.attributes?.url} alt='article image' />
                                                 </PostThumb>
                                                 <PostBody>
-                                                    <PostTitle>{art?.attributes?.title}</PostTitle>
-                                                    {/* <Text>{art?.attributes?.blurb}</Text> */}
+                                                    <Top>
+                                                        <PostTitle>{art?.attributes?.title}</PostTitle>
+                                                        {/* <Text>{art?.attributes?.blurb}</Text> */}
+                                                    </Top>
                                                     <Bottom>
 
                                                         <PostDate>By : {art?.attributes?.author?.data?.attributes?.fullName}  |  {dayjs(art?.attributes?.updatedAt).format('DD MMMM YYYY')} </PostDate>
