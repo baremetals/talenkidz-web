@@ -39,7 +39,7 @@ const OrgProfile = ({ user }: Props) => {
     const [backgroundImg, setBackgroundImg] = useState<any>(user.profile?.data?.attributes?.backgroundImg);
 
     const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.files) return;
+        if (!event.target.files || event.target.files.length === 0) return;
         const base64 = await toBase64(event.target.files[0]);
         setBackgroundImg(base64);
     }
@@ -165,7 +165,7 @@ const OrgProfile = ({ user }: Props) => {
                                             <Edit />
                                         </EditButton>
                                         </ActionButton>
-                                        <ActionButton>
+                                        <ActionButton  onClick={() => setBackgroundImg(null)}>
                                             <BsTrash />
                                         </ActionButton>
                                     </ImageActions>
@@ -173,10 +173,19 @@ const OrgProfile = ({ user }: Props) => {
                             </>
                         ) : (
                             <NoCoverPictureWrapper>
-                                <SelectCoverPictureButton>
-                                    <BsCloudArrowUp />
-                                    Select a cover picture
-                                </SelectCoverPictureButton>
+                                <EditButton htmlFor="upload-bg-photo">
+                                    <input
+                                        style={{ display: "none" }}
+                                        id="upload-bg-photo"
+                                        name="upload-bg-photo"
+                                        type="file"
+                                        onChange={(e) => handleImgChange(e)}
+                                    />
+                                    <SelectCoverPictureButton>
+                                        <BsCloudArrowUp />
+                                        Select a cover picture
+                                    </SelectCoverPictureButton>
+                                </EditButton>
                             </NoCoverPictureWrapper>
                         )}
                     </CoverPictureUploaderWrapper>

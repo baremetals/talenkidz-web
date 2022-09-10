@@ -142,7 +142,7 @@ const MyProfile = ({ user }: Props) => {
               </>
             ) : (
               <NoCoverPictureWrapper>
-                  <label htmlFor="upload-bg-photo">
+                  <EditButton htmlFor="upload-bg-photo">
                     <input
                       style={{ display: "none" }}
                       id="upload-bg-photo"
@@ -154,7 +154,7 @@ const MyProfile = ({ user }: Props) => {
                       <BsCloudArrowUp />
                       Select a cover picture
                     </SelectCoverPictureButton>
-                  </label>
+                  </EditButton>
               </NoCoverPictureWrapper>
             ) }
           </CoverPictureUploaderWrapper>
