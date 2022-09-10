@@ -45,13 +45,13 @@ const ForgotPassword = () => {
                 },
             })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 if (res.status === 200) {
                     router.push("/auth/forgot-password/reset-link");
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.message);
+                // console.log(err.response.data.message);
                 const msg: string = err.response.data.message;
                 setErrorMsg(true);
                 initialValues.error = msg;

@@ -1,6 +1,6 @@
+import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { SetStateAction, useEffect, useState } from 'react'
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
 import { upperCase } from 'lib/helpers'
 
@@ -78,9 +78,6 @@ type pageProps = {
     categories: CategoryEntity[]
 }
 
-// import { Briefcase } from '../../../public/assets/icons/Briefcase'
-
-
 function Listings({ listings, categories }: pageProps) {
     const router = useRouter();
     const [filteredListings, setFilteredListings] = useState([]);
@@ -129,11 +126,10 @@ function Listings({ listings, categories }: pageProps) {
                         <Column className='column-7'>
                             <Row>
                                 {filteredListings && filteredListings?.map((list: listingProps, id) => (
-                                    <Column className='column-3' style={{ marginTop: '3.5rem' }} key={id}>
+                                    <Column className='column-3' style={{ marginTop: '3.5rem', minWidth: '50%', display: 'flex' }} key={id}>
                                         <Link href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`} passHref>
                                             <ListCard>
                                                 <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
-                                                    {/* <Briefcase /> */}
                                                     <Image src={list?.attributes?.host?.data?.attributes?.logo} alt='host logo image' />
                                                 </ListIcon>
                                                 <ListBody>
@@ -159,7 +155,7 @@ function Listings({ listings, categories }: pageProps) {
                                 <WidgetPanelListing>
 
                                     {categories?.map((cat, id) => (
-                                        <WidgetPanelLink key={id} ><Link href={`/activities/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
+                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/activities/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
                                     ))}
                                 </WidgetPanelListing>
 
