@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import axios from 'axios';
@@ -29,21 +29,9 @@ export default function OrgHeader() {
     const router = useRouter();
     const { user: user } = useAppSelector(isUser);
     const [dropdown, setDropdown] = useState(false);
-    const [toggle, setToggle] = useState(false);
-    const sidebarRef = useRef<any>(null);
+    // console.log(user)
 
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent): void {
-          if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-            if (toggle) setToggle(false);
-          }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
-        };
-    });
+    const [toggle, setToggle] = useState(false)
 
     const handleLogOut = async () => {
         try {
@@ -72,19 +60,19 @@ export default function OrgHeader() {
                                 <Image src={'/logo.png'} alt='logo' />
                             </Logo>
                         </Link>
-                        <ToggleBar onMouseDown={() => setToggle(!toggle)}>
+                        <ToggleBar onClick={() => setToggle(!toggle)}>
                             <span></span>
                             <span></span>
                             <span></span>
                         </ToggleBar>
-                        <NavbarCollapse className={`${toggle ? "opened" : ""}`} >
-                            <NavBarNav ref={sidebarRef}>
-                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={user?.id ? `/account/${user?.username}` : '/'}>Home</Link></NavBarItem>
+                        <NavbarCollapse className={`${toggle ? "opened" : ""}`} onClick={() => setToggle(!toggle)}>
+                            <NavBarNav>
+                                <NavBarItem><Link href={user?.id ? `/account/${user?.username}` : '/'}>Home</Link></NavBarItem>
                                 {/* <NavBarItem><Link href={'/'}>About Us</Link></NavBarItem> */}
-                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/events'}>Events</Link></NavBarItem>
-                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/activities'}>Activities</Link></NavBarItem>
-                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/articles'}>Articles</Link></NavBarItem>
-                                <NavBarItem onClick={() => setToggle(!toggle)} className="signup"><Link href={'/create'}>Create</Link></NavBarItem>
+                                <NavBarItem><Link href={'/events'}>Events</Link></NavBarItem>
+                                <NavBarItem><Link href={'/activities'}>Activities</Link></NavBarItem>
+                                <NavBarItem><Link href={'/articles'}>Articles</Link></NavBarItem>
+                                <NavBarItem className="signup"><Link href={'/create'}>Create</Link></NavBarItem>
                                 {user?.id && <>
 
                                     <ProfileSetting>

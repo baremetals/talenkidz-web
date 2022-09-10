@@ -1,17 +1,19 @@
 import React from "react";
-import { Editor, EditorState } from "react-draft-wysiwyg";
+import dynamic from "next/dynamic";
+import { Editor } from "react-draft-wysiwyg";
+// const Editor = dynamic(
+//   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+//   {
+//     ssr: false,
+//   }
+// );
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-type editorProps = {
-  onEditorStateChange: any
-  editorState: EditorState
-}
-
-const ModalEditor = ({ editorState, onEditorStateChange, ...props }: editorProps) => {
+const ModalEditor = ({ editorState, onEditorStateChange, ...props }: any) => {
     
-  // const uploadImageCallBack = async (file: File) => {
-  //   console.log(file);
-  // };
+  const uploadImageCallBack = async (file: File) => {
+    console.log(file);
+  };
 
   return (
     <Editor
@@ -42,13 +44,13 @@ const ModalEditor = ({ editorState, onEditorStateChange, ...props }: editorProps
         textAlign: { inDropdown: true },
         link: { inDropdown: true },
         history: { inDropdown: true },
-        // image: {
-        //   urlEnabled: true,
-        //   uploadEnabled: true,
-        //   uploadCallback: uploadImageCallBack,
-        //   previewImage: true,
-        //   alt: { present: false, mandatory: false },
-        // },
+        image: {
+          urlEnabled: true,
+          uploadEnabled: true,
+          uploadCallback: uploadImageCallBack,
+          previewImage: true,
+          alt: { present: false, mandatory: false },
+        },
       }}
     />
   );

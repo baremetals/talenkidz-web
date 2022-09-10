@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import Post from '../Post'
 import {
     ShareContainer,
     ShareWrapper,
@@ -13,7 +12,7 @@ import {
     ShareOptionsIcon,
     ShareOptionstext,
     ShareButton,
-    TextArea
+    Input
 } from './profile.styles';
 
 import { PhotoLine } from '../../../public/assets/icons/PhotoLine'
@@ -25,56 +24,47 @@ type cardProps = {
 }
 
 export const ShareCard = ({ avatar }: cardProps) => {
-    const [showModal, setShowModal] = useState(false);
+  return (
+    <ShareContainer>
+          <ShareWrapper>
+              <ShareTop>
+                  <ProfileImage src={avatar} alt="user profile image" />
+                  <Input placeholder={`what's on your mind ?`} />
+              </ShareTop>
+              <ShareHr />
 
-    return (
-        <>
-            <ShareContainer>
-                <ShareWrapper>
-                    <ShareTop>
-                        <ProfileImage src={avatar} alt="user profile image" />
-                        <TextArea rows={1} onClick={() => setShowModal(false)} placeholder={`what's on your mind?`} />
-                    </ShareTop>
-                    <ShareHr />
+              <ShareBottomWrap>
+                  <ShareOptions >
+                      <ShareOptionItem>
+                          <ShareOptionsIcon>
+                              <PhotoLine />
+                          </ShareOptionsIcon>
+                          <ShareOptionstext>Photo</ShareOptionstext>
+                      </ShareOptionItem>
+                  </ShareOptions>
 
-                    <ShareBottomWrap>
-                        <ShareOptions onClick={() => setShowModal(true)}>
-                            <ShareOptionItem>
-                                <ShareOptionsIcon>
-                                    <PhotoLine />
-                                </ShareOptionsIcon>
-                                <ShareOptionstext>Photo</ShareOptionstext>
-                            </ShareOptionItem>
-                        </ShareOptions>
+                  <ShareOptions >
+                      <ShareOptionItem>
+                          <ShareOptionsIcon>
+                              <VideoLine />
+                          </ShareOptionsIcon>
+                          <ShareOptionstext>Video</ShareOptionstext>
+                      </ShareOptionItem>
+                  </ShareOptions>
 
-                        <ShareOptions onClick={() => setShowModal(true)}>
-                            <ShareOptionItem>
-                                <ShareOptionsIcon>
-                                    <VideoLine />
-                                </ShareOptionsIcon>
-                                <ShareOptionstext>Video</ShareOptionstext>
-                            </ShareOptionItem>
-                        </ShareOptions>
+                  <ShareOptions >
+                      <ShareOptionItem>
+                          <ShareOptionsIcon>
+                              <CommentLines />
+                          </ShareOptionsIcon>
+                          <ShareOptionstext>Text</ShareOptionstext>
+                      </ShareOptionItem>
+                  </ShareOptions>
 
-                        <ShareOptions onClick={() => setShowModal(true)}>
-                            <ShareOptionItem>
-                                <ShareOptionsIcon>
-                                    <CommentLines />
-                                </ShareOptionsIcon>
-                                <ShareOptionstext>Text</ShareOptionstext>
-                            </ShareOptionItem>
-                        </ShareOptions>
-
-                        <ShareButton onClick={() => setShowModal(true)}>Send</ShareButton>
-                    </ShareBottomWrap>
-                </ShareWrapper>
-            </ShareContainer>
-            <Post
-                showModal={showModal}
-                closeM={() => setShowModal(false)}
-                setShowModal={setShowModal}
-            />
-        </>
-    )
+                  <ShareButton >send</ShareButton>
+              </ShareBottomWrap>
+          </ShareWrapper>
+      </ShareContainer>
+  )
 }
 

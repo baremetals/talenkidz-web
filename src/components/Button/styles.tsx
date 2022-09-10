@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-scroll"
-import Spinner from "components/Spinner";
 
 export const Button = styled(Link)`
     background-color: #7755E2;
@@ -25,14 +24,3 @@ export const Button = styled(Link)`
         padding: 1rem 2rem;
     }
 `;
-
-export const NativeButton = styled.button`
-    transition: all 0.2s ease-in-out;
-
-    &:disabled {
-        transition: none;
-        background-color:#bc70ad;
-        border-color: #bc70ad;
-        cursor: not-allowed;
-    }
-`

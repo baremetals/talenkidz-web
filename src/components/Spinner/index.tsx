@@ -1,14 +1,10 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
-type Props = {
-  style?: CSSProperties
-}
-
-const Spinner = ({ style }: Props) => {
+const Spinner = () => {
   return (
     <>
-      <Loader style={style}>
+      <Loader>
         <span></span>
       </Loader>
     </>
