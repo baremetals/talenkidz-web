@@ -1,4 +1,4 @@
-import React, { useState, BaseSyntheticEvent, SetStateAction } from 'react';
+import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
@@ -17,11 +17,13 @@ import {
     ImageActions,
     ActionButton,
     NoCoverPictureWrapper,
-    SelectCoverPictureButton
+    SelectCoverPictureButton,
+    EditButton
 } from './editProfile.styles';
 
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../public/assets/icons/Edit';
+import { toBase64 } from './utils';
 
 type Props = {
     user: Organisation
@@ -34,6 +36,13 @@ const OrgProfile = ({ user }: Props) => {
     const [website, setWebsite] = useState<string>(user?.website as string);
     const [organisationType, setOrganisationType] = useState<string>(user?.organisationType as string);
     const [bio, setBio] = useState<string>(user?.bio as string);
+    const [backgroundImg, setBackgroundImg] = useState<any>(user.profile?.data?.attributes?.backgroundImg);
+
+    const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) return;
+        const base64 = await toBase64(event.target.files[0]);
+        setBackgroundImg(base64);
+    }
 
     // console.log(user)
     const handleSubmit = (event: BaseSyntheticEvent) => {
@@ -138,14 +147,23 @@ const OrgProfile = ({ user }: Props) => {
                             fullWidth
                             type="file"
                         />
-                        {user?.profile?.data?.attributes?.backgroundImg ? (
+                        {backgroundImg ? (
                             <>
                                 <CoverPictureWrapper>
                                     <div className="overlay"></div>
-                                    <Image src={user?.profile?.data?.attributes?.backgroundImg} alt="User cover picture" />
+                                    <Image src={backgroundImg} alt="User cover picture" />
                                     <ImageActions>
                                         <ActionButton>
+                                        <EditButton htmlFor="upload-bg-photo">
+                                            <input
+                                            style={{ display: "none" }}
+                                            id="upload-bg-photo"
+                                            name="upload-bg-photo"
+                                            type="file"
+                                            onChange={(e) => handleImgChange(e)}
+                                            />
                                             <Edit />
+                                        </EditButton>
                                         </ActionButton>
                                         <ActionButton>
                                             <BsTrash />

@@ -17,7 +17,8 @@ import {
   ImageActions,
   ActionButton,
   NoCoverPictureWrapper,
-  SelectCoverPictureButton
+  SelectCoverPictureButton,
+  EditButton
 } from './editProfile.styles';
 
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
@@ -122,7 +123,7 @@ const MyProfile = ({ user }: Props) => {
                   <Image src={backgroundImg} alt="User cover picture" />
                   <ImageActions>
                     <ActionButton>
-                      <label htmlFor="upload-bg-photo">
+                      <EditButton htmlFor="upload-bg-photo">
                         <input
                           style={{ display: "none" }}
                           id="upload-bg-photo"
@@ -131,7 +132,7 @@ const MyProfile = ({ user }: Props) => {
                           onChange={(e) => handleImgChange(e)}
                         />
                         <Edit />
-                      </label>
+                      </EditButton>
                     </ActionButton>
                     <ActionButton onClick={() => setBackgroundImg(null)}>
                       <BsTrash />
