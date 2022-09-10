@@ -31,11 +31,16 @@ export default function UserHeader() {
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
+    const dropdownRef = useRef<any>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
           if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
             if (toggle) setToggle(false);
+          }
+
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (dropdown) setDropdown(false);
           }
         }
 
@@ -86,7 +91,7 @@ export default function UserHeader() {
                                 <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/articles'}>Articles</Link></NavBarItem>
                                 {user?.id && <>
 
-                                    <ProfileSetting>
+                                    <ProfileSetting ref={dropdownRef}>
                                         <ProfileImg
                                             onClick={() => setDropdown(!dropdown)}
                                             alt="user profile image"
