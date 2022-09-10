@@ -13,10 +13,12 @@ import NavBar from 'components/NavBar';
 
 import {
     InnerContainer,
+    Row,
+    Column,
     PageContainer,
-    AlignCentered,
+    WidgetPanel,
+    WidgetPanelTitle,
 } from 'styles/common.styles';
-import Button from 'components/Button';
 
 
 
@@ -32,10 +34,22 @@ const CreateListing = () => {
             <NavBar />
             <PageContainer style={{ minHeight: '100vh' }}>
                 <InnerContainer>
-                    <AlignCentered>
-                        <Button className={formType !== 'activity' ? 'primary-outline' : ''} style={{ margin: '0 .5rem', minWidth: '180px' }} onClick={() => setFormType('activity')}>List An Activity</Button>
-                        <Button className={formType !== 'event' ? 'primary-outline' : ''} style={{ margin: '0 .5rem', minWidth: '180px' }} onClick={() => setFormType('event')}>List An Event</Button>
-                    </AlignCentered>
+                    <Row>
+                        <Column>
+                            <Row>
+                                <WidgetPanel onClick={() => setFormType('activity')}>
+                                    <WidgetPanelTitle>List An Activity</WidgetPanelTitle>
+                                </WidgetPanel>
+                            </Row>
+                        </Column>
+                        <Column>
+                            <Row>
+                                <WidgetPanel onClick={() => setFormType('event')}>
+                                    <WidgetPanelTitle>List An Event</WidgetPanelTitle>
+                                </WidgetPanel>
+                            </Row>
+                        </Column>
+                    </Row>
                 </InnerContainer>
                 <Form formType={formType} id={user?.id as string}/>
             </PageContainer>

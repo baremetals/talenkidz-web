@@ -3,16 +3,12 @@ query User($filters: UsersPermissionsUserFiltersInput) {
     data {
       id
       attributes {
-        bio
         username
         email
         fullName
         avatar
         backgroundImg
-        pronoun
-        gender
         createdAt
-        userType
       }
     }
   }

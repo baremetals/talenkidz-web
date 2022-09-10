@@ -6,8 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 import {
-    Username,
-    UsernameWrapper,
+    UserName,
     Image,
     PostTop,
     PostLeftWrap,
@@ -51,10 +50,10 @@ export const Card = ({ avatar, username, body, createdAt, content }: cardProps) 
                 <PostTop>
                     <PostLeftWrap>
                         <Image src={avatar} alt="user profile image" />
-                        <UsernameWrapper>
-                            <Username>{username}</Username>
+                        <UserName>
+                            {username}
                             <PostDate>{dayjs(createdAt).fromNow()}</PostDate>
-                        </UsernameWrapper>
+                        </UserName>
                     </PostLeftWrap>
 
                     <PostTopRightWrap>

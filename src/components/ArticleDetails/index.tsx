@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
+// import Sidebar from 'components/Sidebar';
 import Markdown from "markdown-to-jsx";
 import Link from 'next/link';
 import dayjs from "dayjs";
@@ -56,12 +57,14 @@ export const ArticleDetails = (props: {
     return( 
         <>
             <NavBar />
+
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title>{article?.attributes?.title}</Title>
                     <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home</Link> / <Link href={'/articles'}>Articles</Link> / {upperCase(category as string)}</Text>
                 </InnerContainer>
             </InnerBanner>
+
             <PageContainer>
                 <InnerContainer>
                     <Row>
@@ -90,6 +93,7 @@ export const ArticleDetails = (props: {
                     </Row>
                 </InnerContainer>
             </PageContainer>
+
             <Footer />
         </>
     );

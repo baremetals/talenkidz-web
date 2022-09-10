@@ -18,7 +18,7 @@ function OrganisationPage(props: { laodings: boolean, data: { data: { organisati
     const org =
         props?.data?.data?.organisations?.data[0]?.attributes as Organisation;
     useIsAuth();
-    // console.log(props)
+    // console.log(org)
     return (
         <>
             <Head>

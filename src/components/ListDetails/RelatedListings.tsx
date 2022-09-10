@@ -1,6 +1,11 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import dayjs from "dayjs";
-import { useFilteredListingsQuery, ListingEntity } from "generated/graphql";
+// import Link from 'next/link'
+// import { animateScroll as scroll } from "react-scroll";
+
+// import { FaFacebook, FaInstagram, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { QueryResult } from '@apollo/client';
+import { FilteredArticlesQuery, Exact, Query, useFilteredListingsQuery, ListingEntity } from "generated/graphql";
 
 import {
     MediaObject,
@@ -10,9 +15,15 @@ import {
     MediaObjectDate,
     MediaObjectTitle,
     Image,
+    SearchBar,
+    SearchInput,
+    SearchButton,
+
     WidgetPanel,
     WidgetPanelTitle,
+
     WidgetPanelListing,
+    WidgetPanelLink
 } from "../../styles/common.styles";
 import Link from 'next/link';
 
@@ -61,6 +72,8 @@ type propType = {
 };
 
 function RelatedListings({ category }: propType): ReactElement {
+
+    // const [articles, setArticles] = useState([])
 
     const { data } = useFilteredListingsQuery({
         variables: {

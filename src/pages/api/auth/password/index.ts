@@ -12,24 +12,11 @@ type Data = {
 type user = {
   id: string;
   username: string;
-  fullName: string;
+  // eslint-disable-next-line camelcase
   avatar: string;
+  // eslint-disable-next-line camelcase
   backgroundImg: string;
-  userType: string;
   jwt: string;
-};
-
-type org = {
-  id: string;
-  username: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-  orgId: string;
-  orgName: string;
-  slug: string;
-  logo: string;
-  fullProfile: string;
 };
 
 export default async function passwordReset(
@@ -37,7 +24,6 @@ export default async function passwordReset(
   res: NextApiResponse<Data>
 ) {
   const { data } = req.body;
-  console.log(baseUrl)
 
   if (data.flag === 'FORGOTPASSWORD') {
     try {
@@ -73,57 +59,25 @@ export default async function passwordReset(
       const user: user = {
         id: resp.data.user.id,
         username: resp.data.user.username,
-        fullName: resp.data.user.fullName,
         avatar: resp.data.user.avatar,
         backgroundImg: resp.data.user.backgroundImg,
-        userType: resp.data.user.userType,
         jwt: resp.data.jwt,
       };
 
-      const org: org = {
-        id: resp.data.user.id,
-        username: resp.data.user.username,
-        backgroundImg: resp.data.user.backgroundImg,
-        userType: resp.data.user.userType,
-        jwt: resp.data.jwt,
-        orgId: resp.data.user.organisation.id,
-        slug: resp.data.user.organisation.slug,
-        orgName: resp.data.user.organisation.name,
-        logo: resp.data.user.organisation.logo,
-        fullProfile: resp.data.user.organisation.fullProfile,
-      };
-
-     if (resp.data.user.userType === 'candidate') {
-       res.setHeader(
-         'Set-Cookie',
-         cookie.serialize(
-           process.env.COOKIE_NAME as string,
-           JSON.stringify(user),
-           {
-             httpOnly: true,
-             secure: process.env.NODE_ENV !== 'development',
-             maxAge: 60 * 60 * 24 * 5, // 2 days
-             sameSite: 'strict',
-             path: '/',
-           }
-         )
-       );
-     } else {
-       res.setHeader(
-         'Set-Cookie',
-         cookie.serialize(
-           process.env.COOKIE_NAME as string,
-           JSON.stringify(org),
-           {
-             httpOnly: true,
-             secure: process.env.NODE_ENV !== 'development',
-             maxAge: 60 * 60 * 24 * 2, // 2 days
-             sameSite: 'strict',
-             path: '/',
-           }
-         )
-       );
-     }
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize(
+          process.env.COOKIE_NAME as string,
+          JSON.stringify(user),
+          {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            maxAge: 60 * 60 * 24 * 2, // 2 days
+            sameSite: 'strict',
+            path: '/',
+          }
+        )
+      );
       res.send(resp.data.user);
     } catch (err: any) {
       // console.log(err.response.data.message);
