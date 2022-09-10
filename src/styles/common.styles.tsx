@@ -899,6 +899,7 @@ export const ListCard = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
+    width: 100%;
 `;
 
 export const ListIcon = styled.div`
