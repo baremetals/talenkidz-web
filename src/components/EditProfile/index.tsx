@@ -20,7 +20,8 @@ import {
   InnerSidebar,
   Navigation,
   TabContent,
-  ProfilePicturePlaceHolder
+  ProfilePicturePlaceHolder,
+  EditButton
 } from './editProfile.styles';
 
 import { BsTrash } from 'react-icons/bs';
@@ -89,7 +90,7 @@ const EditProfile = ({ user }: mixProps) => {
                   )}
                   <ImageActions>
                     <ActionButton>
-                      <label htmlFor="upload-profile-photo">
+                      <EditButton htmlFor="upload-profile-photo">
                         <input
                           style={{ display: "none" }}
                           id="upload-profile-photo"
@@ -98,7 +99,7 @@ const EditProfile = ({ user }: mixProps) => {
                           onChange={(e) => handleImgChange(e)}
                         />
                         <Edit />
-                      </label>
+                      </EditButton>
                     </ActionButton>
                     <ActionButton onClick={() => setProfileImg('')}>
                     {/* <ActionButton> */}

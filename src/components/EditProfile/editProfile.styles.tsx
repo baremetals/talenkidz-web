@@ -109,10 +109,6 @@ export const ActionButton = styled.div`
   cursor: pointer;
   transition: 0.3s;
 
-  label {
-    cursor: pointer;
-  }
-
   svg {
     transition: 0.3s;
     fill: #7e7e7e;
@@ -329,4 +325,13 @@ export const SelectCoverPictureButton = styled.div`
   &:hover {
     color: #BC70AD;
   }
+`
+
+export const EditButton = styled.label`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `
