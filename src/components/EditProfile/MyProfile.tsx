@@ -1,6 +1,8 @@
 import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
-import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { FormData } from "formdata-node";
+import axios from "axios";
 
+import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { UsersPermissionsUser } from 'generated/graphql';
 
 import {
@@ -29,18 +31,28 @@ type Props = {
   user: UsersPermissionsUser
 }
 
+type FileType = {
+  lastModified: any;
+  lastModifiedDate: {};
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
+}
+
 const MyProfile = ({ user }: Props) => {
   const [fullName, setFullName] = useState<string>(user.fullName);
   const [username, setUsername] = useState<string>(user.username);
   const [pronoun, setPronoun] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [bio, setBio] = useState<string>('');
-  const [backgroundImg, setBackgroundImg] = useState<any>(user.backgroundImg);
+  const [backgroundImg, setBackgroundImg] = useState<FileType | string>(user?.backgroundImg as string);
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const base64 = await toBase64(event.target.files[0]);
     setBackgroundImg(base64);
+    console.log(event)
   }
 
   const handleSubmit = (event: BaseSyntheticEvent) => {

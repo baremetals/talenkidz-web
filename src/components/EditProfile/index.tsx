@@ -3,6 +3,8 @@ import { Tabs, Tab } from '@mui/material';
 import { useAppSelector } from "app/hooks";
 import { isUser } from "features/auth/selectors";
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
+import { FormData } from "formdata-node";
+import axios from "axios";
 
 import NavBar from 'components/NavBar';
 import TabPanel from 'components/TabPanel';
@@ -36,6 +38,15 @@ type orgProps = {
   user: Organisation
 }
 
+type FileType = {
+  lastModified: any;
+  lastModifiedDate: {};
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
+}
+
 type mixProps = Props | orgProps
 const menuItems = ['#profile', '#billing']
 
@@ -43,6 +54,8 @@ const EditProfile = ({ user }: mixProps) => {
   const { user: usr } = useAppSelector(isUser);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [profileImg, setProfileImg] = useState<string>('');
+  const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+  // console.log(usr)
 
   useEffect(() => {
     if (location.hash && menuItems.indexOf(location.hash) !== -1) {
@@ -62,8 +75,10 @@ const EditProfile = ({ user }: mixProps) => {
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
+    const image = event?.target?.files![0]
     const base64 = await toBase64(event.target.files[0]);
-    setProfileImg(base64);
+    setUploadImg(image as any);
+    console.log(event.target.files[0])
   }
 
   const a11yProps = (index: number) => {
@@ -72,6 +87,37 @@ const EditProfile = ({ user }: mixProps) => {
       'aria-controls': `vertical-tabpanel-${index}`,
     };
   }
+
+  const onSubmit = async () => {
+    // console.log(upload);
+    const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+    let form = new FormData()
+    console.log()
+    try {
+      const res = await fetch(`${baseUrl}/upload`, {
+        method: "post",
+        body: form as any,
+      });
+      const file = await res.json();
+      setProfileImg(file[0].url)
+      const data = {
+        imagefile: file[0].url,
+        flag: "profileImage"
+      }
+      const dta = await axios.post('/api/user/update', {
+        data
+      })
+      console.log(dta)
+
+    } catch (err) {
+      console.log(err);
+      // setMsg("Something went wrong please try again later");
+      // setFileSizeErr(true);
+      setTimeout(() => {
+        // setFileSizeErr(false);
+      }, 8000);
+    }
+  };
   return (
     <>
       <NavBar />
