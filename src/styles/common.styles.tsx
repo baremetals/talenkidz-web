@@ -394,6 +394,9 @@ export const Row = styled.div`
     &.row-reverse {
         flex-direction: row-reverse;
     }
+    &.horizontal {
+        margin: 0 -1rem;
+    }
     &.g-6 {
         margin: -.375rem;
         .col {
@@ -422,6 +425,9 @@ export const Column = styled.div`
             min-width: 100%;
             max-width: 100%;
         }
+    }
+    &.only-horizontal-padding {
+        padding: 0 1rem;
     }
     @media (max-width: 991px) {
         min-width: 100% !important;

@@ -69,6 +69,10 @@ export const ImageWrapper = styled.div`
     height: 12.5rem;
     object-fit: cover;
     object-position: center center;
+
+    &.contain {
+      object-fit: contain;
+    }
   }
 
   .overlay {
