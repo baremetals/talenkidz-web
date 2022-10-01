@@ -467,7 +467,7 @@ const Form = ({ formType, id }: form) => {
                                             />
                                             <SelectCoverPictureButton>
                                             <BsCloudArrowUp />
-                                            Select a cover picture
+                                            Select a picture
                                             </SelectCoverPictureButton>
                                         </EditButton>
                                     </NoCoverPictureWrapper>
