@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import axios from 'axios';
@@ -29,9 +29,26 @@ export default function UserHeader() {
     const router = useRouter();
     const { user: user } = useAppSelector(isUser);
     const [dropdown, setDropdown] = useState(false);
-    // console.log(user)
+    const [toggle, setToggle] = useState(false);
+    const sidebarRef = useRef<any>(null);
+    const dropdownRef = useRef<any>(null);
 
-    const [toggle, setToggle] = useState(false)
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent): void {
+          if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+            if (toggle) setToggle(false);
+          }
+
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (dropdown) setDropdown(false);
+          }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+    });
 
     const handleLogOut = async () => {
         try {
@@ -60,21 +77,21 @@ export default function UserHeader() {
                                 <Image src={'/logo.png'} alt='' />
                             </Logo>
                         </Link>
-                        <ToggleBar onClick={() => setToggle(!toggle)}>
+                        <ToggleBar onMouseDown={() => setToggle(!toggle)}>
                             <span></span>
                             <span></span>
                             <span></span>
                         </ToggleBar>
-                        <NavbarCollapse className={`${toggle ? "opened" : ""}`} onClick={() => setToggle(!toggle)}>
-                            <NavBarNav>
-                                <NavBarItem><Link href={user?.id ? `user-profile/${user?.username}` : '/'}>Home</Link></NavBarItem>
+                        <NavbarCollapse className={`${toggle ? "opened" : ""}`}>
+                            <NavBarNav ref={sidebarRef}>
+                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/'}>Home</Link></NavBarItem>
                                 {/* <NavBarItem><Link href={'/'}>About Us</Link></NavBarItem> */}
-                                <NavBarItem><Link href={'/events'}>Events</Link></NavBarItem>
-                                <NavBarItem><Link href={'/activities'}>Activities</Link></NavBarItem>
-                                <NavBarItem><Link href={'/articles'}>Articles</Link></NavBarItem>
+                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/events'}>Events</Link></NavBarItem>
+                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/activities'}>Activities</Link></NavBarItem>
+                                <NavBarItem onClick={() => setToggle(!toggle)}><Link href={'/articles'}>Articles</Link></NavBarItem>
                                 {user?.id && <>
 
-                                    <ProfileSetting>
+                                    <ProfileSetting ref={dropdownRef}>
                                         <ProfileImg
                                             onClick={() => setDropdown(!dropdown)}
                                             alt="user profile image"

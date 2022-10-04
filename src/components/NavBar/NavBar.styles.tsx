@@ -4,15 +4,18 @@ export const PageContainer = styled.h1``;
 
 export const ProfileSetting = styled.div`
   position: relative;
-  margin-left: 2rem;
   @media (max-width: 991px) {
-    margin-left: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 `;
 
 export const ProfileImg = styled.img`
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 4rem;
   border: 1px solid #cacaca;
   object-fit: cover;
@@ -22,6 +25,7 @@ export const ProfileImg = styled.img`
   @media (max-width: 991px) {
     width: 2.5rem;
     height: 2.5rem;
+    margin: 0 auto;
   }
 `;
 
@@ -42,8 +46,10 @@ export const ProfileDropdown = styled.ul`
     display: block;
   }
   @media (max-width: 991px) {
-    width: 10rem;
+    width: 100%;
     margin-top: 0.75rem;
+    position: initial;
+    text-align: center;
   }
 `;
 

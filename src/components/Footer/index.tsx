@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
+import Modal from 'components/Modal';
 import Link from 'next/link'
 import { animateScroll as scroll } from "react-scroll";
 
@@ -10,31 +11,61 @@ import {
     Image,
     SiteFooter,
     FooterLinks,
-    Text,
     FooterTitle,
-
     MediaObject,
-    MediaObjectItem,
-    MediaObjectThumb,
-    MediaObjectBody,
-    MediaObjectDate,
-    MediaObjectTitle,
-    
-    FooterContact,
+    Title,
+    Text,
 } from "../../styles/common.styles";
 
-import { MapPin } from '../../../public/assets/icons/MapPin'
-import { Phone } from '../../../public/assets/icons/Phone'
-import { Mail } from '../../../public/assets/icons/Mail'
 import { NewsCard } from './NewsCard'
+import Button from 'components/Button';
+
 
 function Footer(): ReactElement {
 
-    // const toggleHome = () => {
-    //     scroll.scrollToTop();
-    // };
+    const [privacyPolicy, setPrivacyPolicy] = useState(false);
+    const handleChange = () => {
+        return setPrivacyPolicy(!privacyPolicy);
+    };
+
+    const [manageSetting, setManageSetting] = useState(false);
+    const handleManageSetting = () => {
+        return setManageSetting(!manageSetting);
+    };
     return (
         <>
+            <Modal showModal={privacyPolicy} style={{textAlign: 'center'}}>
+                <Title style={{color: 'white', fontSize: '2rem'}}>Data and coocki content</Title>
+                <div className='minh'>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
+                    <Button style={{width: '15rem'}} onClick={() => handleManageSetting()}>Manage Setting</Button>
+                    <Button style={{width: '12rem'}} onClick={() => handleChange()}>Accept</Button>
+                </div>
+            </Modal>
+
+            <Modal showModal={manageSetting} style={{textAlign: 'center'}}>
+                <Title style={{color: 'white', fontSize: '2rem'}}>Manage Setting</Title>
+                <div className='minh'>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
+                    <Button style={{width: '12rem'}} onClick={() => handleChange()}>Go Back</Button>
+                    <Button style={{width: '12rem'}} onClick={() => handleManageSetting()}>Accept All</Button>
+                </div>
+            </Modal>
+
             <SiteFooter>
                 <InnerContainer>
                     <Row>
@@ -65,8 +96,10 @@ function Footer(): ReactElement {
                             <FooterLinks>
                                 <Link href={'/about'}>About Us</Link>
                                 <Link href={'/contact-us'}>Contact us</Link>
-                                <Link href={'/terms'}>Terms of Service</Link>
-                                <Link href={'/privacy'}>Privacy Policy</Link>
+                                {/* <Link href={'/terms'}>Terms of Service</Link> */}
+                                <Button className="footer-link" onClick={() => handleChange()}>Terms of Service</Button>
+                                <Button className="footer-link" onClick={() => handleManageSetting()}>Privacy Policy</Button>
+                                {/* <Link href={'/privacy'}>Privacy Policy</Link> */}
                                 <Link href={'/'}>Appointment</Link>
                             </FooterLinks>
                         </Column>
