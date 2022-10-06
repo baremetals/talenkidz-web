@@ -251,3 +251,6 @@ textarea:hover,
         margin-right: 10px;;
     }
 }
+.accordion-body {
+    display: none;
+}

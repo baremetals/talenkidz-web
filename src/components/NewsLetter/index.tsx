@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'components/Button';
 import Modal from 'components/Modal';
-import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, PostCard, PostCardThumb, PostCardSummary, PostCardTitle, PostCardText } from 'styles/common.styles';
+import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, PostCard, PostCardThumb, PostCardSummary, PostCardTitle, PostCardText, Input, NewsletterBox } from 'styles/common.styles';
 
 function Newsletter() {
   
@@ -13,10 +13,10 @@ function Newsletter() {
                         <Column style={{ textAlign: 'left'}}>
                             <Title>Thousands Of Inspirational Ideas</Title>
                             <Text>Get the newsletter and we will provide amazing ideas and inspiration for you and your family.</Text>
-                            <div style={{display: 'flex'}}>
-                            <input type={'text'} placeholder="Enter your email" />
-                            <Button content="" type="submit" style={{borderRadius: '.75rem', marginLeft: '1rem'}}>Subscribe</Button>
-                            </div>
+                            <NewsletterBox style={{display: 'flex'}}>
+                                <Input type={'text'} placeholder="Enter your email"></Input>
+                                <Button content="" type="submit" style={{borderRadius: '.375rem', marginLeft: '1rem'}}>Subscribe</Button>
+                            </NewsletterBox>
                             <Title style={{fontSize: '1.75rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Inspiration By Parents For Parents</Title>
                             <Text>Our newsletter provides amazing ideas and inspiration for you and your family. Keep the kids happy with entertaining and educational ideas and inspire a love of learning while having lots of fun. From quotes to quizzes, coloring to crafts, baking to badminton and great days out to great days in, is your home for family Edutainment.</Text>
                             {/* <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/about us'}>about us </Link></Text> */}
@@ -78,10 +78,10 @@ function Newsletter() {
                         <Column>
                             <Title style={{ }}>Get The Newsletter</Title>
                             <Text style={{}}>1,000 of inspirational ideas direct to your inbox for things to do with your kids</Text>
-                            <div style={{display: 'flex'}}>
-                                <input type={'text'} placeholder="Enter your email" />
-                                <Button content="" type="submit" style={{borderRadius: '.75rem', marginLeft: '1rem'}}>Subscribe</Button>
-                            </div>
+                            <NewsletterBox style={{display: 'flex'}}>
+                                <Input type={'text'} placeholder="Enter your email"></Input>
+                                <Button content="" type="submit" style={{borderRadius: '.375rem', marginLeft: '1rem'}}>Subscribe</Button>
+                            </NewsletterBox>
                         </Column>
                         <Column></Column>
                     </Row>
@@ -155,10 +155,10 @@ function Newsletter() {
                         <Column>
                             <Title style={{}}>Get The Newsletter</Title>
                             <Text style={{}}>Keep the kids happy with entertaining and educational ideas</Text>
-                            <div style={{display: 'flex', marginTop: '2rem'}}>
-                                <input type={'text'} placeholder="Enter your email" />
-                                <Button content="" type="submit" style={{borderRadius: '.75rem', marginLeft: '1rem'}}>Subscribe</Button>
-                            </div>
+                            <NewsletterBox style={{display: 'flex'}}>
+                                <Input type={'text'} placeholder="Enter your email"></Input>
+                                <Button content="" type="submit" style={{borderRadius: '.375rem', marginLeft: '1rem'}}>Subscribe</Button>
+                            </NewsletterBox>
                         </Column>
                     </Row>
                 </InnerContainer>
