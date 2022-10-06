@@ -222,6 +222,7 @@ export const SubTitle = styled.span`
 export const Title = styled.h2`
     font-size: 3rem;
     line-height: 1.2;
+    margin-bottom:1.25rem;
     @media (max-width: 991px) {
         font-size: 2rem;
     }
@@ -230,7 +231,7 @@ export const Title = styled.h2`
 export const Text = styled.p`
     color: #74787C;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     svg {
         margin-right: .5rem;
         vertical-align: middle;
@@ -406,6 +407,12 @@ export const Row = styled.div`
             padding: .375rem;
         }
     }
+    &.g-20 {
+        margin: -.625rem;
+        .col {
+            padding: .625rem;
+        }
+    }
     
 `;
 
@@ -418,6 +425,14 @@ export const Column = styled.div`
     &.column-3 {
         min-width: 33.33%;
         max-width: 33.33%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    &.column-full {
+        min-width: 100%;
+        max-width: 100%;
         @media (max-width: 991px) {
             min-width: 100%;
             max-width: 100%;
@@ -963,7 +978,7 @@ export const WidgetHeader = styled.div`
 
 export const WidgetBody = styled.div``;
 
-export const WidgetText  = styled.p`
+export const WidgetText = styled.p`
     font-weight: 400;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -1249,4 +1264,46 @@ export const LabelText = styled.label`
 export const Input = styled.input`
     height: 46px;
     border-radius: .357rem;
+`;
+
+
+export const ContactSection = styled.section`
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+`;
+
+export const AdvertiseSection = styled.section`
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+`;
+
+export const InputRadio = styled.input`
+    display: none;
+    & + label {
+        &:before {
+            border-radius: 100%;
+        }
+        &:after {
+            display: none;
+        }
+    }
+    &:checked {
+        & + label {
+            &:before {
+                background-color: #fff;
+                border-color: #BC70AD;
+                border-width: 6px;
+            }
+        }
+    }
+`;
+
+
+export const Quote = styled.div`
+    margin-bottom: 1rem;
+    svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: #fff;
+    }
 `;

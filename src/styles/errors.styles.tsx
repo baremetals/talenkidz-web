@@ -19,13 +19,9 @@ export const ErrorIcon = styled.img`
   margin-bottom: 1.2rem;
 `
 
-export const ErrorMessage = styled.div`
+export const ErrorMessage = styled.div``;
 
-`
-
-export const ErrorMessageWrapper = styled.div`
-  
-`
+export const ErrorMessageWrapper = styled.div``;
 
 export const ErrorCode = styled.h1`
   display: inline-block;
