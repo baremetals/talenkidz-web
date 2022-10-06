@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import slugify from "slugify"
 import axios from "axios";
 import { FormData } from "formdata-node";
+import { InputLabel, MenuItem, TextField, Select, FormControl } from '@mui/material';
 
 import {
     useCategoriesQuery,
@@ -20,7 +21,7 @@ import { QueryResult, useQuery } from "@apollo/client";
 //     getDownloadURL,
 // } from "firebase/storage";
 
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 
@@ -32,8 +33,14 @@ const PostEditor: any = dynamic(() => import("components/Editor/PostEditor"), {
 
 import { Error, ErrorMsg } from "../Input";
 import Button from 'components/Auth/Button';
-import { FormWrapper, InnerFormWrapper, FormWrap, FormGroup, FormInput, Select, CategoryOptions, TextArea, UploadWrapper, UploadLabel, UploadIcon, UploadInput, EditorTextWrapper, UploadImage } from './styles';
+import { FormWrapper, InnerFormWrapper, FormWrap, FormGroup, FormInput, CategoryOptions, UploadWrapper, UploadLabel, UploadIcon, UploadInput, EditorTextWrapper, UploadImage } from './styles';
 import { Column, Row, InnerContainer, Title } from 'styles/common.styles';
+import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Image, Label, ActionButton, CoverPictureUploaderWrapper, CoverPictureWrapper, EditButton, ImageActions, NoCoverPictureWrapper, SelectCoverPictureButton } from 'components/EditProfile/editProfile.styles';
+import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
+import { Edit } from '../../../public/assets/icons/Edit';
+import { toBase64 } from 'components/EditProfile/utils';
 
 
 export type FormProps = {
@@ -82,6 +89,7 @@ const Form = ({ formType, id }: form) => {
     );
     const [content, setContent] = useState<string>("");
     const [imgSizeErr, setImgSizeErr] = useState(false)
+    const [uploadImg, setUploadImg] = useState<FileType | string>(null);
     const [submitting, setSubmitting] = useState(false)
     const [msg, setMsg] = useState("");
     const [error, setError] = useState(false);
@@ -90,27 +98,28 @@ const Form = ({ formType, id }: form) => {
         register,
         handleSubmit,
         setValue,
+        control,
         formState: { errors },
     } = useForm<FormProps>();
 
-    const handleImageChange =
-        (_name: string) => (event: { target: { files: {}[] } } | File | any) => {
-            upload = event.target.files[0] as FileType;
-            const size = upload?.size as number;
-            setImgSizeErr(false);
-            // console.log(upload.name);
-            if (size > 209715200) {
-                event.target.value = []
-                setMsg("File size cannot exceed more than 256MB");
-                setImgSizeErr(true);
-                setTimeout(() => {
-                    setImgSizeErr(false);
-                }, 8000);
+    const handleImageChange = (_name: string) => async (event: { target: { files: {}[] } } | File | any) => {
+        const upload = event.target.files[0] as FileType;
+        const size = upload?.size as number;
+        setImgSizeErr(false);
+        if (size > 209715200) {
+            event.target.value = []
+            setMsg("File size cannot exceed more than 256MB");
+            setImgSizeErr(true);
+            setTimeout(() => {
+                setImgSizeErr(false);
+            }, 8000);
 
-            }
-            setValue("listImage", upload as FileType);
-            // setUploadImg(upload)
-        };
+        }
+        setValue("listImage", upload as FileType);
+        const base64 = await toBase64(event.target.files[0]);
+        console.log('base64', base64)
+        setUploadImg(base64);
+    };
 
 
     const onSubmit = async (info: FormProps) => {
@@ -228,50 +237,138 @@ const Form = ({ formType, id }: form) => {
                     {error && <ErrorMsg>{msg}</ErrorMsg>}
                     <FormWrap onSubmit={handleSubmit(onSubmit)}>                       
                         <FormGroup>
-                            <FormInput type='text' placeholder='Please provide a title' {...register("title", { required: true })} />
+                            <TextField
+                                fullWidth
+                                label="Title"
+                                variant="outlined"
+                                {...register("title", { required: true })}
+                            />
                             {errors.title && <span>Title is required</span>}
                         </FormGroup>
                         <FormGroup>
-                            <TextArea placeholder='Please provide description' {...register("description", { required: true })} />
+                            <TextField
+                                label="Description"
+                                multiline
+                                fullWidth
+                                rows={2}
+                                {...register("description", { required: true })}
+                            />
                             {errors.description && <span>Description is required</span>}
                         </FormGroup>
                         <FormGroup>
-                            <Select {...register("category", { required: true })}>
+                            <FormControl fullWidth>
+                                <InputLabel>Category</InputLabel>
+                                <Select
+                                    labelId="category-select-label"
+                                    label="Category"
+                                >
+                                    {categories && categories?.map((c: { id: string; attributes: { slug: string }; }) => (
+                                        <MenuItem key={c?.id} value={c?.id as string}>{c?.attributes?.slug}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            {/* <Select {...register("category", { required: true })}>
                                 <CategoryOptions>Please select a category</CategoryOptions>
                                 {categories && categories?.map((c: { id: string; attributes: { slug: string }; }) => (
                                     <CategoryOptions key={c?.id} value={c?.id as string}>{c?.attributes?.slug}</CategoryOptions>
                                 ))}
-                            </Select>
+                            </Select> */}
                             {errors.category && <span>Category is required</span>}
                         </FormGroup>
-                        <Row>
-                            <Column>
+                        <Row className='horizontal'>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <UploadLabel>Start Date</UploadLabel>
-                                    <FormInput type='date' {...register("startDate", { required: true })} />
+                                    <Controller
+                                        {...register("startDate", { required: true })}
+                                        control={control}
+                                        render={({ field, ...props }) => {
+                                            return (
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <DatePicker
+                                                        label="Start Date"
+                                                        value={field.value}
+                                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                                        onChange={(date) => {
+                                                            field.onChange(date);
+                                                        }}
+                                                        inputFormat="DD/MM/YYYY"
+                                                    />
+                                                </LocalizationProvider>
+                                            );
+                                        }}
+                                    />
                                     {errors.startDate && <span>Start Date is required</span>}
                                 </FormGroup>
                             </Column>
-                            <Column>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <UploadLabel>End Date</UploadLabel>
-                                    <FormInput type='date' {...register("endDate", { required: true })} />
+                                    <Controller
+                                        {...register("endDate", { required: true })}
+                                        control={control}
+                                        render={({ field, ...props }) => {
+                                            return (
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <DatePicker
+                                                        label="End Date"
+                                                        value={field.value}
+                                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                                        onChange={(date) => {
+                                                            field.onChange(date);
+                                                        }}
+                                                        inputFormat="DD/MM/YYYY"
+                                                    />
+                                                </LocalizationProvider>
+                                            );
+                                        }}
+                                    />
                                     {errors.endDate && <span>End Date is required</span>}
                                 </FormGroup>
                             </Column>
                         </Row>
-                        <Row>
-                            <Column>
+                        <Row className='horizontal'>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <UploadLabel>Start Time</UploadLabel>
-                                    <FormInput type='time' {...register("startTime", { required: true })} />
+                                    <Controller
+                                        {...register("startTime", { required: true })}
+                                        control={control}
+                                        render={({ field, ...props }) => {
+                                            return (
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <TimePicker
+                                                        label="Start Time"
+                                                        value={field.value}
+                                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                                        onChange={(date) => {
+                                                            field.onChange(date);
+                                                        }}
+                                                    />
+                                                </LocalizationProvider>
+                                            );
+                                        }}
+                                    />
                                     {errors.startTime && <span>Start Date is required</span>}
                                 </FormGroup>
                             </Column>
-                            <Column>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <UploadLabel>End Time</UploadLabel>
-                                    <FormInput type='time' {...register("endTime", { required: true })} />
+                                    <Controller
+                                        {...register("endTime", { required: true })}
+                                        control={control}
+                                        render={({ field, ...props }) => {
+                                            return (
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <TimePicker
+                                                        label="End Time"
+                                                        value={field.value}
+                                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                                        onChange={(date) => {
+                                                            field.onChange(date);
+                                                        }}
+                                                    />
+                                                </LocalizationProvider>
+                                            );
+                                        }}
+                                    />
                                     {errors.endTime && <span>End Time is required</span>}
                                 </FormGroup>
                             </Column>
@@ -279,38 +376,103 @@ const Form = ({ formType, id }: form) => {
 
                         <UploadLabel>Location</UploadLabel>
                         <FormGroup>
-                            <FormInput type='text' placeholder='Number or name' {...register("numberOrName", { required: true })} />
+                            <TextField
+                                fullWidth
+                                label="Number or name"
+                                variant="outlined"
+                                {...register("numberOrName", { required: true })}
+                            />
                             {errors.numberOrName && <span>Number or name is required</span>}
                         </FormGroup>
-                        <Row>
-                            <Column><FormGroup>
-                                <FormInput type='text' placeholder='street' {...register("street", { required: true })} />
-                                {errors.street && <span>Street is required</span>}
-                            </FormGroup></Column>
-
-                            <Column>
+                        <Row className='horizontal'>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <FormInput type='text' placeholder='town' {...register("town", { required: true })} />
+                                    <TextField
+                                        fullWidth
+                                        label="Street"
+                                        variant="outlined"
+                                        {...register("street", { required: true })}
+                                    />
+                                    {errors.street && <span>Street is required</span>}
+                                </FormGroup>
+                            </Column>
+
+                            <Column className='only-horizontal-padding'>
+                                <FormGroup>
+                                    <TextField
+                                        fullWidth
+                                        label="Town"
+                                        variant="outlined"
+                                        {...register("town", { required: true })}
+                                    />
                                     {errors.town && <span>Town is required</span>}
                                 </FormGroup>
                             </Column>
 
-                            <Column>
+                            <Column className='only-horizontal-padding'>
                                 <FormGroup>
-                                    <FormInput type='text' placeholder='post code' {...register("postCode", { required: true })} />
+                                    <TextField
+                                        fullWidth
+                                        label="Post Code"
+                                        variant="outlined"
+                                        {...register("postCode", { required: true })}
+                                    />
                                     {errors.postCode && <span>Post Code is required</span>}
                                 </FormGroup>
                             </Column>
                         </Row>
 
-                        <FormGroup>
+                        <FormGroup style={{ marginTop: '0.5rem' }}>
                             {imgSizeErr && <ErrorMsg>{msg}</ErrorMsg>}
-                            <UploadLabel>upload</UploadLabel>
-                            <UploadWrapper>
-                                <UploadIcon />
-                                <UploadInput type='file' onChange={handleImageChange("listImage")} name="listImage" />
-
-                            </UploadWrapper>
+                            <CoverPictureUploaderWrapper>
+                                <Label>Upload</Label>
+                                <TextField
+                                style={{ display: 'none' }}
+                                fullWidth
+                                type="file"
+                                />
+                                { uploadImg ? (
+                                <>
+                                    <CoverPictureWrapper>
+                                        <div className="overlay"></div>
+                                        <Image className='contain' src={uploadImg} alt="upload picture" />
+                                        <ImageActions>
+                                            <ActionButton>
+                                                <EditButton htmlFor="upload-listImage-photo">
+                                                    <input
+                                                    style={{ display: "none" }}
+                                                    id="upload-listImage-photo"
+                                                    name="listImage"
+                                                    type="file"
+                                                    onChange={handleImageChange("listImage")}
+                                                />
+                                                    <Edit />
+                                                </EditButton>
+                                            </ActionButton>
+                                            <ActionButton onClick={() => { setUploadImg(null); setValue("listImage", null); }}>
+                                                <BsTrash />
+                                            </ActionButton>
+                                        </ImageActions>
+                                    </CoverPictureWrapper>
+                                </>
+                                ) : (
+                                    <NoCoverPictureWrapper>
+                                        <EditButton htmlFor="upload-listImage-photo">
+                                            <input
+                                                style={{ display: "none" }}
+                                                id="upload-listImage-photo"
+                                                type="file"
+                                                name="listImage"
+                                                onChange={handleImageChange("listImage")}
+                                            />
+                                            <SelectCoverPictureButton>
+                                            <BsCloudArrowUp />
+                                            Select a picture
+                                            </SelectCoverPictureButton>
+                                        </EditButton>
+                                    </NoCoverPictureWrapper>
+                                ) }
+                            </CoverPictureUploaderWrapper>
                         </FormGroup>
                         <EditorTextWrapper>
                             <PostEditor
