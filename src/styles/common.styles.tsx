@@ -222,6 +222,7 @@ export const SubTitle = styled.span`
 export const Title = styled.h2`
     font-size: 3rem;
     line-height: 1.2;
+    margin-bottom:1.25rem;
     @media (max-width: 991px) {
         font-size: 2rem;
     }
@@ -230,7 +231,7 @@ export const Title = styled.h2`
 export const Text = styled.p`
     color: #74787C;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     svg {
         margin-right: .5rem;
         vertical-align: middle;
@@ -409,6 +410,12 @@ export const Row = styled.div`
             padding: .375rem;
         }
     }
+    &.g-20 {
+        margin: -.625rem;
+        .col {
+            padding: .625rem;
+        }
+    }
     
 `;
 
@@ -417,6 +424,19 @@ export const Column = styled.div`
     flex: 1 0 0%;
     &.column-7 {
         min-width: 65%;
+        max-width: 65%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    &.column-6 {
+        min-width: 50%;
+        max-width: 50%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
     }
     &.column-3 {
         min-width: 33.33%;
@@ -426,9 +446,13 @@ export const Column = styled.div`
             max-width: 100%;
         }
     }
-    &.only-horizontal-padding {
-        padding: 0 1rem;
-    }
+    &.column-full {
+        min-width: 100%;
+        max-width: 100%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
     @media (max-width: 991px) {
         min-width: 100% !important;
     }
@@ -1255,4 +1279,166 @@ export const LabelText = styled.label`
 export const Input = styled.input`
     height: 46px;
     border-radius: .357rem;
+`;
+
+
+export const ContactSection = styled.section`
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+`;
+
+export const AdvertiseSection = styled.section`
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+`;
+
+export const InputRadio = styled.input`
+    display: none;
+    & + label {
+        &:before {
+            border-radius: 100%;
+        }
+        &:after {
+            display: none;
+        }
+    }
+    &:checked {
+        & + label {
+            &:before {
+                background-color: #fff;
+                border-color: #BC70AD;
+                border-width: 6px;
+            }
+        }
+    }
+`;
+
+export const NewsletterBox = styled.div`
+    display: flex;
+    input {
+        height: 52px;
+    }
+`;
+
+export const Quote = styled.div`
+    margin-bottom: 1rem;
+    svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: #fff;
+    }
+`;
+
+export const SwitchBox = styled.div`
+    background-color: rgb(0 0 0 / 20%);
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 4px;
+    border: 1px solid;
+    margin: .5rem 0;
+    p {
+        margin-bottom: 0;
+        flex: 1 0 0;
+        text-align: left;
+        color: white;
+    }
+`;
+
+export const Switch = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 1rem;
+    input {
+        display: none;
+        &:checked + label{
+            &:before {
+                -webkit-transform: translateX(14px);
+                -ms-transform: translateX(14px);
+                transform: translateX(14px);
+            }
+            &:after {
+                background-color: #2196F3;
+            }
+        }
+    }
+    label {
+        padding-left: 2.5rem;
+        margin-bottom: 0;
+        line-height: 20px;
+        text-transform: none;
+        letter-spacing: 0;
+        color: white;
+        &:after {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 34px;
+            left: 0;
+            bottom: 0;
+            border-radius: 10rem;
+            background-color: #7c7c7c;
+            -webkit-transition: .4s;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        &:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            border-radius: 50%;
+            z-index: 1;
+            background-color: white;
+            -webkit-transition: .4s;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+`;
+
+export const Accordion = styled.div`
+    &:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .accordion-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-bottom: 0;
+        position: relative;
+        &:after {
+            content: "";
+            float: right;
+            border-right: 2px solid;
+            border-bottom: 2px solid;
+            width: 12px;
+            height: 12px;
+            transform: rotate(45deg);
+            margin-right: 5px;
+            margin-top: 2px;
+        }
+    }
+    &.open {
+        .accordion-title {
+            &:after {
+                transform: rotate(-135deg);
+                margin-top: 8px;
+            }
+        }
+        .accordion-body {
+            padding-top: 20px;
+            display: block;
+        }
+    }
 `;
