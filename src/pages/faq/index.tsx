@@ -1,15 +1,15 @@
+import Faqs from 'components/Faq';
 import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
-import Newsletter from 'components/NewsLetter';
 import React from 'react';
 
-const NewsLetterPage = () => {
+const FaqPage = () => {
   
   return <>
     <NavBar />
-    <Newsletter />
+    <Faqs />
     <Footer />
   </>
 };
 
-export default NewsLetterPage;
+export default FaqPage;
