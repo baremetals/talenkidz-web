@@ -251,6 +251,11 @@ export const CoverPictureUploaderWrapper = styled.div`
     width: 100%;
     object-fit: cover;
     object-position: top center;
+
+    &.contain {
+      object-fit: contain;
+      object-position: center center;
+    }
   }
 `
 

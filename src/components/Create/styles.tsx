@@ -9,7 +9,21 @@ export const FormWrapper = styled.div`
     margin-right: auto;
 `;
 
-export const FormWrap = styled.form``;
+export const FormWrap = styled.form`
+  input, .MuiSelect-select {
+    padding: 10px 14px;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .MuiInputBase-root button {
+    &:hover {
+      color: #BC70AD !important;
+    }
+  }
+`;
 
 export const InnerFormWrapper = styled.div`
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.13);
@@ -41,7 +55,7 @@ export const FormGroup = styled.div`
 `;
 
 export const FormInput = styled.input`
-    
+
 `;
 
 export const Select = styled.select`
@@ -59,7 +73,13 @@ export const UploadWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const UploadLabel = styled.label``;
+export const UploadLabel = styled.label`
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 500;
+  color: #555;
+`;
 
 export const UploadIcon = styled(BsUpload)``;
 
@@ -67,7 +87,9 @@ export const UploadInput = styled.input`
 
 `;
 
-export const EditorTextWrapper = styled.div``;
+export const EditorTextWrapper = styled.div`
+  margin-bottom: 1.5rem;
+`;
 
 export const FileUploadedGroup = styled.div`
   min-width: 50%;
