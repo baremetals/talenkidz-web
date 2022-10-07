@@ -1442,3 +1442,11 @@ export const Accordion = styled.div`
         }
     }
 `;
+
+export const AdBlock = styled.div`
+    background-color: #464646;
+    display: inline-block;
+    position: relative;
+    top: 0;
+`;
+

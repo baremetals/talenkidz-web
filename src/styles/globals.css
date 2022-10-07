@@ -234,8 +234,7 @@ textarea:hover,
 }
 
 .userprofile {
-    width: 70px;
-    height: 70px;
+    border: 2px solid #fff !important;
 }
 
 @media (max-width: 767px) {
@@ -245,11 +244,19 @@ textarea:hover,
         padding-right: 0;
     }
     .userprofile {
-        width: 40px;
-        height: 40px;
+        width: 40px !important;
+        height: 40px !important;
         margin-right: 10px;;
     }
 }
 .accordion-body {
     display: none;
+}
+
+.circle {
+    border-radius: 100%;
+}
+
+.rounded {
+    border-radius: .75rem;
 }

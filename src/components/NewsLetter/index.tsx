@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from 'components/Button';
 import Modal from 'components/Modal';
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, PostCard, PostCardThumb, PostCardSummary, PostCardTitle, PostCardText, Input, NewsletterBox } from 'styles/common.styles';
+import Image from 'next/image';
 
 function Newsletter() {
   
@@ -21,8 +22,8 @@ function Newsletter() {
                             <Text>Our newsletter provides amazing ideas and inspiration for you and your family. Keep the kids happy with entertaining and educational ideas and inspire a love of learning while having lots of fun. From quotes to quizzes, coloring to crafts, baking to badminton and great days out to great days in, is your home for family Edutainment.</Text>
                             {/* <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/about us'}>about us </Link></Text> */}
                         </Column>
-                        <Column>
-                            <img style={{ display: 'block', margin: '0 auto'}} height="350" src='/about-us.png' />
+                        <Column style={{ textAlign: 'center' }} >
+                            <Image src='/about-us.png' alt='' width={310} height={350} />
                         </Column>
                     </Row>
                 </InnerContainer>
@@ -38,7 +39,7 @@ function Newsletter() {
                         <Column>
                             <PostCard style={{textAlign: 'center', backgroundColor: '#bc70ad', color: '#fff'}}>
                             <PostCardThumb>
-                                <img height="70" src="/sr-1.png" alt="" />
+                                <Image height={70} width={70} src="/sr-1.png" alt="" />
                             </PostCardThumb>
                             <PostCardSummary>
                                 <PostCardTitle>Arts & Crafts</PostCardTitle>
@@ -49,7 +50,7 @@ function Newsletter() {
                         <Column>
                             <PostCard style={{textAlign: 'center', backgroundColor: '#333333', color: '#fff'}}>
                             <PostCardThumb>
-                                <img height="70" src="/sr-2.png" alt="" />
+                                <Image height={70} width={70} src="/sr-2.png" alt="" />
                             </PostCardThumb>
                             <PostCardSummary>
                                 <PostCardTitle>Arts & Crafts</PostCardTitle>
@@ -60,7 +61,7 @@ function Newsletter() {
                         <Column>
                             <PostCard style={{textAlign: 'center', backgroundColor: '#bc70ad', color: '#fff'}}>
                             <PostCardThumb>
-                                <img height="70" src="/sr-3.png" alt="" />
+                                <Image height={70} width={70} src="/sr-3.png" alt="" />
                             </PostCardThumb>
                             <PostCardSummary>
                                 <PostCardTitle>Arts & Crafts</PostCardTitle>
@@ -92,7 +93,7 @@ function Newsletter() {
                 <InnerContainer style={{maxWidth: '1000px'}}>
                     <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
                         <Column>
-                            <img style={{ display: 'block', width: '100%', borderRadius: '1rem' }} src='/blog-post02.jpg' />
+                            <Image className='rounded' height={238} width={444} src='/blog-post02.jpg' />
                         </Column>
                         <Column>
                             <Title style={{fontSize: '1.75rem'}}>Search By Age</Title>
@@ -109,8 +110,8 @@ function Newsletter() {
                         <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
                         <Column>
                             <div style={{display: 'flex'}}>
-                                <img style={{ display: 'block', height: '120px', width: '120px', borderRadius: '10rem' }} src='/blog-post02.jpg' />
-                                <div style={{paddingLeft: '1.5rem'}}>
+                                <Image className='circle' height={120} width={120} src='/blog-post02.jpg' />
+                                <div style={{paddingLeft: '1.5rem', flex: '1 0 0'}}>
                                     <Text style={{fontSize: '.875rem'}}>““I would highly recommend it for busy parents who need ideas and shortcuts to keep the little ones occupied and happy.””</Text>
                                     <Text style={{textAlign: 'right'}}>Miles</Text>
                                 </div>
@@ -118,8 +119,8 @@ function Newsletter() {
                         </Column>
                         <Column>
                             <div style={{display: 'flex'}}>
-                                <img style={{ display: 'block', height: '120px', width: '120px', borderRadius: '10rem' }} src='/blog-post02.jpg' />
-                                <div style={{paddingLeft: '1.5rem'}}>
+                                <Image className='circle' height={120} width={120} src='/blog-post02.jpg' />
+                                <div style={{paddingLeft: '1.5rem', flex: '1 0 0'}}>
                                     <Text style={{fontSize: '.875rem'}}>““I would highly recommend it for busy parents who need ideas and shortcuts to keep the little ones occupied and happy.””</Text>
                                     <Text style={{textAlign: 'right'}}>Miles</Text>
                                 </div>
@@ -129,8 +130,8 @@ function Newsletter() {
                         <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
                         <Column>
                             <div style={{display: 'flex'}}>
-                                <img style={{ display: 'block', height: '120px', width: '120px', borderRadius: '10rem' }} src='/blog-post02.jpg' />
-                                <div style={{paddingLeft: '1.5rem'}}>
+                                <Image className='circle' height={120} width={120} src='/blog-post02.jpg' />
+                                <div style={{paddingLeft: '1.5rem', flex: '1 0 0'}}>
                                     <Text style={{fontSize: '.875rem'}}>““I would highly recommend it for busy parents who need ideas and shortcuts to keep the little ones occupied and happy.””</Text>
                                     <Text style={{textAlign: 'right'}}>Miles</Text>
                                 </div>
@@ -138,8 +139,8 @@ function Newsletter() {
                         </Column>
                         <Column>
                             <div style={{display: 'flex'}}>
-                                <img style={{ display: 'block', height: '120px', width: '120px', borderRadius: '10rem' }} src='/blog-post02.jpg' />
-                                <div style={{paddingLeft: '1.5rem'}}>
+                                <Image className='circle' height={120} width={120} src='/blog-post02.jpg' />
+                                <div style={{paddingLeft: '1.5rem', flex: '1 0 0'}}>
                                     <Text style={{fontSize: '.875rem'}}>““I would highly recommend it for busy parents who need ideas and shortcuts to keep the little ones occupied and happy.””</Text>
                                     <Text style={{textAlign: 'right'}}>Miles</Text>
                                 </div>
