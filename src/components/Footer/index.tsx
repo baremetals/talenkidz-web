@@ -24,6 +24,7 @@ import {
 
 import { NewsCard } from './NewsCard'
 import Button from 'components/Button';
+import AdComponent from 'components/AdComponent';
 
 
 function Footer(): ReactElement {
@@ -201,6 +202,9 @@ function Footer(): ReactElement {
                     </Row>
                 </InnerContainer>
             </SiteFooter>
+            <div style={{display: 'flex', justifyContent: 'center', position: 'sticky', bottom: '0'}}>
+                <AdComponent width={728} height={90} />
+            </div>
         </>
     );
 }

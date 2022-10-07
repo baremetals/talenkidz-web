@@ -4,6 +4,7 @@ import Footer from 'components/Footer';
 import { Form } from 'formik';
 import React from 'react';
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, ContactSection, AdvertiseSection, FlexGroup, Checkbox, InputRadio, FormLabel } from 'styles/common.styles';
+import Image from 'next/image';
 
 const ContactUsPage = () => {
   return <>
@@ -17,8 +18,8 @@ const ContactUsPage = () => {
             <Text>Need help or willing to leave feedback on our content?</Text>
             <Text>Make sure you check our FAQs first!</Text>
           </Column>
-          <Column>
-            <img style={{ display: 'block', margin: '0 auto'}} height="250" src='/about-us.png' />
+          <Column style={{ textAlign: 'center' }} >
+            <Image src='/about-us.png' alt='' width={222} height={250} />
           </Column>
         </Row>
         

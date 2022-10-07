@@ -69,16 +69,18 @@ function ListDetails(props: {
                         <Column className='column-7'>
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
-                                    <Post >
-                                        <PostThumb>
-                                            {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                        </PostThumb>                                    
-                                        <PostBody>                                           
-                                            <div style={{ marginBottom: "1.5rem" }}>
-                                                <Markdown>{list?.attributes?.body as string}</Markdown>
-                                            </div>                                        
-                                        </PostBody>
-                                    </Post>
+                                    <div>
+                                        <Post >
+                                            <PostThumb>
+                                                {imageurl && <Image src={imageurl} alt='host logo image' />}
+                                            </PostThumb>                                    
+                                            <PostBody>                                           
+                                                <div style={{ marginBottom: "1.5rem" }}>
+                                                    <Markdown>{list?.attributes?.body as string}</Markdown>
+                                                </div>                                        
+                                            </PostBody>
+                                        </Post>
+                                    </div>
                                     <AddressMap>
                                         <AddressCard>
                                             <Title style={{ marginBottom: "1.25rem", fontSize: '2rem', color: '#FFF' }}>Address</Title>
