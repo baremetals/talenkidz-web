@@ -24,7 +24,7 @@ function Newsletter() {
                         </Column>
                         <Column>
                             {/* <img style={{ display: 'block', margin: '0 auto'}} height="350" src='/about-us.png' /> */}
-                            <Image style={{ display: 'block', margin: '0 auto' }} height="350" src='/about-us.png' alt=''/>
+                            <Image style={{ display: 'block', margin: '0 auto' }} height="350" width="350" src='/about-us.png' alt=''/>
 
                         </Column>
                     </Row>

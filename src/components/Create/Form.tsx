@@ -89,7 +89,7 @@ const Form = ({ formType, id }: form) => {
     );
     const [content, setContent] = useState<string>("");
     const [imgSizeErr, setImgSizeErr] = useState(false)
-    const [uploadImg, setUploadImg] = useState<FileType | string>(null);
+    const [uploadImg, setUploadImg] = useState<FileType | string | null>(null);
     const [submitting, setSubmitting] = useState(false)
     const [msg, setMsg] = useState("");
     const [error, setError] = useState(false);
@@ -435,7 +435,7 @@ const Form = ({ formType, id }: form) => {
                                 <>
                                     <CoverPictureWrapper>
                                         <div className="overlay"></div>
-                                        <Image className='contain' src={uploadImg} alt="upload picture" />
+                                        <Image className='contain' src={uploadImg as string} alt="upload picture" />
                                         <ImageActions>
                                             <ActionButton>
                                                 <EditButton htmlFor="upload-listImage-photo">

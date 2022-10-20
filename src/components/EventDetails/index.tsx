@@ -69,20 +69,22 @@ function EventDetails(props: {
                         <Column className='column-7'>
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
-                                    <Post>
-                                    <PostThumb>
-                                        {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                    </PostThumb>
-                                    
-                                        <PostThumb>
-                                            {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                        </PostThumb>
-                                        <PostBody>
-                                            <div style={{ marginBottom: "1.5rem" }}>
-                                                <Markdown>{event?.attributes?.body as string}</Markdown>
-                                            </div>
-                                        </PostBody>
-                                    </Post>
+                                    <div>
+                                        <Post>
+                                            <PostThumb>
+                                                {imageurl && <Image src={imageurl} alt='host logo image' />}
+                                            </PostThumb>
+
+                                            <PostThumb>
+                                                {imageurl && <Image src={imageurl} alt='host logo image' />}
+                                            </PostThumb>
+                                            <PostBody>
+                                                <div style={{ marginBottom: "1.5rem" }}>
+                                                    <Markdown>{event?.attributes?.body as string}</Markdown>
+                                                </div>
+                                            </PostBody>
+                                        </Post>
+                                    </div>
 
                                     <AddressMap>
                                         <AddressCard>
@@ -100,7 +102,7 @@ function EventDetails(props: {
                         <Column>
                             <RelatedEvents category={category} />
                         </Column>
-                    </Row>                    
+                    </Row>
                 </InnerContainer>
             </PageContainer>
 

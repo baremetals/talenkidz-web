@@ -1,6 +1,10 @@
 import React, { ReactElement, useState } from 'react'
 import Modal from 'components/Modal';
 import Link from 'next/link'
+import { addToMailingList } from 'lib/helpers'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 import {
@@ -39,9 +43,20 @@ function Footer(): ReactElement {
     };
 
     const [terms, setterms] = useState(false);
+    const [email, setEmail] = useState<string>('');
     const handleterms = () => {
         return setterms(!terms);
     };
+
+    const handleSubmit = async () => {
+        try {
+            const res = await addToMailingList(email) 
+            toast.success(res.data.message, { position: "bottom-left", })
+            setEmail('')    
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -159,36 +174,26 @@ function Footer(): ReactElement {
                             <Title style={{color: '#fff', fontSize: '1.75rem', marginTop: '0'}}>Get The Newsletter</Title>
                             <Text style={{}}>Keep the kids happy with entertaining and educational ideas</Text>
                             <NewsletterBox style={{maxWidth: '90%'}}>
-                                <Input type={'text'} placeholder="Enter your email"></Input>
-                                <Button content="" type="submit" style={{borderRadius: '.375rem', marginLeft: '1rem'}}>Subscribe</Button>
+                                <Input id="email" type="email" placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} value={email}></Input>
+                                <Button content="" type="submit" style={{ borderRadius: '.375rem', marginLeft: '1rem' }} onClick={() => handleSubmit()}>Subscribe</Button>
                             </NewsletterBox>
                             {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
                         </Column>
-                        {/* <Column>
-                            <FooterTitle>Contact Us</FooterTitle>
-                            <FooterContact>
-                                <Text>
-                                    <MapPin /> 256 Lonely Street Ave, Brooklyn CA, 25943. United State
-                                </Text>
-                                <Text>
-                                    <Mail /> info@test.com
-                                </Text>
-                                <Text>
-                                    <Phone /> +256 (3156) 2156 236
-                                </Text>
-                            </FooterContact>
-                        </Column> */}
+        
                         <Column>
                             <FooterTitle>Talent Kids</FooterTitle>
                             <FooterLinks>
                                 <Link href={'/about'}>About Us</Link>
                                 <Link href={'/contact-us'}>Contact us</Link>
-                                <Link href={'/newsletter'}>Newsletter</Link>
-                                <Link href={'/faq'}>Faqs</Link>
+                                {/* <Link href={'/newsletter'}>Newsletter</Link> */}
+                                <Link href={'/faq'}>FAQs</Link>
+                                <Link href={'/cookie-policy'}>Cookie Policy</Link>
+                                <Link href={'/privacy'}>Privacy Policy</Link>
+                                <Link href={'/terms'}>Terms and conditions</Link>
                                 {/* <Link href={'/'}>Appointment</Link> */}
-                                <Button className="footer-link" onClick={() => handleChange()}>Cookies</Button>
+                                {/* <Button className="footer-link" onClick={() => handleChange()}>Cookies</Button>
                                 <Button className="footer-link" onClick={() => handleManageSetting()}>Privacy Policy</Button>
-                                <Button className="footer-link" onClick={() => handleterms()}>Terms and conditions</Button>
+                                <Button className="footer-link" onClick={() => handleterms()}>Terms and conditions</Button> */}
                             </FooterLinks>
                         </Column>
                         <Column>
@@ -200,6 +205,7 @@ function Footer(): ReactElement {
                     </Row>
                 </InnerContainer>
             </SiteFooter>
+            <ToastContainer />
         </>
     );
 }

@@ -1,7 +1,7 @@
+import React from 'react';
 import NavBar from 'components/NavBar';
 import Footer from 'components/Footer';
 import Link from 'next/link';
-import React from 'react';
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, Quote } from 'styles/common.styles';
 import { QuoteIcon } from '../../../public/assets/icons/QuoteIcon';
 
@@ -85,7 +85,7 @@ const AboutUs = () => {
       </InnerContainer>
     </PageContainer>
 
-    <PageContainer style={{backgroundImage: 'url(/blackboard-bg.webp)', backgroundSize: 'cover', color: 'white'}}>
+    {/* <PageContainer style={{backgroundImage: 'url(/blackboard-bg.webp)', backgroundSize: 'cover', color: 'white'}}>
       <InnerContainer style={{textAlign: 'center', maxWidth: '600px', marginBottom: '1rem'}}>
         <Title>Intelligence</Title>
         <Text style={{color: '#fff'}}>All our content is based on the eight multiple intelligences that Howard Gardner describes in his book</Text>
@@ -127,7 +127,7 @@ const AboutUs = () => {
           </tbody>
         </table>
       </InnerContainer>
-    </PageContainer>
+    </PageContainer> */}
 
     <PageContainer>
       <InnerContainer style={{textAlign: 'center', maxWidth: '700px'}}>

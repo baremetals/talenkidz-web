@@ -128,6 +128,8 @@ export default function UserHeader() {
                                     {/* <NavBarItem><Link href={'/'}>Contact Us</Link></NavBarItem> */}
                                     <NavBarItem><Link href={'/auth/login'}>Sign In</Link></NavBarItem>
                                     <NavBarItem className="signup"><Link href={'/auth/register'}>Sign Up</Link></NavBarItem>
+                                    {/* <NavBarItem><Link href={'/newsletter'}>Newsletter</Link></NavBarItem>
+                                    <NavBarItem className="signup"><Link href={'/auth/login'}>Get Started</Link></NavBarItem> */}
                                 </>}
 
                             </NavBarNav>

@@ -56,7 +56,6 @@ const AboutUs = () => {
                   <HeroContent>
                       <HeroSubTitle>Talent Kids</HeroSubTitle>
                       <HeroTitle>Do What You Love For A Lifetime</HeroTitle>
-                      <Button content='Create an Account' />
                   </HeroContent>
               </InnerContainer>
           </Hero>

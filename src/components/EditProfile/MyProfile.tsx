@@ -132,7 +132,7 @@ const MyProfile = ({ user }: Props) => {
               <>
                 <CoverPictureWrapper>
                   <div className="overlay"></div>
-                  <Image src={backgroundImg} alt="User cover picture" />
+                  <Image src={backgroundImg as string} alt="User cover picture" />
                   <ImageActions>
                     <ActionButton>
                       <EditButton htmlFor="upload-bg-photo">
