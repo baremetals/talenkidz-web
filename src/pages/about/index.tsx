@@ -4,6 +4,7 @@ import Footer from 'components/Footer';
 import Link from 'next/link';
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, Quote } from 'styles/common.styles';
 import { QuoteIcon } from '../../../public/assets/icons/QuoteIcon';
+import Image from 'next/image';
 
 const AboutUs = () => {
   return <>
@@ -18,8 +19,8 @@ const AboutUs = () => {
             <Title style={{fontSize: '1.5rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>The Kidadl Solution</Title>
             <Text>Kidadl was founded as the digital home of family edutainment, helping parents educate and entertain their kids with trusted, personalized, curated content designed for families the world over.</Text>
           </Column>
-          <Column>
-            <img style={{ display: 'block', margin: '0 auto'}} height="350" src='/about-us.png' />
+          <Column style={{ textAlign: 'center' }} >
+            <Image src='/about-us.png' alt='' width={310} height={350} />
           </Column>
         </Row>
       </InnerContainer>
@@ -40,7 +41,7 @@ const AboutUs = () => {
         <Title style={{textAlign: 'center', marginBottom: '2.5rem'}}>How We Deliver To You</Title>
         <Row style={{alignItems: 'center', margin: '1rem 0'}}>
           <Column>
-            <img style={{ display: 'block', width: '100%', borderRadius: '1rem' }} src='/blog-post01.jpg' />
+            <Image className='rounded' height={238} width={444} src='/blog-post01.jpg' />
           </Column>
           <Column>
             <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title>
@@ -49,7 +50,7 @@ const AboutUs = () => {
         </Row>
         <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
           <Column>
-            <img style={{ display: 'block', width: '100%', borderRadius: '1rem' }} src='/blog-post02.jpg' />
+            <Image className='rounded' height={238} width={444} src='/blog-post02.jpg' />
           </Column>
           <Column>
             <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title>
@@ -58,7 +59,7 @@ const AboutUs = () => {
         </Row>
         <Row style={{alignItems: 'center', margin: '1rem 0'}}>
           <Column>
-            <img style={{ display: 'block', width: '100%', borderRadius: '1rem' }} src='/blog-post03.jpg' />
+            <Image className='rounded' height={238} width={444} src='/blog-post03.jpg' />
           </Column>
           <Column>
             <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title>
@@ -67,7 +68,7 @@ const AboutUs = () => {
         </Row>
         <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
           <Column>
-            <img style={{ display: 'block', width: '100%', borderRadius: '1rem' }} src='/blog-post04.jpg' />
+            <Image className='rounded' height={238} width={444} src='/blog-post04.jpg' />
           </Column>
           <Column>
             <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title>
@@ -102,7 +103,7 @@ const AboutUs = () => {
           <tbody>
             <tr>
               <td style={{textAlign: 'left'}}>
-                <img style={{ border: '2px solid #fff', borderRadius: '10rem' }} className="userprofile" src='/blog-post04.jpg' />
+                <Image height={70} width={70} className="circle userprofile" src='/blog-post04.jpg' />
               </td>
               <td style={{textAlign: 'left'}}>Visual-Spatial</td>
               <td>=</td>
@@ -110,7 +111,7 @@ const AboutUs = () => {
             </tr>
             <tr>
               <td style={{textAlign: 'left'}}>
-                <img style={{ border: '2px solid #fff', borderRadius: '10rem' }} className="userprofile" src='/blog-post04.jpg' />
+                <Image height={70} width={70} className="circle userprofile" src='/blog-post04.jpg' />
               </td>
               <td style={{textAlign: 'left'}}>Visual-Spatial</td>
               <td>=</td>
@@ -118,7 +119,7 @@ const AboutUs = () => {
             </tr>
             <tr>
               <td style={{textAlign: 'left'}}>
-                <img style={{ border: '2px solid #fff', borderRadius: '10rem' }} className="userprofile" src='/blog-post04.jpg' />
+                <Image height={70} width={70} className="circle userprofile" src='/blog-post04.jpg' />
               </td>
               <td style={{textAlign: 'left'}}>Visual-Spatial</td>
               <td>=</td>

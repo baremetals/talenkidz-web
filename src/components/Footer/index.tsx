@@ -28,6 +28,7 @@ import {
 
 import { NewsCard } from './NewsCard'
 import Button from 'components/Button';
+import AdComponent from 'components/AdComponent';
 
 function Footer(): ReactElement {
 

@@ -74,11 +74,11 @@ function ListDetails(props: {
                                         <Post >
                                             <PostThumb>
                                                 {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                            </PostThumb>
-                                            <PostBody>
+                                            </PostThumb>                                   
+                                            <PostBody>                                           
                                                 <div style={{ marginBottom: "1.5rem" }}>
                                                     <Markdown>{list?.attributes?.body as string}</Markdown>
-                                                </div>
+                                                </div>                                        
                                             </PostBody>
                                         </Post>
                                     </div>

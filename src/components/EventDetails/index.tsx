@@ -74,10 +74,6 @@ function EventDetails(props: {
                                             <PostThumb>
                                                 {imageurl && <Image src={imageurl} alt='host logo image' />}
                                             </PostThumb>
-
-                                            <PostThumb>
-                                                {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                            </PostThumb>
                                             <PostBody>
                                                 <div style={{ marginBottom: "1.5rem" }}>
                                                     <Markdown>{event?.attributes?.body as string}</Markdown>
