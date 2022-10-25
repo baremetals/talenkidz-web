@@ -1274,6 +1274,9 @@ export const LabelText = styled.label`
     font-size: .75rem;
     letter-spacing: 1px;
     margin-bottom: .25rem;
+    label {
+        color: red;
+    }
 `;
 
 export const Input = styled.input`
@@ -1330,12 +1333,11 @@ export const Quote = styled.div`
 `;
 
 export const SwitchBox = styled.div`
-    background-color: rgb(0 0 0 / 20%);
     display: flex;
     align-items: center;
     padding: 15px 20px;
     border-radius: 4px;
-    border: 1px solid;
+    border: 1px solid rgba(0,0,0,.1);
     margin: .5rem 0;
     p {
         margin-bottom: 0;
@@ -1369,7 +1371,7 @@ export const Switch = styled.div`
         line-height: 20px;
         text-transform: none;
         letter-spacing: 0;
-        color: white;
+        color: #000;
         &:after {
             position: absolute;
             content: "";

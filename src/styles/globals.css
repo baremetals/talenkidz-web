@@ -260,3 +260,18 @@ textarea:hover,
 .rounded {
     border-radius: .75rem;
 }
+
+
+.content a {
+    color: #BC70AD;
+}
+.content ul {
+    line-height: 1.6;
+}
+.content ul li {
+    margin-bottom: .25rem;
+}
+
+.modal-style .modal-style .modal-style {
+    background-color: #fff;
+}
