@@ -61,12 +61,12 @@ function Footer(): ReactElement {
 
     return (
         <>
-            <Modal showModal={privacyPolicy} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Data and coocki content</Title>
+            <Modal showModal={privacyPolicy} style={{textAlign: 'center'}} className="modal-style">
+                <Title style={{fontSize: '2rem'}}>Data and coocki content</Title>
                 <div className='minh'>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
                     <Button style={{width: '15rem'}} onClick={() => handleManageSetting()}>Manage Setting</Button>
@@ -74,23 +74,23 @@ function Footer(): ReactElement {
                 </div>
             </Modal>
 
-            <Modal showModal={terms} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Terms and conditions</Title>
+            <Modal showModal={terms} style={{textAlign: 'center'}} className="modal-style">
+                <Title style={{fontSize: '2rem'}}>Terms and conditions</Title>
                 <div className='minh'>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
                     <Button style={{width: '12rem', marginLeft: 'auto'}} onClick={() => handleterms()}>Accept</Button>
                 </div>
             </Modal>
 
-            <Modal showModal={manageSetting} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Manage Setting</Title>
+            <Modal showModal={manageSetting} style={{textAlign: 'center'}} className="modal-style">
+                <Title style={{fontSize: '2rem'}}>Manage Setting</Title>
                 <div className='minh'>
                     <SwitchBox>
-                        <Text>1. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>1. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent'></Input>
                             <LabelText htmlFor='consent'>Consent</LabelText>
@@ -101,7 +101,7 @@ function Footer(): ReactElement {
                         </Switch>
                     </SwitchBox>
                     <SwitchBox>
-                        <Text>2. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>2. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent1'></Input>
                             <LabelText htmlFor='consent1'>Consent</LabelText>
@@ -112,7 +112,7 @@ function Footer(): ReactElement {
                         </Switch>
                     </SwitchBox>
                     <SwitchBox>
-                        <Text>3. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>3. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent2'></Input>
                             <LabelText htmlFor='consent2'>Consent</LabelText>
@@ -123,7 +123,7 @@ function Footer(): ReactElement {
                         </Switch>
                     </SwitchBox>
                     <SwitchBox>
-                        <Text>4. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>4. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent3'></Input>
                             <LabelText htmlFor='consent3'>Consent</LabelText>
@@ -134,7 +134,7 @@ function Footer(): ReactElement {
                         </Switch>
                     </SwitchBox>
                     <SwitchBox>
-                        <Text>5. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>5. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent4'></Input>
                             <LabelText htmlFor='consent4'>Consent</LabelText>
@@ -145,7 +145,7 @@ function Footer(): ReactElement {
                         </Switch>
                     </SwitchBox>
                     <SwitchBox>
-                        <Text>6. ipsum dolor sit amet.</Text>
+                        <Text style={{color: '#000'}}>6. ipsum dolor sit amet.</Text>
                         <Switch>
                             <Input type={'checkbox'} id='consent5'></Input>
                             <LabelText htmlFor='consent5'>Consent</LabelText>

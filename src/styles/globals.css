@@ -271,3 +271,7 @@ textarea:hover,
 .content ul li {
     margin-bottom: .25rem;
 }
+
+.modal-style .modal-style .modal-style {
+    background-color: #fff;
+}
