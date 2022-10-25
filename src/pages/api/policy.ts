@@ -5,42 +5,48 @@ type Data = {
   name: string;
 };
 
-export default function policy(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-    const { data } = req.body;
+type CookiePolicy = {
+  policyOptions: {
+    Functional: string;
+    Strictly_necessary: string;
+    Marketing: string;
+    Statistical: string;
+    Unclassified: string;
+  };
+};
 
-    if (data.flag === 'getCookie') {
-         if (!req.cookies.tkpolicy) {
-           //  console.log('real money');
-           res.status(200).json({ name: 'no cookie' });
-         } else {
-           // console.log(' nothing here');
-           // console.log('the cookie', req.cookies);
-           const cookies = JSON.parse('');
-           res.status(200).json({ name: 'the cookie exist' });
-         }
+type funcType = Data | CookiePolicy;
 
+export default function policy(req: NextApiRequest, res: NextApiResponse<funcType>) {
+  const { data } = req.body;
+
+  if (data.flag === 'getCookie') {
+    if (!req.cookies.tkpolicy) {
+      //  console.log('real money');
+      res.status(201).json({ name: 'no cookie' });
     } else {
-        const policyOptions = {
-            
-        };
-        res.setHeader(
-          'Set-Cookie',
-          cookie.serialize(
-            process.env.POLICY_COOKIE as string,
-            JSON.stringify(''),
-            {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-            //   maxAge: 60 * 60 * 24 * 5, // 5 days
-              sameSite: 'strict',
-              path: '/',
-            }
-          )
-        );
-        res.status(200).json({ name: 'done' });
+      // console.log(' nothing here');
+      // console.log('the cookie', req.cookies);
+      const cookies = JSON.parse(req.cookies.tkpolicy);
+      res.status(200).json({ policyOptions: cookies });
     }
-//   res.status(200).json({ name: 'John Doe' });
+  } else {
+    const policyOptions = data.policyChoice;
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize(
+        process.env.POLICY_COOKIE as string,
+        JSON.stringify(policyOptions),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          //   maxAge: 60 * 60 * 24 * 5, // 5 days
+          sameSite: 'strict',
+          path: '/',
+        }
+      )
+    );
+    res.status(200).json({ name: 'done' });
+  }
+  //   res.status(200).json({ name: 'John Doe' });
 }

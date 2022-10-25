@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import Modal from 'components/Modal';
 import Link from 'next/link'
 import axios from 'axios';
@@ -37,24 +37,35 @@ function Footer(): ReactElement {
     const [manageSetting, setManageSetting] = useState(false);
     const [email, setEmail] = useState<string>('');
 
-    
+    if (typeof window !== "undefined") {
+        const promise = new Promise(async function (resolve, reject) {
+            const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
 
-    const promise = new Promise(async function (resolve, reject) {
-        const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
+            if (r.data.name === 'no cookie') {
+                // console.log(r.data.name);
+                setPrivacyPolicy(true)
+            }
+            else {
+                // console.log(r.data.policyOptions); 
+                resolve("Stuff worked!");
+                // reject(Error("It broke"));
+            }
+        });
+    }
 
-        if (r.data.name === 'no cookie') {
-            console.log(r.data.name);
-            setPrivacyPolicy(true)
-            resolve("Stuff worked!");
-        }
-        else {
-            reject(Error("It broke"));
-        }
-    });
+    // const promise = new Promise(async function (resolve, reject) {
+    //     const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
 
-    promise.then((res) => {
-        // console.log(res)
-    })
+    //     if (r.data.name === 'no cookie') {
+    //         // console.log(r.data.name);
+    //         setPrivacyPolicy(true)
+    //     }
+    //     else {
+    //         // console.log(r.data.policyOptions); 
+    //         resolve("Stuff worked!");
+    //         // reject(Error("It broke"));
+    //     }
+    // });
 
     const handleSubmit = async () => {
         try {
@@ -68,7 +79,7 @@ function Footer(): ReactElement {
 
     return (
         <>
-            {privacyPolicy && <PolicyPopUp privacyPolicy />}
+            {privacyPolicy && <PolicyPopUp privacyPolicy={privacyPolicy} />}
             <SiteFooter>
                 <InnerContainer>
                     <Row>

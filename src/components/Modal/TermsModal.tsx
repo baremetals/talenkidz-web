@@ -18,12 +18,13 @@ type Terms = {
 
 export default function TermsModal({ openTerms }: Terms) {
     const [terms, setterms] = useState(openTerms);
+    // console.log(openTerms)
     const handleterms = () => {
         return setterms(!terms);
     };
     return (
         <>
-            <Modal showModal={terms} style={{ textAlign: 'center' }} className="modal-style">
+            <Modal showModal={terms} style={{ textAlign: 'center' }} className="modal-style" id="terms-modal">
                 <Title style={{ fontSize: '2rem' }}>Terms and conditions</Title>
                 <div className='minh'>
                     <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>

@@ -1,5 +1,6 @@
 import React from 'react';
 import EmailTemplate from 'components/EmailTemplate';
+// import Footer from 'components/Footer';
 // import { withApollo } from 'utils/withApollo';
 
 const message: string =
@@ -8,6 +9,7 @@ function ResetLink() {
   return (
     <>
       <EmailTemplate message={message} />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -86,6 +86,10 @@ const Register = () => {
             });
     };
 
+    const handleterms = () => {
+        return setOpenTerms(!openTerms);
+    };
+
     return (
         <>
             <PageContainer style={{ minHeight: '100vh' }}>
@@ -173,11 +177,11 @@ const Register = () => {
                                         </FormGroup>
                                         <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                                             <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>Already have an account? <Link href={'/auth/login'}><a style={{ color: '#A35193' }}>Sign In</a></Link></Text>
-                                            <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }} onClick={() => setOpenTerms(!openTerms)}>By creating your account you agree to the<div style={{ color: '#A35193' }}>terms and privacy policy.</div></Text>
+                                            <div onClick={handleterms}>
+                                            <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem', cursor: 'pointer' }}>By creating your account you agree to the<span style={{ color: '#A35193' }}> terms and privacy policy.</span></Text>
+                                            </div>
                                         </FormGroup>
                                     </FormWrap>
-
-
                                 </LoginInner>
                             </LoginWrapper>
                         </InnerContainer>
@@ -185,7 +189,7 @@ const Register = () => {
                 </Formik>
                 <Image style={{ position: 'absolute', width: '20rem', bottom: '0', right: '0', zIndex: '-1' }} src="/login.png" alt="image of a parent and child" />
             </PageContainer>
-            <TermsModal openTerms />
+            <TermsModal openTerms={openTerms} />
         </>
     );
 };

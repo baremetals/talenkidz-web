@@ -67,48 +67,59 @@ const consentData = [
 
 ]
 
-type formProps = {
-    functional: string;
-    necessary: string;
-    marketing: string;
-    statistical: string;
-    unclassified: string;
-}
+// type formProps = {
+//     functional: string;
+//     necessary: string;
+//     marketing: string;
+//     statistical: string;
+//     unclassified: string;
+// }
 
 function PolicyPopUp({ privacyPolicy }: policy) {
 
     const [policy, setPolicy] = useState(privacyPolicy);
     const [marketing, setMarketing] = useState<boolean>(false);
-    // const [marketing, setMarketing] = useState<boolean>(false);
-    const [unclassified, setUnclassified] = useState<boolean>(consentData[4].consent);
+    const [statistical, setStatistical] = useState<boolean>(false);
+    const [unclassified, setUnclassified] = useState<boolean>(false);
+    const policyOptions = [
+        // 'Functional',
+        // 'Strictly necessary',
+        'Marketing',
+        'Statistical',
+        'Unclassified'
+    ]
+    // console.log('unclassified: ', unclassified)
+    // console.log('marketing: ', marketing)
 
-    const {
-        register,
-        handleSubmit,
-        // label,
-        formState: { errors },
-    } = useForm();
+    // const onChange = () => {
 
-    const handleChange = async (data) => {
-        console.log(data)
+    // }
 
-        let policyChoice = ['Functional', 'Strictly necessary']
+    const handleChange = async () => {
+    
+        let policyChoice = 
+            {
+                Functional: 'yes',
+                Strictly_necessary: 'yes',
+                Marketing: marketing ? 'yes' : 'no',
+                Statistical: statistical ? 'yes' : 'no',
+                Unclassified: unclassified? 'yes' : 'no',
+            }
+    
+        // console.log(policyChoice)
 
-        // await axios
-        //     .post('/api/policy', { data: { flag: 'setCookie' } })
-        //     .then((res) => {
-        //         console.log(res);
-        //         // if (!res?.data) {
-        //         //   router.replace(`/${router.pathname}`);
-        //         // } else {
-        //         //   const me = res?.data;
-        //         //   // console.log(me);
-        //         //   dispatch(setUser(me));
-        //         // }
-        //     })
-        //     .catch((err) => {
-        //         console.log('I am failing for some reason', err);
-        //     });
+        await axios
+            .post('/api/policy', { data: { policyChoice, flag: 'setCookie' } })
+            .then((res) => {
+                // console.log(res);
+                if (res?.data?.name === 'done') {
+                    setPolicy(false)
+                    setManageSetting(false)
+                }
+            })
+            .catch((err) => {
+                console.log('I am failing for some reason', err);
+            });
         // return setPrivacyPolicy(!privacyPolicy);
     };
 
@@ -119,20 +130,20 @@ function PolicyPopUp({ privacyPolicy }: policy) {
     };
     return (
         <>
-            <Modal showModal={policy} style={{ textAlign: 'center' }} className="modal-style">
+            <Modal showModal={policy} style={{ textAlign: 'center' }} className="modal-style" id="policy-modal">
                 <Title style={{ fontSize: '2rem' }}>Talentkids Cookie Consent</Title>
                 <div className='minh'>
                     <Text>We use cookies to ensure you have the best experience on our site, to analyse traffic, and enhance our marketing activities. <Link href="/privacy"><a target='_blank'>Learn more</a></Link>.</Text>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
                     <Button style={{ width: '15rem', borderRadius: '8px' }} onClick={() => handleManageSetting()}>Manage Setting</Button>
-                    <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleChange('basic')}>Accept All</Button>
+                    <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleChange()}>Accept All</Button>
                 </div>
             </Modal>
 
             <Modal showModal={manageSetting} style={{ textAlign: 'center' }} className="modal-style">
                 <Title style={{ fontSize: '2rem' }}>Manage Setting</Title>
-                <form onSubmit={handleSubmit(handleChange)}>
+                {/* <form > */}
                     <div className='minh'>
 
                         {consentData.map((set, i) => (
@@ -141,14 +152,33 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                                 <Switch>
                                     {/* <label>{label}</label> */}
                                     <Input type={'checkbox'} id={set.title}
-                                        // onChange={(e) => {
-                                        //     console.log(e.target.value);
-                                        //     console.log(set.consent);
-                                        //     setMarketing(!marketing)
-                                        // }} 
-                                        value={set.consent ? 'yes' : 'no'}
-                                        checked={set.checked && set.checked}
-                                        {...register('policy', { required: true })}
+                                        onChange={(e) => {
+                                            // console.log(e.target.value);
+                                            
+                                            let policy
+                                            const policyTitle = document.getElementById(set.title);
+                                            // console.log(policyTitle?.id);
+                                            policy = policyTitle?.id
+                                            switch (policyOptions.includes(policy as string)) {
+                                                case policy === "Marketing":
+                                                    // console.log(`its the ${policy} policy`)
+                                                    setMarketing(!marketing)
+                                                    break;
+                                                case policy === "Statistical":
+                                                    // console.log(`its the ${policy} policy`)
+                                                    setStatistical(!statistical)
+                                                    break;
+                                                case policy === "Unclassified":
+                                                    // console.log(`its the ${policy} policy`, unclassified)
+                                                    setUnclassified(!unclassified)
+                                                    // console.log(`latest: `, unclassified)
+                                                    break;
+                                                default:
+                                                // code block
+                                            }
+                                        }} 
+                                        // value={set.consent ? 'yes' : 'no'}
+                                        checked={set.checked && set.checked}                                    
                                     ></Input>
                                     <LabelText htmlFor={set.title}>Consent</LabelText>
                                 </Switch>
@@ -162,9 +192,9 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
                         <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleManageSetting()}>Go Back</Button>
-                        <Button style={{ width: '12rem', borderRadius: '8px' }} content="Submit" type="submit">Accept All</Button>
+                    <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleChange()}>Accept All</Button>
                     </div>
-                </form>
+                {/* </form> */}
             </Modal>
         </>
     )
