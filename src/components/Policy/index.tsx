@@ -119,10 +119,10 @@ function PolicyPopUp({ privacyPolicy }: policy) {
     };
     return (
         <>
-            <Modal showModal={policy} style={{ textAlign: 'center' }}>
-                <Title style={{ color: 'white', fontSize: '2rem' }}>Talentkids Cookie Consent</Title>
+            <Modal showModal={policy} style={{ textAlign: 'center' }} className="modal-style">
+                <Title style={{ fontSize: '2rem' }}>Talentkids Cookie Consent</Title>
                 <div className='minh'>
-                    <Text style={{ color: 'white' }}>We use cookies to ensure you have the best experience on our site, to analyse traffic, and enhance our marketing activities. <Link href="/privacy"><a target='_blank'>Learn more</a></Link>.</Text>
+                    <Text>We use cookies to ensure you have the best experience on our site, to analyse traffic, and enhance our marketing activities. <Link href="/privacy"><a target='_blank'>Learn more</a></Link>.</Text>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
                     <Button style={{ width: '15rem', borderRadius: '8px' }} onClick={() => handleManageSetting()}>Manage Setting</Button>
@@ -130,14 +130,14 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                 </div>
             </Modal>
 
-            <Modal showModal={manageSetting} style={{ textAlign: 'center' }}>
-                <Title style={{ color: 'white', fontSize: '2rem' }}>Manage Setting</Title>
+            <Modal showModal={manageSetting} style={{ textAlign: 'center' }} className="modal-style">
+                <Title style={{ fontSize: '2rem' }}>Manage Setting</Title>
                 <form onSubmit={handleSubmit(handleChange)}>
                     <div className='minh'>
 
                         {consentData.map((set, i) => (
                             <SwitchBox key={i}>
-                                <Text>{set.title}</Text>
+                                <Text style={{ color: '#000' }}>{set.title}</Text>
                                 <Switch>
                                     {/* <label>{label}</label> */}
                                     <Input type={'checkbox'} id={set.title}

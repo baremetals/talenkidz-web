@@ -35,11 +35,9 @@ import AdComponent from 'components/AdComponent';
 function Footer(): ReactElement {
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
     const [manageSetting, setManageSetting] = useState(false);
-    const [terms, setterms] = useState(false);
     const [email, setEmail] = useState<string>('');
-    const handleterms = () => {
-        return setterms(!terms);
-    };
+
+    
 
     const promise = new Promise(async function (resolve, reject) {
         const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
@@ -71,20 +69,6 @@ function Footer(): ReactElement {
     return (
         <>
             {privacyPolicy && <PolicyPopUp privacyPolicy />}
-            
-            {/* <Modal showModal={terms} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Terms and conditions</Title>
-                <div className='minh'>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
-                    <Button style={{width: '12rem', marginLeft: 'auto'}} onClick={() => handleterms()}>Accept</Button>
-                </div>
-            </Modal> */}
-
-
             <SiteFooter>
                 <InnerContainer>
                     <Row>
@@ -114,9 +98,6 @@ function Footer(): ReactElement {
                                 <Link href={'/privacy'}>Privacy Policy</Link>
                                 <Link href={'/terms'}>Terms and conditions</Link>
                                 {/* <Link href={'/'}>Appointment</Link> */}
-                                {/* <Button className="footer-link" onClick={() => handleChange()}>Cookies</Button>
-                                <Button className="footer-link" onClick={() => handleManageSetting()}>Privacy Policy</Button> */}
-                                {/* <Button className="footer-link" onClick={() => handleterms()}>Terms and conditions</Button> */}
                             </FooterLinks>
                         </Column>
                         <Column>
