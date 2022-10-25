@@ -1,35 +1,34 @@
 import React, { useState } from 'react'
-import Button from 'components/Button';
-import Modal from 'components/Modal';
-import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, Accordion, PostCardThumb, PostCardSummary, PostCardTitle, PostCardText, Input, NewsletterBox, ButtonOutLine } from 'styles/common.styles';
+import Markdown from "markdown-to-jsx";
+import { InnerContainer, Text, Title, PageContainer, Accordion } from 'styles/common.styles';
 
-function Faqs() {
 
-    const [isActive, setActive] = useState(0);
 
-    const toggleClass = (id) => {
+function Faqs({...data}) {
+    // console.log(data.data)
+    const [isActive, setActive] = useState < number | null >(0);
+
+    const toggleClass = (id: React.SetStateAction<number>) => {
         if(id === isActive){
             setActive(null);
             return    
         }
-
-        setActive(id);
+        setActive(id as number);
     };
 
-  
     return (
         <>
 
             <PageContainer style={{backgroundColor: 'rgb(0 0 0 / 4%)'}}>
                 <InnerContainer>
                     <Title style={{marginBottom: '2rem'}}>Frequently Asked Questions</Title>
-                    <Title style={{fontSize: '1.75rem', marginBottom: '2rem'}}>Payment Process</Title>
-                    {[0,1,2,3,4,5,6,7,8,9].map((faq) => {
+                    {/* <Title style={{fontSize: '1.75rem', marginBottom: '2rem'}}>Payment Process</Title> */}
+                    {data.data?.map((faq: { id: string; attributes: { question: string; answer: string; }; }) => {
                         return <>
-                            <Accordion className={isActive === faq ? "open" : null}>
-                            <Title className='accordion-title' onClick={() => toggleClass(faq)}>Why have I been sent to a third-party link?</Title>
+                            <Accordion className={isActive === parseInt(faq?.id) ? "open" : ''}>
+                                <Title className='accordion-title' onClick={() => toggleClass(parseInt(faq?.id))}>{faq?.attributes?.question}</Title>
                             <div className='accordion-body'>
-                                <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, quaerat. Aperiam perferendis ipsum quasi sit delectus asperiores at iure. Fugit debitis esse maxime dolorum itaque est? Velit, non. Eaque, nemo.</Text>
+                                    <Text><Markdown>{faq?.attributes?.answer}</Markdown></Text>
                             </div>
                         </Accordion>
                         </>

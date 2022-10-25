@@ -1,7 +1,9 @@
 import React, { ReactElement, useState } from 'react'
 import Modal from 'components/Modal';
 import Link from 'next/link'
+import axios from 'axios';
 import { addToMailingList } from 'lib/helpers'
+import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -31,23 +33,30 @@ import Button from 'components/Button';
 import AdComponent from 'components/AdComponent';
 
 function Footer(): ReactElement {
-
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
-    const handleChange = () => {
-        return setPrivacyPolicy(!privacyPolicy);
-    };
-
     const [manageSetting, setManageSetting] = useState(false);
-    const handleManageSetting = () => {
-        setManageSetting(!manageSetting);
-        setPrivacyPolicy(false);
-    };
-
     const [terms, setterms] = useState(false);
     const [email, setEmail] = useState<string>('');
     const handleterms = () => {
         return setterms(!terms);
     };
+
+    const promise = new Promise(async function (resolve, reject) {
+        const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
+
+        if (r.data.name === 'no cookie') {
+            console.log(r.data.name);
+            setPrivacyPolicy(true)
+            resolve("Stuff worked!");
+        }
+        else {
+            reject(Error("It broke"));
+        }
+    });
+
+    promise.then((res) => {
+        // console.log(res)
+    })
 
     const handleSubmit = async () => {
         try {
@@ -61,20 +70,9 @@ function Footer(): ReactElement {
 
     return (
         <>
-            <Modal showModal={privacyPolicy} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Data and coocki content</Title>
-                <div className='minh'>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
-                    <Button style={{width: '15rem'}} onClick={() => handleManageSetting()}>Manage Setting</Button>
-                    <Button style={{width: '12rem'}} onClick={() => handleChange()}>Accept</Button>
-                </div>
-            </Modal>
-
-            <Modal showModal={terms} style={{textAlign: 'center'}}>
+            {privacyPolicy && <PolicyPopUp privacyPolicy />}
+            
+            {/* <Modal showModal={terms} style={{textAlign: 'center'}}>
                 <Title style={{color: 'white', fontSize: '2rem'}}>Terms and conditions</Title>
                 <div className='minh'>
                     <Text style={{color: 'white'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
@@ -84,84 +82,8 @@ function Footer(): ReactElement {
                 <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
                     <Button style={{width: '12rem', marginLeft: 'auto'}} onClick={() => handleterms()}>Accept</Button>
                 </div>
-            </Modal>
+            </Modal> */}
 
-            <Modal showModal={manageSetting} style={{textAlign: 'center'}}>
-                <Title style={{color: 'white', fontSize: '2rem'}}>Manage Setting</Title>
-                <div className='minh'>
-                    <SwitchBox>
-                        <Text>1. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent'></Input>
-                            <LabelText htmlFor='consent'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest'></Input>
-                            <LabelText htmlFor='LegitimateInterest'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    <SwitchBox>
-                        <Text>2. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent1'></Input>
-                            <LabelText htmlFor='consent1'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest1'></Input>
-                            <LabelText htmlFor='LegitimateInterest1'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    <SwitchBox>
-                        <Text>3. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent2'></Input>
-                            <LabelText htmlFor='consent2'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest2'></Input>
-                            <LabelText htmlFor='LegitimateInterest2'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    <SwitchBox>
-                        <Text>4. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent3'></Input>
-                            <LabelText htmlFor='consent3'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest3'></Input>
-                            <LabelText htmlFor='LegitimateInterest3'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    <SwitchBox>
-                        <Text>5. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent4'></Input>
-                            <LabelText htmlFor='consent4'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest4'></Input>
-                            <LabelText htmlFor='LegitimateInterest4'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    <SwitchBox>
-                        <Text>6. ipsum dolor sit amet.</Text>
-                        <Switch>
-                            <Input type={'checkbox'} id='consent5'></Input>
-                            <LabelText htmlFor='consent5'>Consent</LabelText>
-                        </Switch>
-                        <Switch>
-                            <Input type={'checkbox'} id='LegitimateInterest5'></Input>
-                            <LabelText htmlFor='LegitimateInterest5'>Legitimate Interest</LabelText>
-                        </Switch>
-                    </SwitchBox>
-                    
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '2rem'}}>
-                    <Button style={{width: '12rem'}} onClick={() => handleManageSetting()}>Go Back</Button>
-                    <Button style={{width: '12rem'}} onClick={() => handleManageSetting()}>Accept All</Button>
-                </div>
-            </Modal>
 
             <SiteFooter>
                 <InnerContainer>
@@ -187,14 +109,14 @@ function Footer(): ReactElement {
                                 <Link href={'/about'}>About Us</Link>
                                 <Link href={'/contact-us'}>Contact us</Link>
                                 {/* <Link href={'/newsletter'}>Newsletter</Link> */}
-                                <Link href={'/faq'}>FAQs</Link>
+                                <Link href={'/faqs'}>FAQs</Link>
                                 <Link href={'/cookie-policy'}>Cookie Policy</Link>
                                 <Link href={'/privacy'}>Privacy Policy</Link>
                                 <Link href={'/terms'}>Terms and conditions</Link>
                                 {/* <Link href={'/'}>Appointment</Link> */}
                                 {/* <Button className="footer-link" onClick={() => handleChange()}>Cookies</Button>
-                                <Button className="footer-link" onClick={() => handleManageSetting()}>Privacy Policy</Button>
-                                <Button className="footer-link" onClick={() => handleterms()}>Terms and conditions</Button> */}
+                                <Button className="footer-link" onClick={() => handleManageSetting()}>Privacy Policy</Button> */}
+                                {/* <Button className="footer-link" onClick={() => handleterms()}>Terms and conditions</Button> */}
                             </FooterLinks>
                         </Column>
                         <Column>
