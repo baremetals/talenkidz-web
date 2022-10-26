@@ -9,10 +9,10 @@ dayjs.extend(relativeTime);
 
 import { Organisation } from 'generated/graphql';
 
-import NavBar from 'components/NavBar';
+import NavBar from 'components/Layout/NavBar';
 import {
     Row,
-    Column, 
+    Column,
     Text,
     InnerContainer,
     Title,
@@ -25,7 +25,7 @@ import {
 } from 'styles/common.styles';
 
 import {
-    Dashboard, 
+    Dashboard,
     ProfileCoverImage,
     UserProfileImage,
     ProfileBasicInfo,
@@ -49,7 +49,7 @@ import { BriefcaseBorder } from '../../../public/assets/icons/BriefcaseBorder'
 // import { Send } from '../../../public/assets/icons/Send'
 // import { Plus } from '../../../public/assets/icons/Plus'
 
-const Organisations = (props: {props: Organisation}) => {
+const Organisations = (props: { props: Organisation }) => {
     const { user: user } = useAppSelector(isUser);
     const { logo, name, slug, createdAt, bio, organisationType, website } = props?.props
     console.log(user)
@@ -57,22 +57,22 @@ const Organisations = (props: {props: Organisation}) => {
     return (
         <>
             <NavBar />
-            
+
             <Dashboard>
                 <ProfileCoverImage src={user?.backgroundImg as string} alt='Profile Banner' />
                 <InnerContainer>
                     <ProfileInfo>
                         <UserProfileImage src={logo as string} alt='user profile' />
                         <ProfileBasicInfo>
-                            <Title style={{fontSize: '1.75rem', marginBottom: '.75rem', lineHeight: 1}}>{name || slug}</Title>
-                            <Text style={{marginBottom: '1.5625rem', lineHeight: 1}}>Joined: {dayjs(createdAt).fromNow()}</Text>
-                            <Text style={{marginBottom: '0.75rem', lineHeight: 1, fontSize: '.875rem', display: 'flex', alignItems: 'center'}}>
+                            <Title style={{ fontSize: '1.75rem', marginBottom: '.75rem', lineHeight: 1 }}>{name || slug}</Title>
+                            <Text style={{ marginBottom: '1.5625rem', lineHeight: 1 }}>Joined: {dayjs(createdAt).fromNow()}</Text>
+                            <Text style={{ marginBottom: '0.75rem', lineHeight: 1, fontSize: '.875rem', display: 'flex', alignItems: 'center' }}>
                                 <BriefcaseBorder />
                                 {organisationType}
                             </Text>
-                            <Text style={{marginBottom: '0.75rem', fontSize: '.875rem', lineHeight: 1, display: 'flex', alignItems: 'center'}}>
+                            <Text style={{ marginBottom: '0.75rem', fontSize: '.875rem', lineHeight: 1, display: 'flex', alignItems: 'center' }}>
                                 <BookMarkBorder />
-                                <a href={ website as string }>{website}</a>
+                                <a href={website as string}>{website}</a>
                             </Text>
                         </ProfileBasicInfo>
                         <ProfileActions>
@@ -91,7 +91,7 @@ const Organisations = (props: {props: Organisation}) => {
                     </ProfileInfo>
                     <ProfileContent>
                         <Row className='g-10'>
-                            <Column className='col' style={{maxWidth: '24.438rem', paddingRight: '0.6875rem'}} >
+                            <Column className='col' style={{ maxWidth: '24.438rem', paddingRight: '0.6875rem' }} >
                                 <Widget>
                                     <WidgetHeader>
                                         <WidgetTitle>
@@ -144,7 +144,7 @@ const Organisations = (props: {props: Organisation}) => {
                                     </WidgetBody>
                                 </Widget> */}
                             </Column>
-                            <Column className='col' style={{paddingLeft: '0.6875rem'}}>
+                            <Column className='col' style={{ paddingLeft: '0.6875rem' }}>
                                 {/* {user?.slug === slug && <>
                                     <ShareCard avatar={logo as string}/>
                                 </>} */}

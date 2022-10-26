@@ -8,8 +8,8 @@ import { upperCase } from 'lib/helpers'
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 
 import {
     InnerBanner,

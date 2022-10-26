@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-scroll"
-import Spinner from "components/Spinner";
+import Spinner from "components/Layout/Spinner";
 
 export const Button = styled(Link)`
     background-color: #7755E2;

@@ -1,6 +1,6 @@
 import Faqs from 'components/Faq';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 import React from 'react';
 
 

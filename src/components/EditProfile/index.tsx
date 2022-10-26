@@ -6,8 +6,8 @@ import { Organisation, UsersPermissionsUser } from 'generated/graphql';
 import { FormData } from "formdata-node";
 import axios from "axios";
 
-import NavBar from 'components/NavBar';
-import TabPanel from 'components/TabPanel';
+import NavBar from 'components/Layout/NavBar';
+import TabPanel from 'components/Layout/TabPanel';
 import MyProfile from './MyProfile';
 import OrgProfile from './OrgProfile';
 import BillingInfo from './BillingInfo';
@@ -124,7 +124,7 @@ const EditProfile = ({ user }: mixProps) => {
       <InnerContainer>
         <TabContent>
           <Row className='g-10'>
-            <Column className='col' style={{maxWidth: '18rem', paddingRight: '0.6875rem'}}>
+            <Column className='col' style={{ maxWidth: '18rem', paddingRight: '0.6875rem' }}>
               <InnerSidebar>
                 <ImageWrapper>
                   <div className="overlay"></div>
@@ -148,7 +148,7 @@ const EditProfile = ({ user }: mixProps) => {
                       </EditButton>
                     </ActionButton>
                     <ActionButton onClick={() => setProfileImg('')}>
-                    {/* <ActionButton> */}
+                      {/* <ActionButton> */}
                       <BsTrash />
                     </ActionButton>
                   </ImageActions>
@@ -169,11 +169,11 @@ const EditProfile = ({ user }: mixProps) => {
                 </Navigation>
               </InnerSidebar>
             </Column>
-            <Column className='col' style={{paddingLeft: '0.6875rem'}}>
+            <Column className='col' style={{ paddingLeft: '0.6875rem' }}>
               <TabPanel value={activeTab} index={0} {...a11yProps(1)}>
                 {usr?.userType === 'organisation' && <OrgProfile user={user as Organisation} />}
                 {usr?.userType === 'candidate' && <MyProfile user={user as UsersPermissionsUser} />}
-                
+
               </TabPanel>
               <TabPanel value={activeTab} index={1} {...a11yProps(2)}>
                 {/* <BillingInfo user={user} /> */}

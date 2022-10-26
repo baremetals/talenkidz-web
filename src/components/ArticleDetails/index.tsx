@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 import Markdown from "markdown-to-jsx";
 import Link from 'next/link';
 import dayjs from "dayjs";
@@ -53,7 +53,7 @@ export const ArticleDetails = (props: {
     // const avatar = author?.avatar?.data?.attributes?.url;
     const category = article?.attributes?.category?.data?.attributes?.slug as string;
 
-    return( 
+    return (
         <>
             <NavBar />
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
@@ -78,14 +78,14 @@ export const ArticleDetails = (props: {
                                             <div style={{ marginBottom: "1.5rem" }}>
                                                 <Markdown>{article?.attributes?.body as string}</Markdown>
                                             </div>
-                                            
+
                                         </PostBody>
                                     </Post>
                                 </Column>
                             </Row>
                         </Column>
                         <Column>
-                            <RelatedArticles category={category}/>
+                            <RelatedArticles category={category} />
                         </Column>
                     </Row>
                 </InnerContainer>

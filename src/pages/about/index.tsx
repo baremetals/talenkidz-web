@@ -1,20 +1,20 @@
 import React from 'react';
-import NavBar from 'components/NavBar';
-import Footer from 'components/Footer';
 import Link from 'next/link';
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, Quote } from 'styles/common.styles';
 import { QuoteIcon } from '../../../public/assets/icons/QuoteIcon';
 import Image from 'next/image';
+import Layout from 'components/Layout';
 
 const AboutUs = () => {
   return <>
-    <NavBar />
+    <Layout title={''}    
+    >
     {/* <Title style={{fontSize: '1.5rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>The Kidadl Solution</Title> */}
     <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
       <InnerContainer>
-        <Title style={{marginBottom: '3rem'}}>Changing the Narrative</Title>
-        <Row style={{ textAlign: 'left', alignItems: 'center', marginBottom: '3rem'}}>
-          <Column style={{ textAlign: 'left', minWidth: '55%'}}>
+        <Title style={{ marginBottom: '3rem' }}>Changing the Narrative</Title>
+        <Row style={{ textAlign: 'left', alignItems: 'center', marginBottom: '3rem' }}>
+          <Column style={{ textAlign: 'left', minWidth: '55%' }}>
             <Text>Are you a parent looking for your child’s future career prospects? Are you someone who believes in a child pursuing their dream and changing the redundant narrative of not following a “creative career” like sports, music, arts, entertainment, and possibly anything that revolves around creativity?</Text>
             <Text>That’s it! TALENKIDZ is what you are looking for. </Text>
             <Text>TALENKIDZ is a game-changing solution for the future generation while reshaping the current generation’s mindset, responsible for shaping their children’s future, ultimately contributing to a better future tomorrow. </Text>
@@ -25,9 +25,9 @@ const AboutUs = () => {
           </Column>
         </Row>
 
-        <Row style={{ textAlign: 'left', alignItems: 'center', flexDirection: 'row-reverse'}}>
-          <Column style={{ textAlign: 'left', minWidth: '55%'}}>
-            
+        <Row style={{ textAlign: 'left', alignItems: 'center', flexDirection: 'row-reverse' }}>
+          <Column style={{ textAlign: 'left', minWidth: '55%' }}>
+
             <Text>In today’s world, if someone has to pursue a creative career, they must prove themselves first. However, things are not the same for people not opting for creative careers and continuing with academic-based jobs. They don’t need to prove themselves to get the job. Instead, they get the job first and prove themselves later for promotional purposes.</Text>
             <Text>But you do not need to worry!</Text>
             <Text>At TALENKIDZ, we ensure what is best for your child. </Text>
@@ -40,10 +40,10 @@ const AboutUs = () => {
       </InnerContainer>
     </InnerBanner>
 
-    <PageContainer style={{paddingTop: '10rem', paddingBottom: '10rem'}}>
+    <PageContainer style={{ paddingTop: '10rem', paddingBottom: '10rem' }}>
       <video className='video-wrapper' width='260' height='260' autoPlay loop>
         <source src="/Deliver-transcode.mp4" type="video/mp4" />
-        <source src="/Deliver-transcode.ogg" type="video/ogg"/>
+        <source src="/Deliver-transcode.ogg" type="video/ogg" />
       </video>
       <InnerContainer>
         <Title style={{ textAlign: 'center', marginBottom: '0', color: '#fff' }}>Our mission is helping parents unlock a world of possibilities to fulfil their children s potential</Title>
@@ -51,9 +51,9 @@ const AboutUs = () => {
     </PageContainer>
 
     <PageContainer>
-      <InnerContainer style={{maxWidth: '1000px'}}>
-        <Title style={{textAlign: 'center', marginBottom: '2.5rem'}}>How Did It All Start?</Title>
-        <Row style={{alignItems: 'center', margin: '1rem 0'}}>
+      <InnerContainer style={{ maxWidth: '1000px' }}>
+        <Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>How Did It All Start?</Title>
+        <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
           <Column>
             <Image className='rounded' height={238} width={444} src='/blog-post01.jpg' />
           </Column>
@@ -62,7 +62,7 @@ const AboutUs = () => {
             <Text>A survey gave birth to this company in 2015; through our research, it was evident that parents are unsure which clubs or opportunities to look for while enabling their kids to step into creative careers. </Text>
           </Column>
         </Row>
-        <Row style={{alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
+        <Row style={{ alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0' }}>
           <Column>
             <Image className='rounded' height={238} width={444} src='/blog-post02.jpg' />
           </Column>
@@ -71,7 +71,7 @@ const AboutUs = () => {
             <Text>It leads to a gap where parents cannot understand what to do and where to begin. To bridge this particular gap, TALENKIDZ has developed a viable solution where love and effort are involved and ultimately guarantees productive outcomes. </Text>
           </Column>
         </Row>
-        <Row style={{alignItems: 'center', margin: '1rem 0'}}>
+        <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
           <Column>
             <Image className='rounded' height={238} width={444} src='/blog-post03.jpg' />
           </Column>
@@ -83,11 +83,11 @@ const AboutUs = () => {
       </InnerContainer>
     </PageContainer>
 
-    <PageContainer style={{backgroundColor: 'red', backgroundImage: 'url(/baby-edu.jpg)', backgroundPosition: 'center center', backgroundSize: 'cover',}}>
-      <InnerContainer style={{textAlign: 'center', maxWidth: '1000px'}}>
+    <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/baby-edu.jpg)', backgroundPosition: 'center center', backgroundSize: 'cover', }}>
+      <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
         <Quote><QuoteIcon /></Quote>
         <Title style={{ textAlign: 'center', color: '#fff' }}>Tell me and I forget, teach me and I may remember</Title>
-        <Text style={{color: '#fff'}}>Benjamin Franklin</Text>
+        <Text style={{ color: '#fff' }}>Benjamin Franklin</Text>
       </InnerContainer>
     </PageContainer>
 
@@ -136,7 +136,7 @@ const AboutUs = () => {
     </PageContainer> */}
 
     <PageContainer>
-      <InnerContainer style={{maxWidth: '1000px'}}>
+      <InnerContainer style={{ maxWidth: '1000px' }}>
         <Title style={{}}>Embracing Natural Talent</Title>
         <Text>The vast majority have attempted eventually to be somebody else. Once in a while, this is because we like the change, and at times this is because we feel like we need to change to fit in.</Text>
         <Text>When I was a young man, I cherished playing football. While I was a respectable focal protector and traditional back, since I was an area of strength for genuinely having a decent speed and a fierce shot, I wound up as a striker sometimes, as well.</Text>
@@ -145,16 +145,16 @@ const AboutUs = () => {
       </InnerContainer>
     </PageContainer>
 
-    <PageContainer style={{backgroundColor: 'red', backgroundImage: 'url(/baby-edu.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center'}}>
-      <InnerContainer style={{textAlign: 'center', maxWidth: '1000px'}}>
+    <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/baby-edu.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
+      <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
         <Quote><QuoteIcon /></Quote>
         <Title style={{ textAlign: 'center', color: '#fff' }}>Tell me and I forget, teach me and I may remember, involve me and I learn</Title>
-        <Text style={{color: '#fff'}}>Benjamin Franklin</Text>
+        <Text style={{ color: '#fff' }}>Benjamin Franklin</Text>
       </InnerContainer>
     </PageContainer>
 
     <PageContainer>
-      <InnerContainer style={{maxWidth: '1000px'}}>
+      <InnerContainer style={{ maxWidth: '1000px' }}>
         <Title style={{}}>Engaging Individuals to Arrive at Their Maximum capacity</Title>
         <Row>
           <Column>
@@ -169,20 +169,20 @@ const AboutUs = () => {
             <Text>Perceiving skills and abilities truly drives a group, and it can interface and engage everybody engaged in the excursion.</Text>
           </Column>
         </Row>
-        
-        
+
+
       </InnerContainer>
     </PageContainer>
 
-    <PageContainer style={{backgroundColor: '#f3f3f3'}}>
-      <InnerContainer style={{maxWidth: '1000px'}}>
-        <Title style={{textAlign: 'center', marginBottom: '2.5rem'}}>How We Work</Title>
-        <Row style={{alignItems: 'center', margin: '1rem 0'}}>
+    <PageContainer style={{ backgroundColor: '#f3f3f3' }}>
+      <InnerContainer style={{ maxWidth: '1000px' }}>
+        <Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>How We Work</Title>
+        <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
           <Column>
             <Image className='rounded' height={620} width={534} src='/detail-image.png' />
           </Column>
           <Column>
-            <Title style={{fontSize: '1.75rem'}}>At TalenKIDZ, we work following the three-step approach</Title>
+            <Title style={{ fontSize: '1.75rem' }}>At TalenKIDZ, we work following the three-step approach</Title>
             <Text>A survey gave birth to this company in 2015; through our research, it was evident that parents are unsure which clubs or opportunities to look for while enabling their kids to step into creative careers. </Text>
             <Text>Our team responds to all queries and guides them accordingly. We ensure to connect parents with agents, coaches, clubs, etc.</Text>
             <Text>Enabling your child to participate in the TALENKIDZ community providing excessive opportunities for students to expand their circle for a progressive future. </Text>
@@ -192,7 +192,7 @@ const AboutUs = () => {
     </PageContainer>
 
 
-    <Footer />
+    </Layout>
   </>
 };
 

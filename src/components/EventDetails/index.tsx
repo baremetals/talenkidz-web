@@ -5,8 +5,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { ErrorMsg } from "components/Input";
-import Footer from "components/Footer";
-import NavBar from "components/NavBar";
+import Footer from "components/Layout/Footer";
+import NavBar from "components/Layout/NavBar";
 import {
     InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, ListIcon, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap, AddressCard, Iframe
 } from "styles/common.styles";

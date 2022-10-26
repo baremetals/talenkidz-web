@@ -21,7 +21,7 @@ import {
 
     WidgetPanelListing,
     WidgetPanelLink
-} from "../../styles/common.styles";
+} from "../../../styles/common.styles";
 
 function Sidebar(): ReactElement {
 
@@ -30,8 +30,8 @@ function Sidebar(): ReactElement {
             <SearchBar>
                 <SearchInput placeholder="Search" type="text"
                     name="search"
-                    // onChange={handleSearch("category")} 
-                    />
+                // onChange={handleSearch("category")} 
+                />
                 <SearchButton></SearchButton>
             </SearchBar>
             <WidgetPanel>
@@ -45,7 +45,7 @@ function Sidebar(): ReactElement {
                 </WidgetPanelListing>
             </WidgetPanel>
             <WidgetPanel>
-                <WidgetPanelTitle style={{backgroundColor: '#ABCD52'}}>Recent Posts</WidgetPanelTitle>
+                <WidgetPanelTitle style={{ backgroundColor: '#ABCD52' }}>Recent Posts</WidgetPanelTitle>
                 <WidgetPanelListing>
                     <MediaObject>
                         <MediaObjectItem>

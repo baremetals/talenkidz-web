@@ -8,8 +8,8 @@ import { upperCase } from 'lib/helpers'
 // import { BookMark } from '../../../public/assets/icons/BookMark'
 import { Event, EventEntity, CategoryEntity } from 'generated/graphql';
 
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 import {
     InnerBanner,
     InnerContainer,
@@ -108,75 +108,75 @@ const Events = ({ events, categories }: pageProps) => {
                 setFilteredEvents(filteredData as SetStateAction<never[]>);
             } else setFilteredEvents(events as SetStateAction<never[]>);
         };
-  return (
-    <>
-          <NavBar />
+    return (
+        <>
+            <NavBar />
 
-          <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-              <InnerContainer>
-                  <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Events</Title>
-                  <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/events'}>Events </Link> {`${router.query.category === undefined ? "" : '/ ' + upperCase(router.query.category as string)}`}</Text>
-              </InnerContainer>
-          </InnerBanner>
+            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+                <InnerContainer>
+                    <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Events</Title>
+                    <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/events'}>Events </Link> {`${router.query.category === undefined ? "" : '/ ' + upperCase(router.query.category as string)}`}</Text>
+                </InnerContainer>
+            </InnerBanner>
 
-          <PageContainer>
-              <InnerContainer>
-                  <Row>
-                      <Column className='column-7'>
-                          <Row>
-                              {filteredEvents?.map((event: eventProps, id) => (
-                                  <Column style={{ minWidth: "50%" }} key={id}>
-                                      <Post>
-                                          <PostThumb>
-                                              <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
-                                                  <Image src={event?.attributes?.listImage || '/default-list-img.jpg'} alt='event image' />
-                                              </Link>
-                                          </PostThumb>
-                                          <PostBody>
-                                              <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
-                                              <PostTitle>{event?.attributes?.title}</PostTitle>
-                                              </Link>
-                                              <Text>{event?.attributes?.description}</Text>
-                                              <Bottom>
+            <PageContainer>
+                <InnerContainer>
+                    <Row>
+                        <Column className='column-7'>
+                            <Row>
+                                {filteredEvents?.map((event: eventProps, id) => (
+                                    <Column style={{ minWidth: "50%" }} key={id}>
+                                        <Post>
+                                            <PostThumb>
+                                                <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
+                                                    <Image src={event?.attributes?.listImage || '/default-list-img.jpg'} alt='event image' />
+                                                </Link>
+                                            </PostThumb>
+                                            <PostBody>
+                                                <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
+                                                    <PostTitle>{event?.attributes?.title}</PostTitle>
+                                                </Link>
+                                                <Text>{event?.attributes?.description}</Text>
+                                                <Bottom>
 
-                                                  <PostDate>Date : {event?.attributes?.host?.data?.attributes?.name}  |  {dayjs(event?.attributes?.startDate).format('DD MMMM YYYY')} - {dayjs(event?.attributes?.endDate).format('DD MMMM YYYY')}</PostDate>
-                                                  <PostMedia>
-                                                      {/* <Link href={'/posts'}><a><ThumbsUp /></a></Link> */}
-                                                      {/* <Link href={'/posts'}><a><BookMark /></a></Link> */}
-                                                  </PostMedia>
-                                              </Bottom>
-                                          </PostBody>
-                                      </Post>
-                                  </Column> 
-                              ))}
-                          </Row>
-                      </Column>
+                                                    <PostDate>Date : {event?.attributes?.host?.data?.attributes?.name}  |  {dayjs(event?.attributes?.startDate).format('DD MMMM YYYY')} - {dayjs(event?.attributes?.endDate).format('DD MMMM YYYY')}</PostDate>
+                                                    <PostMedia>
+                                                        {/* <Link href={'/posts'}><a><ThumbsUp /></a></Link> */}
+                                                        {/* <Link href={'/posts'}><a><BookMark /></a></Link> */}
+                                                    </PostMedia>
+                                                </Bottom>
+                                            </PostBody>
+                                        </Post>
+                                    </Column>
+                                ))}
+                            </Row>
+                        </Column>
 
-                      <Column>
-                          <SearchBar>
-                              <SearchInput placeholder="Search" type="text"
-                                  name="search"
-                                  onChange={handleSearch("search")}
-                              />
-                              <SearchButton></SearchButton>
-                          </SearchBar>
-                          <WidgetPanel>
-                              <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                              <WidgetPanelListing>
+                        <Column>
+                            <SearchBar>
+                                <SearchInput placeholder="Search" type="text"
+                                    name="search"
+                                    onChange={handleSearch("search")}
+                                />
+                                <SearchButton></SearchButton>
+                            </SearchBar>
+                            <WidgetPanel>
+                                <WidgetPanelTitle>Categories</WidgetPanelTitle>
+                                <WidgetPanelListing>
 
-                                  {categories?.map((cat, id) => (
-                                      <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/events/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
-                                  ))}
-                              </WidgetPanelListing>
+                                    {categories?.map((cat, id) => (
+                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/events/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
+                                    ))}
+                                </WidgetPanelListing>
 
-                          </WidgetPanel>
-                      </Column>
-                  </Row>
-              </InnerContainer>
-          </PageContainer>
-          <Footer />
-    </>
-  )
+                            </WidgetPanel>
+                        </Column>
+                    </Row>
+                </InnerContainer>
+            </PageContainer>
+            <Footer />
+        </>
+    )
 }
 
 export default Events

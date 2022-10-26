@@ -1,12 +1,12 @@
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 import React from 'react';
 import { InnerContainer, PageContainer, Text, Title } from 'styles/common.styles';
 
 const CookiePolicy = () => {
   return <>
     <NavBar />
-    <PageContainer style={{backgroundColor: '#f7f7f7'}} className="content">
+    <PageContainer style={{ backgroundColor: '#f7f7f7' }} className="content">
       <InnerContainer>
         <Title>How Talent Kids Uses Cookies </Title>
         <Text><strong>Cookies and how they benefit you</strong> Our website uses cookies, as almost all websites do, to help provide you with the best experience we can. Cookies are small text files that are placed on your computer or mobile phone when you browse websites</Text>
@@ -29,11 +29,11 @@ const CookiePolicy = () => {
         <Text><strong>Website Function Cookies</strong></Text>
         <Text><strong>Our own cookies </strong>We use cookies to make our website work including:</Text>
         <Text>Remembering your preferences such as colors, text size and layout There is no way to prevent these cookies being set other than to not use our site. </Text>
-        <Title style={{fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Anonymous Visitor Statistics Cookies</Title>
+        <Title style={{ fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Anonymous Visitor Statistics Cookies</Title>
         <Text>We use cookies to compile visitor statistics such as how many people have visited our website, what type of technology they are using (e.g. Mac or Windows which helps to identify when our site isn't working as it should for particular technologies), how long they spend on the site, what page they look at etc. This helps us to continuously improve our website. These so called “analytics” programs also tell us if, on an anonymous basis, how people reached this site (e.g. from a search engine) and whether they have been here before helping us to put more money into developing our services for you instead of marketing spend.</Text>
-        <Title style={{fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Compliance with GDPR</Title>
+        <Title style={{ fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Compliance with GDPR</Title>
         <Text>The Parties are committed to respect privacy and to ensure lawful processing of personal data. Each Party shall be individually responsible, as a sole data controller, for its own processing of personal data pursuant to and/or in connection with this Agreement.</Text>
-        <Title style={{fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Third party cookies</Title>
+        <Title style={{ fontSize: '1.25rem', marginBottom: '.75rem', marginTop: '1.5rem' }}>Third party cookies</Title>
         <Text>You may notice some cookies that are not related to the Talent Kids website whilst visiting <a href='https://talentkids.io/' target={'_blank'}>https://talentkids.io/</a>. Some of our pages contain embedded content such as <a href='https://policies.google.com/privacy?hl=en' target={'_blank'}>YouTube video</a>, <a href='https://www.facebook.com/about/privacy/your-info' target={'_blank'}>Facebook buttons</a> or Flickr, and you may receive cookies delivered from these websites. Talent Kids does not govern the publication of 3rd party cookies. To understand more about their cookies and privacy statements, please visit the relevant sites.</Text>
 
         <Text><strong>Turning Cookies Off</strong> You can usually switch cookies off by adjusting your browser settings to stop it from accepting cookies</Text>

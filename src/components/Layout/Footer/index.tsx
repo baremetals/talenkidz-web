@@ -26,7 +26,7 @@ import {
     SwitchBox,
     Switch,
     NewsletterBox
-} from "../../styles/common.styles";
+} from "../../../styles/common.styles";
 
 import { NewsCard } from './NewsCard'
 import Button from 'components/Button';
@@ -69,9 +69,9 @@ function Footer(): ReactElement {
 
     const handleSubmit = async () => {
         try {
-            const res = await addToMailingList(email) 
+            const res = await addToMailingList(email)
             toast.success(res.data.message, { position: "bottom-left", })
-            setEmail('')    
+            setEmail('')
         } catch (error) {
             console.log(error);
         }
@@ -89,15 +89,15 @@ function Footer(): ReactElement {
                                     <Image src={'/logo-white.png'} alt='' />
                                 </Logo>
                             </Link> */}
-                            <Title style={{color: '#fff', fontSize: '1.75rem', marginTop: '0'}}>Get The Newsletter</Title>
+                            <Title style={{ color: '#fff', fontSize: '1.75rem', marginTop: '0' }}>Get The Newsletter</Title>
                             <Text style={{}}>Keep the kids happy with entertaining and educational ideas</Text>
-                            <NewsletterBox style={{maxWidth: '90%'}}>
+                            <NewsletterBox style={{ maxWidth: '90%' }}>
                                 <Input id="email" type="email" placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} value={email}></Input>
                                 <Button content="" type="submit" style={{ borderRadius: '.375rem', marginLeft: '1rem' }} onClick={() => handleSubmit()}>Subscribe</Button>
                             </NewsletterBox>
                             {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
                         </Column>
-        
+
                         <Column>
                             <FooterTitle>Talent Kids</FooterTitle>
                             <FooterLinks>
@@ -114,9 +114,9 @@ function Footer(): ReactElement {
                         <Column>
                             <FooterTitle>News Feed</FooterTitle>
                             <MediaObject>
-                                <NewsCard />                           
+                                <NewsCard />
                             </MediaObject>
-                        </Column>                       
+                        </Column>
                     </Row>
                 </InnerContainer>
             </SiteFooter>

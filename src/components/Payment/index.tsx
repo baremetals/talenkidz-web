@@ -7,8 +7,8 @@ import { useAppSelector } from "app/hooks";
 import { isUser } from "features/auth/selectors";
 import StripeForm from './stripe-form';
 
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 
 
 
@@ -44,16 +44,16 @@ const CreateListing = () => {
 
     const [formType, setFormType] = useState('activity')
     const { user: user } = useAppSelector(isUser);
-    
+
     return (
         <>
             <NavBar />
             <PageContainer style={{ minHeight: '100vh' }}>
                 <InnerContainer>
-                    <Title style={{marginBottom: '2rem', textAlign: 'center' }}>Payment method</Title>
+                    <Title style={{ marginBottom: '2rem', textAlign: 'center' }}>Payment method</Title>
                     <PaymentOuter>
-                        <AlignCentered style={{minWidth: '100%'}}>
-                            <CardStyle style={{minWidth: '100%'}}>
+                        <AlignCentered style={{ minWidth: '100%' }}>
+                            <CardStyle style={{ minWidth: '100%' }}>
                                 <StepTabs>
                                     <StepItem>
                                         <StepHead>1</StepHead>
@@ -91,7 +91,7 @@ const CreateListing = () => {
                                 </CardStyle>
                             </PaymentDetail> */}
 
-                            <PaymentForm style={{minWidth: '100%'}}>
+                            <PaymentForm style={{ minWidth: '100%' }}>
                                 <CardStyle>
                                     <StripeForm />
                                 </CardStyle>

@@ -5,8 +5,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { ErrorMsg } from "components/Input";
-import Footer from "components/Footer";
-import NavBar from "components/NavBar";
+import Footer from "components/Layout/Footer";
+import NavBar from "components/Layout/NavBar";
 import {
     InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, Post, PostThumb, PostBody, AddressMap, Iframe, AddressCard, AvatarRow, Avatar
 } from "styles/common.styles";
@@ -74,11 +74,11 @@ function ListDetails(props: {
                                         <Post >
                                             <PostThumb>
                                                 {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                            </PostThumb>                                   
-                                            <PostBody>                                           
+                                            </PostThumb>
+                                            <PostBody>
                                                 <div style={{ marginBottom: "1.5rem" }}>
                                                     <Markdown>{list?.attributes?.body as string}</Markdown>
-                                                </div>                                        
+                                                </div>
                                             </PostBody>
                                         </Post>
                                     </div>

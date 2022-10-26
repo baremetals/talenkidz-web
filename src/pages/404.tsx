@@ -1,4 +1,4 @@
-import NavBar from 'components/NavBar';
+import NavBar from 'components/Layout/NavBar';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
 

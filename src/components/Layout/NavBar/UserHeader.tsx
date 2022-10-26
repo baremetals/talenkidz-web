@@ -14,7 +14,7 @@ import {
     SiteHeader,
     NavBarItem,
     Image,
-} from "../../styles/common.styles";
+} from "../../../styles/common.styles";
 
 import {
     ProfileImg,
@@ -35,18 +35,18 @@ export default function UserHeader() {
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
-          if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-            if (toggle) setToggle(false);
-          }
+            if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+                if (toggle) setToggle(false);
+            }
 
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-            if (dropdown) setDropdown(false);
-          }
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                if (dropdown) setDropdown(false);
+            }
         }
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     });
 

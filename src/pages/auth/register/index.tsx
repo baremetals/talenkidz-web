@@ -1,7 +1,7 @@
 import React from 'react';
 import Register from 'components/Auth/Register';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 // import { withApollo } from 'utils/withApollo';
 
 function RegisterPage() {

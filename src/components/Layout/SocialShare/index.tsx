@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon";
-import { FaceBook } from "../../../public/assets/icons/FaceBook";
-import { Twitter } from "../../../public/assets/icons/Twitter";
-import { LinkedIn } from "../../../public/assets/icons/LinkedIn";
-import { WhatsApp } from "../../../public/assets/icons/WhatsApp";
-import { Email } from "../../../public/assets/icons/Email";
+import { SocialDropDownIcon } from "../../../../public/assets/icons/SocialDropDownIcon";
+import { FaceBook } from "../../../../public/assets/icons/FaceBook";
+import { Twitter } from "../../../../public/assets/icons/Twitter";
+import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
+import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
+import { Email } from "../../../../public/assets/icons/Email";
 
 import {
   EmailShareButton,

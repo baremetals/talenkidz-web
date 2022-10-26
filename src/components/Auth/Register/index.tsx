@@ -87,11 +87,15 @@ const Register = () => {
     };
 
     const handleterms = () => {
+        console.log('function call: ', openTerms)
+        setOpenTerms(true);
+        console.log('function call: ', openTerms)
         return setOpenTerms(!openTerms);
     };
 
     return (
         <>
+            {openTerms && <TermsModal openTerms={openTerms} />}
             <PageContainer style={{ minHeight: '100vh' }}>
                 <Formik
                     initialValues={initialValues}
@@ -177,8 +181,8 @@ const Register = () => {
                                         </FormGroup>
                                         <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                                             <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>Already have an account? <Link href={'/auth/login'}><a style={{ color: '#A35193' }}>Sign In</a></Link></Text>
-                                            <div onClick={handleterms}>
-                                            <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem', cursor: 'pointer' }}>By creating your account you agree to the<span style={{ color: '#A35193' }}> terms and privacy policy.</span></Text>
+                                            <div onClick={() => handleterms()}>
+                                                <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem', cursor: 'pointer' }}>By creating your account you agree to the<span style={{ color: '#A35193' }}> terms and privacy policy.</span></Text>
                                             </div>
                                         </FormGroup>
                                     </FormWrap>
@@ -189,7 +193,6 @@ const Register = () => {
                 </Formik>
                 <Image style={{ position: 'absolute', width: '20rem', bottom: '0', right: '0', zIndex: '-1' }} src="/login.png" alt="image of a parent and child" />
             </PageContainer>
-            <TermsModal openTerms={openTerms} />
         </>
     );
 };
