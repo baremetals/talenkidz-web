@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { upperCase } from 'lib/helpers'
 import Markdown from "markdown-to-jsx";
 import dayjs from "dayjs";
@@ -15,6 +15,7 @@ import RelatedListings from '../ListDetails/RelatedListings'
 
 import Link from "next/link";
 import { ListingEntityResponseCollection } from 'generated/graphql';
+import SocialShare from "components/Layout/SocialShare";
 
 function ListDetails(props: {
     props: {
@@ -41,6 +42,17 @@ function ListDetails(props: {
     // console.log(location)
     const category = list?.attributes?.category?.data?.attributes?.slug as string;
     console.log(category)
+
+    // List
+
+    const postSlug = list?.attributes?.slug as string;
+
+    const categoryList = list?.attributes?.category?.data?.attributes?.slug as string;
+
+    const [socialDropdown, setSocialDropdown] = useState(false)
+    const socialToggle  = () => {
+        setSocialDropdown(!socialDropdown)
+    }
 
     return (
         <>
@@ -70,6 +82,9 @@ function ListDetails(props: {
                         <Column className='column-7'>
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
+                                    <div style={{margin: ' 0 0 1rem'}} className="clearfix">
+                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={categoryList + '/' + postSlug} />
+                                    </div>
                                     <div>
                                         <Post >
                                             <PostThumb>

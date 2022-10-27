@@ -289,3 +289,12 @@ textarea:hover,
     color: #7c7c7c !important;
     border: none;
 }
+
+.clearfix {
+    clear: both;
+}
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
