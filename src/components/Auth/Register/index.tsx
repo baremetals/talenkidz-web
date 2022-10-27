@@ -44,6 +44,8 @@ import {
     Icon,
     Image,
     FormInput,
+    Row,
+    Column,
 } from 'styles/common.styles';
 
 import { RadioFormInput, RadioFormGroup } from '../auth-styles'
@@ -114,7 +116,7 @@ const Register = () => {
                                     {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                                     <Title style={{ lineHeight: '1.6', fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.5rem' }}>Sign Up</Title>
                                     <FormWrap>
-                                        <RadioFormGroup>
+                                        <RadioFormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
 
                                             {/* <Icon><Profile /></Icon> */}
                                             <RadioFormInput type='radio' name='userType' value='candidate' 
@@ -128,21 +130,27 @@ const Register = () => {
                                                 <Error>{errors.userType}</Error>
                                             )}
                                         </RadioFormGroup>
-                                        <FormGroup>
+                                        <Row>
+                                            <Column>
+                                                <FormGroup>
 
-                                            <Icon><Profile /></Icon>
-                                            <FormInput type='text' placeholder='Full name' name='fullName' />
-                                            {errors.fullName && touched.fullName && (
-                                                <Error>{errors.fullName}</Error>
-                                            )}
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Icon><Profile /></Icon>
-                                            <FormInput type='text' placeholder='username' name='username' />
-                                            {errors.username && touched.username && (
-                                                <Error>{errors.username}</Error>
-                                            )}
-                                        </FormGroup>
+                                                    <Icon><Profile /></Icon>
+                                                    <FormInput type='text' placeholder='Full name' name='fullName' />
+                                                    {errors.fullName && touched.fullName && (
+                                                        <Error>{errors.fullName}</Error>
+                                                    )}
+                                                </FormGroup>
+                                            </Column>
+                                            <Column>
+                                                <FormGroup>
+                                                    <Icon><Profile /></Icon>
+                                                    <FormInput type='text' placeholder='username' name='username' />
+                                                    {errors.username && touched.username && (
+                                                        <Error>{errors.username}</Error>
+                                                    )}
+                                                </FormGroup>
+                                            </Column>
+                                        </Row>
                                         {/* {values.userType === 'organisation' && <FormGroup>
                                             <Icon><Profile /></Icon>
                                             <FormInput type='text' placeholder='Organisation Name' name='organisationName' values=""/>
