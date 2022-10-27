@@ -813,7 +813,7 @@ export const BlockquoteName = styled.span`
 // Login
 
 export const LoginWrapper = styled.div`
-    max-width: 23.5rem;
+    max-width: 42rem;
     width: 100%;
     margin-left: auto;
     margin-right: auto;

@@ -128,6 +128,18 @@ function PolicyPopUp({ privacyPolicy }: policy) {
         setManageSetting(!manageSetting);
         setPolicy(!policy)
     };
+
+    const [isActive, setActive] = useState < number | null >(0);
+    
+    const toggleSetting = (index: any) => {
+        if(isActive === index) {
+            setActive(null)
+            return
+        }
+        setActive(index)
+
+    }
+
     return (
         <>
             <Modal showModal={policy} style={{ textAlign: 'center' }} className="modal-style" id="policy-modal">
@@ -147,41 +159,45 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                     <div className='minh'>
 
                         {consentData.map((set, i) => (
-                            <SwitchBox key={i}>
-                                <Text style={{ color: '#000' }}>{set.title}</Text>
-                                <Switch>
-                                    {/* <label>{label}</label> */}
-                                    <Input type={'checkbox'} id={set.title}
-                                        onChange={(e) => {
-                                            // console.log(e.target.value);
-                                            
-                                            let policy
-                                            const policyTitle = document.getElementById(set.title);
-                                            // console.log(policyTitle?.id);
-                                            policy = policyTitle?.id
-                                            switch (policyOptions.includes(policy as string)) {
-                                                case policy === "Marketing":
-                                                    // console.log(`its the ${policy} policy`)
-                                                    setMarketing(!marketing)
-                                                    break;
-                                                case policy === "Statistical":
-                                                    // console.log(`its the ${policy} policy`)
-                                                    setStatistical(!statistical)
-                                                    break;
-                                                case policy === "Unclassified":
-                                                    // console.log(`its the ${policy} policy`, unclassified)
-                                                    setUnclassified(!unclassified)
-                                                    // console.log(`latest: `, unclassified)
-                                                    break;
-                                                default:
-                                                // code block
-                                            }
-                                        }} 
-                                        // value={set.consent ? 'yes' : 'no'}
-                                        checked={set.checked && set.checked}                                    
-                                    ></Input>
-                                    <LabelText htmlFor={set.title}>Consent</LabelText>
-                                </Switch>
+                            <SwitchBox key={i} style={{flexDirection: 'column'}}>
+                                <div style={{'display': 'flex', 'width':'100%'}}>
+                                    <Text style={{ color: '#000' }}>{set.title}</Text>
+                                    <Switch>
+                                        {/* <label>{label}</label> */}
+                                        <Input type={'checkbox'} id={set.title}
+                                            onChange={(e) => {
+                                                // console.log(e.target.value);
+                                                
+                                                let policy
+                                                const policyTitle = document.getElementById(set.title);
+                                                // console.log(policyTitle?.id);
+                                                policy = policyTitle?.id
+                                                switch (policyOptions.includes(policy as string)) {
+                                                    case policy === "Marketing":
+                                                        // console.log(`its the ${policy} policy`)
+                                                        setMarketing(!marketing)
+                                                        break;
+                                                    case policy === "Statistical":
+                                                        // console.log(`its the ${policy} policy`)
+                                                        setStatistical(!statistical)
+                                                        break;
+                                                    case policy === "Unclassified":
+                                                        // console.log(`its the ${policy} policy`, unclassified)
+                                                        setUnclassified(!unclassified)
+                                                        // console.log(`latest: `, unclassified)
+                                                        break;
+                                                    default:
+                                                    // code block
+                                                }
+                                            }} 
+                                            // value={set.consent ? 'yes' : 'no'}
+                                            checked={set.checked && set.checked}                                    
+                                        ></Input>
+                                        <LabelText htmlFor={set.title}>Consent </LabelText>
+                                        <Button onClick={ () => toggleSetting(i)} className="toggle-button">></Button>
+                                    </Switch>
+                                </div>
+                                {i === isActive && <Text style={{ color: '#000', width: '100%', fontSize: '.875rem', marginTop: '1rem'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus doloremque quos corporis quo, eos ab repellat deleniti similique! Ipsa excepturi enim illum accusamus error ea, rem adipisci quasi! Ipsum, autem.</Text>}
                                 {/* <Switch>
                             <Input type={'checkbox'} id='LegitimateInterest'></Input>
                             <LabelText htmlFor='LegitimateInterest'>Legitimate Interest</LabelText>
