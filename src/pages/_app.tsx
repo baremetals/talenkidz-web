@@ -12,7 +12,7 @@ import { useApollo } from "../lib/apolloClient";
 import { darkTheme } from "../styles/theme";
 
 import "../styles/globals.css";
-import Layout from 'components/Layout';
+// import Layout from 'components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const startLoading = () => {
