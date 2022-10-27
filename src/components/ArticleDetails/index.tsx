@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Footer from 'components/Layout/Footer';
 import NavBar from 'components/Layout/NavBar';
 import Markdown from "markdown-to-jsx";
@@ -29,6 +29,7 @@ import { ErrorMsg } from "components/Input";
 
 import { ClockSeven } from '../../../public/assets/icons/ClockSeven'
 import { ArticleEntityResponseCollection } from 'generated/graphql';
+import SocialShare from 'components/Layout/SocialShare';
 
 export const ArticleDetails = (props: {
     props: {
@@ -53,6 +54,17 @@ export const ArticleDetails = (props: {
     // const avatar = author?.avatar?.data?.attributes?.url;
     const category = article?.attributes?.category?.data?.attributes?.slug as string;
 
+    // Article
+
+    const postSlug = article?.attributes?.slug as string;
+
+    const categoryArticle = article?.attributes?.category?.data?.attributes?.slug as string;
+    
+    const [socialDropdown, setSocialDropdown] = useState(false)
+    const socialToggle  = () => {
+        setSocialDropdown(!socialDropdown)
+    }
+
     return (
         <>
             <NavBar />
@@ -73,7 +85,7 @@ export const ArticleDetails = (props: {
                                             <Image src={imageurl} alt='article image' />
                                         </PostThumb>
                                         <PostBody>
-                                            <PostTitle>{article?.attributes?.title}</PostTitle>
+                                            <PostTitle>{article?.attributes?.title} <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={categoryArticle + '/' + postSlug} /></PostTitle>
                                             <PostDate style={{ marginBottom: "1.25rem" }}><ClockSeven /> By : {author?.fullName}  |  {dayjs(article?.attributes?.createdAt).format('DD MMMM YYYY')} </PostDate>
                                             <div style={{ marginBottom: "1.5rem" }}>
                                                 <Markdown>{article?.attributes?.body as string}</Markdown>

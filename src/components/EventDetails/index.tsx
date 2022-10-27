@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { upperCase } from 'lib/helpers'
 import Markdown from "markdown-to-jsx";
 import dayjs from "dayjs";
@@ -14,6 +14,7 @@ import RelatedEvents from '../EventDetails/RelatedEvents'
 
 import Link from "next/link";
 import { EventEntityResponseCollection } from 'generated/graphql';
+import SocialShare from "components/Layout/SocialShare";
 
 function EventDetails(props: {
     props: {
@@ -38,8 +39,15 @@ function EventDetails(props: {
     const host = event?.attributes?.host?.data?.attributes;
     const location = event?.attributes?.Location
     // console.log(location)
-    const category = event?.attributes?.category?.data?.attributes?.slug as string;
 
+    const postSlug = event?.attributes?.slug as string;
+
+    const category = event?.attributes?.category?.data?.attributes?.slug as string;
+    
+    const [socialDropdown, setSocialDropdown] = useState(false)
+    const socialToggle  = () => {
+        setSocialDropdown(!socialDropdown)
+    }
 
     return (
         <>
@@ -69,6 +77,9 @@ function EventDetails(props: {
                         <Column className='column-7'>
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
+                                    <div style={{margin: ' 0 0 1rem'}} className="clearfix">
+                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={category + '/' + postSlug} />
+                                    </div>
                                     <div>
                                         <Post>
                                             <PostThumb>
@@ -81,6 +92,8 @@ function EventDetails(props: {
                                             </PostBody>
                                         </Post>
                                     </div>
+                                    
+                                    
 
                                     <AddressMap>
                                         <AddressCard>
