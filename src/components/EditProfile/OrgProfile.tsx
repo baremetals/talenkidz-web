@@ -165,7 +165,7 @@ const OrgProfile = ({ user }: Props) => {
                                             <Edit />
                                         </EditButton>
                                         </ActionButton>
-                                        <ActionButton  onClick={() => setBackgroundImg(null)}>
+                                        <ActionButton  onClick={() => setBackgroundImg('')}>
                                             <BsTrash />
                                         </ActionButton>
                                     </ImageActions>

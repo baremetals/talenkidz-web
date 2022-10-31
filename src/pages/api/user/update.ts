@@ -8,20 +8,37 @@ const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 type user = {
   id: string;
   username: string;
-  slug: string;
-  img: string;
+  fullName: string;
+  avatar: string;
   backgroundImg: string;
-  online: boolean;
+  userType: string;
   jwt: string;
 };
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { data } = req.body;
   const cookies = JSON.parse(req.cookies.bareacademy as string);
-  const { id, jwt, img, backgroundImg } = cookies;
+  const { id, jwt, img, backgroundImg, username, fullName, userType } = cookies;
   const token = `Bearer ${jwt}`;
-  const apolloClient = initializeApollo(null, token);
-  // console.log(id);
+
+  function setTheCookie(user: user) {
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize(
+        process.env.COOKIE_NAME as string,
+        JSON.stringify(user),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          maxAge: 60 * 60 * 24 * 5, // 5 days
+          sameSite: 'strict',
+          path: '/',
+        }
+      )
+    );
+  }
+
+  console.log(cookies);
 
   if (data.flag === 'profileImage') {
     try {
@@ -29,17 +46,44 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const resp = await axios({
         method: 'POST',
         url: `${baseUrl}/users/${id}`,
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         data: {
-          fullName: data.fullName,
-          email: data.email,
-          password: data.password,
-          userType: data.userType,
-          username: data.username,
-          // organisationName: data.organisationName || "",
+          avatar: data.imagefile,
         },
       });
 
-      res.status(200).json({ message: 'Password Successfully changed' });
+      if (resp?.data) {
+        const user: user = {
+          id,
+          username,
+          fullName,
+          avatar: data.imagefile,
+          backgroundImg: backgroundImg,
+          userType,
+          jwt: jwt,
+        };
+        setTheCookie(user)
+
+        // res.setHeader(
+        //   'Set-Cookie',
+        //   cookie.serialize(
+        //     process.env.COOKIE_NAME as string,
+        //     JSON.stringify(user),
+        //     {
+        //       httpOnly: true,
+        //       secure: process.env.NODE_ENV !== 'development',
+        //       maxAge: 60 * 60 * 24 * 5, // 5 days
+        //       sameSite: 'strict',
+        //       path: '/',
+        //     }
+        //   )
+        // );
+      }
+
+      res.status(200).json({ message: 'Image Successfully changed' });
     } catch (err) {
       res
         .status(401)
@@ -47,48 +91,36 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
   } else {
     try {
-      // console.log("profile details update");
-      const resp = await apolloClient.mutate<UpdateMeMutationOptions>({
-        mutation: UpdateMeDocument,
-        variables: {
-          updateUsersPermissionsUserId: id,
-          data: {
-            email: email,
-            username: username,
-            fullName: fullName,
-            slug: username,
-            description: description,
-            location: location,
-          },
-        },
-      });
+      console.log("profile details update");
+      
 
-      if (resp?.data) {
-        const user: user = {
-          id: id,
-          username: username,
-          slug: username,
-          img: img,
-          backgroundImg: backgroundImg,
-          online: true,
-          jwt: jwt,
-        };
+      // if (resp?.data) {
+      //   const user: user = {
+      //     id,
+      //     username,
+      //     fullName,
+      //     avatar: data.imagefile,
+      //     backgroundImg: backgroundImg,
+      //     userType,
+      //     jwt: jwt,
+      //   };
+      //   setTheCookie(user);
 
-        res.setHeader(
-          'Set-Cookie',
-          cookie.serialize(
-            process.env.COOKIE_NAME as string,
-            JSON.stringify(user),
-            {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              maxAge: 60 * 60 * 24 * 2, // 2 days
-              sameSite: 'strict',
-              path: '/',
-            }
-          )
-        );
-      }
+      //   // res.setHeader(
+      //   //   'Set-Cookie',
+      //   //   cookie.serialize(
+      //   //     process.env.COOKIE_NAME as string,
+      //   //     JSON.stringify(user),
+      //   //     {
+      //   //       httpOnly: true,
+      //   //       secure: process.env.NODE_ENV !== 'development',
+      //   //       maxAge: 60 * 60 * 24 * 2, // 2 days
+      //   //       sameSite: 'strict',
+      //   //       path: '/',
+      //   //     }
+      //   //   )
+      //   // );
+      // }
 
       res.status(200).json({ message: 'Successfully changed.' });
     } catch (err: any) {

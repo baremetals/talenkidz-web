@@ -1,39 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import {
     Title,
-    Text,
-    Input,
-    LabelText,
-    SwitchBox,
-    Switch,
 } from "../../styles/common.styles";
+import Markdown from 'markdown-to-jsx';
 
 type Terms = {
     openTerms: boolean;
-    // onClick: () => void
+    children: React.ReactNode
 }
 
-export default function TermsModal({ openTerms }: Terms) {
+export default function TermsModal({ openTerms, children }: Terms) {
+
     const [terms, setterms] = useState(openTerms);
-    // console.log(openTerms)
-    const handleterms = () => {
-        return setterms(!terms);
-    };
+    const [content, setContent] = useState<string>('');
+
+    const getTermsData = async function() {
+        // const baseUrl = process.env.NEXT_PUBLIC_API_URL
+        const response = await fetch(`/api/kids/terms`)
+        const res = await response.json()
+        // console.log(res.content)
+        return setContent(res?.content)
+    }
+
+    useEffect(() => {
+        getTermsData()
+    }, [])
+
     return (
         <>
             <Modal showModal={terms} style={{ textAlign: 'center' }} className="modal-style" id="terms-modal">
                 <Title style={{ fontSize: '2rem' }}>Terms and conditions</Title>
                 <div className='minh'>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
-                    <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat error qui perferendis cumque esse! Nulla, accusantium! Rem reiciendis, dolorum facilis corporis in numquam necessitatibus id, cum, iste quo dicta. Officiis.</Text>
+                    <Markdown>{content && content}</Markdown>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
-                    <Button style={{ width: '12rem', marginLeft: 'auto' }} onClick={() => handleterms()}>Accept</Button>
-                </div>
+                {children}
             </Modal>
         </>
     )

@@ -62,7 +62,8 @@ const MyProfile = ({ user }: Props) => {
       username,
       pronoun,
       bio,
-      gender
+      gender,
+      backgroundImg
     }
   }
 
@@ -94,7 +95,7 @@ const MyProfile = ({ user }: Props) => {
                 <InputLabel>Gender</InputLabel>
                 <Select
                   labelId="gender-select-label"
-                  value={user.gender}
+                  value={user?.gender}
                   label="Gender"
                   onChange={(e) => setGender(e.target.value as SetStateAction<string>)}
                 >
@@ -108,7 +109,7 @@ const MyProfile = ({ user }: Props) => {
                 <InputLabel>Pronoun</InputLabel>
                 <Select
                   labelId="pronoun-select-label"
-                  value={user.pronoun}
+                  value={user?.pronoun}
                   label="Pronoun"
                   onChange={(e) => setPronoun(e.target.value as SetStateAction<string>)}
                 >
@@ -146,7 +147,7 @@ const MyProfile = ({ user }: Props) => {
                         <Edit />
                       </EditButton>
                     </ActionButton>
-                    <ActionButton onClick={() => setBackgroundImg(null)}>
+                    <ActionButton onClick={() => setBackgroundImg('')}>
                       <BsTrash />
                     </ActionButton>
                   </ImageActions>

@@ -298,3 +298,12 @@ textarea:hover,
     display: block;
     clear: both;
 }
+
+p {
+    color: #74787C;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    @media (max-width: 991px) {
+        font-size: .875rem;
+    }
+}

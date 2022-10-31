@@ -5,6 +5,8 @@ import { isUser } from "features/auth/selectors";
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
 import { FormData } from "formdata-node";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import NavBar from 'components/Layout/NavBar';
 import TabPanel from 'components/Layout/TabPanel';
@@ -78,7 +80,8 @@ const EditProfile = ({ user }: mixProps) => {
     const image = event?.target?.files![0]
     const base64 = await toBase64(event.target.files[0]);
     setUploadImg(image as any);
-    console.log(event.target.files[0])
+    setProfileImg(base64);
+    // console.log(event.target.files[0])
   }
 
   const a11yProps = (index: number) => {
@@ -88,26 +91,59 @@ const EditProfile = ({ user }: mixProps) => {
     };
   }
 
-  const onSubmit = async () => {
-    // console.log(upload);
+  const uploadProfileImage = async () => {
+    console.log('reactive baby');
     const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
     let form = new FormData()
-    console.log()
+    form.append('file', uploadImg, uploadImg?.name)
+    console.log(uploadImg)
     try {
-      const res = await fetch(`${baseUrl}/upload`, {
+      const res = await axios(`/api/upload`, {
         method: "post",
-        body: form as any,
+        headers: {
+          Accept: 'multipart/form-data',
+          // 'Content-Type': 'multipart/form-data',
+        },
+        data: form as any,
+        // data: uploadImg
       });
-      const file = await res.json();
-      setProfileImg(file[0].url)
-      const data = {
-        imagefile: file[0].url,
-        flag: "profileImage"
-      }
-      const dta = await axios.post('/api/user/update', {
-        data
-      })
-      console.log(dta)
+      // const res = await fetch(`/api/upload`, {
+      //   method: "post",
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: form as any,
+      //   // body: JSON.stringify(uploadImg)
+      // });
+      // const file = await res.json();
+
+      console.log('the response from the server: ',res)
+
+      // if (file[0].url) {
+      //   setProfileImg(file[0].url)
+
+      //   const data = {
+      //     imagefile: file[0].url,
+      //     flag: "profileImage"
+      //   }
+
+      //   const dta = await axios.post('/api/user/update', {
+      //   data
+      // })
+
+      //   console.log(dta)
+      // } else {
+      //   toast.error('issues from mars come back later', { position: "top-left", })
+      // }
+      // setProfileImg(file[0].url)
+      // const data = {
+      //   imagefile: file[0].url,
+      //   flag: "profileImage"
+      // }
+      // const dta = await axios.post('/api/user/update', {
+      //   data
+      // })
+      // console.log(dta)
 
     } catch (err) {
       console.log(err);
@@ -163,7 +199,7 @@ const EditProfile = ({ user }: mixProps) => {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                   >
-                    <Tab label="My Profile" />
+                    <Tab label="My Profile" onClick={() => uploadProfileImage()}/>
                     {/* <Tab label="Billing Info" /> */}
                   </Tabs>
                 </Navigation>
@@ -182,6 +218,7 @@ const EditProfile = ({ user }: mixProps) => {
           </Row>
         </TabContent>
       </InnerContainer>
+      <ToastContainer />
     </>
   );
 };

@@ -155,7 +155,6 @@ function PolicyPopUp({ privacyPolicy }: policy) {
 
             <Modal showModal={manageSetting} style={{ textAlign: 'center' }} className="modal-style">
                 <Title style={{ fontSize: '2rem' }}>Manage Setting</Title>
-                {/* <form > */}
                     <div className='minh'>
 
                         {consentData.map((set, i) => (
@@ -163,7 +162,6 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                                 <div style={{'display': 'flex', 'width':'100%'}}>
                                     <Text style={{ color: '#000' }}>{set.title}</Text>
                                     <Switch>
-                                        {/* <label>{label}</label> */}
                                         <Input type={'checkbox'} id={set.title}
                                             onChange={(e) => {
                                                 // console.log(e.target.value);
@@ -194,10 +192,10 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                                             checked={set.checked && set.checked}                                    
                                         ></Input>
                                         <LabelText htmlFor={set.title}>Consent </LabelText>
-                                        <Button onClick={ () => toggleSetting(i)} className="toggle-button">></Button>
+                                        <Button onClick={ () => toggleSetting(i)} className="toggle-button">{'>'}</Button>
                                     </Switch>
                                 </div>
-                                {i === isActive && <Text style={{ color: '#000', width: '100%', fontSize: '.875rem', marginTop: '1rem'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus doloremque quos corporis quo, eos ab repellat deleniti similique! Ipsa excepturi enim illum accusamus error ea, rem adipisci quasi! Ipsum, autem.</Text>}
+                                {i === isActive && <Text style={{ color: '#000', width: '100%', fontSize: '.875rem', marginTop: '1rem' }}>{set.description}</Text>}
                                 {/* <Switch>
                             <Input type={'checkbox'} id='LegitimateInterest'></Input>
                             <LabelText htmlFor='LegitimateInterest'>Legitimate Interest</LabelText>
@@ -209,8 +207,7 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
                         <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleManageSetting()}>Go Back</Button>
                     <Button style={{ width: '12rem', borderRadius: '8px' }} onClick={() => handleChange()}>Accept All</Button>
-                    </div>
-                {/* </form> */}
+                    </div>             
             </Modal>
         </>
     )

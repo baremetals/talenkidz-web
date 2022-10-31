@@ -30,6 +30,7 @@ const initialValues = {
 };
 
 import Button from 'components/Auth/Button';
+import TermsButton from 'components/Button';
 
 import {
     PageContainer,
@@ -89,15 +90,19 @@ const Register = () => {
     };
 
     const handleterms = () => {
-        console.log('function call: ', openTerms)
-        setOpenTerms(true);
-        console.log('function call: ', openTerms)
+        return setOpenTerms(!openTerms);
+    };
+    const handleAccept = () => {
         return setOpenTerms(!openTerms);
     };
 
     return (
         <>
-            {openTerms && <TermsModal openTerms={openTerms} />}
+            {openTerms && <TermsModal openTerms={openTerms} >
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
+                    <TermsButton style={{ width: '12rem', marginLeft: 'auto' }} onClick={() => handleAccept()}>Accept</TermsButton>
+                </div>
+                </TermsModal>}
             <PageContainer style={{ minHeight: '100vh' }}>
                 <Formik
                     initialValues={initialValues}

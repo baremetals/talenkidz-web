@@ -1,7 +1,7 @@
-import Faqs from 'components/Faq';
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
 import React from 'react';
+import Faqs from 'components/Faq';
+import Layout from 'components/Layout';
+
 
 
 export async function getStaticProps() {
@@ -20,9 +20,9 @@ export async function getStaticProps() {
 const FaqPage = ({ ...data }) => {
   // console.log(data.data)
   return <>
-    <NavBar />
+    <Layout title={'Terms and Conditions'} >
     <Faqs data={data?.data} />
-    <Footer />
+    </Layout>
   </>
 };
 
