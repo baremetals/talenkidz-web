@@ -18,20 +18,20 @@ function ListingsPage(props: pageProps) {
     return (
         <>
             <Head>
-                <title>Talentkids | Listings</title>
+                <title>Talentkids | Activities</title>
                 <meta
                     property="og:title"
-                    content="Talentkids | Listings"
+                    content="Talentkids | Activities"
                     key="title"
                 />
                 <meta
                     name="description"
-                    content="Listings"
+                    content="Activities"
                 />
-                <meta property="og:url" content="https://talentkids.io/listings" />
-                <meta property="og:type" content="listings" />
+                <meta property="og:url" content="https://talentkids.io/activities" />
+                <meta property="og:type" content="activities" />
                 <meta property="og:locale" content="en_GB" />
-                <link rel="canonical" href="https://talentkids.io/listings" />
+                <link rel="canonical" href="https://talentkids.io/activities" />
             </Head>
             <Listings listings={lists?.listings?.data} categories={cats?.data?.categories?.data} />
         </>

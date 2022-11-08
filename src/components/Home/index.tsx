@@ -5,8 +5,8 @@ import { useAppSelector } from "app/hooks";
 import { isUser } from "features/auth/selectors";
 
 import Button from 'components/Auth/Button';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
+import Footer from 'components/Layout/Footer';
+import NavBar from 'components/Layout/NavBar';
 import OurServices from './OurServices'
 import Company from '../About/Company'
 import ActivityCard from './ActivityCard'
@@ -46,23 +46,23 @@ import {
     PostCardText,
 
     Benefits,
-    
+
 } from "../../styles/common.styles";
 
 const Home = () => {
     return <>
         <NavBar />
-        <Hero style={{ backgroundImage: "url(/yung-buck.jpg)"}}>
+        <Hero style={{ backgroundImage: "url(/yung-buck.jpg)" }}>
             <InnerContainer>
                 <HeroContent>
-                    <HeroSubTitle style={{ color: "white"}}>Talent Kids</HeroSubTitle>
+                    <HeroSubTitle style={{ color: "white" }}>Talent Kids</HeroSubTitle>
                     <HeroTitle style={{ color: "white" }}>Do What You Love For A Lifetime</HeroTitle>
                     <Button content='Create an Account' />
                 </HeroContent>
             </InnerContainer>
         </Hero>
         <OurServices />
-        
+
         <ActivityCard />
 
         {/* <ImageContent>

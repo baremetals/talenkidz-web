@@ -12,11 +12,24 @@ type Data = {
 type user = {
   id: string;
   username: string;
-  // eslint-disable-next-line camelcase
+  fullName: string;
   avatar: string;
-  // eslint-disable-next-line camelcase
   backgroundImg: string;
+  userType: string;
   jwt: string;
+};
+
+type org = {
+  id: string;
+  username: string;
+  backgroundImg: string;
+  userType: string;
+  jwt: string;
+  orgId: string;
+  orgName: string;
+  slug: string;
+  logo: string;
+  fullProfile: string;
 };
 
 export default async function passwordReset(
@@ -24,6 +37,7 @@ export default async function passwordReset(
   res: NextApiResponse<Data>
 ) {
   const { data } = req.body;
+  console.log(baseUrl)
 
   if (data.flag === 'FORGOTPASSWORD') {
     try {
@@ -56,32 +70,16 @@ export default async function passwordReset(
         },
       });
 
-      const user: user = {
-        id: resp.data.user.id,
-        username: resp.data.user.username,
-        avatar: resp.data.user.avatar,
-        backgroundImg: resp.data.user.backgroundImg,
-        jwt: resp.data.jwt,
-      };
-
-      res.setHeader(
-        'Set-Cookie',
-        cookie.serialize(
-          process.env.COOKIE_NAME as string,
-          JSON.stringify(user),
-          {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development',
-            maxAge: 60 * 60 * 24 * 2, // 2 days
-            sameSite: 'strict',
-            path: '/',
-          }
-        )
-      );
-      res.send(resp.data.user);
+      res.status(200).json(resp.data.user.id);
     } catch (err: any) {
-      // console.log(err.response.data.message);
-      res.status(401).json({ message: err.response.data.error.message });
+      console.log(
+        'the fucking error print: ',
+        err.response.data.error.message
+      );
+      if (err.response.data.error.message === 'Incorrect code provided'){
+        res.status(401).json({ message: err.response.data.error.message });
+      }
+        res.status(401).json({ message: err.response });
     }
   } 
   

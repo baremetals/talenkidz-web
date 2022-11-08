@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 import { getRegisterValidationSchema } from "utils/formValidation";
+import TermsModal from "components/Modal/TermsModal"
 import { Error, ErrorMsg } from "../../Input";
 
 type registerUserProps = {
@@ -29,6 +30,7 @@ const initialValues = {
 };
 
 import Button from 'components/Auth/Button';
+import TermsButton from 'components/Button';
 
 import {
     PageContainer,
@@ -43,6 +45,8 @@ import {
     Icon,
     Image,
     FormInput,
+    Row,
+    Column,
 } from 'styles/common.styles';
 
 import { RadioFormInput, RadioFormGroup } from '../auth-styles'
@@ -54,7 +58,8 @@ import { Profile } from "../../../../public/assets/icons/Profile";
 
 const Register = () => {
     const router = useRouter();
-    const [errorMsg, setErrorMsg] = useState<boolean>(false);    
+    const [errorMsg, setErrorMsg] = useState<boolean>(false); 
+    const [openTerms, setOpenTerms] = useState(false);  
 
     const handleSubmit = async ({ ...values }: registerUserProps) => {
         // console.log(values)
@@ -84,8 +89,20 @@ const Register = () => {
             });
     };
 
+    const handleterms = () => {
+        return setOpenTerms(!openTerms);
+    };
+    const handleAccept = () => {
+        return setOpenTerms(!openTerms);
+    };
+
     return (
         <>
+            {openTerms && <TermsModal openTerms={openTerms} >
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
+                    <TermsButton style={{ width: '12rem', marginLeft: 'auto' }} onClick={() => handleAccept()}>Accept</TermsButton>
+                </div>
+                </TermsModal>}
             <PageContainer style={{ minHeight: '100vh' }}>
                 <Formik
                     initialValues={initialValues}
@@ -104,7 +121,7 @@ const Register = () => {
                                     {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                                     <Title style={{ lineHeight: '1.6', fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.5rem' }}>Sign Up</Title>
                                     <FormWrap>
-                                        <RadioFormGroup>
+                                        <RadioFormGroup style={{ justifyContent: 'center', alignItems: 'center' }}>
 
                                             {/* <Icon><Profile /></Icon> */}
                                             <RadioFormInput type='radio' name='userType' value='candidate' 
@@ -118,21 +135,27 @@ const Register = () => {
                                                 <Error>{errors.userType}</Error>
                                             )}
                                         </RadioFormGroup>
-                                        <FormGroup>
+                                        <Row>
+                                            <Column>
+                                                <FormGroup>
 
-                                            <Icon><Profile /></Icon>
-                                            <FormInput type='text' placeholder='Full name' name='fullName' />
-                                            {errors.fullName && touched.fullName && (
-                                                <Error>{errors.fullName}</Error>
-                                            )}
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Icon><Profile /></Icon>
-                                            <FormInput type='text' placeholder='username' name='username' />
-                                            {errors.username && touched.username && (
-                                                <Error>{errors.username}</Error>
-                                            )}
-                                        </FormGroup>
+                                                    <Icon><Profile /></Icon>
+                                                    <FormInput type='text' placeholder='Full name' name='fullName' />
+                                                    {errors.fullName && touched.fullName && (
+                                                        <Error>{errors.fullName}</Error>
+                                                    )}
+                                                </FormGroup>
+                                            </Column>
+                                            <Column>
+                                                <FormGroup>
+                                                    <Icon><Profile /></Icon>
+                                                    <FormInput type='text' placeholder='username' name='username' />
+                                                    {errors.username && touched.username && (
+                                                        <Error>{errors.username}</Error>
+                                                    )}
+                                                </FormGroup>
+                                            </Column>
+                                        </Row>
                                         {/* {values.userType === 'organisation' && <FormGroup>
                                             <Icon><Profile /></Icon>
                                             <FormInput type='text' placeholder='Organisation Name' name='organisationName' values=""/>
@@ -171,11 +194,11 @@ const Register = () => {
                                         </FormGroup>
                                         <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                                             <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>Already have an account? <Link href={'/auth/login'}><a style={{ color: '#A35193' }}>Sign In</a></Link></Text>
-                                            <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>By creating your account you agree to the <Link href={'/terms'}><a style={{ color: '#A35193' }}>terms and privacy policy.</a></Link></Text>
+                                            <div onClick={() => handleterms()}>
+                                                <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem', cursor: 'pointer' }}>By creating your account you agree to the<span style={{ color: '#A35193' }}> terms and privacy policy.</span></Text>
+                                            </div>
                                         </FormGroup>
                                     </FormWrap>
-
-
                                 </LoginInner>
                             </LoginWrapper>
                         </InnerContainer>

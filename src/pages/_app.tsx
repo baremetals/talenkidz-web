@@ -12,6 +12,7 @@ import { useApollo } from "../lib/apolloClient";
 import { darkTheme } from "../styles/theme";
 
 import "../styles/globals.css";
+// import Layout from 'components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const startLoading = () => {
@@ -43,8 +44,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  
-
   return (
     <>
       <Head>
@@ -58,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <ApolloProvider client={apolloClient} >
           <ThemeProvider theme={darkTheme}>
-            <Component {...pageProps} />
+              <Component {...pageProps} />
           </ThemeProvider>
         </ApolloProvider>
       </Provider>

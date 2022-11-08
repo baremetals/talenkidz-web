@@ -29,8 +29,8 @@ export const InnerContainer = styled.div`
 `;
 
 export const SiteHeader = styled.header`
-    padding-top: 1.625rem;
-    padding-bottom: 1.625rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     position: relative;
     z-index: 100;
     @media (max-width: 991px) {
@@ -61,11 +61,15 @@ export const ToggleBar = styled.button`
     background-color: transparent;
     display: block;
     cursor: pointer;
+    z-index: 1;
+    &:hover {
+        background-color: transparent;
+    }
     span {
         display: block;
         border-radius: .25rem;
         height: 4px;
-        background-color: #000;
+        background-color: #BC70AD;
         margin: .25rem 0;
     }
 `;
@@ -81,7 +85,9 @@ export const Logo = styled.div`
     font-size: 2rem;
     line-height: 1;
     img {
-        width: 150px;
+        width: 200px;
+        aspect-ratio: inherit;
+        object-fit: contain;
         @media (max-width: 991px) {
             width: 120px;
         }
@@ -90,6 +96,7 @@ export const Logo = styled.div`
 
 export const NavbarCollapse = styled.div`
     @media (max-width: 991px) {
+        margin-top: 60px;
         position: fixed;
         background-color: #fff;
         top: 0;
@@ -139,7 +146,7 @@ export const NavBarItem = styled.li`
             background-color: #BC70AD;
             color: #FFF;
             padding: .5rem 1.375rem;
-            border-radius: 10rem;
+            border-radius: .375rem;
             &:hover {
                 background-color: #333;
                 color: #fff;
@@ -215,6 +222,7 @@ export const SubTitle = styled.span`
 export const Title = styled.h2`
     font-size: 3rem;
     line-height: 1.2;
+    margin-bottom:1.25rem;
     @media (max-width: 991px) {
         font-size: 2rem;
     }
@@ -223,7 +231,7 @@ export const Title = styled.h2`
 export const Text = styled.p`
     color: #74787C;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     svg {
         margin-right: .5rem;
         vertical-align: middle;
@@ -296,6 +304,8 @@ export const ListingsItem = styled.li`
 export const Image = styled.img`
     display: block;
     width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
 `;
 
 // Hero Banner
@@ -385,6 +395,9 @@ export const Row = styled.div`
     &.row-reverse {
         flex-direction: row-reverse;
     }
+    &.horizontal {
+        margin: 0 -1rem;
+    }
     &.g-6 {
         margin: -.375rem;
         .col {
@@ -397,6 +410,12 @@ export const Row = styled.div`
             padding: .375rem;
         }
     }
+    &.g-20 {
+        margin: -.625rem;
+        .col {
+            padding: .625rem;
+        }
+    }
     
 `;
 
@@ -405,6 +424,19 @@ export const Column = styled.div`
     flex: 1 0 0%;
     &.column-7 {
         min-width: 65%;
+        max-width: 65%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    &.column-6 {
+        min-width: 50%;
+        max-width: 50%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
     }
     &.column-3 {
         min-width: 33.33%;
@@ -414,6 +446,13 @@ export const Column = styled.div`
             max-width: 100%;
         }
     }
+    &.column-full {
+        min-width: 100%;
+        max-width: 100%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
     @media (max-width: 991px) {
         min-width: 100% !important;
     }
@@ -608,19 +647,31 @@ export const InnerBanner = styled.section`
     background-repeat: no-repeat;
 `;
 
-export const Post = styled.div``;
+export const Post = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
 
 export const PostThumb = styled.div`
     margin-bottom: 1.125rem;
 `;
 
-export const PostBody = styled.div``;
+export const PostBody = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+`;
 
 export const PostTitle = styled.h3`
     font-size: 1.625rem;
     margin-bottom: .75rem;
     line-height: 1.3;
 `;
+
+export const Top = styled.div`
+    flex: 1;
+`
 
 export const Bottom = styled.div`
     display: flex;
@@ -718,6 +769,15 @@ export const WidgetPanelListing = styled.div`
 
 export const WidgetPanelLink = styled.div`
     margin-bottom: .5rem;
+    text-transform: capitalize;
+    img{
+        display: inline;
+        width: 20px;
+        height: 20px;
+        border-radius: 0;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
     @media (max-width: 991px) {
         font-size: .875rem;
     }
@@ -753,7 +813,7 @@ export const BlockquoteName = styled.span`
 // Login
 
 export const LoginWrapper = styled.div`
-    max-width: 23.5rem;
+    max-width: 42rem;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -869,6 +929,7 @@ export const ListCard = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
+    width: 100%;
 `;
 
 export const ListIcon = styled.div`
@@ -920,7 +981,35 @@ export const WidgetTitle = styled.h3`
     display: flex;
 `;
 
+export const WidgetHeader = styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.875rem;
+    h3 {
+        margin-bottom: 0;
+    }
+`
+
 export const WidgetBody = styled.div``;
+
+export const WidgetText = styled.p`
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: #74787C;
+`
+
+export const WidgetHeaderLink = styled.a`
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-decoration-line: underline;
+    transition: 0.2s;
+`
 
 export const DropdownMenu = styled.ul`
     display: none;
@@ -942,12 +1031,17 @@ export const DropdownMenu = styled.ul`
 export const DropdownMenuItem = styled.li`
     padding: .375rem .75rem;
     font-size: .75rem;
+    transition: 0.2s;
+    cursor: pointer;
     svg {
         vertical-align: -3px;
         margin-right: .5rem;
     }
     &:hover {
         background-color: #e9e9e9;
+        svg {
+            fill: #BC70AD;
+        }
     }
 `;
 
@@ -989,3 +1083,373 @@ export const InboxDes = styled.div`
         text-decoration: underline;
     }
 `;
+
+
+export const Avatar = styled.div`
+  display:flex;
+  align-items: center;
+  img{
+      margin-right:5px;
+  }
+`;
+
+export const AvatarRow = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    > div{
+        font-size: inherit;
+        &:before{
+            content: "|";
+            margin: 0 1rem;
+        }
+        &:first-child:before{
+            display: none;
+        }
+    }
+`;
+
+export const AddressMap = styled.div`
+    display:block;
+    border-radius: 0.625rem;
+    overflow: hidden;
+    position:relative;
+    margin-top:3rem;
+    div{
+        color: white;
+        font-size: 1rem;
+    }
+`
+export const Iframe = styled.iframe`
+    width: 100%;
+    border: none;
+    border-radius: 0.625rem;
+    
+`
+
+export const AddressCard = styled.div`
+    position: absolute;
+    background: #bc70ade3;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    width: 310px;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    
+`
+
+// Payment Details
+
+export const AlignCentered = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const PaymentOuter = styled.div`
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+export const CardStyle = styled.div`
+    padding: 1.875rem;
+    box-shadow: 0 0 40px 0 rgb(0 0 0 / 10%);
+    background-color: #FFF;
+    border-radius: 1.25rem;
+    margin-bottom: 1.875rem;
+`;
+
+export const PaymentInner = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+`;
+
+export const PaymentDetail = styled.div`
+    margin-right: 5%;
+    width: 47.5%;
+    @media (max-width: 767px) {
+        width: 100%; 
+        margin-right: 0;  
+    }
+`;
+
+export const PaymentForm = styled.div`
+    width: 47.5%;
+    @media (max-width: 767px) {
+        width: 100%;   
+    }
+`;
+
+export const H6 = styled.h6`
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .625rem;
+    color: inherit; 
+    line-height: 1.2;
+    margin-bottom: .5rem;
+    opacity: .5;
+`;
+
+export const H3 = styled.h3`
+    margin-bottom: .75rem;
+    line-height: 1.6;
+    font-size: 1rem;
+`;
+
+export const Paragraph = styled.p`
+    font-size: .875rem;
+    color: inherit;
+    line-height: 1.6;
+    opacity: .7;
+`;
+
+export const StepTabs = styled.div`
+    display: flex;
+    margin-left: -.5rem;
+    margin-right: -.5rem;
+`;
+
+export const StepItem = styled.div`
+    width: 25%;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    text-align: center;
+    position: relative;
+    h3 {
+        margin-bottom: 0;
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 60%;
+        height: 1px;
+        background-color: #bc70ad;
+        top: 1.125rem;
+        left: 70%;
+    }
+    &:last-child {
+        &:after {
+            display: none;
+        }
+    }
+`;
+
+export const StepHead = styled.div`
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
+    border-radius: 100%;
+    margin: 0 auto 1rem;
+    background-color: #bc70ad;
+    color: #FFF;
+    font-weight: 600;
+    box-shadow: 0 0 0px 6px rgb(188 112 173 / 20%);
+    position: relative;
+`;
+
+
+export const CardFormGroup = styled.div`
+    margin-bottom: 1rem;
+    .cardinput {
+        border: 1px solid #ced4da;
+        border-radius: .357rem;
+    }
+`;
+
+export const LabelText = styled.label`
+    display: block;
+    text-transform: uppercase;
+    font-size: .75rem;
+    letter-spacing: 1px;
+    margin-bottom: .25rem;
+    label {
+        color: red;
+    }
+`;
+
+export const Input = styled.input`
+    height: 46px;
+    border-radius: .357rem;
+`;
+
+
+export const ContactSection = styled.section`
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+`;
+
+export const AdvertiseSection = styled.section`
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+`;
+
+export const InputRadio = styled.input`
+    display: none;
+    & + label {
+        &:before {
+            border-radius: 100%;
+        }
+        &:after {
+            display: none;
+        }
+    }
+    &:checked {
+        & + label {
+            &:before {
+                background-color: #fff;
+                border-color: #BC70AD;
+                border-width: 6px;
+            }
+        }
+    }
+`;
+
+export const NewsletterBox = styled.div`
+    display: flex;
+    input {
+        height: 52px;
+    }
+`;
+
+export const Quote = styled.div`
+    margin-bottom: 1rem;
+    svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        fill: #fff;
+    }
+`;
+
+export const SwitchBox = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,.1);
+    margin: .5rem 0;
+    p {
+        margin-bottom: 0;
+        flex: 1 0 0;
+        text-align: left;
+        color: white;
+    }
+`;
+
+export const Switch = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 1rem;
+    input {
+        display: none;
+        &:checked + label{
+            &:before {
+                -webkit-transform: translateX(14px);
+                -ms-transform: translateX(14px);
+                transform: translateX(14px);
+            }
+            &:after {
+                background-color: #2196F3;
+            }
+        }
+    }
+    label {
+        padding-left: 2.5rem;
+        margin-bottom: 0;
+        line-height: 20px;
+        text-transform: none;
+        letter-spacing: 0;
+        color: #000;
+        &:after {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 34px;
+            left: 0;
+            bottom: 0;
+            border-radius: 10rem;
+            background-color: #7c7c7c;
+            -webkit-transition: .4s;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        &:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            border-radius: 50%;
+            z-index: 1;
+            background-color: white;
+            -webkit-transition: .4s;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+`;
+
+export const Accordion = styled.div`
+    &:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .accordion-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-bottom: 0;
+        position: relative;
+        &:after {
+            content: "";
+            float: right;
+            border-right: 2px solid;
+            border-bottom: 2px solid;
+            width: 12px;
+            height: 12px;
+            transform: rotate(45deg);
+            margin-right: 5px;
+            margin-top: 2px;
+        }
+    }
+    &.open {
+        .accordion-title {
+            &:after {
+                transform: rotate(-135deg);
+                margin-top: 8px;
+            }
+        }
+        .accordion-body {
+            padding-top: 20px;
+            display: block;
+        }
+    }
+`;
+
+export const AdBlock = styled.div`
+    background-color: #464646;
+    display: inline-block;
+    position: relative;
+    top: 0;
+`;
+

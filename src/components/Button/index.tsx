@@ -1,10 +1,14 @@
 import React from "react";
+import Spinner from "components/Layout/Spinner";
 
-const Button = ({ type, children, ...props }: any) => {
+import { NativeButton } from './styles';
+
+const Button = ({ type, children, loading, disabled, ...props }: any) => {
     return (
-        <button {...props} type={type}>
-            {children}
-        </button>
+        <NativeButton {...props} type={type} disabled={disabled || loading}>
+            {!loading && children}
+            {loading && <Spinner style={{ position: 'relative' }} />}
+        </NativeButton>
     );
 };
 

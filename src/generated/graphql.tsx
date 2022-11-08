@@ -13,23 +13,36 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: any;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** The `Long` scalar type represents 52-bit integers */
   Long: any;
-  /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
 
 export type AboutUs = {
   __typename?: 'AboutUs';
-  content: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
+  fifthHeader?: Maybe<Scalars['String']>;
+  firstHeader?: Maybe<Scalars['String']>;
+  firstQuote?: Maybe<Scalars['String']>;
+  firstQuoteAuthor?: Maybe<Scalars['String']>;
+  fourthHeader?: Maybe<Scalars['String']>;
+  lastHeader?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  secondHeader?: Maybe<Scalars['String']>;
+  secondQuote?: Maybe<Scalars['String']>;
+  secondQuoteAuthor?: Maybe<Scalars['String']>;
+  sectionEight?: Maybe<Scalars['String']>;
+  sectionFive?: Maybe<Scalars['String']>;
+  sectionFour?: Maybe<Scalars['String']>;
+  sectionNine?: Maybe<Scalars['String']>;
+  sectionOne?: Maybe<Scalars['String']>;
+  sectionSeven?: Maybe<Scalars['String']>;
+  sectionSix?: Maybe<Scalars['String']>;
+  sectionThree?: Maybe<Scalars['String']>;
+  sectionTwo?: Maybe<Scalars['String']>;
+  thirdHeader?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -45,8 +58,26 @@ export type AboutUsEntityResponse = {
 };
 
 export type AboutUsInput = {
-  content?: InputMaybe<Scalars['String']>;
+  fifthHeader?: InputMaybe<Scalars['String']>;
+  firstHeader?: InputMaybe<Scalars['String']>;
+  firstQuote?: InputMaybe<Scalars['String']>;
+  firstQuoteAuthor?: InputMaybe<Scalars['String']>;
+  fourthHeader?: InputMaybe<Scalars['String']>;
+  lastHeader?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  secondHeader?: InputMaybe<Scalars['String']>;
+  secondQuote?: InputMaybe<Scalars['String']>;
+  secondQuoteAuthor?: InputMaybe<Scalars['String']>;
+  sectionEight?: InputMaybe<Scalars['String']>;
+  sectionFive?: InputMaybe<Scalars['String']>;
+  sectionFour?: InputMaybe<Scalars['String']>;
+  sectionNine?: InputMaybe<Scalars['String']>;
+  sectionOne?: InputMaybe<Scalars['String']>;
+  sectionSeven?: InputMaybe<Scalars['String']>;
+  sectionSix?: InputMaybe<Scalars['String']>;
+  sectionThree?: InputMaybe<Scalars['String']>;
+  sectionTwo?: InputMaybe<Scalars['String']>;
+  thirdHeader?: InputMaybe<Scalars['String']>;
 };
 
 export type Article = {
@@ -82,6 +113,7 @@ export type ArticleEntityResponseCollection = {
 };
 
 export type ArticleFiltersInput = {
+  SEO?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   author?: InputMaybe<AuthorFiltersInput>;
   blurb?: InputMaybe<StringFilterInput>;
@@ -174,6 +206,7 @@ export type BooleanFilterInput = {
   containsi?: InputMaybe<Scalars['Boolean']>;
   endsWith?: InputMaybe<Scalars['Boolean']>;
   eq?: InputMaybe<Scalars['Boolean']>;
+  eqi?: InputMaybe<Scalars['Boolean']>;
   gt?: InputMaybe<Scalars['Boolean']>;
   gte?: InputMaybe<Scalars['Boolean']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
@@ -230,6 +263,7 @@ export type CandidateInput = {
 
 export type Category = {
   __typename?: 'Category';
+  colour?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -257,6 +291,7 @@ export type CategoryEntityResponseCollection = {
 
 export type CategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
+  colour?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -269,6 +304,7 @@ export type CategoryFiltersInput = {
 };
 
 export type CategoryInput = {
+  colour?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
@@ -331,6 +367,16 @@ export type ComponentAddressLocation = {
   town?: Maybe<Scalars['String']>;
 };
 
+export type ComponentAddressLocationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentAddressLocationFiltersInput>>>;
+  not?: InputMaybe<ComponentAddressLocationFiltersInput>;
+  numberOrName?: InputMaybe<StringFilterInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentAddressLocationFiltersInput>>>;
+  postCode?: InputMaybe<StringFilterInput>;
+  street?: InputMaybe<StringFilterInput>;
+  town?: InputMaybe<StringFilterInput>;
+};
+
 export type ComponentAddressLocationInput = {
   id?: InputMaybe<Scalars['ID']>;
   numberOrName?: InputMaybe<Scalars['String']>;
@@ -350,6 +396,18 @@ export type ComponentSeoSeo = {
   url?: Maybe<Scalars['String']>;
 };
 
+export type ComponentSeoSeoFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  image?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentSeoSeoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+  url?: InputMaybe<StringFilterInput>;
+};
+
 export type ComponentSeoSeoInput = {
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -360,6 +418,30 @@ export type ComponentSeoSeoInput = {
   url?: InputMaybe<Scalars['String']>;
 };
 
+export type CookiePolicy = {
+  __typename?: 'CookiePolicy';
+  content?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type CookiePolicyEntity = {
+  __typename?: 'CookiePolicyEntity';
+  attributes?: Maybe<CookiePolicy>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type CookiePolicyEntityResponse = {
+  __typename?: 'CookiePolicyEntityResponse';
+  data?: Maybe<CookiePolicyEntity>;
+};
+
+export type CookiePolicyInput = {
+  content?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type DateFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
@@ -367,6 +449,7 @@ export type DateFilterInput = {
   containsi?: InputMaybe<Scalars['Date']>;
   endsWith?: InputMaybe<Scalars['Date']>;
   eq?: InputMaybe<Scalars['Date']>;
+  eqi?: InputMaybe<Scalars['Date']>;
   gt?: InputMaybe<Scalars['Date']>;
   gte?: InputMaybe<Scalars['Date']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
@@ -390,6 +473,7 @@ export type DateTimeFilterInput = {
   containsi?: InputMaybe<Scalars['DateTime']>;
   endsWith?: InputMaybe<Scalars['DateTime']>;
   eq?: InputMaybe<Scalars['DateTime']>;
+  eqi?: InputMaybe<Scalars['DateTime']>;
   gt?: InputMaybe<Scalars['DateTime']>;
   gte?: InputMaybe<Scalars['DateTime']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -406,10 +490,67 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export enum Enum_Enquiry_Reason {
+  Feedback = 'feedback',
+  GeneralEnquiry = 'general_enquiry'
+}
+
 export enum Enum_Userspermissionsuser_Usertype {
   Candidate = 'candidate',
   Organisation = 'organisation'
 }
+
+export type Enquiry = {
+  __typename?: 'Enquiry';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  message?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  reason?: Maybe<Enum_Enquiry_Reason>;
+  subject?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type EnquiryEntity = {
+  __typename?: 'EnquiryEntity';
+  attributes?: Maybe<Enquiry>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type EnquiryEntityResponse = {
+  __typename?: 'EnquiryEntityResponse';
+  data?: Maybe<EnquiryEntity>;
+};
+
+export type EnquiryEntityResponseCollection = {
+  __typename?: 'EnquiryEntityResponseCollection';
+  data: Array<EnquiryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type EnquiryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<EnquiryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  message?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<EnquiryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<EnquiryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  reason?: InputMaybe<StringFilterInput>;
+  subject?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type EnquiryInput = {
+  email?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  reason?: InputMaybe<Enum_Enquiry_Reason>;
+  subject?: InputMaybe<Scalars['String']>;
+};
 
 export type Event = {
   __typename?: 'Event';
@@ -458,6 +599,8 @@ export type EventEntityResponseCollection = {
 };
 
 export type EventFiltersInput = {
+  Location?: InputMaybe<ComponentAddressLocationFiltersInput>;
+  SEO?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
   body?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<CategoryFiltersInput>;
@@ -556,6 +699,50 @@ export type EventInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type Faq = {
+  __typename?: 'Faq';
+  answer?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  question?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type FaqEntity = {
+  __typename?: 'FaqEntity';
+  attributes?: Maybe<Faq>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type FaqEntityResponse = {
+  __typename?: 'FaqEntityResponse';
+  data?: Maybe<FaqEntity>;
+};
+
+export type FaqEntityResponseCollection = {
+  __typename?: 'FaqEntityResponseCollection';
+  data: Array<FaqEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type FaqFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<FaqFiltersInput>>>;
+  answer?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<FaqFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<FaqFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  question?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type FaqInput = {
+  answer?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  question?: InputMaybe<Scalars['String']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -569,6 +756,7 @@ export type FloatFilterInput = {
   containsi?: InputMaybe<Scalars['Float']>;
   endsWith?: InputMaybe<Scalars['Float']>;
   eq?: InputMaybe<Scalars['Float']>;
+  eqi?: InputMaybe<Scalars['Float']>;
   gt?: InputMaybe<Scalars['Float']>;
   gte?: InputMaybe<Scalars['Float']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
@@ -585,7 +773,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutUs | Article | Author | Candidate | Category | Comment | ComponentAddressLocation | ComponentSeoSeo | Event | EventGuest | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutUs | Article | Author | Candidate | Category | Comment | ComponentAddressLocation | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -630,6 +818,7 @@ export type IdFilterInput = {
   containsi?: InputMaybe<Scalars['ID']>;
   endsWith?: InputMaybe<Scalars['ID']>;
   eq?: InputMaybe<Scalars['ID']>;
+  eqi?: InputMaybe<Scalars['ID']>;
   gt?: InputMaybe<Scalars['ID']>;
   gte?: InputMaybe<Scalars['ID']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -653,6 +842,7 @@ export type IntFilterInput = {
   containsi?: InputMaybe<Scalars['Int']>;
   endsWith?: InputMaybe<Scalars['Int']>;
   eq?: InputMaybe<Scalars['Int']>;
+  eqi?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
   gte?: InputMaybe<Scalars['Int']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
@@ -676,6 +866,7 @@ export type JsonFilterInput = {
   containsi?: InputMaybe<Scalars['JSON']>;
   endsWith?: InputMaybe<Scalars['JSON']>;
   eq?: InputMaybe<Scalars['JSON']>;
+  eqi?: InputMaybe<Scalars['JSON']>;
   gt?: InputMaybe<Scalars['JSON']>;
   gte?: InputMaybe<Scalars['JSON']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
@@ -739,6 +930,8 @@ export type ListingEntityResponseCollection = {
 };
 
 export type ListingFiltersInput = {
+  Location?: InputMaybe<ComponentAddressLocationFiltersInput>;
+  SEO?: InputMaybe<ComponentSeoSeoFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<ListingFiltersInput>>>;
   body?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<CategoryFiltersInput>;
@@ -837,6 +1030,7 @@ export type LongFilterInput = {
   containsi?: InputMaybe<Scalars['Long']>;
   endsWith?: InputMaybe<Scalars['Long']>;
   eq?: InputMaybe<Scalars['Long']>;
+  eqi?: InputMaybe<Scalars['Long']>;
   gt?: InputMaybe<Scalars['Long']>;
   gte?: InputMaybe<Scalars['Long']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
@@ -855,18 +1049,24 @@ export type LongFilterInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Change user password. Confirm with the current password. */
+  changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createArticle?: Maybe<ArticleEntityResponse>;
   createAuthor?: Maybe<AuthorEntityResponse>;
   createCandidate?: Maybe<CandidateEntityResponse>;
   createCategory?: Maybe<CategoryEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
+  createEnquiry?: Maybe<EnquiryEntityResponse>;
   createEvent?: Maybe<EventEntityResponse>;
   createEventGuest?: Maybe<EventGuestEntityResponse>;
+  createFaq?: Maybe<FaqEntityResponse>;
   createListing?: Maybe<ListingEntityResponse>;
   createListingGuest?: Maybe<ListingGuestEntityResponse>;
   createOrganisation?: Maybe<OrganisationEntityResponse>;
   createReview?: Maybe<ReviewEntityResponse>;
+  createTimeline?: Maybe<TimelineEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
+  createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
@@ -877,18 +1077,23 @@ export type Mutation = {
   deleteCandidate?: Maybe<CandidateEntityResponse>;
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
+  deleteCookiePolicy?: Maybe<CookiePolicyEntityResponse>;
+  deleteEnquiry?: Maybe<EnquiryEntityResponse>;
   deleteEvent?: Maybe<EventEntityResponse>;
   deleteEventGuest?: Maybe<EventGuestEntityResponse>;
+  deleteFaq?: Maybe<FaqEntityResponse>;
   deleteListing?: Maybe<ListingEntityResponse>;
   deleteListingGuest?: Maybe<ListingGuestEntityResponse>;
   deleteOrganisation?: Maybe<OrganisationEntityResponse>;
   deletePrivacy?: Maybe<PrivacyEntityResponse>;
   deleteReview?: Maybe<ReviewEntityResponse>;
   deleteTermsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
+  deleteTimeline?: Maybe<TimelineEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
+  deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
-  /** Update an existing user */
+  /** Delete an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
@@ -907,8 +1112,11 @@ export type Mutation = {
   updateCandidate?: Maybe<CandidateEntityResponse>;
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
+  updateCookiePolicy?: Maybe<CookiePolicyEntityResponse>;
+  updateEnquiry?: Maybe<EnquiryEntityResponse>;
   updateEvent?: Maybe<EventEntityResponse>;
   updateEventGuest?: Maybe<EventGuestEntityResponse>;
+  updateFaq?: Maybe<FaqEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateListing?: Maybe<ListingEntityResponse>;
   updateListingGuest?: Maybe<ListingGuestEntityResponse>;
@@ -916,12 +1124,21 @@ export type Mutation = {
   updatePrivacy?: Maybe<PrivacyEntityResponse>;
   updateReview?: Maybe<ReviewEntityResponse>;
   updateTermsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
+  updateTimeline?: Maybe<TimelineEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
+  updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   upload: UploadFileEntityResponse;
+};
+
+
+export type MutationChangePasswordArgs = {
+  currentPassword: Scalars['String'];
+  password: Scalars['String'];
+  passwordConfirmation: Scalars['String'];
 };
 
 
@@ -950,6 +1167,11 @@ export type MutationCreateCommentArgs = {
 };
 
 
+export type MutationCreateEnquiryArgs = {
+  data: EnquiryInput;
+};
+
+
 export type MutationCreateEventArgs = {
   data: EventInput;
 };
@@ -957,6 +1179,11 @@ export type MutationCreateEventArgs = {
 
 export type MutationCreateEventGuestArgs = {
   data: EventGuestInput;
+};
+
+
+export type MutationCreateFaqArgs = {
+  data: FaqInput;
 };
 
 
@@ -980,8 +1207,18 @@ export type MutationCreateReviewArgs = {
 };
 
 
+export type MutationCreateTimelineArgs = {
+  data: TimelineInput;
+};
+
+
 export type MutationCreateUploadFileArgs = {
   data: UploadFileInput;
+};
+
+
+export type MutationCreateUploadFolderArgs = {
+  data: UploadFolderInput;
 };
 
 
@@ -1020,12 +1257,22 @@ export type MutationDeleteCommentArgs = {
 };
 
 
+export type MutationDeleteEnquiryArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteEventArgs = {
   id: Scalars['ID'];
 };
 
 
 export type MutationDeleteEventGuestArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteFaqArgs = {
   id: Scalars['ID'];
 };
 
@@ -1050,7 +1297,17 @@ export type MutationDeleteReviewArgs = {
 };
 
 
+export type MutationDeleteTimelineArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteUploadFileArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteUploadFolderArgs = {
   id: Scalars['ID'];
 };
 
@@ -1140,6 +1397,17 @@ export type MutationUpdateCommentArgs = {
 };
 
 
+export type MutationUpdateCookiePolicyArgs = {
+  data: CookiePolicyInput;
+};
+
+
+export type MutationUpdateEnquiryArgs = {
+  data: EnquiryInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateEventArgs = {
   data: EventInput;
   id: Scalars['ID'];
@@ -1148,6 +1416,12 @@ export type MutationUpdateEventArgs = {
 
 export type MutationUpdateEventGuestArgs = {
   data: EventGuestInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateFaqArgs = {
+  data: FaqInput;
   id: Scalars['ID'];
 };
 
@@ -1192,8 +1466,20 @@ export type MutationUpdateTermsAndConditionArgs = {
 };
 
 
+export type MutationUpdateTimelineArgs = {
+  data: TimelineInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateUploadFolderArgs = {
+  data: UploadFolderInput;
   id: Scalars['ID'];
 };
 
@@ -1220,14 +1506,17 @@ export type MutationUploadArgs = {
 
 export type Organisation = {
   __typename?: 'Organisation';
+  bio?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   fullProfile?: Maybe<Scalars['Boolean']>;
   logo?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  organisationType?: Maybe<Scalars['String']>;
   profile?: Maybe<UsersPermissionsUserEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  website?: Maybe<Scalars['String']>;
 };
 
 export type OrganisationEntity = {
@@ -1249,6 +1538,7 @@ export type OrganisationEntityResponseCollection = {
 
 export type OrganisationFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<OrganisationFiltersInput>>>;
+  bio?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   fullProfile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -1256,19 +1546,24 @@ export type OrganisationFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<OrganisationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<OrganisationFiltersInput>>>;
+  organisationType?: InputMaybe<StringFilterInput>;
   profile?: InputMaybe<UsersPermissionsUserFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  website?: InputMaybe<StringFilterInput>;
 };
 
 export type OrganisationInput = {
+  bio?: InputMaybe<Scalars['String']>;
   fullProfile?: InputMaybe<Scalars['Boolean']>;
   logo?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  organisationType?: InputMaybe<Scalars['String']>;
   profile?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
+  website?: InputMaybe<Scalars['String']>;
 };
 
 export type Pagination = {
@@ -1328,10 +1623,15 @@ export type Query = {
   category?: Maybe<CategoryEntityResponse>;
   comment?: Maybe<CommentEntityResponse>;
   comments?: Maybe<CommentEntityResponseCollection>;
+  cookiePolicy?: Maybe<CookiePolicyEntityResponse>;
+  enquiries?: Maybe<EnquiryEntityResponseCollection>;
+  enquiry?: Maybe<EnquiryEntityResponse>;
   event?: Maybe<EventEntityResponse>;
   eventGuest?: Maybe<EventGuestEntityResponse>;
   eventGuests?: Maybe<EventGuestEntityResponseCollection>;
   events?: Maybe<EventEntityResponseCollection>;
+  faq?: Maybe<FaqEntityResponse>;
+  faqs?: Maybe<FaqEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   listing?: Maybe<ListingEntityResponse>;
@@ -1345,8 +1645,12 @@ export type Query = {
   review?: Maybe<ReviewEntityResponse>;
   reviews?: Maybe<ReviewEntityResponseCollection>;
   termsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
+  timeline?: Maybe<TimelineEntityResponse>;
+  timelines?: Maybe<TimelineEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
+  uploadFolder?: Maybe<UploadFolderEntityResponse>;
+  uploadFolders?: Maybe<UploadFolderEntityResponseCollection>;
   usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
@@ -1423,6 +1727,24 @@ export type QueryCommentsArgs = {
 };
 
 
+export type QueryCookiePolicyArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryEnquiriesArgs = {
+  filters?: InputMaybe<EnquiryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryEnquiryArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
 export type QueryEventArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -1443,6 +1765,19 @@ export type QueryEventGuestsArgs = {
 
 export type QueryEventsArgs = {
   filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryFaqArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryFaqsArgs = {
+  filters?: InputMaybe<FaqFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1523,6 +1858,19 @@ export type QueryTermsAndConditionArgs = {
 };
 
 
+export type QueryTimelineArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryTimelinesArgs = {
+  filters?: InputMaybe<TimelineFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryUploadFileArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -1530,6 +1878,18 @@ export type QueryUploadFileArgs = {
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryUploadFolderArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryUploadFoldersArgs = {
+  filters?: InputMaybe<UploadFolderFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -1614,6 +1974,7 @@ export type StringFilterInput = {
   containsi?: InputMaybe<Scalars['String']>;
   endsWith?: InputMaybe<Scalars['String']>;
   eq?: InputMaybe<Scalars['String']>;
+  eqi?: InputMaybe<Scalars['String']>;
   gt?: InputMaybe<Scalars['String']>;
   gte?: InputMaybe<Scalars['String']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1652,6 +2013,53 @@ export type TermsAndConditionEntityResponse = {
 export type TermsAndConditionInput = {
   content?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type Timeline = {
+  __typename?: 'Timeline';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  event?: Maybe<EventEntityResponse>;
+  listing?: Maybe<ListingEntityResponse>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<UsersPermissionsUserEntityResponse>;
+};
+
+export type TimelineEntity = {
+  __typename?: 'TimelineEntity';
+  attributes?: Maybe<Timeline>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type TimelineEntityResponse = {
+  __typename?: 'TimelineEntityResponse';
+  data?: Maybe<TimelineEntity>;
+};
+
+export type TimelineEntityResponseCollection = {
+  __typename?: 'TimelineEntityResponseCollection';
+  data: Array<TimelineEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TimelineFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TimelineFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  event?: InputMaybe<EventFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  listing?: InputMaybe<ListingFiltersInput>;
+  not?: InputMaybe<TimelineFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TimelineFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  user?: InputMaybe<UsersPermissionsUserFiltersInput>;
+};
+
+export type TimelineInput = {
+  event?: InputMaybe<Scalars['ID']>;
+  listing?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  user?: InputMaybe<Scalars['ID']>;
 };
 
 export type UploadFile = {
@@ -1698,6 +2106,8 @@ export type UploadFileFiltersInput = {
   caption?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   ext?: InputMaybe<StringFilterInput>;
+  folder?: InputMaybe<UploadFolderFiltersInput>;
+  folderPath?: InputMaybe<StringFilterInput>;
   formats?: InputMaybe<JsonFilterInput>;
   hash?: InputMaybe<StringFilterInput>;
   height?: InputMaybe<IntFilterInput>;
@@ -1719,6 +2129,8 @@ export type UploadFileInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
   ext?: InputMaybe<Scalars['String']>;
+  folder?: InputMaybe<Scalars['ID']>;
+  folderPath?: InputMaybe<Scalars['String']>;
   formats?: InputMaybe<Scalars['JSON']>;
   hash?: InputMaybe<Scalars['String']>;
   height?: InputMaybe<Scalars['Int']>;
@@ -1730,6 +2142,83 @@ export type UploadFileInput = {
   size?: InputMaybe<Scalars['Float']>;
   url?: InputMaybe<Scalars['String']>;
   width?: InputMaybe<Scalars['Int']>;
+};
+
+export type UploadFileRelationResponseCollection = {
+  __typename?: 'UploadFileRelationResponseCollection';
+  data: Array<UploadFileEntity>;
+};
+
+export type UploadFolder = {
+  __typename?: 'UploadFolder';
+  children?: Maybe<UploadFolderRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  files?: Maybe<UploadFileRelationResponseCollection>;
+  name: Scalars['String'];
+  parent?: Maybe<UploadFolderEntityResponse>;
+  path: Scalars['String'];
+  pathId: Scalars['Int'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type UploadFolderChildrenArgs = {
+  filters?: InputMaybe<UploadFolderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type UploadFolderFilesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type UploadFolderEntity = {
+  __typename?: 'UploadFolderEntity';
+  attributes?: Maybe<UploadFolder>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type UploadFolderEntityResponse = {
+  __typename?: 'UploadFolderEntityResponse';
+  data?: Maybe<UploadFolderEntity>;
+};
+
+export type UploadFolderEntityResponseCollection = {
+  __typename?: 'UploadFolderEntityResponseCollection';
+  data: Array<UploadFolderEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type UploadFolderFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
+  children?: InputMaybe<UploadFolderFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  files?: InputMaybe<UploadFileFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<UploadFolderFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
+  parent?: InputMaybe<UploadFolderFiltersInput>;
+  path?: InputMaybe<StringFilterInput>;
+  pathId?: InputMaybe<IntFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type UploadFolderInput = {
+  children?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  name?: InputMaybe<Scalars['String']>;
+  parent?: InputMaybe<Scalars['ID']>;
+  path?: InputMaybe<Scalars['String']>;
+  pathId?: InputMaybe<Scalars['Int']>;
+};
+
+export type UploadFolderRelationResponseCollection = {
+  __typename?: 'UploadFolderRelationResponseCollection';
+  data: Array<UploadFolderEntity>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -1886,12 +2375,15 @@ export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
   avatar?: Maybe<Scalars['String']>;
   backgroundImg?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   fullName: Scalars['String'];
+  gender?: Maybe<Scalars['String']>;
   organisation?: Maybe<OrganisationEntityResponse>;
+  pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1921,17 +2413,20 @@ export type UsersPermissionsUserFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   avatar?: InputMaybe<StringFilterInput>;
   backgroundImg?: InputMaybe<StringFilterInput>;
+  bio?: InputMaybe<StringFilterInput>;
   blocked?: InputMaybe<BooleanFilterInput>;
   confirmationToken?: InputMaybe<StringFilterInput>;
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   email?: InputMaybe<StringFilterInput>;
   fullName?: InputMaybe<StringFilterInput>;
+  gender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   organisation?: InputMaybe<OrganisationFiltersInput>;
   password?: InputMaybe<StringFilterInput>;
+  pronoun?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -1944,13 +2439,16 @@ export type UsersPermissionsUserInput = {
   DateOfBirth?: InputMaybe<Scalars['Date']>;
   avatar?: InputMaybe<Scalars['String']>;
   backgroundImg?: InputMaybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']>;
   blocked?: InputMaybe<Scalars['Boolean']>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
   fullName?: InputMaybe<Scalars['String']>;
+  gender?: InputMaybe<Scalars['String']>;
   organisation?: InputMaybe<Scalars['ID']>;
   password?: InputMaybe<Scalars['String']>;
+  pronoun?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
@@ -1993,7 +2491,31 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null }> } | null };
+export type CategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'CategoryEntityResponseCollection', data: Array<{ __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null, colour?: string | null } | null }> } | null };
+
+export type EventQueryVariables = Exact<{
+  filters?: InputMaybe<EventFiltersInput>;
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null } | null }> } | null };
+
+export type FilteredEventsQueryVariables = Exact<{
+  filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+
+export type EventsQueryVariables = Exact<{
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
@@ -2002,7 +2524,7 @@ export type FilteredListingsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
 
 export type ListingsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2010,28 +2532,46 @@ export type ListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
+export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
 
 export type ListQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
 }>;
 
 
-export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+
+export type UserEventsQueryVariables = Exact<{
+  filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type UserEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, updatedAt?: any | null, startDate?: any | null, listImage?: string | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, colour?: string | null } | null } | null } | null } | null }> } | null };
+
+export type UserListingsQueryVariables = Exact<{
+  filters?: InputMaybe<ListingFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type UserListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, slug?: string | null, listImage?: string | null, updatedAt?: any | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, colour?: string | null } | null } | null } | null } | null }> } | null };
 
 export type OrgQueryVariables = Exact<{
   filters?: InputMaybe<OrganisationFiltersInput>;
 }>;
 
 
-export type OrgQuery = { __typename?: 'Query', organisations?: { __typename?: 'OrganisationEntityResponseCollection', data: Array<{ __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, fullProfile?: boolean | null, createdAt?: any | null, profile?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, userType: Enum_Userspermissionsuser_Usertype, createdAt?: any | null } | null } | null } | null } | null }> } | null };
+export type OrgQuery = { __typename?: 'Query', organisations?: { __typename?: 'OrganisationEntityResponseCollection', data: Array<{ __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, fullProfile?: boolean | null, createdAt?: any | null, bio?: string | null, organisationType?: string | null, website?: string | null, profile?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, fullName: string, email: string, avatar?: string | null, backgroundImg?: string | null, userType: Enum_Userspermissionsuser_Usertype, createdAt?: any | null } | null } | null } | null } | null }> } | null };
 
 export type UserQueryVariables = Exact<{
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', usersPermissionsUsers?: { __typename?: 'UsersPermissionsUserEntityResponseCollection', data: Array<{ __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, email: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, createdAt?: any | null } | null }> } | null };
+export type UserQuery = { __typename?: 'Query', usersPermissionsUsers?: { __typename?: 'UsersPermissionsUserEntityResponseCollection', data: Array<{ __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', bio?: string | null, username: string, email: string, fullName: string, avatar?: string | null, backgroundImg?: string | null, pronoun?: string | null, gender?: string | null, createdAt?: any | null, userType: Enum_Userspermissionsuser_Usertype } | null }> } | null };
 
 
 export const ArticleDocument = gql`
@@ -2261,6 +2801,7 @@ export const CategoriesDocument = gql`
       attributes {
         slug
         name
+        colour
       }
     }
   }
@@ -2295,6 +2836,225 @@ export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const EventDocument = gql`
+    query Event($filters: EventFiltersInput) {
+  events(filters: $filters) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        updatedAt
+        category {
+          data {
+            id
+            attributes {
+              slug
+              name
+            }
+          }
+        }
+        host {
+          data {
+            id
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        Location {
+          id
+          numberOrName
+          street
+          town
+          postCode
+        }
+        SEO {
+          id
+          title
+          description
+          url
+          image
+          type
+          locale
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions?: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
+export const FilteredEventsDocument = gql`
+    query FilteredEvents($filters: EventFiltersInput, $pagination: PaginationArg, $sort: [String]) {
+  events(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        createdAt
+        host {
+          data {
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFilteredEventsQuery__
+ *
+ * To run a query within a React component, call `useFilteredEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilteredEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilteredEventsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useFilteredEventsQuery(baseOptions?: Apollo.QueryHookOptions<FilteredEventsQuery, FilteredEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FilteredEventsQuery, FilteredEventsQueryVariables>(FilteredEventsDocument, options);
+      }
+export function useFilteredEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilteredEventsQuery, FilteredEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FilteredEventsQuery, FilteredEventsQueryVariables>(FilteredEventsDocument, options);
+        }
+export type FilteredEventsQueryHookResult = ReturnType<typeof useFilteredEventsQuery>;
+export type FilteredEventsLazyQueryHookResult = ReturnType<typeof useFilteredEventsLazyQuery>;
+export type FilteredEventsQueryResult = Apollo.QueryResult<FilteredEventsQuery, FilteredEventsQueryVariables>;
+export const EventsDocument = gql`
+    query Events($pagination: PaginationArg, $sort: [String]) {
+  events(pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        body
+        startDate
+        endDate
+        startTime
+        endTime
+        listImage
+        createdAt
+        host {
+          data {
+            attributes {
+              name
+              slug
+              logo
+            }
+          }
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useEventsQuery__
+ *
+ * To run a query within a React component, call `useEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsQuery({
+ *   variables: {
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useEventsQuery(baseOptions?: Apollo.QueryHookOptions<EventsQuery, EventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
+      }
+export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventsQuery, EventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
+        }
+export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
+export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
+export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVariables>;
 export const FilteredListingsDocument = gql`
     query FilteredListings($filters: ListingFiltersInput, $pagination: PaginationArg, $sort: [String]) {
   listings(filters: $filters, pagination: $pagination, sort: $sort) {
@@ -2311,6 +3071,7 @@ export const FilteredListingsDocument = gql`
         createdAt
         category {
           data {
+            id
             attributes {
               slug
             }
@@ -2376,6 +3137,7 @@ export const ListingsDocument = gql`
         createdAt
         category {
           data {
+            id
             attributes {
               slug
             }
@@ -2468,6 +3230,7 @@ export const ListDocument = gql`
         }
         category {
           data {
+            id
             attributes {
               name
               slug
@@ -2507,6 +3270,126 @@ export function useListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListQ
 export type ListQueryHookResult = ReturnType<typeof useListQuery>;
 export type ListLazyQueryHookResult = ReturnType<typeof useListLazyQuery>;
 export type ListQueryResult = Apollo.QueryResult<ListQuery, ListQueryVariables>;
+export const UserEventsDocument = gql`
+    query UserEvents($filters: EventFiltersInput, $pagination: PaginationArg, $sort: [String]) {
+  events(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        updatedAt
+        startDate
+        listImage
+        Location {
+          id
+          town
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+              colour
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserEventsQuery__
+ *
+ * To run a query within a React component, call `useUserEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserEventsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useUserEventsQuery(baseOptions?: Apollo.QueryHookOptions<UserEventsQuery, UserEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserEventsQuery, UserEventsQueryVariables>(UserEventsDocument, options);
+      }
+export function useUserEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserEventsQuery, UserEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserEventsQuery, UserEventsQueryVariables>(UserEventsDocument, options);
+        }
+export type UserEventsQueryHookResult = ReturnType<typeof useUserEventsQuery>;
+export type UserEventsLazyQueryHookResult = ReturnType<typeof useUserEventsLazyQuery>;
+export type UserEventsQueryResult = Apollo.QueryResult<UserEventsQuery, UserEventsQueryVariables>;
+export const UserListingsDocument = gql`
+    query UserListings($filters: ListingFiltersInput, $pagination: PaginationArg, $sort: [String]) {
+  listings(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        description
+        Location {
+          id
+          town
+        }
+        startDate
+        slug
+        listImage
+        updatedAt
+        category {
+          data {
+            id
+            attributes {
+              slug
+              colour
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserListingsQuery__
+ *
+ * To run a query within a React component, call `useUserListingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserListingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserListingsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useUserListingsQuery(baseOptions?: Apollo.QueryHookOptions<UserListingsQuery, UserListingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserListingsQuery, UserListingsQueryVariables>(UserListingsDocument, options);
+      }
+export function useUserListingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserListingsQuery, UserListingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserListingsQuery, UserListingsQueryVariables>(UserListingsDocument, options);
+        }
+export type UserListingsQueryHookResult = ReturnType<typeof useUserListingsQuery>;
+export type UserListingsLazyQueryHookResult = ReturnType<typeof useUserListingsLazyQuery>;
+export type UserListingsQueryResult = Apollo.QueryResult<UserListingsQuery, UserListingsQueryVariables>;
 export const OrgDocument = gql`
     query Org($filters: OrganisationFiltersInput) {
   organisations(filters: $filters) {
@@ -2518,12 +3401,16 @@ export const OrgDocument = gql`
         logo
         fullProfile
         createdAt
+        bio
+        organisationType
+        website
         profile {
           data {
             id
             attributes {
               username
               fullName
+              email
               avatar
               backgroundImg
               userType
@@ -2570,12 +3457,16 @@ export const UserDocument = gql`
     data {
       id
       attributes {
+        bio
         username
         email
         fullName
         avatar
         backgroundImg
+        pronoun
+        gender
         createdAt
+        userType
       }
     }
   }

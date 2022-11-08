@@ -1,163 +1,173 @@
 import React from 'react'
+// import Link from 'next/link';
+import Image from 'next/image';
+// import { useAppSelector } from "app/hooks";
+// import { isUser } from "features/auth/selectors";
 
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+// import Button from 'components/Auth/Button';
 
-import Button from 'components/Auth/Button';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
-// import OurServices from './OurServices'
-import Company from '../About/Company'
+import { QuoteIcon } from '../../../public/assets/icons/QuoteIcon';
 
-import {
-    PageContainer,
-    InnerContainer,
-    Hero,
-    HeroContent,
-    ImageContent,
-    HeroTitle,
-    HeroSubTitle,
-    OurService,
-    Heading,
-    SubTitle,
-    Title,
-    Row,
-    Column,
-    Card,
-    CardThumb,
-    CardBody,
-    CardImage,
-    CardTitle,
-    Image,
 
-    OurCompany,
-    OurCompanyThumb,
-    Text,
-    Listings,
-    ListingsItem,
-    ButtonOutLine,
-    Classes,
-    PostCard,
-    PostCardThumb,
-    PostCardSummary,
-    PostCardTitle,
-    PostCardText,
+import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, Quote } from 'styles/common.styles';
+import Markdown from 'markdown-to-jsx';
 
-    Benefits,
 
-} from "../../styles/common.styles";
-import OurServices from 'components/Home/OurServices';
+type Attributes = {
+  data: {
+        fifthHeader: string;
+        firstHeader: string;
+        fourthHeader: string;
+        lastHeader: string;
+        secondHeader: string;
+        sectionEight: string;
+        sectionFive: string;
+        sectionFour: string;
+        sectionNine: string;
+        sectionOne: string;
+        sectionSeven: string;
+        sectionSix: string;
+        sectionThree: string;
+        sectionTwo: string;
+        thirdHeader: string;
+        firstQuote: string;
+        firstQuoteAuthor: string;
+        secondQuote: string;
+        secondQuoteAuthor: string
+  }
+};
 
-const AboutUs = () => {
-  return (
-      <><NavBar />
-          <Hero style={{ backgroundImage: "url(/banner-bg.jpg)" }}>
-              <InnerContainer>
-                  <HeroContent>
-                      <HeroSubTitle>Talent Kids</HeroSubTitle>
-                      <HeroTitle>Do What You Love For A Lifetime</HeroTitle>
-                      <Button content='Create an Account' />
-                  </HeroContent>
-              </InnerContainer>
-          </Hero>
-          <OurServices />
+const AboutUs = ({data}: Attributes) => {
+    // console.log(data.sectionOne)
+    return (
+        <>
+            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+                <InnerContainer>
+                    <Title style={{ marginBottom: '3rem' }}>{data.firstHeader}</Title>
+                    <Row style={{ textAlign: 'left', alignItems: 'center', marginBottom: '3rem' }}>
+                        <Column style={{ textAlign: 'left', minWidth: '55%' }}>
+                            <Markdown>{data.sectionOne}</Markdown>
+                        </Column>
+                        <Column style={{ textAlign: 'center' }} >
+                            <Image src='/homepage/image1.jpg' alt='' width={410} height={450} />
+                        </Column>
+                    </Row>
 
-          <Classes>
-              <InnerContainer>
-                  <Heading style={{ textAlign: "center" }}>
-                      <SubTitle>On Going Events</SubTitle>
-                      <Title >Take The Classes & Start <br /> Learning From Today</Title>
-                  </Heading>
-                  <Row>
-                      <Column>
-                          <PostCard>
-                              <PostCardThumb>
-                                  <Image src="/post-img.jpg" alt="" />
-                              </PostCardThumb>
-                              <PostCardSummary>
-                                  <PostCardTitle>Practical Classes</PostCardTitle>
-                                  <PostCardText>Interactively brand client center through is customized value good ideas.</PostCardText>
-                              </PostCardSummary>
-                          </PostCard>
-                      </Column>
-                      <Column>
-                          <PostCard>
-                              <PostCardThumb>
-                                  <Image src="/post-img.jpg" alt="" />
-                              </PostCardThumb>
-                              <PostCardSummary>
-                                  <PostCardTitle>Practical Classes</PostCardTitle>
-                                  <PostCardText>Interactively brand client center through is customized value good ideas.</PostCardText>
-                              </PostCardSummary>
-                          </PostCard>
-                      </Column>
-                      <Column>
-                          <PostCard>
-                              <PostCardThumb>
-                                  <Image src="/post-img.jpg" alt="" />
-                              </PostCardThumb>
-                              <PostCardSummary>
-                                  <PostCardTitle>Practical Classes</PostCardTitle>
-                                  <PostCardText>Interactively brand client center through is customized value good ideas.</PostCardText>
-                              </PostCardSummary>
-                          </PostCard>
-                      </Column>
-                  </Row>
-              </InnerContainer>
-          </Classes>
+                    <Row style={{ textAlign: 'left', alignItems: 'center', flexDirection: 'row-reverse' }}>
+                        <Column style={{ textAlign: 'left', minWidth: '55%' }}>
+                            <Markdown>{data.sectionTwo}</Markdown>
+                        </Column>
+                        <Column style={{ textAlign: 'center' }} >
+                            <Image src='/homepage/image2.jpg' alt='' width={410} height={470} />
+                        </Column>
+                    </Row>
+                </InnerContainer>
+            </InnerBanner>
 
-          {/* <ImageContent>
-            <InnerContainer>
-                <Heading>
-                    <Title>We will make your website <br /> look more elegant and stylish! </Title>
-                </Heading>
-                <Row>
-                    <Column>
-                        <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</Text>
-                    </Column>
-                    <Column>
-                        <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</Text>
-                    </Column>
-                </Row>
-                <Row>
-                    <Column>
-                        <Image src="/Mac.jpg" alt="" />
-                    </Column>
-                    <Column>
-                        <Listings>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                            <ListingsItem>Lorem Ipsum is simply dummy text of the printing.</ListingsItem>
-                        </Listings>
-                    </Column>
-                </Row>
-            </InnerContainer>
-        </ImageContent> */}
+            {/* <PageContainer style={{ paddingTop: '10rem', paddingBottom: '10rem' }}>
+      <video className='video-wrapper' width='260' height='260' autoPlay loop>
+        <source src="/Deliver-transcode.mp4" type="video/mp4" />
+        <source src="/Deliver-transcode.ogg" type="video/ogg" />
+      </video>
+      <InnerContainer>
+        <Title style={{ textAlign: 'center', marginBottom: '0', color: '#fff' }}>Our mission is helping parents unlock a world of possibilities to fulfil their children s potential</Title>
+      </InnerContainer>
+    </PageContainer> */}
 
-          <Benefits>
-              <InnerContainer>
-                  <Row>
-                      <Column>
-                          <Image src="/Benefits.jpg" alt="" />
-                      </Column>
-                      <Column className='column-7'>
-                          <SubTitle>Service Benefits</SubTitle>
-                          <Title style={{ marginBottom: "20px" }}>We Are Here To Bring Your Child Next To The Level</Title>
-                          <Text>Monotonectally conceptualize economically sound value after accurate growth strategies. Quickly parallel task client-centric materials with worldwide technologies. Assertively re-engineer interoperable customer</Text>
-                          <PostCardTitle>Full Care Of Your Child</PostCardTitle>
-                          <Text>Proactively myocardinate high-quality quality vectors rather than collaborative best practices. Continually create go forward total linkage vis-a-vis wireless mindshare.</Text>
-                          <PostCardTitle>Professional Teachers</PostCardTitle>
-                          <Text>Proactively myocardinate high-quality quality vectors rather than collaborative best practices. Continually create go forward total linkage vis-a-vis wireless mindshare.</Text>
-                      </Column>
-                  </Row>
-              </InnerContainer>
-          </Benefits>
+            <PageContainer>
+                <InnerContainer style={{ maxWidth: '1000px' }}>
+                    <Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{data.secondHeader}</Title>
+                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
+                        <Column>
+                            <Image className='rounded' height={248} width={440} src='/homepage/image3.jpg' alt="" />
+                        </Column>
+                        <Column>
+                            {/* <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title> */}
+                            <Text>{data?.sectionThree}</Text>
+                        </Column>
+                    </Row>
+                    <Row style={{ alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0' }}>
+                        <Column>
+                            <Image className='rounded' height={248} width={440} src='/homepage/image4.jpg' alt="" />
+                        </Column>
+                        <Column>
+                            {/* <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title> */}
+                            <Text>{data?.sectionFour}</Text>
+                        </Column>
+                    </Row>
+                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
+                        <Column>
+                            <Image className='rounded' height={248} width={440} src='/homepage/image5.jpg' alt="" />
+                        </Column>
+                        <Column>
+                            {/* <Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</Title> */}
+                            <Text>{data?.sectionFive}</Text>
+                        </Column>
+                    </Row>
+                </InnerContainer>
+            </PageContainer>
 
-          <Footer /></>
-  )
+            <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/homepage/breakimage1.jpg)', backgroundPosition: 'center center', backgroundSize: 'cover', }}>
+                <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
+                    <Quote><QuoteIcon /></Quote>
+                    <Title style={{ textAlign: 'center', color: '#fff' }}>{data?.firstQuote}</Title>
+                    <Text style={{ color: '#fff' }}>{data?.firstQuoteAuthor}</Text>
+                </InnerContainer>
+            </PageContainer>
+
+            <PageContainer>
+                <InnerContainer style={{ maxWidth: '1000px' }}>
+                    <Title style={{}}>{data.thirdHeader}</Title>
+                    <Markdown>{data?.sectionSix}</Markdown>
+                    
+                    {/* <Text>The vast majority have attempted eventually to be somebody else. Once in a while, this is because we like the change, and at times this is because we feel like we need to change to fit in.</Text>
+                    <Text>When I was a young man, I cherished playing football. While I was a respectable focal protector and traditional back, since I was an area of strength for genuinely having a decent speed and a fierce shot, I wound up as a striker sometimes, as well.</Text>
+                    <Text>However, my strategy and senses let me down while attempting to be a decent striker. I’m more of an issue solver than someone who loves to score. I love to direct a group from the back, and I flourish under tension when I can decide. What’s more, I tend to lead and care for others, which are great resources for safeguarding.</Text>
+                    <Text>A striker, in any case, needs different characteristics. The best strikers show restraint, zeroed in on individual achievement, and perhaps somewhat prideful on occasion.</Text> */}
+                </InnerContainer>
+            </PageContainer>
+
+            <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/homepage/breakimage.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
+                <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
+                    <Quote><QuoteIcon /></Quote>
+                    <Title style={{ textAlign: 'center', color: '#fff' }}>{data?.secondQuote}</Title>
+                    <Text style={{ color: '#fff' }}>{data?.secondQuoteAuthor}</Text>
+                </InnerContainer>
+            </PageContainer>
+
+            <PageContainer>
+                <InnerContainer style={{ maxWidth: '1000px' }}>
+                    <Title style={{}}>{data.fourthHeader}</Title>
+                    <Row>
+                        <Column>
+                            <Markdown>{data?.sectionSeven}</Markdown>
+                        </Column>
+                        <Column>
+                            <Markdown>{data?.sectionEight}</Markdown>                            
+                        </Column>
+                    </Row>
+
+
+                </InnerContainer>
+            </PageContainer>
+
+            <PageContainer style={{ backgroundColor: '#f3f3f3' }}>
+                <InnerContainer style={{ maxWidth: '1000px' }}>
+                    <Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{data.fifthHeader}</Title>
+                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
+                        <Column>
+                            <Image className='rounded' height={720} width={534} src='/homepage/image6.jpg' alt=""/>
+                        </Column>
+                        <Column>
+                            <Title style={{ fontSize: '1.75rem' }}>{data.lastHeader}</Title>
+                            <Markdown>{data?.sectionNine}</Markdown>
+                        </Column>
+                    </Row>
+                </InnerContainer>
+            </PageContainer>
+
+        </>
+    )
 }
 
 export default AboutUs

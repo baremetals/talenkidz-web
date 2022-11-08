@@ -8,12 +8,16 @@ query Org($filters: OrganisationFiltersInput) {
         logo
         fullProfile
         createdAt
+        bio
+        organisationType
+        website
         profile {
           data {
             id
             attributes {
               username
               fullName
+              email
               avatar
               backgroundImg
               userType

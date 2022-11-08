@@ -17,6 +17,7 @@ query FilteredListings(
         createdAt
         category {
           data {
+            id
             attributes {
               slug
             }

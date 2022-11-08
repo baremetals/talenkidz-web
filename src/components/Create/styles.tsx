@@ -9,14 +9,28 @@ export const FormWrapper = styled.div`
     margin-right: auto;
 `;
 
-export const FormWrap = styled.form``;
+export const FormWrap = styled.form`
+  input, .MuiSelect-select {
+    padding: 10px 14px;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .MuiInputBase-root button {
+    &:hover {
+      color: #BC70AD !important;
+    }
+  }
+`;
 
 export const InnerFormWrapper = styled.div`
-    box-shadow: 0 0 .625rem rgba(0,0,0,.13);
-    background-color: #fff;
-    border-radius: .625rem;
-    padding: 2rem 1.875rem;
-    margin-top: 2rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.13);
+  background-color: #fff;
+  border-radius: 0.625rem;
+  padding: 2rem 1.875rem;
+  margin-top: 2rem;
 `;
 
 export const FormGroup = styled.div`
@@ -41,67 +55,17 @@ export const FormGroup = styled.div`
 `;
 
 export const FormInput = styled.input`
-    display: block;
-    width: 100%;
-    border: 1px solid #E4DFDF;
-    border-radius: .75rem;
-    height: 3.5rem;
-    padding: .75rem 1.25rem .75rem 4rem;
-    margin: 0;
-    &.checkbox {
-        display: none;
-    }
-    &:checked ~ label {
-        &:before {
-            background-color: #BC70AD;
-            border-color: #BC70AD;
-        }
-    }
+
 `;
 
 export const Select = styled.select`
-  background-color: #fff;
-  border: 1px solid rgb(0 0 0 / 10%);
-  box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
-  border-radius: 0.5rem;
-  width: 100%;
-  padding: 0.875rem 1.25rem;
-  color: #000;
-  font-size: 1rem;
-  @media (max-width: 991px) {
-    padding: 0.625rem 1rem;
-    font-size: 0.875rem;
-  }
-  &:focus {
-    border-color: rgb(0 0 0 / 10%);
-    outline: none;
-  }
-  &::placeholder {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-  }
+  
 `;
 
 export const CategoryOptions = styled.option``;
 
 export const TextArea = styled.textarea`
-    display: block;
-    width: 100%;
-    border: 1px solid #E4DFDF;
-    border-radius: .75rem;
-    height: 3.5rem;
-    padding: .75rem 1.25rem .75rem 4rem;
-    margin: 0;
-    &.checkbox {
-        display: none;
-    }
-    &:checked ~ label {
-        &:before {
-            background-color: #BC70AD;
-            border-color: #BC70AD;
-        }
-    }
+    
 `;
 
 export const UploadWrapper = styled.div`
@@ -109,36 +73,23 @@ export const UploadWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const UploadLabel = styled.label``;
+export const UploadLabel = styled.label`
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 500;
+  color: #555;
+`;
 
 export const UploadIcon = styled(BsUpload)``;
 
 export const UploadInput = styled.input`
-  background-color: #fff;
-  border: 1px solid rgb(0 0 0 / 10%);
-  box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
-  border-radius: 0.5rem;
-  width: 100%;
-  padding: 0.875rem 1.25rem;
-  color: #000;
-  font-size: 1rem;
-  display: block;
-  @media (max-width: 991px) {
-    padding: 0.625rem 1rem;
-    font-size: 0.875rem;
-  }
-  &:focus {
-    border-color: rgb(0 0 0 / 10%);
-    outline: none;
-  }
-  &::placeholder {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-  }
+
 `;
 
-export const EditorTextWrapper = styled.div``;
+export const EditorTextWrapper = styled.div`
+  margin-bottom: 1.5rem;
+`;
 
 export const FileUploadedGroup = styled.div`
   min-width: 50%;
@@ -159,3 +110,4 @@ export const UploadImage = styled.img`
     height: 4rem;
   }
 `;
+

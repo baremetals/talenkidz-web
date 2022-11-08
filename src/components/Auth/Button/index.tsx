@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Spinner from "components/Spinner";
+import Spinner from "components/Layout/Spinner";
 
 export default function AuthButton({ content, type, disabled, loading }: any) {
     return (

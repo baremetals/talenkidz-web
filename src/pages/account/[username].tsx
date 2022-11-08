@@ -11,14 +11,16 @@ import {
     OrgQueryResult,
     Organisation,
     OrganisationEntityResponseCollection,
+    OrganisationEntity,
 } from "generated/graphql";
 
 
-function OrganisationPage(props: { laodings: boolean, data: { data: { organisations: OrganisationEntityResponseCollection } } }) {
+function OrganisationPage(props: { data: { data: { organisations: { data: [OrganisationEntity]; }; }; }; }) {
     const org =
-        props?.data?.data?.organisations?.data[0]?.attributes as Organisation;
+        props?.data?.data?.organisations?.data[0];
+    const {id, attributes} = org
     useIsAuth();
-    // console.log(org)
+    // console.log(id)
     return (
         <>
             <Head>
@@ -35,14 +37,14 @@ function OrganisationPage(props: { laodings: boolean, data: { data: { organisati
                 <meta property="og:type" content="account" />
                 <meta
                     property="og:url"
-                    content={`https://telentkids.io/account/${org?.slug}/` || ""}
+                    content={`https://telentkids.io/account/${attributes?.slug}/` || ""}
                 />
                 <link
                     rel="canonical"
-                    href={`https://telentkids.io/account/${org?.slug}/` || ""}
+                    href={`https://telentkids.io/account/${attributes?.slug}/` || ""}
                 />
             </Head>
-            <Org  props={org}/>
+            <Org id={id as string} attributes={attributes as Organisation} />
         </>
     )
 }
