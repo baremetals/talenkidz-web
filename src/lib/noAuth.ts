@@ -6,8 +6,8 @@ import axios from "axios";
 
 export const useNoAuth = () => {
   const router = useRouter();
+  
   useEffect(() => {
-    let fetchUser = true
     const getUser = async () => {
       await axios
         .post('/api/user')
@@ -20,12 +20,7 @@ export const useNoAuth = () => {
           return;
         });
     };
-    if (fetchUser) {
-      getUser();
-    }
-    return () => {
-      fetchUser = false;
-    }
+    getUser();
   }, []);
 };
 
