@@ -20,7 +20,7 @@ export const Logo = ({
       viewBox="0 0 110 110"
     >
       <title>logo design</title>
-      <rect x="126.7" y="223.1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -124.514 156.9056)" class="st15" width="0.8" height="11.3" />
+      <rect x="126.7" y="223.1" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -124.514 156.9056)" className="st15" width="0.8" height="11.3" />
       <path
         className="cls-2"
         fill={color}

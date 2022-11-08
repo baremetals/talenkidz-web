@@ -68,7 +68,7 @@ export const NavCard = ({ tab }: cardProps) => {
                 </ShareBottomWrap>
             </ShareWrapper>
         </ShareContainer>
-        <Card avatar='' username='{user?.username as string}' body={''} createdAt={''} content={''} />
+        {/* <Card avatar='' username='{user?.username as string}' body={''} createdAt={''} content={''} id={''} slug={''} title={''} category={''} colour={''} type={''} children={undefined} /> */}
         </>
     )
 }

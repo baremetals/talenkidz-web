@@ -58,7 +58,7 @@ import {
   PostTopRightWrap,
   PostDropdown,
 } from '../ProfilePage/profile.styles';
-import { ShareCard } from '../ProfilePage/ShareCard';
+// import { ShareCard } from '../ProfilePage/ShareCard';
 
 import { BookMarkBorder } from '../../../public/assets/icons/BookMarkBorder';
 import { BriefcaseBorder } from '../../../public/assets/icons/BriefcaseBorder';
@@ -67,11 +67,11 @@ import { Plus } from '../../../public/assets/icons/Plus';
 import { Edit } from '../../../public/assets/icons/Edit';
 import { Delete } from '../../../public/assets/icons/Delete';
 import { Union } from '../../../public/assets/icons/Union';
-import { NavCard } from './NavCard';
+// import { NavCard } from './NavCard';
 import { Card } from './Card';
-import { useQuery } from '@apollo/client';
-import { Modal } from 'components/Modal';
-import EditForm from 'components/Create/EditForm';
+// import { useQuery } from '@apollo/client';
+// import { Modal } from 'components/Modal';
+// import EditForm from 'components/Create/EditForm';
 
 type idProps = {
   id: string;
