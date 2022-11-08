@@ -5,6 +5,7 @@ query Categories($pagination: PaginationArg, $sort: [String]) {
       attributes {
         slug
         name
+        colour
       }
     }
   }

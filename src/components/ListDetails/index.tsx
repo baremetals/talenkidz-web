@@ -16,6 +16,7 @@ import RelatedListings from '../ListDetails/RelatedListings'
 import Link from "next/link";
 import { ListingEntityResponseCollection } from 'generated/graphql';
 import SocialShare from "components/Layout/SocialShare";
+import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
 
 function ListDetails(props: {
     props: {
@@ -24,6 +25,7 @@ function ListDetails(props: {
         error: any;
     }
 }) {
+    const [socialDropdown, setSocialDropdown] = useState(false)
 
     const { data, loading, error } = props.props;
 
@@ -41,15 +43,16 @@ function ListDetails(props: {
     const location = list?.attributes?.Location
     // console.log(location)
     const category = list?.attributes?.category?.data?.attributes?.slug as string;
-    console.log(category)
+    // console.log(category)
 
     // List
 
     const postSlug = list?.attributes?.slug as string;
 
     const categoryList = list?.attributes?.category?.data?.attributes?.slug as string;
+    
+    
 
-    const [socialDropdown, setSocialDropdown] = useState(false)
     const socialToggle  = () => {
         setSocialDropdown(!socialDropdown)
     }
@@ -83,7 +86,12 @@ function ListDetails(props: {
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
                                     <div style={{margin: ' 0 0 1rem'}} className="clearfix">
-                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={categoryList + '/' + postSlug} />
+                                        <SocialShare 
+                                        toggle={socialToggle}
+                                        socialDropdown={socialDropdown} 
+                                            pathname={`/activities/${categoryList}/${postSlug}`}>
+                                            <SocialDropDownIcon />
+                                        </SocialShare>
                                     </div>
                                     <div>
                                         <Post >

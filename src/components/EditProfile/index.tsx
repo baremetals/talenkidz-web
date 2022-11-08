@@ -57,6 +57,7 @@ const EditProfile = ({ user }: mixProps) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [profileImg, setProfileImg] = useState<string>('');
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   // console.log(usr)
 
   useEffect(() => {
@@ -92,67 +93,69 @@ const EditProfile = ({ user }: mixProps) => {
   }
 
   const uploadProfileImage = async () => {
-    console.log('reactive baby');
-    const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
-    let form = new FormData()
-    form.append('file', uploadImg, uploadImg?.name)
-    console.log(uploadImg)
-    try {
-      const res = await axios(`/api/upload`, {
-        method: "post",
-        headers: {
-          Accept: 'multipart/form-data',
-          // 'Content-Type': 'multipart/form-data',
-        },
-        data: form as any,
-        // data: uploadImg
-      });
-      // const res = await fetch(`/api/upload`, {
-      //   method: "post",
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      //   body: form as any,
-      //   // body: JSON.stringify(uploadImg)
-      // });
-      // const file = await res.json();
+    // console.log('reactive baby');  
+    // console.log(uploadImg)
 
-      console.log('the response from the server: ',res)
+    if (uploadImg !== null) {
+      setLoading(true)
+      let form = new FormData()
+      form.append('file', uploadImg, uploadImg?.name)
+      try {
+        const res = await axios(`/api/upload`, {
+          method: "post",
+          headers: {
+            Accept: 'multipart/form-data',
+          },
+          data: form as any,
+        });
 
-      // if (file[0].url) {
-      //   setProfileImg(file[0].url)
+        // console.log('the response from the server: ',res)
 
-      //   const data = {
-      //     imagefile: file[0].url,
-      //     flag: "profileImage"
-      //   }
+        if (res?.data?.content?.url) {
+          setProfileImg(res?.data?.content?.url)
 
-      //   const dta = await axios.post('/api/user/update', {
-      //   data
-      // })
+          const data = {
+            imagefile: res?.data?.content?.url,
+            flag: "profileImage"
+          }
+          
+          if (usr?.userType === "organisation") {
+            await axios.post('/api/org/update', {
+              data
+            })
+          }
+          
 
-      //   console.log(dta)
-      // } else {
-      //   toast.error('issues from mars come back later', { position: "top-left", })
-      // }
-      // setProfileImg(file[0].url)
-      // const data = {
-      //   imagefile: file[0].url,
-      //   flag: "profileImage"
-      // }
-      // const dta = await axios.post('/api/user/update', {
-      //   data
-      // })
-      // console.log(dta)
+          const dta = await axios.post('/api/user/update', {
+          data
+        })
+          console.log(dta)
+          if (dta.status === 200) {
+            setUploadImg(null);
+            setLoading(false)
+            toast.success(dta?.data?.message, { position: "top-left", })
+          } else {
+            setLoading(false)
+            await axios.post('/api/upload/delete',{
+              data: { id: res?.data?.content?.id}
+            })
+            toast.error('Issue updating image', { position: "top-left", })
+          }
 
-    } catch (err) {
-      console.log(err);
-      // setMsg("Something went wrong please try again later");
-      // setFileSizeErr(true);
-      setTimeout(() => {
-        // setFileSizeErr(false);
-      }, 8000);
+        } else {
+          setLoading(false)
+          toast.error('Issue uploading image', { position: "top-left", })
+        }
+
+      } catch (err) {
+        // console.log(err);
+        setLoading(false)
+        toast.error('issues from mars come back later', { position: "top-left", })
+      }
+    } else {
+      toast.error('Please upload an image first.', { position: "top-left", })
     }
+    
   };
   return (
     <>
@@ -199,7 +202,8 @@ const EditProfile = ({ user }: mixProps) => {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                   >
-                    <Tab label="My Profile" onClick={() => uploadProfileImage()}/>
+                    <Tab label={"My Profile >"} onClick={() => uploadProfileImage()}></Tab>
+                    {loading && <span>updating.....</span>}
                     {/* <Tab label="Billing Info" /> */}
                   </Tabs>
                 </Navigation>

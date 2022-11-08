@@ -11,29 +11,6 @@ type editorProps = {
 
 const PostEditor = ({ onEditorStateChange, editorState, ...props }: editorProps) => {
 
-  // const blocksFromHtml = htmlToDraft(content);
-  // const { contentBlocks, entityMap } = blocksFromHtml;
-  // const contentState = ContentState.createFromBlockArray(
-  //   contentBlocks,
-  //   entityMap
-  // );
-
-  // const [editorState, setEditorState] = useState<EditorState>(
-  //   EditorState.createWithContent(contentState)
-  // );
-
-  // const uploadImageCallBack = async (file: File) => {
-  //   const testingRef = ref(storage, `${folder}/${file.name}`);
-  //   await uploadInlineImageForModal(file, testingRef);
-  //   const url = await getDownloadURL(testingRef);
-  //   // console.log(res);
-  //   return Promise.resolve({
-  //     data: {
-  //       link: url
-  //     },
-  //   });
-  // };
-
   return (
     <Editor
       {...props}

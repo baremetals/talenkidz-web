@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SocialDropDownIcon } from "../../../../public/assets/icons/SocialDropDownIcon";
+// import { SocialDropDownIcon } from "public/assets/icons/SocialDropDownIcon";
 import { FaceBook } from "../../../../public/assets/icons/FaceBook";
 import { Twitter } from "../../../../public/assets/icons/Twitter";
 import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
@@ -20,16 +20,17 @@ type shareProps = {
   pathname: string;
   toggle: any;
   socialDropdown: boolean;
+  children: React.ReactNode
 };
 
-const SocialShare = ({ pathname, toggle, socialDropdown }: shareProps) => {
+const SocialShare = ({ pathname, toggle, socialDropdown, children }: shareProps) => {
   const url: string | undefined = process.env.NEXT_PUBLIC_SITE_URL;
   const shareUrl: string = `${url}${pathname}`;
   return (
     <SocialDropDown>
       <span onClick={toggle}>
-        <SocialDropDownIcon />
-        Share
+        {/* <SocialDropDownIcon /> */}
+        {children}
       </span>
       <SocialDropDownList
         className={`${socialDropdown ? "opened" : ""}`}

@@ -30,6 +30,7 @@ import { ErrorMsg } from "components/Input";
 import { ClockSeven } from '../../../public/assets/icons/ClockSeven'
 import { ArticleEntityResponseCollection } from 'generated/graphql';
 import SocialShare from 'components/Layout/SocialShare';
+import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
 
 export const ArticleDetails = (props: {
     props: {
@@ -38,6 +39,7 @@ export const ArticleDetails = (props: {
         error: any;
     }
 }) => {
+    const [socialDropdown, setSocialDropdown] = useState(false)
     const { data, loading, error } = props.props;
     // console.log(data)
 
@@ -49,18 +51,20 @@ export const ArticleDetails = (props: {
 
     const article = data?.articles?.data[0];
 
+
     const imageurl = article?.attributes?.heroImage?.data?.attributes?.url;
     const author = article?.attributes?.author?.data?.attributes;
     // const avatar = author?.avatar?.data?.attributes?.url;
     const category = article?.attributes?.category?.data?.attributes?.slug as string;
 
+    // console.log(article)
     // Article
 
     const postSlug = article?.attributes?.slug as string;
 
     const categoryArticle = article?.attributes?.category?.data?.attributes?.slug as string;
     
-    const [socialDropdown, setSocialDropdown] = useState(false)
+    
     const socialToggle  = () => {
         setSocialDropdown(!socialDropdown)
     }
@@ -85,7 +89,7 @@ export const ArticleDetails = (props: {
                                             <Image src={imageurl} alt='article image' />
                                         </PostThumb>
                                         <PostBody>
-                                            <PostTitle>{article?.attributes?.title} <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={categoryArticle + '/' + postSlug} /></PostTitle>
+                                            <PostTitle>{article?.attributes?.title} <SocialShare toggle={socialToggle} socialDropdown={socialDropdown} pathname={`/articles/${categoryArticle.toLowerCase()}/${postSlug}`} ><SocialDropDownIcon /></SocialShare></PostTitle>
                                             <PostDate style={{ marginBottom: "1.25rem" }}><ClockSeven /> By : {author?.fullName}  |  {dayjs(article?.attributes?.createdAt).format('DD MMMM YYYY')} </PostDate>
                                             <div style={{ marginBottom: "1.5rem" }}>
                                                 <Markdown>{article?.attributes?.body as string}</Markdown>

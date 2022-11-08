@@ -43,7 +43,7 @@ const ResetPassword = () => {
 
     const handleSubmit = async ({ ...values }: any) => {
         const { code } = router.query;
-        console.log(values);
+        // console.log(values);
 
         await axios
             .post("/api/auth/password", {
@@ -55,24 +55,34 @@ const ResetPassword = () => {
                 },
             })
             .then((res) => {
-                console.log(res.data);
-                if (res.data.data !== null) {
-                    dispatch(setUser(res.data));
-                    router.push(`/user-profile/${res.data.username}`);
+                // console.log(res);
+                if (res?.data && res.status === 200) {
+                    toast.success('Your password has been reset');
+                    setTimeout(() => {
+                        router.push(`/auth/login`);
+                    }, 5000);
                 }
             })
             .catch((err) => {
-                console.log(err);
-                const msg: string = "Sorry something went wrong please try again later.";
-                initialValues.error = msg;
-                setErrorMsg(true);
-                toast.error(msg);
-                setTimeout(() => {
-                    setErrorMsg(false);
-                }, 7000);
+                // console.log(err.response.data.message);
+                if (err.response.data.message.includes('Incorrect code provided')) {
+                    const msg: string = 'Your reset password link is no longer valid. Please make a new request.'
+                    initialValues.error = msg;
+                    toast.error(msg);
+                    setTimeout(() => {
+                        router.push(`/auth/forgot-password`);
+                    }, 5000);
+                } else {
+                    const msg: string = "Sorry something went wrong please try again later.";
+                    initialValues.error = msg;
+                    setErrorMsg(true);
+                    toast.error(msg);
+                    setTimeout(() => {
+                        setErrorMsg(false);
+                        router.push(`/auth/forgot-password`);
+                    }, 7000);
+                }
             });
-
-
     };
     return (
         <>

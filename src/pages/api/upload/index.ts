@@ -2,10 +2,7 @@
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
 import FormData from 'form-data';
 import { Writable } from 'stream';
-// import { FormData } from 'formdata-node';
-import axios from 'axios';
 import formidable from 'formidable';
-// const formidable = require('formidable');
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 type Data = {
@@ -95,13 +92,13 @@ export default async function handler(
       body: form as any,
     });
 
-    const privacy = await apiRes.json();
-    console.log(privacy);
-    const content = apiRes;
+    const image = await apiRes.json();
+    // console.log(image);
+    const content = image[0];
 
     res.status(200).json({ content });
   } catch (err) {
-    console.log('the fucking error: ', err);
+    // console.log('the fucking error: ', err);
     res.status(400).json({ err: err });
   }
 

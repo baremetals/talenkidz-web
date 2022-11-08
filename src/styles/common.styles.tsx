@@ -146,7 +146,7 @@ export const NavBarItem = styled.li`
             background-color: #BC70AD;
             color: #FFF;
             padding: .5rem 1.375rem;
-            border-radius: 10rem;
+            border-radius: .375rem;
             &:hover {
                 background-color: #333;
                 color: #fff;
@@ -1032,6 +1032,7 @@ export const DropdownMenuItem = styled.li`
     padding: .375rem .75rem;
     font-size: .75rem;
     transition: 0.2s;
+    cursor: pointer;
     svg {
         vertical-align: -3px;
         margin-right: .5rem;

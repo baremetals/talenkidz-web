@@ -86,7 +86,6 @@ function Listings({ listings, categories }: pageProps) {
         search: "",
     });
 
-
     useEffect(() => {
         setFilteredListings(listings as SetStateAction<never[]>);
     }, [listings]);

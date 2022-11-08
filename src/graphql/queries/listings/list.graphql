@@ -41,6 +41,7 @@ query List($filters: ListingFiltersInput) {
         }
         category {
           data {
+            id
             attributes {
               name
               slug

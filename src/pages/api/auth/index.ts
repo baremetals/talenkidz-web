@@ -111,7 +111,7 @@ export default async function auth(
           orgId: response.data.user.organisation.id,
           slug: response.data.user.organisation.slug,
           orgName: response.data.user.organisation.name,
-          logo: response.data.user.organisation.logo,
+          logo: response.data.user.avatar,
           fullProfile: response.data.user.organisation.fullProfile,
         };
         res.setHeader(

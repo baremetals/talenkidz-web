@@ -38,13 +38,12 @@ const Event = (props: { data: { events: EventEntityResponseCollection; }; loadin
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { slug } = ctx.query;
-  const searchValue = slug![0]
   const { data } = await client.query<EventQueryResult>({
     query: EventDocument,
     variables: {
       filters: {
         slug: {
-          eq: searchValue,
+          eq: slug,
         },
       },
     },

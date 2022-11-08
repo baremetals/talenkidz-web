@@ -17,7 +17,7 @@ export const SocialDropDown = styled.div`
       display: block;
       height: 100%;
       width: 100%;
-      fill: #000;
+      /* fill: #000; */
       margin-right: 0.5rem;
     }
   }

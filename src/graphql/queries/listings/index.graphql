@@ -13,6 +13,7 @@ query Listings($pagination: PaginationArg, $sort: [String]) {
         createdAt
         category {
           data {
+            id
             attributes {
               slug
             }

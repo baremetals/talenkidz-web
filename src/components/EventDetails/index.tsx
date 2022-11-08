@@ -15,6 +15,7 @@ import RelatedEvents from '../EventDetails/RelatedEvents'
 import Link from "next/link";
 import { EventEntityResponseCollection } from 'generated/graphql';
 import SocialShare from "components/Layout/SocialShare";
+import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
 
 function EventDetails(props: {
     props: {
@@ -23,6 +24,7 @@ function EventDetails(props: {
         error: any;
     }
 }) {
+    const [socialDropdown, setSocialDropdown] = useState(false)
 
     const { data, loading, error } = props.props;
 
@@ -44,7 +46,6 @@ function EventDetails(props: {
 
     const category = event?.attributes?.category?.data?.attributes?.slug as string;
     
-    const [socialDropdown, setSocialDropdown] = useState(false)
     const socialToggle  = () => {
         setSocialDropdown(!socialDropdown)
     }
@@ -78,7 +79,9 @@ function EventDetails(props: {
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
                                     <div style={{margin: ' 0 0 1rem'}} className="clearfix">
-                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={category + '/' + postSlug} />
+                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={`/events/${category.toLowerCase()}/${postSlug}`}>
+                                            <SocialDropDownIcon />
+                                        </SocialShare>
                                     </div>
                                     <div>
                                         <Post>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const upperCase = (word: string) => {
+export const upperCase = (word: string = 'talentkids') => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 

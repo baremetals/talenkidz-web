@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ErrorPage = styled.div`
+export const ErrorPageWrapper = styled.div`
   height: 75vh;
   text-align: center;
   display: flex;
