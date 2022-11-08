@@ -7,7 +7,7 @@ const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async function deleteUpload(req: NextApiRequest, res: NextApiResponse) {
   const { data } = req.body;
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const { jwt } = cookies;

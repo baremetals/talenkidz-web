@@ -6,20 +6,26 @@ import axios from "axios";
 
 export const useNoAuth = () => {
   const router = useRouter();
-  const getUser = async () => {
-    await axios
-      .post("/api/user")
-      .then((res) => {
-        if (res?.data?.id) {
-          router.back();
-        }
-      })
-      .catch((_err) => {
-        return
-      });
-  };
   useEffect(() => {
-    getUser();
+    let fetchUser = true
+    const getUser = async () => {
+      await axios
+        .post('/api/user')
+        .then((res) => {
+          if (res?.data?.id) {
+            router.back();
+          }
+        })
+        .catch((_err) => {
+          return;
+        });
+    };
+    if (fetchUser) {
+      getUser();
+    }
+    return () => {
+      fetchUser = false;
+    }
   }, []);
 };
 

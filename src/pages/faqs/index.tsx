@@ -20,7 +20,7 @@ export async function getStaticProps() {
 const FaqPage = ({ ...data }) => {
   // console.log(data.data)
   return <>
-    <Layout title={'Terms and Conditions'} >
+    <Layout title={'FAQs'} >
     <Faqs data={data?.data} />
     </Layout>
   </>
