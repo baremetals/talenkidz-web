@@ -17,7 +17,7 @@ type org = {
   fullProfile: string;
 };
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async function updateOrganisation(req: NextApiRequest, res: NextApiResponse) {
   const { data } = req.body;
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const {

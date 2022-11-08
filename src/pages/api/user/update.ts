@@ -14,7 +14,7 @@ type user = {
   jwt: string;
 };
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async function updateUser(req: NextApiRequest, res: NextApiResponse) {
   const { data } = req.body;
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const { id, jwt, avatar, backgroundImg, username, fullName, userType } = cookies;
