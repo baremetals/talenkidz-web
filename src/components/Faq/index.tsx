@@ -25,9 +25,9 @@ function Faqs({...data}) {
                     {/* <Title style={{fontSize: '1.75rem', marginBottom: '2rem'}}>Payment Process</Title> */}
                     {data.data?.map((faq: { id: string; attributes: { question: string; answer: string; }; }) => {
                         return <>
-                            <Accordion className={isActive === parseInt(faq?.id) ? "open" : ''}>
+                            <Accordion key={faq?.id} className={isActive === parseInt(faq?.id) ? "open" : ''}>
                                 <Title className='accordion-title' onClick={() => toggleClass(parseInt(faq?.id))}>{faq?.attributes?.question}</Title>
-                            <div className='accordion-body'>
+                                <div className='accordion-body' key={faq?.id}>
                                     <Text><Markdown>{faq?.attributes?.answer}</Markdown></Text>
                             </div>
                         </Accordion>
