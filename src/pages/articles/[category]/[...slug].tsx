@@ -1,57 +1,72 @@
-import React from 'react'
-import Head from "next/head";
-import { GetServerSidePropsContext } from "next";
-import { client } from "lib/initApollo";
+import React from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { client } from 'lib/initApollo';
 import {
-    ArticleDocument,
-    ArticleEntityResponseCollection,
-    ArticleQueryResult,
-} from "generated/graphql";
-import { ArticleDetails } from 'components/ArticleDetails'
-import { useNoAuthPages } from "lib/noAuth";
+  ArticleDocument,
+  ArticleEntityResponseCollection,
+  ArticleQueryResult,
+} from 'generated/graphql';
+import { ArticleDetails } from 'components/ArticleDetails';
+import { useNoAuthPages } from 'lib/noAuth';
+import Layout from 'components/Layout';
 
-
-const Article = (props: { data: { articles: ArticleEntityResponseCollection; }; loading: boolean; error: any; }) => {
-    useNoAuthPages();
-    const article = props?.data?.articles?.data[0];
-    const meta = article?.attributes?.SEO;
-    return (
-        <>
-            <Head>
-                <title>Bare Metals Aacademy | {meta?.title} </title>
-                <meta property="og:title" content={meta?.title as string} key="title" />
-                <meta name="description" content={meta?.description as string} />
-                <meta property="og:type" content={meta?.type as string} />
-                <meta property="og:url" content={meta?.url as string || ""} />
-                <meta property="og:image" content={meta?.image as string} />
-                <meta property="og:image:width" content="100%" />
-                <meta property="og:image:height" content="auto" />
-                <link
-                    rel="canonical"
-                    href={meta?.url as string || ''}
-                />
-            </Head>
-            <ArticleDetails props={props} />
-        </>
-    )
-}
+const Article = (props: {
+  data: { articles: ArticleEntityResponseCollection };
+  loading: boolean;
+  error: any;
+}) => {
+  useNoAuthPages();
+  const article = props?.data?.articles?.data[0];
+  const author = article?.attributes?.author?.data?.attributes;
+  const meta = article?.attributes?.SEO;
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: meta?.title,
+    description: meta?.description,
+    author: [
+      {
+        '@type': 'Person',
+        name: author?.fullName,
+      },
+    ],
+    image: meta?.image,
+    datePublished: article?.attributes?.updatedAt,
+  };
+  // console.log(article?.attributes?.author?.data?.attributes);
+  return (
+    <Layout
+      title={`Talentkids | ${meta?.title as string}`}
+      metaDescription={meta?.description as string}
+      canonicalUrl={meta?.url as string}
+      pageUrl={meta?.url as string}
+      image={meta?.image as string}
+      data={JSON.stringify(structuredData)}
+      imageHeight={'auto'}
+      imageWidth={'100%'}
+      type={meta?.type as string}
+    >
+      <ArticleDetails props={props} />
+    </Layout>
+  );
+};
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-    const { slug } = ctx.query;
-    const searchValue = slug![0]
-    const { data } = await client.query<ArticleQueryResult>({
-        query: ArticleDocument,
-        variables: {
-            filters: {
-                slug: {
-                    eq: searchValue,
-                },
-            },
+  const { slug } = ctx.query;
+  const searchValue = slug![0];
+  const { data } = await client.query<ArticleQueryResult>({
+    query: ArticleDocument,
+    variables: {
+      filters: {
+        slug: {
+          eq: searchValue,
         },
-    });
-    return {
-        props: { data }, // will be passed to the page component as props
-    };
+      },
+    },
+  });
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
 }
 
-export default Article
+export default Article;

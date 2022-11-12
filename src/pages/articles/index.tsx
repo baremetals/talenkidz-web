@@ -1,6 +1,6 @@
 import React from "react";
-import Head from "next/head";
 import Articles from 'components/Articles';
+import Layout from 'components/Layout';
 import { GetServerSidePropsContext } from "next";
 import { client } from 'lib/initApollo';
 import { ArticleEntity, ArticlesDocument, ArticlesQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
@@ -15,28 +15,36 @@ type pageProps = {
 function ArticlesPage(props: pageProps) {
     
     const {cats, art} = props;
+    const description = "Articles"
+    const url = "https://talentkids.io/articles"
     // console.log(cats?.data?.categories?.data);
+
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPostings',
+        //  about: {description},
+        // description: meta?.description,
+        // author: [
+        //     {
+        //         '@type': 'Person',
+        //         name: author?.fullName,
+        //     },
+        // ],
+        // image: meta?.image,
+        // datePublished: article?.attributes?.updatedAt,
+    };
     useNoAuthPages();
     return (
-        <>
-            <Head>
-                <title>Talentkids | Articles</title>
-                <meta
-                    property="og:title"
-                    content="Talentkids | Articles"
-                    key="title"
-                />
-                <meta
-                    name="description"
-                    content="Articles"
-                />
-                <meta property="og:url" content="https://talentkids.io/articles" />
-                <meta property="og:type" content="articles" />
-                <meta property="og:locale" content="en_GB" />
-                <link rel="canonical" href="https://talentkids.io/articles" />
-            </Head>
+        <Layout
+            title={`Talentkids | Articles`}
+            metaDescription={description}
+            canonicalUrl={url}
+            data={JSON.stringify(structuredData)}
+            type="articles"
+            pageUrl={url}
+        >
             <Articles articles={art?.articles?.data} categories={cats?.data?.categories?.data}/>
-        </>
+        </Layout>
     );
 }
 

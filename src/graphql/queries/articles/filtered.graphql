@@ -11,6 +11,7 @@ query FilteredArticles(
         title
         slug
         blurb
+        readingTime
         createdAt
         updatedAt
         heroImage {

@@ -10,8 +10,14 @@ query List($filters: ListingFiltersInput) {
         endDate
         slug
         createdAt
+        updatedAt
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
         SEO {
           id
@@ -29,12 +35,13 @@ query List($filters: ListingFiltersInput) {
               name
               slug
               logo
+              website
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode

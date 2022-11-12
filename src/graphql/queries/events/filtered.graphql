@@ -15,14 +15,20 @@ query FilteredEvents(
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         host {
           data {
             attributes {
               name
               slug
               logo
+              website
             }
           }
         }

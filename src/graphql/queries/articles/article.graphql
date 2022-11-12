@@ -6,6 +6,7 @@ query Article($filters: ArticleFiltersInput) {
         body
         title
         slug
+        readingTime
         heroImage {
           data {
             attributes {

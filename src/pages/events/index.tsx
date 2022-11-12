@@ -1,10 +1,10 @@
 import React from 'react'
-import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { client } from 'lib/initApollo';
 import { EventEntity, EventsDocument, EventsQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
 import { useNoAuthPages } from "lib/noAuth";
 import Events from 'components/Events';
+import Layout from 'components/Layout';
 
 
 type pageProps = {
@@ -15,28 +15,37 @@ type pageProps = {
 const EventsPage = (props: pageProps) => {
 
   const { cats, eve } = props;
+  const description = "Events"
+  const url = "https://talentkids.io/events"
+  // console.log(cats?.data?.categories?.data);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Events',
+    // headline: meta?.title,
+    // description: meta?.description,
+    // author: [
+    //     {
+    //         '@type': 'Person',
+    //         name: author?.fullName,
+    //     },
+    // ],
+    // image: meta?.image,
+    // datePublished: article?.attributes?.updatedAt,
+  };
   // console.log(eve)
   useNoAuthPages();
   return (
-    <>
-      <Head>
-        <title>Talentkids | Events</title>
-        <meta
-          property="og:title"
-          content="Talentkids | Events"
-          key="title"
-        />
-        <meta
-          name="description"
-          content="Events"
-        />
-        <meta property="og:url" content="https://talentkids.io/events" />
-        <meta property="og:type" content="events" />
-        <meta property="og:locale" content="en_GB" />
-        <link rel="canonical" href="https://talentkids.io/events" />
-      </Head>
+    <Layout 
+      title={`Talentkids | Events`}
+      metaDescription={description}
+      canonicalUrl={url}
+      data={JSON.stringify(structuredData)}
+      type="events"
+      pageUrl={url}
+    >
       <Events events={eve?.events?.data} categories={cats?.data?.categories?.data} />
-    </>
+    </Layout>
   )
 }
 
