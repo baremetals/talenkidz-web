@@ -110,8 +110,6 @@ const Events = ({ events, categories }: pageProps) => {
         };
     return (
         <>
-            <NavBar />
-
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Events</Title>
@@ -174,7 +172,6 @@ const Events = ({ events, categories }: pageProps) => {
                     </Row>
                 </InnerContainer>
             </PageContainer>
-            <Footer />
         </>
     )
 }

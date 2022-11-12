@@ -51,7 +51,6 @@ import {
 
 const Home = () => {
     return <>
-        <NavBar />
         <Hero style={{ backgroundImage: "url(/yung-buck.jpg)" }}>
             <InnerContainer>
                 <HeroContent>
@@ -114,8 +113,6 @@ const Home = () => {
                 </Row>
             </InnerContainer>
         </Benefits> */}
-
-        <Footer />
     </>;
 };
 

@@ -8,9 +8,6 @@ import { upperCase } from 'lib/helpers'
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
-
 import {
     InnerBanner,
     InnerContainer,
@@ -43,6 +40,7 @@ import {
 
 import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp'
 import { Article, ArticleEntity, CategoryEntity } from 'generated/graphql';
+import { BookMark } from '../../../public/assets/icons/BookMark';
 
 type articleProps = {
     id: string;
@@ -126,7 +124,6 @@ const Articles = ({ articles, categories }: pageProps) => {
         };
     return (
         <>
-            <NavBar />
 
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
@@ -149,16 +146,25 @@ const Articles = ({ articles, categories }: pageProps) => {
                                                 </PostThumb>
                                                 <PostBody>
                                                     <Top>
-                                                        <PostTitle>{art?.attributes?.title}</PostTitle>
-                                                        {/* <Text>{art?.attributes?.blurb}</Text> */}
+                                                        <PostTitle style={{ fontSize: '1rem', color: '#2e3032', marginBottom: '.3rem' }}>{art?.attributes?.title}</PostTitle>
+                                                        <Text>{art?.attributes?.blurb.slice(0, 80)}...</Text>
                                                     </Top>
+                                                    <Bottom style={{ fontSize: '.75rem' }}>
+                                                        
+                                                            {art?.attributes?.author?.data?.attributes?.fullName}                                                       
+                                                    </Bottom>
                                                     <Bottom>
-
-                                                        <PostDate>By : {art?.attributes?.author?.data?.attributes?.fullName}  |  {dayjs(art?.attributes?.updatedAt).format('DD MMMM YYYY')} </PostDate>
-                                                        <PostMedia>
-                                                            {/* <Link href={'/posts'}><a><ThumbsUp /></a></Link> */}
-                                                            {/* <Link href={'/posts'}><a><BookMark /></a></Link> */}
+                                                        <PostDate>{dayjs(art?.attributes?.updatedAt).format('DD MMMM YYYY')} </PostDate>
+                                                        
+                                                        <PostMedia style={{ fontSize: '.75rem', color: '#74787C' }}>
+                                                            {art?.attributes?.readingTime}
                                                         </PostMedia>
+                                                        {/* <PostMedia>
+                                                            <Link href={'/posts'}><a><ThumbsUp /></a></Link>
+                                                            <PostMedia>
+                                                                <Link href={'/posts'}><a><BookMark /></a></Link>
+                                                            </PostMedia>
+                                                        </PostMedia> */}
                                                     </Bottom>
                                                 </PostBody>
                                             </Post>
@@ -189,8 +195,6 @@ const Articles = ({ articles, categories }: pageProps) => {
                     </Row>
                 </InnerContainer>
             </PageContainer>
-
-            <Footer />
         </>
     );
 }

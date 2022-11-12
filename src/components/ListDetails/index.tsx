@@ -5,8 +5,10 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { ErrorMsg } from "components/Input";
-import Footer from "components/Layout/Footer";
-import NavBar from "components/Layout/NavBar";
+import { GiPriceTag } from 'react-icons/gi';
+import { HiStatusOnline } from 'react-icons/hi';
+import { VscLocation } from 'react-icons/vsc';
+import { MdOutlineSchedule } from 'react-icons/md';
 import {
     InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, Post, PostThumb, PostBody, AddressMap, Iframe, AddressCard, AvatarRow, Avatar
 } from "styles/common.styles";
@@ -59,8 +61,6 @@ function ListDetails(props: {
 
     return (
         <>
-            <NavBar />
-
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title>{list?.attributes?.title}</Title>
@@ -93,6 +93,34 @@ function ListDetails(props: {
                                             <SocialDropDownIcon />
                                         </SocialShare>
                                     </div>
+                                    <Link passHref href={list?.attributes?.link as string}><button type="button" style={{}} >
+                                        {list?.attributes?.linkButtonText?.replace('_', ' ')}
+                                    </button></Link>
+                                    <div style={{}} >
+                                        <GiPriceTag />
+
+                                        £{list?.attributes?.price}
+                                    </div>
+                                    <div style={{}} >
+                                        <MdOutlineSchedule />
+                                        {list?.attributes?.status}
+                                    </div>
+
+                                    {list?.attributes?.venue === 'online' && <div style={{}} >
+                                        <HiStatusOnline />
+                                        {list?.attributes?.venue} online
+                                    </div>
+                                    }
+                                    {list?.attributes?.venue === 'location' && <div style={{}} >
+                                        <VscLocation />
+                                        {location?.name}
+                                    </div>
+                                    }
+                                    {list?.attributes?.venue === 'both' && <div style={{}} >
+                                        <VscLocation />
+                                        {location?.name}, <HiStatusOnline /> online
+                                    </div>
+                                    } 
                                     <div>
                                         <Post >
                                             <PostThumb>
@@ -124,8 +152,6 @@ function ListDetails(props: {
                     </Row>
                 </InnerContainer>
             </PageContainer>
-
-            <Footer />
         </>
     );
 }

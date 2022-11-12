@@ -1,8 +1,8 @@
 import React from 'react'
-import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { client } from "lib/initApollo";
 
+import Layout from 'components/Layout';
 import ListDetails from 'components/ListDetails'
 import { useNoAuthPages } from "lib/noAuth";
 import {
@@ -10,30 +10,92 @@ import {
     ListingEntityResponseCollection,
     ListQueryResult,
 } from "generated/graphql";
+import { locationType, onlineLocationType, bothLocationType } from 'utils/types';
 
 
 const ListDetailsPage = (props: { data: { listings: ListingEntityResponseCollection; }; loading: boolean; error: any; }) => {
     useNoAuthPages();
     const list = props?.data?.listings?.data[0];
     const meta = list?.attributes?.SEO;
+    const location = list?.attributes?.Location
+    const host = list?.attributes?.host?.data?.attributes
+
+    let place: locationType | onlineLocationType | bothLocationType;
+
+    if (list?.attributes?.venue === "both") {
+        place = [{
+            "@type": "VirtualLocation",
+            "url": list?.attributes?.link as string,
+        },
+        {
+            "@type": "Place",
+            "name": location?.name as string,
+            "address": {
+                "@type": "PostalAddress",
+                streetAddress: location?.street as string,
+                addressLocality: location?.town as string,
+                postalCode: location?.postCode as string,
+                "addressCountry": "UK"
+            }
+        },
+        ]
+    }
+    else if (list?.attributes?.venue === "online") {
+        const ol = {
+            "@type": "VirtualLocation",
+            "url": list?.attributes?.link as string,
+        }
+        place = ol
+    }
+    else {
+        const loc = {
+            "@type": "Place",
+            "name": location?.name as string,
+            "address": {
+                "@type": "PostalAddress",
+                streetAddress: location?.street,
+                addressLocality: location?.town,
+                postalCode: location?.postCode,
+                "addressCountry": "UK"
+            }
+        } as locationType
+        place = loc
+    }
+
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: meta?.title,
+        startDate: list?.attributes?.startDate,
+        endDate: list?.attributes?.endDate,
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        location: place,
+        image: meta?.image,
+        description: meta?.description,
+        organizer: [
+            {
+                '@type': 'Organization',
+                name: host?.name,
+                logo: host?.logo,
+                url: host?.website
+            },
+        ],
+    };
     return (
-        <>
-            <Head>
-                <title>Bare Metals Aacademy | {meta?.title} </title>
-                <meta property="og:title" content={meta?.title as string} key="title" />
-                <meta name="description" content={meta?.description as string} />
-                <meta property="og:type" content={meta?.type as string} />
-                <meta property="og:url" content={meta?.url as string} />
-                <meta property="og:image" content={meta?.image as string} />
-                <meta property="og:image:width" content="100%" />
-                <meta property="og:image:height" content="auto" />
-                <link
-                    rel="canonical"
-                    href={meta?.url as string || ''}
-                />
-            </Head>
+        <Layout
+            title={`Talentkids | ${meta?.title as string}`}
+            metaDescription={meta?.description as string}
+            canonicalUrl={meta?.url as string}
+            pageUrl={meta?.url as string}
+            image={meta?.image as string}
+            data={JSON.stringify(structuredData)}
+            imageHeight={'auto'}
+            imageWidth={'100%'}
+            type={meta?.type as string}
+        >
             <ListDetails props={props} />
-        </>
+        </Layout>
     )
 }
 

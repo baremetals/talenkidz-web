@@ -112,7 +112,6 @@ function Listings({ listings, categories }: pageProps) {
 
     return (
         <>
-            <NavBar />
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Activities</Title>
@@ -163,7 +162,6 @@ function Listings({ listings, categories }: pageProps) {
                     </Row>
                 </InnerContainer>
             </PageContainer>
-            <Footer />
         </>
     );
 }

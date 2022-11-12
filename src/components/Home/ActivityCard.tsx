@@ -50,7 +50,7 @@ const ActivityCard = () => {
             <InnerContainer>
                 <Heading style={{ textAlign: "center" }}>
                     <SubTitle>On Going Events & Activities</SubTitle>
-                    <Title >Take The Classes & Start <br /> Learning From Today</Title>
+                    <Title >Sports Creative Educational <br /> Events and Activities</Title>
                 </Heading>
                 <Row>
                     {lists && lists?.map((list, id) => (

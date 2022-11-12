@@ -5,8 +5,10 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { ErrorMsg } from "components/Input";
-import Footer from "components/Layout/Footer";
-import NavBar from "components/Layout/NavBar";
+import { GiPriceTag } from 'react-icons/gi';
+import { HiStatusOnline } from 'react-icons/hi';
+import { VscLocation } from 'react-icons/vsc';
+import { MdOutlineSchedule } from 'react-icons/md';
 import {
     InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, ListIcon, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap, AddressCard, Iframe
 } from "styles/common.styles";
@@ -52,8 +54,6 @@ function EventDetails(props: {
 
     return (
         <>
-            <NavBar />
-
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title>{event?.attributes?.title}</Title>
@@ -82,7 +82,35 @@ function EventDetails(props: {
                                         <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={`/events/${category.toLowerCase()}/${postSlug}`}>
                                             <SocialDropDownIcon />
                                         </SocialShare>
+                                    </div> 
+                                    <Link passHref href={event?.attributes?.link as string}><button type="button" style={{}} >
+                                        {event?.attributes?.linkButtonText?.replace('_', ' ')}
+                                    </button></Link> 
+                                    <div style={{}} >
+                                        <GiPriceTag />
+                                         
+                                        £{event?.attributes?.price}
+                                    </div>   
+                                    <div style={{}} >
+                                        <MdOutlineSchedule />
+                                         {event?.attributes?.status}
+                                    </div> 
+                                    
+                                    {event?.attributes?.venue === 'online' && <div style={{}} >
+                                        <HiStatusOnline />
+                                         {event?.attributes?.venue} online
                                     </div>
+                                    } 
+                                    {event?.attributes?.venue === 'location' && <div style={{}} >
+                                        <VscLocation />
+                                         {location?.name} 
+                                    </div>
+                                    }
+                                    {event?.attributes?.venue === 'both' && <div style={{}} >
+                                        <VscLocation />
+                                         {location?.name}, <HiStatusOnline /> online
+                                    </div>
+                                    }                                                         
                                     <div>
                                         <Post>
                                             <PostThumb>
@@ -117,8 +145,6 @@ function EventDetails(props: {
                     </Row>
                 </InnerContainer>
             </PageContainer>
-
-            <Footer />
         </>
     );
 }

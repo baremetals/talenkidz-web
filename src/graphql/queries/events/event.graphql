@@ -11,7 +11,13 @@ query Event($filters: EventFiltersInput) {
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
+        createdAt
         updatedAt
         category {
           data {
@@ -29,12 +35,13 @@ query Event($filters: EventFiltersInput) {
               name
               slug
               logo
+              website
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode

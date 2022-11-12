@@ -90,6 +90,7 @@ export type Article = {
   createdAt?: Maybe<Scalars['DateTime']>;
   heroImage: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  readingTime?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -124,6 +125,7 @@ export type ArticleFiltersInput = {
   not?: InputMaybe<ArticleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  readingTime?: InputMaybe<StringFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -137,6 +139,7 @@ export type ArticleInput = {
   category?: InputMaybe<Scalars['ID']>;
   heroImage?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  readingTime?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -361,7 +364,7 @@ export type CommentInput = {
 export type ComponentAddressLocation = {
   __typename?: 'ComponentAddressLocation';
   id: Scalars['ID'];
-  numberOrName?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   postCode?: Maybe<Scalars['String']>;
   street?: Maybe<Scalars['String']>;
   town?: Maybe<Scalars['String']>;
@@ -369,8 +372,8 @@ export type ComponentAddressLocation = {
 
 export type ComponentAddressLocationFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentAddressLocationFiltersInput>>>;
+  name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentAddressLocationFiltersInput>;
-  numberOrName?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentAddressLocationFiltersInput>>>;
   postCode?: InputMaybe<StringFilterInput>;
   street?: InputMaybe<StringFilterInput>;
@@ -379,7 +382,7 @@ export type ComponentAddressLocationFiltersInput = {
 
 export type ComponentAddressLocationInput = {
   id?: InputMaybe<Scalars['ID']>;
-  numberOrName?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
   postCode?: InputMaybe<Scalars['String']>;
   street?: InputMaybe<Scalars['String']>;
   town?: InputMaybe<Scalars['String']>;
@@ -495,6 +498,48 @@ export enum Enum_Enquiry_Reason {
   GeneralEnquiry = 'general_enquiry'
 }
 
+export enum Enum_Event_Linkbuttontext {
+  BuyNow = 'Buy_Now',
+  BuyTickets = 'Buy_Tickets',
+  LearnMore = 'Learn_More',
+  Register = 'Register',
+  VisitUs = 'Visit_Us'
+}
+
+export enum Enum_Event_Status {
+  Cancelled = 'cancelled',
+  Disabled = 'disabled',
+  Live = 'live',
+  Scheduled = 'scheduled'
+}
+
+export enum Enum_Event_Venue {
+  Both = 'both',
+  Location = 'location',
+  Online = 'online'
+}
+
+export enum Enum_Listing_Linkbuttontext {
+  BuyNow = 'Buy_Now',
+  BuyTickets = 'Buy_Tickets',
+  LearnMore = 'Learn_More',
+  Register = 'Register',
+  VisitUs = 'Visit_Us'
+}
+
+export enum Enum_Listing_Status {
+  Cancelled = 'cancelled',
+  Disabled = 'disabled',
+  Live = 'live',
+  Scheduled = 'scheduled'
+}
+
+export enum Enum_Listing_Venue {
+  Both = 'both',
+  Location = 'location',
+  Online = 'online'
+}
+
 export enum Enum_Userspermissionsuser_Usertype {
   Candidate = 'candidate',
   Organisation = 'organisation'
@@ -564,13 +609,18 @@ export type Event = {
   endTime?: Maybe<Scalars['String']>;
   guests?: Maybe<EventGuestRelationResponseCollection>;
   host?: Maybe<OrganisationEntityResponse>;
+  link?: Maybe<Scalars['String']>;
+  linkButtonText?: Maybe<Enum_Event_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['Date']>;
   startTime?: Maybe<Scalars['String']>;
+  status?: Maybe<Enum_Event_Status>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  venue?: Maybe<Enum_Event_Venue>;
 };
 
 
@@ -611,15 +661,20 @@ export type EventFiltersInput = {
   guests?: InputMaybe<EventGuestFiltersInput>;
   host?: InputMaybe<OrganisationFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
+  link?: InputMaybe<StringFilterInput>;
+  linkButtonText?: InputMaybe<StringFilterInput>;
   listImage?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<EventFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
+  price?: InputMaybe<FloatFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   startDate?: InputMaybe<DateFilterInput>;
   startTime?: InputMaybe<StringFilterInput>;
+  status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  venue?: InputMaybe<StringFilterInput>;
 };
 
 export type EventGuest = {
@@ -691,12 +746,17 @@ export type EventInput = {
   endTime?: InputMaybe<Scalars['String']>;
   guests?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   host?: InputMaybe<Scalars['ID']>;
+  link?: InputMaybe<Scalars['String']>;
+  linkButtonText?: InputMaybe<Enum_Event_Linkbuttontext>;
   listImage?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['Date']>;
   startTime?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Enum_Event_Status>;
   title?: InputMaybe<Scalars['String']>;
+  venue?: InputMaybe<Enum_Event_Venue>;
 };
 
 export type Faq = {
@@ -895,13 +955,18 @@ export type Listing = {
   endTime?: Maybe<Scalars['String']>;
   guests?: Maybe<ListingGuestRelationResponseCollection>;
   host?: Maybe<OrganisationEntityResponse>;
+  link?: Maybe<Scalars['String']>;
+  linkButtonText?: Maybe<Enum_Listing_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['Date']>;
   startTime?: Maybe<Scalars['String']>;
+  status?: Maybe<Enum_Listing_Status>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  venue?: Maybe<Enum_Listing_Venue>;
 };
 
 
@@ -942,15 +1007,20 @@ export type ListingFiltersInput = {
   guests?: InputMaybe<ListingGuestFiltersInput>;
   host?: InputMaybe<OrganisationFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
+  link?: InputMaybe<StringFilterInput>;
+  linkButtonText?: InputMaybe<StringFilterInput>;
   listImage?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ListingFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ListingFiltersInput>>>;
+  price?: InputMaybe<FloatFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   startDate?: InputMaybe<DateFilterInput>;
   startTime?: InputMaybe<StringFilterInput>;
+  status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  venue?: InputMaybe<StringFilterInput>;
 };
 
 export type ListingGuest = {
@@ -1015,12 +1085,17 @@ export type ListingInput = {
   endTime?: InputMaybe<Scalars['String']>;
   guests?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   host?: InputMaybe<Scalars['ID']>;
+  link?: InputMaybe<Scalars['String']>;
+  linkButtonText?: InputMaybe<Enum_Listing_Linkbuttontext>;
   listImage?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['Date']>;
   startTime?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Enum_Listing_Status>;
   title?: InputMaybe<Scalars['String']>;
+  venue?: InputMaybe<Enum_Listing_Venue>;
 };
 
 export type LongFilterInput = {
@@ -2466,7 +2541,7 @@ export type ArticleQueryVariables = Exact<{
 }>;
 
 
-export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredArticlesQueryVariables = Exact<{
   filters?: InputMaybe<ArticleFiltersInput>;
@@ -2475,7 +2550,7 @@ export type FilteredArticlesQueryVariables = Exact<{
 }>;
 
 
-export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type ArticlesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2483,7 +2558,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type CategoriesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2498,7 +2573,7 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null } | null }> } | null };
+export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, linkButtonText?: Enum_Event_Linkbuttontext | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null } | null }> } | null };
 
 export type FilteredEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -2507,7 +2582,7 @@ export type FilteredEventsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type EventsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2515,7 +2590,7 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, createdAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
@@ -2524,7 +2599,7 @@ export type FilteredListingsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null } | null }> } | null };
 
 export type ListingsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2532,14 +2607,14 @@ export type ListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, listImage?: string | null, createdAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null } | null }> } | null };
+export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null } | null }> } | null };
 
 export type ListQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
 }>;
 
 
-export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, startTime?: string | null, endTime?: string | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, numberOrName?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, updatedAt?: any | null, startTime?: string | null, endTime?: string | null, price?: number | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, linkButtonText?: Enum_Listing_Linkbuttontext | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type UserEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -2583,6 +2658,7 @@ export const ArticleDocument = gql`
         body
         title
         slug
+        readingTime
         heroImage {
           data {
             attributes {
@@ -2662,6 +2738,7 @@ export const FilteredArticlesDocument = gql`
         title
         slug
         blurb
+        readingTime
         createdAt
         updatedAt
         heroImage {
@@ -2733,6 +2810,7 @@ export const ArticlesDocument = gql`
         title
         slug
         blurb
+        readingTime
         heroImage {
           data {
             id
@@ -2850,7 +2928,13 @@ export const EventDocument = gql`
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
+        createdAt
         updatedAt
         category {
           data {
@@ -2868,12 +2952,13 @@ export const EventDocument = gql`
               name
               slug
               logo
+              website
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode
@@ -2934,14 +3019,20 @@ export const FilteredEventsDocument = gql`
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         host {
           data {
             attributes {
               name
               slug
               logo
+              website
             }
           }
         }
@@ -3002,14 +3093,20 @@ export const EventsDocument = gql`
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         host {
           data {
             attributes {
               name
               slug
               logo
+              website
             }
           }
         }
@@ -3067,8 +3164,14 @@ export const FilteredListingsDocument = gql`
         endDate
         slug
         startTime
+        endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         category {
           data {
             id
@@ -3083,6 +3186,7 @@ export const FilteredListingsDocument = gql`
               name
               slug
               logo
+              website
             }
           }
         }
@@ -3133,8 +3237,14 @@ export const ListingsDocument = gql`
         endDate
         slug
         startTime
+        endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         category {
           data {
             id
@@ -3149,6 +3259,7 @@ export const ListingsDocument = gql`
               name
               slug
               logo
+              website
             }
           }
         }
@@ -3199,8 +3310,14 @@ export const ListDocument = gql`
         endDate
         slug
         createdAt
+        updatedAt
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
         SEO {
           id
@@ -3218,12 +3335,13 @@ export const ListDocument = gql`
               name
               slug
               logo
+              website
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode

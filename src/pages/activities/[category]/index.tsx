@@ -1,7 +1,7 @@
 import React from "react";
-import Head from "next/head";
 import { useRouter } from 'next/router';
 import Listings from 'components/Listings';
+import Layout from 'components/Layout';
 import { GetServerSidePropsContext } from "next";
 import { client } from 'lib/initApollo';
 import { ListingEntity, FilteredListingsDocument, FilteredListingsQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
@@ -17,26 +17,37 @@ function FilteredListingsPage(props: pageProps) {
     const router = useRouter();
     const { cats, lists } = props;
     const { category } = router.query;
+
+    const description = "Activities"
+    const url = `https://talentkids.io/listings/${category}`
+    // console.log(cats?.data?.categories?.data);
+
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'Events',
+        //  about: {description},
+        // description: meta?.description,
+        // author: [
+        //     {
+        //         '@type': 'Person',
+        //         name: author?.fullName,
+        //     },
+        // ],
+        // image: meta?.image,
+        // datePublished: article?.attributes?.updatedAt,
+    };
     useNoAuthPages();
     return (
-        <>
-            <Head>
-                <title>Talentkids | Listings</title>
-                <meta
-                    property="og:title"
-                    content="Talentkids | Listings"
-                    key="title"
-                />
-                <meta
-                    name="description"
-                    content="Listings"
-                />
-                <meta property="og:url" content={`https://talentkids.io/listings/${category}`} />
-                <meta property="og:type" content="listings" />
-                <link rel="canonical" href={`https://talentkids.io/listings/${category}`} />
-            </Head>
-            <Listings listings={lists?.listings?.data} categories={cats?.data?.categories?.data} />
-        </>
+            <Layout
+                title={`Talentkids | Activities`}
+                metaDescription={description}
+                canonicalUrl={url}
+                data={JSON.stringify(structuredData)}
+            type="activities"
+                pageUrl={url}
+            >
+                <Listings listings={lists?.listings?.data} categories={cats?.data?.categories?.data} />
+            </Layout>            
     );
 }
 
