@@ -10,20 +10,20 @@ function HomePage() {
     const url = "https://talentkids.io"
     // console.log(cats?.data?.categories?.data);
 
-    const structuredData = {
-        '@context': 'https://schema.org',
-        '@type': 'Events',
-        // headline: meta?.title,
-        // description: meta?.description,
-        // author: [
-        //     {
-        //         '@type': 'Person',
-        //         name: author?.fullName,
-        //     },
-        // ],
-        // image: meta?.image,
-        // datePublished: article?.attributes?.updatedAt,
-    };
+    // const structuredData = {
+    //     '@context': 'https://schema.org',
+    //     '@type': 'Events',
+    //     // headline: meta?.title,
+    //     // description: meta?.description,
+    //     // author: [
+    //     //     {
+    //     //         '@type': 'Person',
+    //     //         name: author?.fullName,
+    //     //     },
+    //     // ],
+    //     // image: meta?.image,
+    //     // datePublished: article?.attributes?.updatedAt,
+    // };
     return (
         <Layout
             title={`Talentkids | Home`}
@@ -31,7 +31,7 @@ function HomePage() {
             canonicalUrl={url}
             pageUrl={url}
             image={'/yung-buck.jpg'}
-            data={JSON.stringify(structuredData)}
+            // data={JSON.stringify(structuredData)}
             imageHeight={'auto'}
             imageWidth={'100%'}
             type='home'
