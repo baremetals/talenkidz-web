@@ -10,7 +10,7 @@ import { HiStatusOnline } from 'react-icons/hi';
 import { VscLocation } from 'react-icons/vsc';
 import { MdOutlineSchedule } from 'react-icons/md';
 import {
-    InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, ListIcon, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap, AddressCard, Iframe
+    InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap
 } from "styles/common.styles";
 import RelatedEvents from '../EventDetails/RelatedEvents'
 
@@ -49,8 +49,8 @@ function EventDetails(props: {
     const postSlug = event?.attributes?.slug as string;
 
     const category = event?.attributes?.category?.data?.attributes?.slug as string;
-    
-    const socialToggle  = () => {
+
+    const socialToggle = () => {
         setSocialDropdown(!socialDropdown)
     }
 
@@ -80,45 +80,45 @@ function EventDetails(props: {
                         <Column className='column-7'>
                             <Row>
                                 <Column style={{ minWidth: "50%" }} >
-                                    <div style={{margin: ' 0 0 1rem'}} className="clearfix">
+                                    <div style={{ margin: ' 0 0 1rem' }} className="clearfix">
                                         <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={`/events/${category.toLowerCase()}/${postSlug}`}>
                                             <SocialDropDownIcon />
                                         </SocialShare>
-                                    </div> 
+                                    </div>
                                     <div className="align_names">
-                                    <Link passHref href={event?.attributes?.link as string}>
-                                        {event?.attributes?.linkButtonText?.replace('_', ' ')}
-                                    </Link> 
-                                    <div style={{}} >
-                                        <GiPriceTag />
-                                         
-                                        £{event?.attributes?.price}
-                                    </div>   
-                                    <div style={{}} >
-                                        <MdOutlineSchedule />
-                                         {event?.attributes?.status}
-                                    </div> 
-                                    
-                                    {event?.attributes?.venue === 'online' && <div style={{}} >
-                                        <HiStatusOnline />
-                                         {event?.attributes?.venue} online
-                                    </div>
-                                    } 
-                                    {event?.attributes?.venue === 'location' && <div style={{}} >
-                                        <VscLocation />
-                                         {location?.name} 
-                                    </div>
-                                    }
-                                    {event?.attributes?.venue === 'both' && <div style={{}} >
-                                        <VscLocation />
-                                         {location?.name}
-                                    </div>
-                                    }
+                                        <Link passHref href={event?.attributes?.link as string}>
+                                            {event?.attributes?.linkButtonText?.replace('_', ' ')}
+                                        </Link>
+                                        <div style={{}} >
+                                            <GiPriceTag />
+
+                                            £{event?.attributes?.price}
+                                        </div>
+                                        <div style={{}} >
+                                            <MdOutlineSchedule />
+                                            {event?.attributes?.status}
+                                        </div>
+
+                                        {event?.attributes?.venue === 'online' && <div style={{}} >
+                                            <HiStatusOnline />
+                                            {event?.attributes?.venue} online
+                                        </div>
+                                        }
+                                        {event?.attributes?.venue === 'location' && <div style={{}} >
+                                            <VscLocation />
+                                            {location?.name}
+                                        </div>
+                                        }
+                                        {event?.attributes?.venue === 'both' && <div style={{}} >
+                                            <VscLocation />
+                                            {location?.name}
+                                        </div>
+                                        }
                                         {event?.attributes?.venue === 'both' && <div style={{}} >
                                             <HiStatusOnline /> online
                                         </div>
-                                        } 
-                                    </div>                                                        
+                                        }
+                                    </div>
                                     <div>
                                         <Post>
                                             <PostThumb>
@@ -130,7 +130,7 @@ function EventDetails(props: {
                                                 </div>
                                             </PostBody>
                                         </Post>
-                                    </div>                                   
+                                    </div>
                                     <AddressMap>
                                         <GoogleMap>
                                             <Map lat={location?.latitude as number} lng={location?.longtitude as number} />

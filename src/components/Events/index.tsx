@@ -8,8 +8,7 @@ import { upperCase } from 'lib/helpers'
 // import { BookMark } from '../../../public/assets/icons/BookMark'
 import { Event, EventEntity, CategoryEntity } from 'generated/graphql';
 
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
+
 import {
     InnerBanner,
     InnerContainer,

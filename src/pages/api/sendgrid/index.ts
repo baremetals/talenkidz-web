@@ -2,7 +2,7 @@ import client from '@sendgrid/client';
 client.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY as string);
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const baseUrl: string | undefined = process.env.NEXT_PUBLIC_SENDGRID_BASE_URL;
+// const baseUrl: string | undefined = process.env.NEXT_PUBLIC_SENDGRID_BASE_URL;
 
 type Data = {
   message: string;

@@ -16,45 +16,45 @@ import {
 } from "../../styles/common.styles";
 import Link from 'next/link';
 
-type articleProps = {
-    id: string;
-    attributes: {
-        body: string;
-        category: {
-            data: {
-                id: string;
-                attributes: {
-                    // name: string;
-                    slug: string;
-                };
-            };
-        };
-        createdAt: Date;
-        slug: string;
-        title: string;
-        blurb: string;
-        author: {
-            data: {
-                id: string;
-                attributes: {
-                    fullName: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-        heroImage: {
-            data: {
-                id: string;
-                attributes: {
-                    url: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-    };
-};
+// type articleProps = {
+//     id: string;
+//     attributes: {
+//         body: string;
+//         category: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     // name: string;
+//                     slug: string;
+//                 };
+//             };
+//         };
+//         createdAt: Date;
+//         slug: string;
+//         title: string;
+//         blurb: string;
+//         author: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     fullName: string;
+//                     // slug: string;
+//                     // img: string;
+//                 };
+//             };
+//         };
+//         heroImage: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     url: string;
+//                     // slug: string;
+//                     // img: string;
+//                 };
+//             };
+//         };
+//     };
+// };
 
 type propType = {
     category: string

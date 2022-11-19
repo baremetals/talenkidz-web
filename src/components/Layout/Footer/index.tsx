@@ -1,5 +1,5 @@
-import React, { ReactElement, useState, useEffect } from 'react'
-import Modal from 'components/Modal';
+import React, { ReactElement, useState } from 'react'
+
 import Link from 'next/link'
 import axios from 'axios';
 import { addToMailingList } from 'lib/helpers'
@@ -12,9 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import {
     Column,
     InnerContainer,
-    Logo,
+    // Logo,
     Row,
-    Image,
+    // Image,
     SiteFooter,
     FooterLinks,
     FooterTitle,
@@ -22,15 +22,15 @@ import {
     Title,
     Text,
     Input,
-    LabelText,
-    SwitchBox,
-    Switch,
+    // LabelText,
+    // SwitchBox,
+    // Switch,
     NewsletterBox
 } from "../../../styles/common.styles";
 
 import { NewsCard } from './NewsCard'
 import Button from 'components/Button';
-import AdComponent from 'components/AdComponent';
+// import AdComponent from 'components/AdComponent';
 
 import { FaceBook } from "../../../../public/assets/icons/FaceBook";
 import { Tiktok } from "../../../../public/assets/icons/Tiktok";
@@ -40,10 +40,11 @@ import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
 
 function Footer(): ReactElement {
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
-    const [manageSetting, setManageSetting] = useState(false);
+    // const [manageSetting, setManageSetting] = useState(false);
     const [email, setEmail] = useState<string>('');
 
     if (typeof window !== "undefined") {
+        // eslint-disable-next-line no-unused-vars, no-async-promise-executor
         const promise = new Promise(async function (resolve, reject) {
             const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
 

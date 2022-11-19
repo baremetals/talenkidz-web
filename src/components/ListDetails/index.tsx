@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { upperCase } from 'lib/helpers';
 import Markdown from 'markdown-to-jsx';
 import dayjs from 'dayjs';
@@ -23,8 +23,6 @@ import {
   PostThumb,
   PostBody,
   AddressMap,
-  Iframe,
-  AddressCard,
   AvatarRow,
   Avatar,
 } from 'styles/common.styles';
@@ -33,7 +31,7 @@ import RelatedListings from '../ListDetails/RelatedListings';
 import Link from 'next/link';
 import { ListingEntityResponseCollection } from 'generated/graphql';
 import SocialShare from 'components/Layout/SocialShare';
-import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
+// import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
 import GoogleMap from 'components/Google/GoogleMap';
 
 function ListDetails(props: {
@@ -43,7 +41,7 @@ function ListDetails(props: {
     error: any;
   };
 }) {
-  const [socialDropdown, setSocialDropdown] = useState(false);
+  // const [socialDropdown, setSocialDropdown] = useState(false);
 
   const { data, loading, error } = props.props;
 
@@ -70,9 +68,9 @@ function ListDetails(props: {
   const categoryList = list?.attributes?.category?.data?.attributes
     ?.slug as string;
 
-  const socialToggle = () => {
-    setSocialDropdown(!socialDropdown);
-  };
+  // const socialToggle = () => {
+  //   setSocialDropdown(!socialDropdown);
+  // };
 
   return (
     <>

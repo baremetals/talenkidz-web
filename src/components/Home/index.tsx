@@ -1,51 +1,50 @@
 
 import React from 'react';
 
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+// import { useAppSelector } from "app/hooks";
+// import { isUser } from "features/auth/selectors";
 
 import Button from 'components/Auth/Button';
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
+
 import OurServices from './OurServices'
-import Company from '../About/Company'
+// import Company from '../About/Company'
 import ActivityCard from './ActivityCard'
 
 import {
-    PageContainer,
+    // PageContainer,
     InnerContainer,
     Hero,
     HeroContent,
-    ImageContent,
+    // ImageContent,
     HeroTitle,
     HeroSubTitle,
-    OurService,
-    Heading,
-    SubTitle,
-    Title,
-    Row,
-    Column,
-    Card,
-    CardThumb,
-    CardBody,
-    CardImage,
-    CardTitle,
-    Image,
+    // OurService,
+    // Heading,
+    // SubTitle,
+    // Title,
+    // Row,
+    // Column,
+    // Card,
+    // CardThumb,
+    // CardBody,
+    // CardImage,
+    // CardTitle,
+    // Image,
 
-    OurCompany,
-    OurCompanyThumb,
-    Text,
-    Listings,
-    ListingsItem,
-    ButtonOutLine,
-    Classes,
-    PostCard,
-    PostCardThumb,
-    PostCardSummary,
-    PostCardTitle,
-    PostCardText,
+    // OurCompany,
+    // OurCompanyThumb,
+    // Text,
+    // Listings,
+    // ListingsItem,
+    // ButtonOutLine,
+    // Classes,
+    // PostCard,
+    // PostCardThumb,
+    // PostCardSummary,
+    // PostCardTitle,
+    // PostCardText,
 
-    Benefits,
+    // Benefits,
 
 } from "../../styles/common.styles";
 
@@ -56,7 +55,7 @@ const Home = () => {
                 <HeroContent>
                     <HeroSubTitle style={{ color: "white" }}>Talent Kids</HeroSubTitle>
                     <HeroTitle style={{ color: "white" }}>Do What You Love For A Lifetime</HeroTitle>
-                    <Button content='Create an Account' />
+                    <Button content='Create an Account' type='button' disabled={false} loading={false}/>
                 </HeroContent>
             </InnerContainer>
         </Hero>

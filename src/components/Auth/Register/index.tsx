@@ -110,6 +110,7 @@ const Register = () => {
                     onSubmit={handleSubmit}
                     validationSchema={getRegisterValidationSchema}
                 >
+                    {/* eslint-disable-next-line no-unused-vars */}
                     {({ isSubmitting, errors, touched, values }) => (
                         <InnerContainer>
                             <LoginWrapper>

@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
 import { upperCase } from 'lib/helpers'
 
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
+
 import {
     InnerBanner,
     InnerContainer,

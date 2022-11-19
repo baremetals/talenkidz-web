@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useForm } from "react-hook-form";
 import Modal from 'components/Modal';
 
 import Button from 'components/Button';
@@ -163,7 +162,7 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                                     <Text style={{ color: '#000' }}>{set.title}</Text>
                                     <Switch>
                                         <Input type={'checkbox'} id={set.title}
-                                            onChange={(e) => {
+                                            onChange={() => {
                                                 // console.log(e.target.value);
                                                 
                                                 let policy

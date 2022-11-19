@@ -1,6 +1,6 @@
-import { initializeApollo } from 'lib/apolloClient';
+// import { initializeApollo } from 'lib/apolloClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import cookie from 'cookie';
+// import cookie from 'cookie';
 import axios from 'axios';
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;

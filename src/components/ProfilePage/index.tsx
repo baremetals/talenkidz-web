@@ -8,7 +8,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
-import Footer from 'components/Layout/Footer';
 import NavBar from 'components/Layout/NavBar';
 import {
     Row,
@@ -21,7 +20,6 @@ import {
     WidgetBody,
     WidgetText,
     WidgetHeader,
-    WidgetHeaderLink
 } from 'styles/common.styles';
 
 import {
@@ -41,8 +39,8 @@ import {
     // PhotoGallery,
     // VideoGallery
 } from './profile.styles';
-import { Card } from './Card'
-import { ShareCard } from './ShareCard'
+// import { Card } from './Card'
+// import { ShareCard } from './ShareCard'
 
 // import { BookMarkBorder } from '../../../public/assets/icons/BookMarkBorder'
 // import { BriefcaseBorder } from '../../../public/assets/icons/BriefcaseBorder'
@@ -52,6 +50,7 @@ import { ShareCard } from './ShareCard'
 function Profile(props: { props: UsersPermissionsUser }) {
     const { user: user } = useAppSelector(isUser);
 
+    // eslint-disable-next-line no-unsafe-optional-chaining
     const { username, fullName, avatar, backgroundImg, createdAt, bio } = props?.props
 
     return (

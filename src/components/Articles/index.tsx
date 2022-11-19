@@ -38,13 +38,14 @@ import {
     WidgetPanelLink
 } from 'styles/common.styles';
 
-import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp'
+// import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp'
 import { Article, ArticleEntity, CategoryEntity } from 'generated/graphql';
-import { BookMark } from '../../../public/assets/icons/BookMark';
+// import { BookMark } from '../../../public/assets/icons/BookMark';
 
 type articleProps = {
     id: string;
     attributes: {
+        readingTime: string;
         body: string;
         category: {
             data: {

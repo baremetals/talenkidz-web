@@ -12,7 +12,7 @@ import NavBar from 'components/Layout/NavBar';
 import TabPanel from 'components/Layout/TabPanel';
 import MyProfile from './MyProfile';
 import OrgProfile from './OrgProfile';
-import BillingInfo from './BillingInfo';
+// import BillingInfo from './BillingInfo';
 
 import { Row, InnerContainer, Column } from 'styles/common.styles';
 

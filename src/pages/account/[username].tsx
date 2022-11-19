@@ -10,7 +10,7 @@ import {
     OrgDocument,
     OrgQueryResult,
     Organisation,
-    OrganisationEntityResponseCollection,
+    // OrganisationEntityResponseCollection,
     OrganisationEntity,
 } from "generated/graphql";
 

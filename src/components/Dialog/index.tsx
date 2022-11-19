@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { Dialog as MUIDialog, DialogContent, DialogContentText } from '@mui/material';
 
 import { CustomDialogActions } from './styles';
@@ -7,7 +8,7 @@ type Props = {
   open: boolean,
   close: () => void,
   children: Node,
-  onButtonClick?: (e: MouseEvent) => void,
+  onButtonClick?: (_e: MouseEvent) => void,
   buttonText?: string,
 }
 

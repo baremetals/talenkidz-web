@@ -39,7 +39,7 @@ const Company = () => {
                           <ListingsItem>Quick Learning Facilities Everything Happen</ListingsItem>
                           <ListingsItem>Professional Mentors Provide Quality Study</ListingsItem>
                       </Listings>
-                      <Button content='Schedule a Tour' />
+                      <Button content='Schedule a Tour' type="button" disabled={false} loading={false} />
                       <ButtonOutLine>Join Our Class</ButtonOutLine>
                   </Column>
               </Row>

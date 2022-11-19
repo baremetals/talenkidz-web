@@ -12,7 +12,7 @@ import {
     Card,
     CardThumb,
     CardBody,
-    CardImage,
+    // CardImage,
     CardTitle,
     Image,
 } from "../../styles/common.styles";
@@ -34,7 +34,7 @@ const OurServices = () => {
                             <CardBody>
                                 {/* <CardImage src='/sr-1.png' /> */}
                                 <CardTitle>Creative Activities </CardTitle>
-                                <Button content="Register" />
+                                <Button content="Register" type="button" disabled={false} loading={false} />
                             </CardBody>
                         </Card>
                     </Column>
@@ -46,7 +46,7 @@ const OurServices = () => {
                             <CardBody>
                                 {/* <CardImage src='/sr-2.png' /> */}
                                 <CardTitle>Sporting Activities</CardTitle>
-                                <Button content="Register" />
+                                <Button content="Register" type={undefined} disabled={false} loading={false} />
                             </CardBody>
                         </Card>
                     </Column>
@@ -58,7 +58,7 @@ const OurServices = () => {
                             <CardBody>
                                 {/* <CardImage src='/sr-3.png' /> */}
                                 <CardTitle>Educational Activities</CardTitle>
-                                <Button content="Register" />
+                                <Button content="Register" type={undefined} disabled={false} loading={false} />
                             </CardBody>
                         </Card>
                     </Column>

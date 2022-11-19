@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import cookie from 'cookie';
+// import cookie from 'cookie';
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
@@ -9,28 +9,28 @@ type Data = {
   resp?: any;
 };
 
-type user = {
-  id: string;
-  username: string;
-  fullName: string;
-  avatar: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-};
+// type user = {
+//   id: string;
+//   username: string;
+//   fullName: string;
+//   avatar: string;
+//   backgroundImg: string;
+//   userType: string;
+//   jwt: string;
+// };
 
-type org = {
-  id: string;
-  username: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-  orgId: string;
-  orgName: string;
-  slug: string;
-  logo: string;
-  fullProfile: string;
-};
+// type org = {
+//   id: string;
+//   username: string;
+//   backgroundImg: string;
+//   userType: string;
+//   jwt: string;
+//   orgId: string;
+//   orgName: string;
+//   slug: string;
+//   logo: string;
+//   fullProfile: string;
+// };
 
 export default async function passwordReset(
   req: NextApiRequest,

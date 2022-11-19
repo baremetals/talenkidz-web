@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { InnerContainer, PageContainer, Text, Title } from 'styles/common.styles';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 import Layout from 'components/Layout';
 import Markdown from 'markdown-to-jsx';
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Field } from "formik";
 
-export const Input = ({ type, name, placeholder, ...props }: any) => {
+export const Input = ({ type, name, placeholder,  }: any) => {
   return (
     <>
       <StyledInput placeholder={placeholder} name={name} type={type} />
