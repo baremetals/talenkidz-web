@@ -10,10 +10,11 @@
     "dev": "next dev -p 5900",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "gen": "graphql-codegen --config codegen.yml",
     "yarn gen": "graphql-codegen --config codegen.yml",
-    "pretty": "prettier --write ."
+    "pretty": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
@@ -88,6 +89,8 @@
     "eslint-config-next": "12.0.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.2",
     "jest": "^29.2.2",
     "prettier": "^2.3.2",
     "ts-node": "^10.2.1",

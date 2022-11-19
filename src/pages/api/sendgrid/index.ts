@@ -30,7 +30,7 @@ export default function sengrid(
       .then(([response, _body]) => {
         // console.log('the status code: ', response.statusCode);
         // console.log('the response.body: ', response.body);
-        return res.status(response.statusCode).json({ message: 'email added successfully' });;
+        return res.status(response.statusCode).json({ message: 'email added successfully' });
       })
       .catch((error) => {
         console.error(error.response.body);
