@@ -34,6 +34,7 @@ import {
 
 import { Message } from "../../../../public/assets/icons/Message";
 import { Lock } from "../../../../public/assets/icons/Lock";
+import Provider from '../Provider';
 
 
 type logingProps = {
@@ -65,7 +66,7 @@ const Login = () => {
             .then((res) => {
                 // console.log(res);
                 if (res.data.data === null) {
-                    console.log('I am the data', res.data.error);
+                    // console.log('I am the data', res.data.error);
                     const errMsgData = res.data.error
                     if (errMsgData.name === 'ValidationError') {
                         err = "incorrect details provided"
@@ -89,7 +90,7 @@ const Login = () => {
                 }
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
                 err = "something went wrong please try again later"
                 initialValues.error = err;
                 setErrorMsg(true);
@@ -145,6 +146,10 @@ const Login = () => {
                                             <Button content="Sign in" type="submit"
                                                 disabled={isSubmitting} loading={isSubmitting} />
                                         </FormGroup>
+                                        <div style={{ textAlign: 'center', margin: '2rem' }}>
+                                            OR
+                                        </div>
+                                        <Provider />
                                         <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                                             <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>Don’t have an account?  <Link href={'/auth/register'}><a style={{ color: '#A35193' }}>Sign up</a></Link></Text>
                                         </FormGroup>

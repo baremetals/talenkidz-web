@@ -13,19 +13,11 @@ import {
 } from '@mui/material';
 
 import {
-    useCategoriesQuery,
-    Exact,
-    CategoriesQuery,
     CategoriesDocument,
 } from 'generated/graphql';
-import { QueryResult, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
-// import { storage } from "lib/admin";
-// import {
-//     uploadBytes,
-//     ref,
-//     getDownloadURL,
-// } from "firebase/storage";
+
 
 import { Controller, useForm } from 'react-hook-form';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -53,12 +45,7 @@ import {
     UploadImage,
 } from './styles';
 import { Column, Row, InnerContainer, Title } from 'styles/common.styles';
-import {
-    DatePicker,
-    LocalizationProvider,
-    TimePicker,
-} from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import {
     Image,
     Label,
@@ -74,6 +61,9 @@ import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../public/assets/icons/Edit';
 import { toBase64 } from 'components/EditProfile/utils';
 
+import GoogleMap from 'components/Google/GoogleMap';
+import SearchBox from 'components/Google/SearchBox';
+
 export type FormProps = {
     title: string;
     description: string;
@@ -84,7 +74,7 @@ export type FormProps = {
     startTime: string;
     endTime: string;
     listImage: FileType;
-    numberOrName: string;
+    name: string;
     street: string;
     town: string;
     postCode: string;
@@ -104,6 +94,13 @@ type FileType = {
     type: string;
     webkitRelativePath: string;
 } | null;
+
+export type addressType = {
+    name: string
+    street: string
+    town: string
+    postCode: string
+}
 
 const Form = ({ formType, id }: form) => {
     const router = useRouter();
@@ -125,6 +122,13 @@ const Form = ({ formType, id }: form) => {
     const [error, setError] = useState(false);
     const [image, setImageError] = useState(false);
     const [body, setBodyError] = useState(false);
+
+    const [address, setAddress] = useState<addressType>({
+        name: '',
+        street: '',
+        town: '',
+        postCode: '',
+    });
 
     const {
         register,
@@ -219,7 +223,7 @@ const Form = ({ formType, id }: form) => {
                         endTime: info.endTime,
                         listImage: uploadApi?.data?.content?.url,
                         Location: {
-                            numberOrName: info.numberOrName,
+                            numberOrName: info.name,
                             street: info.street,
                             town: info.town,
                             postCode: info.postCode,
@@ -273,6 +277,21 @@ const Form = ({ formType, id }: form) => {
             }
         }
     };
+
+    const onChangeAddress = (address: any) => {
+        console.log('address', address.address_components)
+
+        const add = address.address_components
+
+        const location = {
+            name: address.name || '',
+            street: add[0].long_name || '',
+            town: add[1].long_name || '',
+            postCode: add[5].long_name || '',
+        }
+
+        setAddress(location)
+    }
     return (
         <InnerContainer>
             <FormWrapper>
@@ -380,17 +399,34 @@ const Form = ({ formType, id }: form) => {
                             </Column>
                         </Row>
                         <UploadLabel>Location</UploadLabel>
+                        <GoogleMap>
+                            <SearchBox onPlace={onChangeAddress}>
+
+                            </SearchBox>
+                        </GoogleMap>
                         <Row className='horizontal'>
                             <Column className='only-horizontal-padding'>
                                 <FormGroup>
+                                    {/* <GoogleMap>
+                                        <SearchBox onPlace={onChangeAddress}>
+                                            <TextField
+                                                fullWidth
+                                                label='name'
+                                                variant='outlined'
+                                                // value={address.name}
+                                                {...register('name', { required: true })}
+                                            />
+                                        </SearchBox>
+                                    </GoogleMap> */}
                                     <TextField
                                         fullWidth
-                                        label='Number or name'
+                                        label='name'
                                         variant='outlined'
-                                        {...register('numberOrName', { required: true })}
+                                        value={address.name}
+                                        {...register('name', { required: true })}
                                     />
-                                    {errors.numberOrName && (
-                                        <span style={{color: 'red'}} >Number or name is required</span>
+                                    {errors.name && (
+                                        <span style={{color: 'red'}} >Name is required</span>
                                     )}
                                 </FormGroup>
                             </Column>
@@ -400,6 +436,7 @@ const Form = ({ formType, id }: form) => {
                                         fullWidth
                                         label='Street'
                                         variant='outlined'
+                                        value={address.street}
                                         {...register('street', { required: true })}
                                     />
                                     {errors.street && <span style={{ color: 'red' }} >Street is required</span>}
@@ -413,6 +450,7 @@ const Form = ({ formType, id }: form) => {
                                         fullWidth
                                         label='Town'
                                         variant='outlined'
+                                        value={address.town}
                                         {...register('town', { required: true })}
                                     />
                                     {errors.town && <span style={{ color: 'red' }} >Town is required</span>}
@@ -425,6 +463,7 @@ const Form = ({ formType, id }: form) => {
                                         fullWidth
                                         label='Post Code'
                                         variant='outlined'
+                                        value={address.postCode}
                                         {...register('postCode', { required: true })}
                                     />
                                     {errors.postCode && <span style={{ color: 'red' }} >Post Code is required</span>}

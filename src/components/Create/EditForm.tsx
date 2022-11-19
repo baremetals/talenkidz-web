@@ -24,12 +24,6 @@ import {
 } from 'generated/graphql';
 import { QueryResult, useQuery } from '@apollo/client';
 
-// import { storage } from "lib/admin";
-// import {
-//     uploadBytes,
-//     ref,
-//     getDownloadURL,
-// } from "firebase/storage";
 
 import { Controller, useForm } from 'react-hook-form';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -57,12 +51,7 @@ import {
     UploadImage,
 } from './styles';
 import { Column, Row, InnerContainer, Title, PageContainer, AlignCentered } from 'styles/common.styles';
-import {
-    DatePicker,
-    LocalizationProvider,
-    TimePicker,
-} from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import {
     Image,
     Label,
@@ -77,6 +66,7 @@ import {
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../public/assets/icons/Edit';
 import { toBase64 } from 'components/EditProfile/utils';
+import { addressType } from './Form';
 // import { Modal } from 'components/Modal';
 
 export type EditFormProps = {
@@ -98,7 +88,7 @@ type formProps = {
     endTime: string;
     listImage: FileType | string;
     category: string;
-    numberOrName: string;
+    name: string;
     street: string;
     town: string;
     postCode: string;
@@ -140,6 +130,12 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
     const [body, setBodyError] = useState(false);
     const [cats, setCats] = useState(attributes?.category?.data?.id as string);
     // console.log(attributes)
+    const [address, setAddress] = useState<addressType>({
+        name: attributes?.Location?.name as string,
+        street: attributes?.Location?.street as string,
+        town: attributes?.Location?.town as string,
+        postCode: attributes?.Location?.postCode as string,
+    });
 
     const {
         register,
@@ -223,7 +219,7 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                 endTime: info.endTime,
                 listImage: uploadImg,
                 Location: {
-                    numberOrName: info.numberOrName,
+                    name: info.name,
                     street: info.street,
                     town: info.town,
                     postCode: info.postCode,
@@ -294,7 +290,7 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                         endTime: info.endTime,
                         listImage: uploadApi?.data?.content?.url,
                         Location: {
-                            numberOrName: info.numberOrName,
+                            name: info.name,
                             street: info.street,
                             town: info.town,
                             postCode: info.postCode,
@@ -352,6 +348,21 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
 
 
     };
+
+    const onChangeAddress = (address: any) => {
+        console.log('address', address.address_components)
+
+        const add = address.address_components
+
+        const location = {
+            name: address.name || '',
+            street: add[0].long_name || '',
+            town: add[1].long_name || '',
+            postCode: add[5].long_name || '',
+        }
+
+        setAddress(location)
+    }
     return (
         <PageContainer style={{ minHeight: '100vh' }}>
                 {/* <InnerContainer>
@@ -492,12 +503,12 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                                     <FormGroup>
                                         <TextField
                                             fullWidth
-                                            label='Number or name'
+                                            label='Name'
                                             variant='outlined'
-                                            value={attributes?.Location?.numberOrName as string}
-                                            {...register('numberOrName', { required: true })}
+                                            value={address.name as string}
+                                            {...register('name', { required: true })}
                                         />
-                                        {errors.numberOrName && (
+                                        {errors.name && (
                                             <span style={{ color: 'red' }} >Number or name is required</span>
                                         )}
                                     </FormGroup>
@@ -508,7 +519,7 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                                             fullWidth
                                             label='Street'
                                             variant='outlined'
-                                            value={attributes?.Location?.street as string}
+                                            value={address.street as string}
                                             {...register('street', { required: true })}
                                         />
                                         {errors.street && <span style={{ color: 'red' }} >Street is required</span>}
@@ -522,7 +533,7 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                                             fullWidth
                                             label='Town'
                                             variant='outlined'
-                                            value={attributes?.Location?.town as string}
+                                            value={address.town as string}
                                             {...register('town', { required: true })}
                                         />
                                         {errors.town && <span style={{ color: 'red' }} >Town is required</span>}
@@ -535,7 +546,7 @@ const EditForm = ({ id, attributes, formType }: EditFormProps) => {
                                             fullWidth
                                             label='Post Code'
                                             variant='outlined'
-                                            value={attributes?.Location?.postCode as string}
+                                            value={address.postCode as string}
                                             {...register('postCode', { required: true })}
                                         />
                                         {errors.postCode && <span style={{ color: 'red' }} >Post Code is required</span>}

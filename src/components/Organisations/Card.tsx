@@ -40,7 +40,7 @@ import {
 import { HotLike } from '../../../public/assets/icons/HotLike'
 import { CommentPost } from '../../../public/assets/icons/CommentPost'
 import { Shortcut } from '../../../public/assets/icons/Shortcut'
-import SocialShare from 'components/Layout/SocialShare';
+import ShareIcon from 'components/Layout/SocialShare/ShareIcon';
 import { json } from 'node:stream/consumers';
 
 type cardProps = {
@@ -143,14 +143,14 @@ export const Card = ({ id, avatar, username, body, createdAt, slug, title, colou
                             <CommentPost /> */}
                         </PostAction>
                         <PostAction>
-                            <SocialShare
+                            <ShareIcon
                                 pathname={`/activities/${category}/${slug}`}
                                 toggle={toggle}
                                 socialDropdown={socialDropdown}
                             >
                                 <Shortcut />
                                 share
-                            </SocialShare>
+                            </ShareIcon>
                         </PostAction>
                     </PostActionsWrapper>
                 </PostBottomWrapper>

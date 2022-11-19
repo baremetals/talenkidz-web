@@ -137,6 +137,40 @@ export default async function auth(
     }
   }
 
+  if (data.flag === 'CONNECT') {
+    // console.log(data);
+    try {
+      // console.log("failing here");
+      const user: user = {
+        id: data.user.id,
+        username: data.user.username,
+        fullName: 'Joe Blogs',
+        avatar: data.user.avatar,
+        backgroundImg: data.user.backgroundImg,
+        userType: data.user.userType,
+        jwt: data.jwt,
+      };
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize(
+          process.env.COOKIE_NAME as string,
+          JSON.stringify(user),
+          {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            maxAge: 60 * 60 * 24 * 5, // 5 days
+            sameSite: 'strict',
+            path: '/',
+          }
+        )
+      )
+      res.end();
+    } catch (err: any) {
+      // console.log(err.response.data);
+      res.send(err.response.data);
+    }
+  }
+
   // Logout request
   if (data.flag === 'LOGOUT') {
     if (!req.cookies.talentedKid) {

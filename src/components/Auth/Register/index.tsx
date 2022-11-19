@@ -9,6 +9,7 @@ import axios from 'axios';
 import { getRegisterValidationSchema } from "utils/formValidation";
 import TermsModal from "components/Modal/TermsModal"
 import { Error, ErrorMsg } from "../../Input";
+import Provider from "../Provider"
 
 type registerUserProps = {
     email: string;
@@ -191,7 +192,12 @@ const Register = () => {
                                         <FormGroup className='submit-button'>
                                             <Button content="Sign up" type="submit"
                                                 disabled={isSubmitting} loading={isSubmitting}/>
-                                        </FormGroup>
+                                        </FormGroup> 
+                                        <div style={{ textAlign: 'center', margin: '2rem' }}>
+                                            OR
+                                        </div>
+                                    
+                                        <Provider />                               
                                         <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                                             <Text style={{ marginBottom: '0', color: '#120D26', fontSize: '.875rem' }}>Already have an account? <Link href={'/auth/login'}><a style={{ color: '#A35193' }}>Sign In</a></Link></Text>
                                             <div onClick={() => handleterms()}>
@@ -206,6 +212,17 @@ const Register = () => {
                 </Formik>
                 <Image style={{ position: 'absolute', width: '20rem', bottom: '0', right: '0', zIndex: '-1' }} src="/login.png" alt="image of a parent and child" />
             </PageContainer>
+            {/* <FormGroup className=''>
+                <div onClick={() => {
+                    const backendUrl = process.env.NEXT_PUBLIC_API_URL
+                    // console.log(`${backendUrl}/connect/${}`, provider)
+                    router.push(`https://1101-83-146-9-36.eu.ngrok.io/api/connect/google`)
+                }}>
+                    <Provider
+                        provider={'google'} />
+                </div>
+                
+            </FormGroup> */}
         </>
     );
 };
