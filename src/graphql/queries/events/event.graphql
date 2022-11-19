@@ -45,6 +45,8 @@ query Event($filters: EventFiltersInput) {
           street
           town
           postCode
+          longtitude
+          latitude
         }
         SEO {
           id

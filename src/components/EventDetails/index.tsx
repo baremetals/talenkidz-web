@@ -18,6 +18,8 @@ import Link from "next/link";
 import { EventEntityResponseCollection } from 'generated/graphql';
 import SocialShare from "components/Layout/SocialShare";
 import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
+import GoogleMap from 'components/Google/GoogleMap';
+import Map from '../Google/Map'
 
 function EventDetails(props: {
     props: {
@@ -83,9 +85,10 @@ function EventDetails(props: {
                                             <SocialDropDownIcon />
                                         </SocialShare>
                                     </div> 
-                                    <Link passHref href={event?.attributes?.link as string}><button type="button" style={{}} >
+                                    <div className="align_names">
+                                    <Link passHref href={event?.attributes?.link as string}>
                                         {event?.attributes?.linkButtonText?.replace('_', ' ')}
-                                    </button></Link> 
+                                    </Link> 
                                     <div style={{}} >
                                         <GiPriceTag />
                                          
@@ -108,9 +111,14 @@ function EventDetails(props: {
                                     }
                                     {event?.attributes?.venue === 'both' && <div style={{}} >
                                         <VscLocation />
-                                         {location?.name}, <HiStatusOnline /> online
+                                         {location?.name}
                                     </div>
-                                    }                                                         
+                                    }
+                                        {event?.attributes?.venue === 'both' && <div style={{}} >
+                                            <HiStatusOnline /> online
+                                        </div>
+                                        } 
+                                    </div>                                                        
                                     <div>
                                         <Post>
                                             <PostThumb>
@@ -122,19 +130,11 @@ function EventDetails(props: {
                                                 </div>
                                             </PostBody>
                                         </Post>
-                                    </div>
-                                    
-                                    
-
+                                    </div>                                   
                                     <AddressMap>
-                                        <AddressCard>
-                                            <Title style={{ marginBottom: "1.25rem", fontSize: '2rem', color: '#FFF' }}>Address</Title>
-
-                                            <PostDate style={{ marginBottom: "0rem" }}> </PostDate>
-                                            <PostDate style={{ marginBottom: "0rem" }}> Town : {location?.town} </PostDate>
-                                            <PostDate > Town : {location?.postCode} </PostDate>
-                                        </AddressCard>
-                                        <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114542.81855860692!2d78.12085855249065!3d26.21413888461391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3976c5d1792291fb%3A0xff4fb56d65bc3adf!2sGwalior%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1652167836340!5m2!1sen!2sin" width="100%" height="300" loading="lazy"></Iframe>
+                                        <GoogleMap>
+                                            <Map lat={location?.latitude as number} lng={location?.longtitude as number} />
+                                        </GoogleMap>
                                     </AddressMap>
                                 </Column>
                             </Row>

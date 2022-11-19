@@ -32,6 +32,12 @@ import { NewsCard } from './NewsCard'
 import Button from 'components/Button';
 import AdComponent from 'components/AdComponent';
 
+import { FaceBook } from "../../../../public/assets/icons/FaceBook";
+import { Tiktok } from "../../../../public/assets/icons/Tiktok";
+import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
+import { Twitter } from "../../../../public/assets/icons/Twitter";
+import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
+
 function Footer(): ReactElement {
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
     const [manageSetting, setManageSetting] = useState(false);
@@ -96,6 +102,13 @@ function Footer(): ReactElement {
                                 <Button content="" type="submit" style={{ borderRadius: '.375rem', marginLeft: '1rem' }} onClick={() => handleSubmit()}>Subscribe</Button>
                             </NewsletterBox>
                             {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
+                            <div className='footer_social'>
+                                <a href={'https://www.facebook.com/'}><FaceBook /></a>
+                                <a href={'https://twitter.com/'}><Twitter /></a>
+                                <a href={'https://www.linkedin.com/'}><LinkedIn /></a>
+                                <a href={'https://web.whatsapp.com/'}><WhatsApp /></a>
+                                <a href={'https://www.tiktok.com'}><Tiktok /></a>
+                            </div>
                         </Column>
 
                         <Column>

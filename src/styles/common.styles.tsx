@@ -143,7 +143,7 @@ export const NavBarItem = styled.li`
     }
     &.signup {
         a {
-            background-color: #BC70AD;
+            background-color: #3762e4;
             color: #FFF;
             padding: .5rem 1.375rem;
             border-radius: .375rem;
@@ -1139,6 +1139,7 @@ export const AddressCard = styled.div`
     color: #fff;
     padding: 1.5rem;
     border-radius: 0.625rem;
+    z-index:2;
     
 `
 
