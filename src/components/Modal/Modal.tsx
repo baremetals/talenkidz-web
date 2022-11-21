@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Modal = ({ closeM, showModal, setShowModal, ...props }: any) => {
+export const Modal = () => {
     return (
         <>
 

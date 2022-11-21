@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'components/Button';
-import Modal from 'components/Modal';
+
 import Image from 'next/image'
 import { Column, InnerBanner, InnerContainer, Row, Text, Title, PageContainer, PostCard, PostCardThumb, PostCardSummary, PostCardTitle, PostCardText, Input, NewsletterBox } from 'styles/common.styles';
 

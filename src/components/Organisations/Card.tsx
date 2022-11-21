@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import * as Reactions from '@charkour/react-reactions';
+// import * as Reactions from '@charkour/react-reactions';
 import Link from 'next/link';
 
 import dayjs from "dayjs";
@@ -13,10 +13,10 @@ import {
     PostTop,
     PostLeftWrap,
     PostDate,
-    PostTopRightWrap,
+    // PostTopRightWrap,
     PostCenterWrap,
     PostBottomWrapper,
-    PostDropdown,
+    // PostDropdown,
     PostMedia,
     PostTextWrapper,
     PostStatsWrapper,
@@ -24,24 +24,24 @@ import {
     PostStatsCommentsShare,
     PostActionsWrapper,
     PostAction,
-    GivenReactionsWrapper
+    // GivenReactionsWrapper
 } from '../ProfilePage/profile.styles';
 
 import {
     Text,
     Widget,
-    DropdownMenu,
-    DropdownMenuItem,
+    // DropdownMenu,
+    // DropdownMenuItem,
 } from 'styles/common.styles';
 
 // import { Edit } from '../../../public/assets/icons/Edit'
 // import { Delete } from '../../../public/assets/icons/Delete'
 // import { Union } from '../../../public/assets/icons/Union'
-import { HotLike } from '../../../public/assets/icons/HotLike'
-import { CommentPost } from '../../../public/assets/icons/CommentPost'
+// import { HotLike } from '../../../public/assets/icons/HotLike'
+// import { CommentPost } from '../../../public/assets/icons/CommentPost'
 import { Shortcut } from '../../../public/assets/icons/Shortcut'
-import SocialShare from 'components/Layout/SocialShare';
-import { json } from 'node:stream/consumers';
+import ShareIcon from 'components/Layout/SocialShare/ShareIcon';
+// import { json } from 'node:stream/consumers';
 
 type cardProps = {
     id: string
@@ -60,8 +60,8 @@ type cardProps = {
 }
 
 export const Card = ({ id, avatar, username, body, createdAt, slug, title, colour, type, category, children, content }: cardProps) => {
-    const [dropdown, setDropdown] = useState(false);
-    const [showReactionPicker, setShowReactionPicker] = useState(false);
+    // const [dropdown, setDropdown] = useState(false);
+    const [_showReactionPicker, setShowReactionPicker] = useState(false);
     const [socialDropdown, setSocialDropdown] = useState(false);
     const toggle: any = () => {
         setSocialDropdown(!socialDropdown);
@@ -75,12 +75,12 @@ export const Card = ({ id, avatar, username, body, createdAt, slug, title, colou
         setShowReactionPicker(false);
     }
 
-    const renderReactionIcons = () => {
-        return ['like', 'love', 'haha', 'wow', 'sad', 'angry'].map((emoji, index) => {
-            const emojiB64 = Reactions.icons.find('facebook', emoji);
-            return <Image key={index} width={18} height={18} alt={emoji} src={emojiB64} />
-        })
-    }
+    // const renderReactionIcons = () => {
+    //     return ['like', 'love', 'haha', 'wow', 'sad', 'angry'].map((emoji, index) => {
+    //         const emojiB64 = Reactions.icons.find('facebook', emoji);
+    //         return <Image key={index} width={18} height={18} alt={emoji} src={emojiB64} />
+    //     })
+    // }
 
     return (
         <>
@@ -143,14 +143,14 @@ export const Card = ({ id, avatar, username, body, createdAt, slug, title, colou
                             <CommentPost /> */}
                         </PostAction>
                         <PostAction>
-                            <SocialShare
+                            <ShareIcon
                                 pathname={`/activities/${category}/${slug}`}
                                 toggle={toggle}
                                 socialDropdown={socialDropdown}
                             >
                                 <Shortcut />
                                 share
-                            </SocialShare>
+                            </ShareIcon>
                         </PostAction>
                     </PostActionsWrapper>
                 </PostBottomWrapper>

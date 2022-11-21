@@ -1,12 +1,10 @@
 import React from 'react'
-import Head from "next/head";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { client } from "lib/initApollo";
 
 import {
     EventDocument,
     Event,
-    EventEntity,
     EventEntityResponseCollection,
     EventQueryResult,
     Maybe,
@@ -46,7 +44,7 @@ const EventEditForm = (props: { data: { events: EventEntityResponseCollection; }
 }
 
 export const getServerSideProps: GetServerSideProps = requireAuthentication(async (ctx: GetServerSidePropsContext) => {
-    const { slug, type } = ctx.query;
+    const { slug } = ctx.query;
     // console.log(type);
     // console.log(slug![0]);
 

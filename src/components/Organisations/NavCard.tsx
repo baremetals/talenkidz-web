@@ -4,7 +4,6 @@ import {
     ShareContainer,
     ShareWrapper,
     ShareTop,
-    ProfileImage,
     ShareHr,
     ShareBottomWrap,
     ShareOptions,
@@ -12,19 +11,18 @@ import {
     ShareOptionsIcon,
     ShareOptionstext,
     ShareButton,
-    Input
 } from '../ProfilePage/profile.styles';
-import { Card } from './Card';
+// import { Card } from './Card';
 
 import { PhotoLine } from '../../../public/assets/icons/PhotoLine'
 import { VideoLine } from '../../../public/assets/icons/VideoLine'
 import { CommentLines } from '../../../public/assets/icons/CommentLines'
 
-type cardProps = {
-    tab: string
-}
+// type cardProps = {
+//     tab: string
+// }
 
-export const NavCard = ({ tab }: cardProps) => {
+export const NavCard = () => {
     const [_navTabs, setNavTabs] = useState('activity')
     return (
         <>

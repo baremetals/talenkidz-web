@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 // import { SocialDropDownIcon } from "public/assets/icons/SocialDropDownIcon";
@@ -15,55 +16,43 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { SocialDropDown, SocialDropDownItem, SocialDropDownList } from './styles';
+// import { Tiktok } from '../../../../public/assets/icons/Tiktok';
 
 type shareProps = {
   pathname: string;
-  toggle: any;
-  socialDropdown: boolean;
-  children: React.ReactNode
 };
 
-const SocialShare = ({ pathname, toggle, socialDropdown, children }: shareProps) => {
+const SocialShare = ({ pathname }: shareProps) => {
   const url: string | undefined = process.env.NEXT_PUBLIC_SITE_URL;
   const shareUrl: string = `${url}${pathname}`;
   return (
     <SocialDropDown>
-      <span onClick={toggle}>
-        {/* <SocialDropDownIcon /> */}
-        {children}
-      </span>
       <SocialDropDownList
-        className={`${socialDropdown ? "opened" : ""}`}
-        onClick={toggle}
+        className="opened"
       >
         <SocialDropDownItem>
           <FacebookShareButton url={shareUrl}>
             <FaceBook />
-            Facebook
           </FacebookShareButton>
         </SocialDropDownItem>
         <SocialDropDownItem>
           <TwitterShareButton url={shareUrl}>
             <Twitter />
-            Twitter
           </TwitterShareButton>
         </SocialDropDownItem>
         <SocialDropDownItem>
           <LinkedinShareButton url={shareUrl}>
             <LinkedIn />
-            LinkedIn
           </LinkedinShareButton>
         </SocialDropDownItem>
         <SocialDropDownItem>
           <WhatsappShareButton url={shareUrl}>
             <WhatsApp />
-            Whatsapp
           </WhatsappShareButton>
         </SocialDropDownItem>
         <SocialDropDownItem>
           <EmailShareButton url={shareUrl}>
             <Email />
-            Email
           </EmailShareButton>
         </SocialDropDownItem>
       </SocialDropDownList>

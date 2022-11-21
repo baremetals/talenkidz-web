@@ -1,10 +1,19 @@
 import styled from "styled-components";
 import Spinner from "components/Layout/Spinner";
 
-export default function AuthButton({ content, type, disabled, loading }: any) {
+type buttonProps = {
+    content: string
+    type: any
+    disabled: boolean
+    loading: boolean
+    bgColor?: string
+    children?: React.ReactNode
+}
+
+export default function AuthButton({ content, type, disabled, loading, bgColor, children }: buttonProps) {
     return (
-        <StyledButton type={type} disabled={disabled || loading}>
-            {content}
+        <StyledButton style={{ backgroundColor: bgColor, borderColor: bgColor }} type={type} disabled={disabled || loading}>
+            {children} {content}
             {loading && <Spinner />}
         </StyledButton>
     );

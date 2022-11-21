@@ -16,13 +16,45 @@ export async function getStaticProps() {
 
 const AboutUs = ({ ...attributes }) => {
   // console.log(attributes.attributes)
-  return <>
-    <Layout title={''}    
+
+  const description = `
+    Talentkids is a solution for the future generation while reshaping the 
+    current generation’s mindset, responsible for shaping their children’s future, 
+    ultimately contributing to a better future tomorrow.
+  `;
+  const url = "https://talentkids.io/about"
+  // console.log(cats?.data?.categories?.data);
+
+  // const structuredData = {
+  //   '@context': 'https://schema.org',
+  //   '@type': 'Events',
+  //   // headline: meta?.title,
+  //   // description: meta?.description,
+  //   // author: [
+  //   //     {
+  //   //         '@type': 'Person',
+  //   //         name: author?.fullName,
+  //   //     },
+  //   // ],
+  //   // image: meta?.image,
+  //   // datePublished: article?.attributes?.updatedAt,
+  // };
+  return (
+    <Layout 
+      title={`Talentkids | About Us`}
+      metaDescription={description}
+      canonicalUrl={url}
+      pageUrl={url}
+      // image={'/yung-buck.jpg'}
+      // data={JSON.stringify(structuredData)}
+      // imageHeight={'auto'}
+      // imageWidth={'100%'}
+      type='about'    
     >
       <About data={attributes.attributes}/>
 
     </Layout>
-  </>
+  )
 };
 
 export default AboutUs;

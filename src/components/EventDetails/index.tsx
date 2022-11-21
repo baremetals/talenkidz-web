@@ -5,10 +5,12 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import { ErrorMsg } from "components/Input";
-import Footer from "components/Layout/Footer";
-import NavBar from "components/Layout/NavBar";
+import { GiPriceTag } from 'react-icons/gi';
+import { HiStatusOnline } from 'react-icons/hi';
+import { VscLocation } from 'react-icons/vsc';
+import { MdOutlineSchedule } from 'react-icons/md';
 import {
-    InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, ListIcon, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap, AddressCard, Iframe
+    InnerBanner, Image, InnerContainer, Title, Text, PageContainer, Row, Column, PostDate, Post, PostThumb, PostBody, AvatarRow, Avatar, AddressMap
 } from "styles/common.styles";
 import RelatedEvents from '../EventDetails/RelatedEvents'
 
@@ -16,6 +18,8 @@ import Link from "next/link";
 import { EventEntityResponseCollection } from 'generated/graphql';
 import SocialShare from "components/Layout/SocialShare";
 import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
+import GoogleMap from 'components/Google/GoogleMap';
+import Map from '../Google/Map'
 
 function EventDetails(props: {
     props: {
@@ -24,7 +28,7 @@ function EventDetails(props: {
         error: any;
     }
 }) {
-    const [socialDropdown, setSocialDropdown] = useState(false)
+    // const [socialDropdown, setSocialDropdown] = useState(false)
 
     const { data, loading, error } = props.props;
 
@@ -45,81 +49,145 @@ function EventDetails(props: {
     const postSlug = event?.attributes?.slug as string;
 
     const category = event?.attributes?.category?.data?.attributes?.slug as string;
-    
-    const socialToggle  = () => {
-        setSocialDropdown(!socialDropdown)
-    }
+
+    // const socialToggle = () => {
+    //     setSocialDropdown(!socialDropdown)
+    // }
 
     return (
-        <>
-            <NavBar />
+      <>
+        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+          <InnerContainer>
+            <Title role="heading">{event?.attributes?.title}</Title>
+            <Text style={{ marginBottom: '0', color: '#1E0A3C' }}>
+              <Link href={'/'}>Home</Link> /{' '}
+              <Link href={'/events'}>Events</Link> /{' '}
+              {upperCase(category as string)}
+            </Text>
 
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-                <InnerContainer>
-                    <Title>{event?.attributes?.title}</Title>
-                    <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home</Link> / <Link href={'/activities'}>Activities</Link> / {upperCase(category as string)}</Text>
+            <AvatarRow>
+              <PostDate>
+                <Avatar>
+                  <Image
+                    style={{ width: '3rem', height: '3rem' }}
+                    src={
+                      (event?.attributes?.host?.data?.attributes
+                        ?.logo as string) || '/logo-w.svg'
+                    }
+                    alt="host logo image"
+                  />
+                  By : {host?.name || 'TalentKids'}
+                </Avatar>
+              </PostDate>
+              <PostDate>
+                {dayjs(event?.attributes?.startDate).format('DD MMMM YYYY')} -{' '}
+                {dayjs(event?.attributes?.endDate).format('DD MMMM YYYY')}
+              </PostDate>
+              <PostDate>
+                {event?.attributes?.startTime} - {event?.attributes?.endTime}
+              </PostDate>
+            </AvatarRow>
+          </InnerContainer>
+        </InnerBanner>
 
-                    <AvatarRow>
-                        <PostDate>
-                            <Avatar>
-                                <Image style={{ width: '3rem', height: '3rem' }} src={event?.attributes?.host?.data?.attributes?.logo as string || '/logo-w.svg'} alt='host logo image' />
-                                By : {host?.name || 'TalentKids'}
-                            </Avatar>
-                        </PostDate>
-                        <PostDate>{dayjs(event?.attributes?.startDate).format('DD MMMM YYYY')}  - {dayjs(event?.attributes?.endDate).format('DD MMMM YYYY')}</PostDate>
-                        <PostDate>{event?.attributes?.startTime} - {event?.attributes?.endTime}</PostDate>
-                    </AvatarRow>
-                </InnerContainer>
-            </InnerBanner>
+        <PageContainer>
+          <InnerContainer>
+            <Row>
+              <Column className="column-7">
+                <Row>
+                  <Column style={{ minWidth: '50%' }}>
+                    <div style={{ margin: ' 0 0 1rem' }} className="clearfix">
+                      <SocialShare
+                        pathname={`/events/${category.toLowerCase()}/${postSlug}`}
+                      />
+                    </div>
+                    <div className="align_names">
+                      <div className="buy_now">
+                        <Link
+                          passHref
+                          href={(event?.attributes?.link as string) || ''}
+                        >
+                          <button
+                            className="button"
+                            style={{ backgroundColor: 'none' }}
+                          >
+                            {event?.attributes?.linkButtonText?.replace(
+                              '_',
+                              ' '
+                            )}
+                          </button>
+                        </Link>
+                      </div>
+                      <div style={{}}>
+                        <GiPriceTag />
 
-            <PageContainer>
-                <InnerContainer>
-                    <Row>
-                        <Column className='column-7'>
-                            <Row>
-                                <Column style={{ minWidth: "50%" }} >
-                                    <div style={{margin: ' 0 0 1rem'}} className="clearfix">
-                                        <SocialShare toggle={() => socialToggle()} socialDropdown={socialDropdown} pathname={`/events/${category.toLowerCase()}/${postSlug}`}>
-                                            <SocialDropDownIcon />
-                                        </SocialShare>
-                                    </div>
-                                    <div>
-                                        <Post>
-                                            <PostThumb>
-                                                {imageurl && <Image src={imageurl} alt='host logo image' />}
-                                            </PostThumb>
-                                            <PostBody>
-                                                <div style={{ marginBottom: "1.5rem" }}>
-                                                    <Markdown>{event?.attributes?.body as string}</Markdown>
-                                                </div>
-                                            </PostBody>
-                                        </Post>
-                                    </div>
-                                    
-                                    
+                        {event?.attributes?.price === '0'
+                          ? 'Free'
+                          : `£${event?.attributes?.price}`}
+                      </div>
+                      <div style={{}}>
+                        <MdOutlineSchedule />
+                        {event?.attributes?.status}
+                      </div>
 
-                                    <AddressMap>
-                                        <AddressCard>
-                                            <Title style={{ marginBottom: "1.25rem", fontSize: '2rem', color: '#FFF' }}>Address</Title>
-
-                                            <PostDate style={{ marginBottom: "0rem" }}> </PostDate>
-                                            <PostDate style={{ marginBottom: "0rem" }}> Town : {location?.town} </PostDate>
-                                            <PostDate > Town : {location?.postCode} </PostDate>
-                                        </AddressCard>
-                                        <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114542.81855860692!2d78.12085855249065!3d26.21413888461391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3976c5d1792291fb%3A0xff4fb56d65bc3adf!2sGwalior%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1652167836340!5m2!1sen!2sin" width="100%" height="300" loading="lazy"></Iframe>
-                                    </AddressMap>
-                                </Column>
-                            </Row>
-                        </Column>
-                        <Column>
-                            <RelatedEvents category={category} />
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
-
-            <Footer />
-        </>
+                      {event?.attributes?.venue === 'online' && (
+                        <div style={{}}>
+                          <HiStatusOnline />
+                          {event?.attributes?.venue} online
+                        </div>
+                      )}
+                      {event?.attributes?.venue === 'location' && (
+                        <div style={{}}>
+                          <VscLocation />
+                          {location?.name}
+                        </div>
+                      )}
+                      {event?.attributes?.venue === 'both' && (
+                        <div style={{}}>
+                          <VscLocation />
+                          {location?.name}
+                        </div>
+                      )}
+                      {event?.attributes?.venue === 'both' && (
+                        <div style={{}}>
+                          <HiStatusOnline /> online
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <Post>
+                        <PostThumb>
+                          {imageurl && (
+                            <Image src={imageurl} alt="host logo image" />
+                          )}
+                        </PostThumb>
+                        <PostBody>
+                          <div style={{ marginBottom: '1.5rem' }}>
+                            <Markdown>
+                              {event?.attributes?.body as string}
+                            </Markdown>
+                          </div>
+                        </PostBody>
+                      </Post>
+                    </div>
+                    <AddressMap>
+                      <GoogleMap>
+                        <Map
+                          lat={location?.latitude as number}
+                          lng={location?.longtitude as number}
+                        />
+                      </GoogleMap>
+                    </AddressMap>
+                  </Column>
+                </Row>
+              </Column>
+              <Column>
+                <RelatedEvents category={category} />
+              </Column>
+            </Row>
+          </InnerContainer>
+        </PageContainer>
+      </>
     );
 }
 

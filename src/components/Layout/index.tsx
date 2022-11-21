@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from "next/head";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import NavBar from './NavBar';
 import Footer from './Footer';
 
@@ -10,12 +10,22 @@ type LayoutProps = {
     metaDescription?: string
     canonicalUrl?: string
     image?: string
+    imageWidth?: string
+    imageHeight?: string
+    type?: string
+    pageUrl?: string
+    data?: string
 }
 
 const Layout = ({
     children,
     title,
     image,
+    imageHeight,
+    imageWidth,
+    pageUrl,
+    type,
+    data,
     metaDescription,
     canonicalUrl,
 }: LayoutProps) => {
@@ -33,9 +43,14 @@ const Layout = ({
                 {canonicalUrl && <link rel='canonical' href={canonicalUrl} />}
 
                 {/* open-graph meta */}
-                <meta property='og:title' content={title} />
+                <meta property='og:title' content={title} key="title" />
                 {metaDescription && (<meta property='og:description' content={metaDescription} />)}                
                 {image && (<meta property='og:image' content={image} />)}
+                <meta property="og:image:width" content={imageWidth} />
+                <meta property="og:image:height" content={imageHeight} />
+                <meta property="og:type" content={type} />
+                <meta property="og:locale" content="en_GB" />
+                <meta property="og:url" content={pageUrl} />
 
                 
 
@@ -45,6 +60,13 @@ const Layout = ({
                 {metaDescription && <meta name='twitter:description' content={metaDescription} />}
                 {}
                 {image && (<meta name='twitter:image' content={image} />)}
+
+                <script
+                    key="structured-data"
+                    type="application/ld+json"
+                    // dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+                    dangerouslySetInnerHTML={{ __html: data as string }}
+                />
                 
             </Head>
             <NavBar />

@@ -1,10 +1,10 @@
 import React from 'react'
-import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { client } from 'lib/initApollo';
 import { useNoAuthPages } from "lib/noAuth";
 import { ListingEntity, ListingsDocument, ListingsQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
 import Listings from 'components/Listings';
+import Layout from 'components/Layout';
 
 type pageProps = {
     lists: { listings: { data: ListingEntity[] } },
@@ -13,28 +13,37 @@ type pageProps = {
 
 function ListingsPage(props: pageProps) {
     const { cats, lists } = props;
+    const description = "Activities"
+    const url = "https://talentkids.io/activities"
+    // console.log(cats?.data?.categories?.data);
+
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'Events',
+        //  about: {description},
+        // description: meta?.description,
+        // author: [
+        //     {
+        //         '@type': 'Person',
+        //         name: author?.fullName,
+        //     },
+        // ],
+        // image: meta?.image,
+        // datePublished: article?.attributes?.updatedAt,
+    };
     // console.log(lists)
     useNoAuthPages();
     return (
-        <>
-            <Head>
-                <title>Talentkids | Activities</title>
-                <meta
-                    property="og:title"
-                    content="Talentkids | Activities"
-                    key="title"
-                />
-                <meta
-                    name="description"
-                    content="Activities"
-                />
-                <meta property="og:url" content="https://talentkids.io/activities" />
-                <meta property="og:type" content="activities" />
-                <meta property="og:locale" content="en_GB" />
-                <link rel="canonical" href="https://talentkids.io/activities" />
-            </Head>
+        <Layout
+            title={`Talentkids | Activities`}
+            metaDescription={description}
+            canonicalUrl={url}
+            data={JSON.stringify(structuredData)}
+            type="activities"
+            pageUrl={url}
+        >
             <Listings listings={lists?.listings?.data} categories={cats?.data?.categories?.data} />
-        </>
+        </Layout>
     );
 }
 

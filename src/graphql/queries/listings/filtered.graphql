@@ -13,8 +13,14 @@ query FilteredListings(
         endDate
         slug
         startTime
+        endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         category {
           data {
             id
@@ -23,12 +29,17 @@ query FilteredListings(
             }
           }
         }
+        Location {
+          name
+          town
+        }
         host {
           data {
             attributes {
               name
               slug
               logo
+              website
             }
           }
         }

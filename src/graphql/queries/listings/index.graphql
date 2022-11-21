@@ -9,8 +9,14 @@ query Listings($pagination: PaginationArg, $sort: [String]) {
         endDate
         slug
         startTime
+        endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         category {
           data {
             id
@@ -19,12 +25,17 @@ query Listings($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+        Location {
+          name
+          town
+        }
         host {
           data {
             attributes {
               name
               slug
               logo
+              website
             }
           }
         }

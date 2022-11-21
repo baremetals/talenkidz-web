@@ -6,8 +6,8 @@ import { Formik } from "formik";
 import { getResetPasswordValidationSchema } from "utils/formValidation";
 
 // Redux imports
-import { useAppDispatch } from "app/hooks";
-import { setUser } from "features/auth";
+// import { useAppDispatch } from "app/hooks";
+// import { setUser } from "features/auth";
 
 import { Error, ErrorMsg } from "../../Input";
 import { ToastContainer, toast } from "react-toastify";
@@ -38,7 +38,7 @@ const initialValues = {
 };
 const ResetPassword = () => {
     const router = useRouter();
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const [errorMsg, setErrorMsg] = useState(false);
 
     const handleSubmit = async ({ ...values }: any) => {

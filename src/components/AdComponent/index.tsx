@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AdBlock } from "../../styles/common.styles";
 type sizeProps = {
     height: number

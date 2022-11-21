@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import store from "../app/store";
 import Head from "next/head";
@@ -12,6 +12,8 @@ import { useApollo } from "../lib/apolloClient";
 import { darkTheme } from "../styles/theme";
 
 import "../styles/globals.css";
+import GoogleAnalytics from 'components/Layout/Google';
+import { pageview } from 'lib/ga';
 // import Layout from 'components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -28,9 +30,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const apolloClient = useApollo(pageProps.initialApolloState);
   useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      pageview(url)
+    }
     nprogress.configure({ showSpinner: false });
     Router.events.on("routeChangeStart", startLoading);
     Router.events.on("routeChangeComplete", stopLoading);
+    Router.events.on("routeChangeComplete", handleRouteChange);
 
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -39,8 +45,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     return () => {
-      Router.events.on("routeChangeStart", startLoading);
-      Router.events.on("routeChangeComplete", stopLoading);
+      Router.events.off("routeChangeStart", startLoading);
+      Router.events.off("routeChangeComplete", stopLoading);
+      Router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, []);
 
@@ -54,6 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:locale" content="en_GB" />
       </Head>
+      <GoogleAnalytics />
       <Provider store={store}>
         <ApolloProvider client={apolloClient} >
           <ThemeProvider theme={darkTheme}>
