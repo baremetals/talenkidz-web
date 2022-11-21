@@ -6,6 +6,7 @@ import { addToMailingList } from 'lib/helpers'
 import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaInstagram } from 'react-icons/fa'
 
 
 
@@ -36,7 +37,8 @@ import { FaceBook } from "../../../../public/assets/icons/FaceBook";
 import { Tiktok } from "../../../../public/assets/icons/Tiktok";
 import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
 import { Twitter } from "../../../../public/assets/icons/Twitter";
-import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
+// import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
+
 
 function Footer(): ReactElement {
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
@@ -127,21 +129,22 @@ function Footer(): ReactElement {
                 </NewsletterBox>
                 {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
                 <div className="footer_social">
-                  <a
-                    href={'https://www.facebook.com/'}
-                  >
+                  <a href={'https://www.facebook.com/jointalentkids'}>
                     <FaceBook />
                   </a>
-                  <a href={'https://twitter.com/'}>
+                  <a href={'https://twitter.com/talentkids_join'}>
                     <Twitter />
                   </a>
-                  <a href={'https://www.linkedin.com/'}>
+                  <a href={'https://www.linkedin.com/company/join-talentkids'}>
                     <LinkedIn />
                   </a>
-                  <a href={'https://web.whatsapp.com/'}>
+                  {/* <a href={'https://web.whatsapp.com/'}>
                     <WhatsApp />
+                  </a> */}
+                  <a href={'https://www.instagram.com/join__talentkids'}>
+                    <FaInstagram />
                   </a>
-                  <a href={'https://www.tiktok.com'}>
+                  <a href={'https://www.tiktok.com/@join_talentkids'}>
                     <Tiktok />
                   </a>
                 </div>
@@ -151,7 +154,7 @@ function Footer(): ReactElement {
                 <FooterTitle>Talent Kids</FooterTitle>
                 <FooterLinks>
                   <Link href={'/about'}>About Us</Link>
-                  <Link href={'/contact-us'}>Contact us</Link>
+                  <Link href={'/contact'}>Contact us</Link>
                   {/* <Link href={'/newsletter'}>Newsletter</Link> */}
                   <Link href={'/faqs'}>FAQs</Link>
                   <Link href={'/cookie-policy'}>Cookie Policy</Link>

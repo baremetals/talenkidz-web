@@ -6,9 +6,9 @@ import React from 'react';
 const NewsLetterPage = () => {
 
   return <>
-    <NavBar />
+    {/* <NavBar />
     <Newsletter />
-    <Footer />
+    <Footer /> */}
   </>
 };
 

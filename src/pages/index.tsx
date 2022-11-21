@@ -6,9 +6,15 @@ import Layout from 'components/Layout';
 
 function HomePage() {
 
-    const description = "Talentkids.io"
+    const description = `Are you a parent looking for your child’s future career prospects? 
+    Are you someone who believes in a child pursuing their dream and changing the redundant narrative of not following 
+    a “creative career” like sports, music, arts, entertainment, and possibly anything that revolves around creativity?
+    That’s it! Talentkids is what you are looking for. Talentkids is a solution for the future generation while reshaping the 
+    current generation’s mindset, responsible for shaping their children’s future, 
+    ultimately contributing to a better future tomorrow`;
     const url = "https://talentkids.io"
     // console.log(cats?.data?.categories?.data);
+
 
     // const structuredData = {
     //     '@context': 'https://schema.org',
