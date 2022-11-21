@@ -17,7 +17,11 @@ export async function getStaticProps() {
 const AboutUs = ({ ...attributes }) => {
   // console.log(attributes.attributes)
 
-  const description = "Talentkids.io/about"
+  const description = `
+    Talentkids is a solution for the future generation while reshaping the 
+    current generation’s mindset, responsible for shaping their children’s future, 
+    ultimately contributing to a better future tomorrow.
+  `;
   const url = "https://talentkids.io/about"
   // console.log(cats?.data?.categories?.data);
 
