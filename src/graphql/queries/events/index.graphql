@@ -28,6 +28,10 @@ query Events($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+        Location {
+          name
+          town
+        }
         category {
           data {
             id

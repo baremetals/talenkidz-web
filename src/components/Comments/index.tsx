@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-type FormInput = {
-    body: string;
-};
+// type FormInput = {
+//     body: string;
+// };
 
 export const Comment = () => {
     return (

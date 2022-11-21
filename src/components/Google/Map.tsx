@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { StandaloneSearchBox, LoadScript, GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const mapContainerStyle = {
     width: '100%',

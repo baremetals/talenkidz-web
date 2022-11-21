@@ -1,19 +1,19 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { useForm } from "react-hook-form";
-import { EditorState, convertToRaw } from "draft-js";
-import draftToHtml from "draftjs-to-html";
+import { EditorState } from "draft-js";
 import axios from "axios";
 
-import { useAppDispatch, useAppSelector } from "app/hooks";
+import { useAppSelector } from "app/hooks";
 import { isUser } from "features/auth";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from '../Modal'
 // import ModalEditor from '../Modal/ModalEditor'
-const ModalEditor = dynamic(() => import('../Modal/ModalEditor'), {
-    ssr: false,
-});
+// const ModalEditor = dynamic(() => import('../Modal/ModalEditor'), {
+//     ssr: false,
+// });
 import {
     TitleInput,
     InputFormGroupRow,
@@ -50,11 +50,10 @@ const Post = ({ closeM,
     const {
         register,
         handleSubmit,
-        setValue,
         formState: { errors },
     } = useForm<FormInput>();
 
-    const [editorState, setEditorState] = useState<EditorState>(
+    const [_editorState, _setEditorState] = useState<EditorState>(
         EditorState.createEmpty()
     );
     const [content, setContent] = useState<string>("");

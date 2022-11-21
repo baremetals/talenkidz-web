@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from 'components/Layout';
-import { InnerContainer, PageContainer, Text, Title } from 'styles/common.styles';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 import Markdown from 'markdown-to-jsx';
 
 const CookiePolicy = () => {

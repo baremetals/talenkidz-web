@@ -21,7 +21,7 @@ export const useNoAuth = () => {
         });
     };
     getUser();
-  }, []);
+  }, [router]);
 };
 
 export const useNoAuthPages = () => {
@@ -41,5 +41,5 @@ export const useNoAuthPages = () => {
   };
   useEffect(() => {
     getUser();
-  }, []);
+  });
 };

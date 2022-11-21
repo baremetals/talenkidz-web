@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { upperCase } from 'lib/helpers';
 import Markdown from 'markdown-to-jsx';
 import dayjs from 'dayjs';
@@ -9,6 +9,7 @@ import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';
 import { VscLocation } from 'react-icons/vsc';
 import { MdOutlineSchedule } from 'react-icons/md';
+import Map from '../Google/Map';
 import {
   InnerBanner,
   Image,
@@ -23,8 +24,6 @@ import {
   PostThumb,
   PostBody,
   AddressMap,
-  Iframe,
-  AddressCard,
   AvatarRow,
   Avatar,
 } from 'styles/common.styles';
@@ -33,7 +32,7 @@ import RelatedListings from '../ListDetails/RelatedListings';
 import Link from 'next/link';
 import { ListingEntityResponseCollection } from 'generated/graphql';
 import SocialShare from 'components/Layout/SocialShare';
-import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
+// import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
 import GoogleMap from 'components/Google/GoogleMap';
 
 function ListDetails(props: {
@@ -43,7 +42,7 @@ function ListDetails(props: {
     error: any;
   };
 }) {
-  const [socialDropdown, setSocialDropdown] = useState(false);
+  // const [socialDropdown, setSocialDropdown] = useState(false);
 
   const { data, loading, error } = props.props;
 
@@ -61,7 +60,7 @@ function ListDetails(props: {
   const location = list?.attributes?.Location;
   // console.log(location)
   const category = list?.attributes?.category?.data?.attributes?.slug as string;
-  // console.log(category)
+  // console.log(data)
 
   // List
 
@@ -70,9 +69,9 @@ function ListDetails(props: {
   const categoryList = list?.attributes?.category?.data?.attributes
     ?.slug as string;
 
-  const socialToggle = () => {
-    setSocialDropdown(!socialDropdown);
-  };
+  // const socialToggle = () => {
+  //   setSocialDropdown(!socialDropdown);
+  // };
 
   return (
     <>
@@ -94,7 +93,7 @@ function ListDetails(props: {
                     (list?.attributes?.host?.data?.attributes
                       ?.logo as string) || '/logo-w.svg'
                   }
-                  alt='host logo image'
+                  alt="host logo image"
                 />
                 By : {host?.name || 'TalentKids'}
               </Avatar>
@@ -113,24 +112,30 @@ function ListDetails(props: {
       <PageContainer>
         <InnerContainer>
           <Row>
-            <Column className='column-7'>
+            <Column className="column-7">
               <Row>
                 <Column style={{ minWidth: '50%' }}>
-                  <div style={{ margin: ' 0 0 1rem' }} className='clearfix'>
+                  <div style={{ margin: ' 0 0 1rem' }} className="clearfix">
                     <SocialShare
                       pathname={`/activities/${categoryList}/${postSlug}`}
                     ></SocialShare>
                   </div>
-                  <div className='align_names'>
-                    <div className='buy_now'>
-                      <Link passHref href={list?.attributes?.link as string}>
-                        <button className='button'>
+                  <div className="align_names">
+                    <div className="buy_now">
+                      <Link
+                        passHref
+                        href={(list?.attributes?.link as string) || ''}
+                      >
+                        <button className="button">
                           {list?.attributes?.linkButtonText?.replace('_', ' ')}
                         </button>
                       </Link>
                     </div>
                     <div style={{}}>
-                      <GiPriceTag />£{list?.attributes?.price}
+                      <GiPriceTag />
+                      {list?.attributes?.price === '0'
+                        ? 'Free'
+                        : `£${list?.attributes?.price}`}
                     </div>
                     <div style={{}}>
                       <MdOutlineSchedule />
@@ -160,7 +165,7 @@ function ListDetails(props: {
                     <Post>
                       <PostThumb>
                         {imageurl && (
-                          <Image src={imageurl} alt='host logo image' />
+                          <Image src={imageurl} alt="host logo image" />
                         )}
                       </PostThumb>
                       <PostBody>
@@ -172,9 +177,12 @@ function ListDetails(props: {
                       </PostBody>
                     </Post>
                   </div>
-                  <AddressMap className='viewerMap'>
+                  <AddressMap className="viewerMap">
                     <GoogleMap>
-                        
+                      <Map
+                        lat={location?.latitude as number}
+                        lng={location?.longtitude as number}
+                      />
                     </GoogleMap>
                   </AddressMap>
                 </Column>

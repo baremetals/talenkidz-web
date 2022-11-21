@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import store from "../app/store";
 import Head from "next/head";

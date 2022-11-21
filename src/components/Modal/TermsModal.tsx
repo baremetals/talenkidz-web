@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Modal from 'components/Modal';
-import Button from 'components/Button';
+
 import {
     Title,
 } from "../../styles/common.styles";
@@ -14,7 +14,7 @@ type Terms = {
 
 export default function TermsModal({ openTerms, children }: Terms) {
 
-    const [terms, setterms] = useState(openTerms);
+    const [terms,] = useState(openTerms);
     const [content, setContent] = useState<string>('');
 
     const getTermsData = async function() {

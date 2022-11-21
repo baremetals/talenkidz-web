@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
 import { FormData } from "formdata-node";
 import axios from "axios";
@@ -50,6 +51,7 @@ const MyProfile = ({ user }: Props) => {
   const [bio, setBio] = useState<string>(user.bio || 'lake');
   const [backgroundImg, setBackgroundImg] = useState<FileType | string>(user?.backgroundImg as string || '');
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {

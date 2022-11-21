@@ -7,9 +7,10 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
   if (talentedKidCookie !== undefined) {
     const token = JSON.parse(req.cookies.talentedKid).jwt;
     const { data } = req.body;
-    // console.log(data);
+    // console.log(token);
     if (data.SEO.type === 'event') {
       try {
+        // console.log('i reached here');
         const response = await axios({
           method: 'POST',
           url: `${baseUrl}/events`,
@@ -19,10 +20,11 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
             },
           data: req.body,
         });
+        // console.log('i reached here', response);
         // console.log(response.data, 'fuck sake');
         res.status(200).json({ data: response.data });
       } catch (err: any) {
-        // console.log('am i dope', err.response.data);
+        // console.log('am i dope', err.response.data.error);
         res.status(401).json({ data: err.response.data });
       }
     } else {

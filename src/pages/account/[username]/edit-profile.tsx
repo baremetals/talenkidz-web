@@ -7,20 +7,20 @@ import {
     OrganisationEntityResponseCollection,
     OrgDocument,
     OrgQueryResult,
-    UsersPermissionsUser,
-    UsersPermissionsUserEntityResponseCollection,
+    // UsersPermissionsUser,
+    // UsersPermissionsUserEntityResponseCollection,
 } from "generated/graphql";
 import Head from 'next/head';
 import { useIsAuth } from 'lib/isAuth';
 import EditProfile from 'components/EditProfile';
 
-type Props ={
-  data: {
-    data: {
-      usersPermissionsUsers: UsersPermissionsUserEntityResponseCollection
-    }
-  }
-}
+// type Props ={
+//   data: {
+//     data: {
+//       usersPermissionsUsers: UsersPermissionsUserEntityResponseCollection
+//     }
+//   }
+// }
 
 const EditProfilePage = (props: { laodings: boolean, data: { data: { organisations: OrganisationEntityResponseCollection } } }) => {
   // console.log('EditProfilePage')

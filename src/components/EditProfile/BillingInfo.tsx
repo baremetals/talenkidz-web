@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { UsersPermissionsUser } from 'generated/graphql';
+// import { UsersPermissionsUser } from 'generated/graphql';
 
 import { EditProfileTab, HeaderLine } from './editProfile.styles';
 
-type Props = {
-  user: UsersPermissionsUser
-}
+// type Props = {
+//   user: UsersPermissionsUser
+// }
 
-const BillingInfo = (props: Props) => {
+const BillingInfo = () => {
   return (
     <>
      <EditProfileTab>

@@ -1,5 +1,4 @@
 import React from 'react'
-import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { client } from "lib/initApollo";
 import {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import NextImage from "next/image";
-import Link from 'next/link';
+// import NextImage from "next/image";
+// import Link from 'next/link';
 
 import {
     ErrorPageWrapper,

@@ -89,7 +89,7 @@ const Login = () => {
                     router.push(`/user-profile/${res.data.username}`);
                 }
             })
-            .catch((error) => {
+            .catch((_error) => {
                 // console.log(error)
                 err = "something went wrong please try again later"
                 initialValues.error = err;

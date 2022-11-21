@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Markdown from "markdown-to-jsx";
-import { InnerContainer, Text, Title, PageContainer, Accordion } from 'styles/common.styles';
+import { InnerContainer, Title, PageContainer, Accordion } from 'styles/common.styles';
 
 
 
