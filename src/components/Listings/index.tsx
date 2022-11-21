@@ -110,58 +110,107 @@ function Listings({ listings, categories }: pageProps) {
         };
 
     return (
-        <>
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-                <InnerContainer>
-                    <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Activities</Title>
-                    <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/activities'}>Activities </Link> {`${router.query.category === undefined ? "" : '/ ' + upperCase(router.query.category as string)}`}</Text>
-                </InnerContainer>
-            </InnerBanner>
-            <PageContainer>
-                <InnerContainer>
-                    <Row>
-                        <Column className='column-7'>
-                            <Row>
-                                {filteredListings && filteredListings?.map((list: listingProps, id) => (
-                                    <Column className='column-3' style={{ marginTop: '3.5rem', minWidth: '50%', display: 'flex' }} key={id}>
-                                        <Link href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`} passHref>
-                                            <ListCard>
-                                                <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
-                                                    <Image src={list?.attributes?.host?.data?.attributes?.logo} alt='host logo image' />
-                                                </ListIcon>
-                                                <ListBody>
-                                                    <Title style={{ fontSize: '1.375rem', marginBottom: '1.25rem' }}>{list?.attributes?.title}</Title>
-                                                    <Text style={{ marginBottom: '0' }}>{list?.attributes?.description}</Text>
-                                                </ListBody>
-                                            </ListCard>
-                                        </Link>
-                                    </Column>
-                                ))}
-                            </Row>
-                        </Column>
-                        <Column>
-                            <SearchBar>
-                                <SearchInput placeholder="Search" type="text"
-                                    name="search"
-                                    onChange={handleSearch("search")}
-                                />
-                                <SearchButton></SearchButton>
-                            </SearchBar>
-                            <WidgetPanel>
-                                <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                                <WidgetPanelListing>
-
-                                    {categories?.map((cat, id) => (
-                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/activities/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
-                                    ))}
-                                </WidgetPanelListing>
-
-                            </WidgetPanel>
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
-        </>
+      <>
+        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+          <InnerContainer>
+            <Title>
+              {`${
+                router.query.category === undefined
+                  ? 'Latest'
+                  : upperCase(router.query.category as string)
+              }`}{' '}
+              Activities
+            </Title>
+            <Text style={{ marginBottom: '0', color: '#000000' }}>
+              <Link href={'/'}>Home </Link> /{' '}
+              <Link href={'/activities'}>Activities </Link>{' '}
+              {`${
+                router.query.category === undefined
+                  ? ''
+                  : '/ ' + upperCase(router.query.category as string)
+              }`}
+            </Text>
+          </InnerContainer>
+        </InnerBanner>
+        <PageContainer>
+          <InnerContainer>
+            <Row>
+              <Column className="column-7">
+                <Row>
+                  {filteredListings &&
+                    filteredListings?.map((list: listingProps, id) => (
+                      <Column
+                        className="column-3"
+                        style={{
+                          marginTop: '3.5rem',
+                          minWidth: '50%',
+                          display: 'flex',
+                        }}
+                        key={id}
+                      >
+                        <Link
+                          href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`}
+                          passHref
+                        >
+                          <ListCard>
+                            <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
+                              <Image
+                                src={
+                                  list?.attributes?.host?.data?.attributes?.logo
+                                }
+                                alt="host logo image"
+                              />
+                            </ListIcon>
+                            <ListBody>
+                              <Title
+                                style={{
+                                  fontSize: '1.375rem',
+                                  marginBottom: '1.25rem',
+                                }}
+                              >
+                                {list?.attributes?.title}
+                              </Title>
+                              <Text style={{ marginBottom: '0' }}>
+                                {list?.attributes?.description}
+                              </Text>
+                            </ListBody>
+                          </ListCard>
+                        </Link>
+                      </Column>
+                    ))}
+                </Row>
+              </Column>
+              <Column>
+                <SearchBar>
+                  <SearchInput
+                    placeholder="Search"
+                    type="text"
+                    name="search"
+                    onChange={handleSearch('search')}
+                  />
+                  <SearchButton></SearchButton>
+                </SearchBar>
+                <WidgetPanel>
+                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
+                  <WidgetPanelListing>
+                    {categories?.map((cat, id) => (
+                      <WidgetPanelLink
+                        key={id}
+                        style={{ fontSize: '14px', color: '#39364F' }}
+                      >
+                        <Image src="/checkbox.svg" alt="" />
+                        <Link href={`/activities/${cat?.attributes?.slug}`}>
+                          {cat?.attributes?.slug}
+                        </Link>
+                      </WidgetPanelLink>
+                    ))}
+                  </WidgetPanelListing>
+                </WidgetPanel>
+              </Column>
+            </Row>
+          </InnerContainer>
+        </PageContainer>
+      </>
     );
 }
 

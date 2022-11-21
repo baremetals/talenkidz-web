@@ -22,11 +22,14 @@ import {
 
     WidgetPanel,
     WidgetPanelTitle,
-
+    MediaObjectSpan,
     WidgetPanelListing,
-    WidgetPanelLink
+    WidgetPanelLink,
+    PostMedia
 } from "../../styles/common.styles";
 import Link from 'next/link';
+import { BookMark } from '../../../public/assets/icons/BookMark';
+import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp';
 
 
 type propType = {
@@ -54,30 +57,65 @@ function RelatedEvents({ category }: propType): ReactElement {
 
 
     return (
-        <>
-            <WidgetPanel>
-                <WidgetPanelTitle style={{ backgroundColor: '#8152cd' }}>Related Listings</WidgetPanelTitle>
-                <WidgetPanelListing>
-                    <MediaObject>
-                        {events?.map((eve, id) => (
-                            <MediaObjectItem key={id}>
-                                <MediaObjectThumb>
-                                    <Link href={`/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`} passHref>
-                                        <Image src={eve?.attributes?.listImage || '/default-list-img.jpg'} alt="" />
-                                    </Link>
-                                </MediaObjectThumb>
-                                <MediaObjectBody>
-                                    <MediaObjectDate>{dayjs(eve?.attributes?.startDate).format('DD MMMM YYYY')}</MediaObjectDate>
-                                    <Link href={`/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`} passHref>
-                                        <MediaObjectTitle>{eve?.attributes?.title}</MediaObjectTitle>
-                                    </Link>
-                                </MediaObjectBody>
-                            </MediaObjectItem>
-                        ))}
-                    </MediaObject>
-                </WidgetPanelListing>
-            </WidgetPanel>
-        </>
+      <>
+        <WidgetPanel>
+          <WidgetPanelTitle>Related Listings</WidgetPanelTitle>
+          <WidgetPanelListing>
+            <MediaObject>
+              {events?.map((eve, id) => (
+                <MediaObjectItem key={id}>
+                  <MediaObjectThumb>
+                    <Link
+                      href={`/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`}
+                      passHref
+                    >
+                      <Image
+                        src={
+                          eve?.attributes?.listImage || '/default-list-img.jpg'
+                        }
+                        alt=""
+                      />
+                    </Link>
+                  </MediaObjectThumb>
+                  <MediaObjectBody>
+                    <Link
+                      href={`/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`}
+                      passHref
+                    >
+                      <MediaObjectTitle>
+                        {eve?.attributes?.title?.slice(0, 23)}...
+                      </MediaObjectTitle>
+                    </Link>
+                    <MediaObjectDate>
+                      {dayjs(eve?.attributes?.startDate).format('DD MMMM YYYY')}
+                    </MediaObjectDate>
+                    <MediaObjectSpan>
+                      {`${eve?.attributes?.Location?.name}` +
+                        ' • ' +
+                        `${eve?.attributes?.Location?.town}`}
+                    </MediaObjectSpan>
+                    <MediaObjectSpan>
+                      {eve?.attributes?.price === '0'
+                        ? 'Free'
+                        : `£${eve?.attributes?.price}`}{' '}
+                    </MediaObjectSpan>
+                    <MediaObjectSpan
+                      style={{
+                        fontSize: '14px',
+                        color: '#39364F',
+                        fontWeight: '500',
+                        // marginTop: '0.1rem'
+                      }}
+                    >
+                      {eve?.attributes?.host?.data?.attributes?.name}{' '}
+                    </MediaObjectSpan>
+                  </MediaObjectBody>
+                </MediaObjectItem>
+              ))}
+            </MediaObject>
+          </WidgetPanelListing>
+        </WidgetPanel>
+      </>
     );
 }
 

@@ -37,38 +37,45 @@ import {
     PostDate,
     PostMedia,
 } from 'styles/common.styles';
+import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp';
+import { BookMark } from '../../../public/assets/icons/BookMark';
 
 type eventProps = {
-    id: string;
-    attributes: {
-        // body: string;
-        category: {
-            data: {
-                id: string;
-                attributes: {
-                    // name: string;
-                    slug: string;
-                };
-            };
+  id: string;
+  attributes: {
+    // body: string;
+    category: {
+      data: {
+        id: string;
+        attributes: {
+          // name: string;
+          slug: string;
         };
-        startDate: string;
-        endDate: string;
-        createdAt: Date;
-        slug: string;
-        title: string;
-        description: string;
-        listImage: string;
-        host: {
-            data: {
-                id: string;
-                attributes: {
-                    logo: string;
-                    slug: string;
-                    name: string;
-                };
-            };
-        };
+      };
     };
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    createdAt: Date;
+    slug: string;
+    title: string;
+    price: string;
+    listImage: string;
+    Location: {
+        name: string;
+        town: string;
+    }
+    host: {
+      data: {
+        id: string;
+        attributes: {
+          logo: string;
+          slug: string;
+          name: string;
+        };
+      };
+    };
+  };
 };
 type pageProps = {
     events: EventEntity[]
@@ -108,71 +115,148 @@ const Events = ({ events, categories }: pageProps) => {
             } else setFilteredEvents(events as SetStateAction<never[]>);
         };
     return (
-        <>
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-                <InnerContainer>
-                    <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Events</Title>
-                    <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/events'}>Events </Link> {`${router.query.category === undefined ? "" : '/ ' + upperCase(router.query.category as string)}`}</Text>
-                </InnerContainer>
-            </InnerBanner>
+      <>
+        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+          <InnerContainer>
+            <Title>
+              {`${
+                router.query.category === undefined
+                  ? 'Latest'
+                  : upperCase(router.query.category as string)
+              }`}{' '}
+              Events
+            </Title>
+            <Text style={{ marginBottom: '0', color: '#000000' }}>
+              <Link href={'/'}>Home </Link> /{' '}
+              <Link href={'/events'}>Events </Link>{' '}
+              {`${
+                router.query.category === undefined
+                  ? ''
+                  : '/ ' + upperCase(router.query.category as string)
+              }`}
+            </Text>
+          </InnerContainer>
+        </InnerBanner>
 
-            <PageContainer>
-                <InnerContainer>
-                    <Row>
-                        <Column className='column-7'>
-                            <Row>
-                                {filteredEvents?.map((event: eventProps, id) => (
-                                    <Column style={{ minWidth: "50%" }} key={id}>
-                                        <Post>
-                                            <PostThumb>
-                                                <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
-                                                    <Image src={event?.attributes?.listImage || '/default-list-img.jpg'} alt='event image' />
-                                                </Link>
-                                            </PostThumb>
-                                            <PostBody>
-                                                <Link href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`} passHref>
-                                                    <PostTitle>{event?.attributes?.title}</PostTitle>
-                                                </Link>
-                                                <Text>{event?.attributes?.description}</Text>
-                                                <Bottom>
+        <PageContainer>
+          <InnerContainer>
+            <Row>
+              <Column className="column-7">
+                <Row>
+                  {filteredEvents?.map((event: eventProps, id) => (
+                    <Column style={{ minWidth: '50%' }} key={id}>
+                      <Post>
+                        <PostThumb>
+                          <Link
+                            href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
+                            passHref
+                          >
+                            <Image
+                              src={
+                                event?.attributes?.listImage ||
+                                '/default-list-img.jpg'
+                              }
+                              alt="event image"
+                            />
+                          </Link>
+                        </PostThumb>
+                        <PostBody>
+                          <Link
+                            href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
+                            passHref
+                          >
+                            <PostTitle>
+                              {event?.attributes?.title.slice(0, 55)}
+                            </PostTitle>
+                          </Link>
+                          {/* <Text>
+                            {event?.attributes?.description.slice(0, 60)}
+                          </Text> */}
+                          <Bottom style={{ marginBottom: '.25rem' }}>
+                            <PostDate style={{ color: '#a40a52' }}>
+                              {/* {dayjs(event?.attributes?.startDate).day()}{' '}
+                              , */}
+                              {dayjs(event?.attributes?.startDate).format(
+                                'DD MMMM YYYY'
+                              )}
+                              , {event?.attributes?.startTime}
+                            </PostDate>
+                          </Bottom>
+                          <Bottom style={{ marginBottom: '.25rem' }}>
+                            <PostDate>
+                              {`${event?.attributes?.Location?.name}` +
+                                ' • ' +
+                                `${event?.attributes?.Location?.town}`}
+                            </PostDate>
+                          </Bottom>
+                          <Bottom style={{ marginBottom: '.25rem' }}>
+                            <PostDate>
+                              {event?.attributes?.price === '0'
+                                ? 'Free'
+                                : `£${event?.attributes?.price}`}{' '}
+                            </PostDate>
+                          </Bottom>
+                          <Bottom>
+                            <PostDate
+                              style={{ fontSize: '14px', color: '#39364F', fontWeight: '500' }}
+                            >
+                              {event?.attributes?.host?.data?.attributes?.name}{' '}
+                            </PostDate>
 
-                                                    <PostDate>Date : {event?.attributes?.host?.data?.attributes?.name}  |  {dayjs(event?.attributes?.startDate).format('DD MMMM YYYY')} - {dayjs(event?.attributes?.endDate).format('DD MMMM YYYY')}</PostDate>
-                                                    <PostMedia>
-                                                        {/* <Link href={'/posts'}><a><ThumbsUp /></a></Link> */}
-                                                        {/* <Link href={'/posts'}><a><BookMark /></a></Link> */}
-                                                    </PostMedia>
-                                                </Bottom>
-                                            </PostBody>
-                                        </Post>
-                                    </Column>
-                                ))}
-                            </Row>
-                        </Column>
+                            {/* <PostMedia>
+                              <Link href={'/posts'}>
+                                <a>
+                                  <ThumbsUp />
+                                </a>
+                              </Link>
+                              <Link href={'/posts'}>
+                                <a>
+                                  <BookMark />
+                                </a>
+                              </Link>
+                            </PostMedia> */}
+                          </Bottom>
+                          <Bottom></Bottom>
+                        </PostBody>
+                      </Post>
+                    </Column>
+                  ))}
+                </Row>
+              </Column>
 
-                        <Column>
-                            <SearchBar>
-                                <SearchInput placeholder="Search" type="text"
-                                    name="search"
-                                    onChange={handleSearch("search")}
-                                />
-                                <SearchButton></SearchButton>
-                            </SearchBar>
-                            <WidgetPanel>
-                                <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                                <WidgetPanelListing>
-
-                                    {categories?.map((cat, id) => (
-                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/events/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
-                                    ))}
-                                </WidgetPanelListing>
-
-                            </WidgetPanel>
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
-        </>
-    )
+              <Column>
+                <SearchBar>
+                  <SearchInput
+                    placeholder="Search"
+                    type="text"
+                    name="search"
+                    onChange={handleSearch('search')}
+                    style={{ fontSize: '14px', color: '#39364F' }}
+                  />
+                  <SearchButton></SearchButton>
+                </SearchBar>
+                <WidgetPanel>
+                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
+                  <WidgetPanelListing>
+                    {categories?.map((cat, id) => (
+                      <WidgetPanelLink
+                        key={id}
+                        style={{ fontSize: '14px', color: '#39364F' }}
+                      >
+                        <Image src="/checkbox.svg" alt="" />
+                        <Link href={`/events/${cat?.attributes?.slug}`}>
+                          {cat?.attributes?.slug}
+                        </Link>
+                      </WidgetPanelLink>
+                    ))}
+                  </WidgetPanelListing>
+                </WidgetPanel>
+              </Column>
+            </Row>
+          </InnerContainer>
+        </PageContainer>
+      </>
+    );
 }
 
 export default Events

@@ -2,9 +2,10 @@ import React, { useRef, useState } from 'react'
 import { StandaloneSearchBox } from "@react-google-maps/api";
 
 type searchType = {
-    children: React.ReactNode
-    onPlace: (_e: any) => void
-}
+  children?: React.ReactNode;
+  onPlace: (_e: any) => void;
+//   handlePlaceChanged: (_e: any) => void;
+};
 
 // type refType = {
 //     getPlaces: (e: any) => void
@@ -29,7 +30,7 @@ const SearchBox = ({ onPlace }: searchType) => {
                 lng: place.geometry.location.lng()
             }
             setLocation(address)
-            console.log('the current: ', inputRef?.current)
+            // console.log('the current: ', inputRef?.current)
             onPlace(place)
         }
     }
@@ -40,10 +41,10 @@ const SearchBox = ({ onPlace }: searchType) => {
               onPlacesChanged={handlePlaceChanged}
           >
               <input
-                  style={{ maxWidth: '300px', marginBottom: '.25rem', fontSize: '14px' }}
+                  style={{ maxWidth: '100%', marginBottom: '.25rem', fontSize: '14px' }}
                   type="text"
                   className="form-control"
-                  placeholder="Search Location"
+                  placeholder="Please search location if venue is not online "
               />
           </StandaloneSearchBox>
     </>
