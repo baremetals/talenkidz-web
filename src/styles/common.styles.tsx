@@ -826,7 +826,7 @@ export const BlockquoteName = styled.span`
 // Login
 
 export const LoginWrapper = styled.div`
-    max-width: 42rem;
+    max-width: 31.5rem;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -837,7 +837,7 @@ export const LoginInner = styled.div`
     background-color: #fff;
     border-radius: .625rem;
     padding: 2rem 1.875rem;
-    margin-top: 2rem;
+    /* margin-top: .2rem; */
 `;
 
 export const FormWrap = styled(Form)``;
