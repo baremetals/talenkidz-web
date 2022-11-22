@@ -95,11 +95,6 @@ const ResetPassword = () => {
                     {({ isSubmitting, errors, touched }) => (
                         <InnerContainer>
                             <LoginWrapper>
-                                <Link href={'/'} passHref>
-                                    <Logo>
-                                        <Image style={{ margin: 'auto' }} src='/logo.png' alt='site logo' />
-                                    </Logo>
-                                </Link>
                                 <LoginInner>
                                     {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                                     <Title style={{ lineHeight: '1.6', fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.5rem' }}>Reset Password</Title>

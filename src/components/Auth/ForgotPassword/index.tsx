@@ -72,12 +72,7 @@ const ForgotPassword = () => {
                 >
                     {({ isSubmitting, errors, touched }) => (
                         <InnerContainer>
-                            <LoginWrapper>
-                                <Link href={'/'} passHref>
-                                    <Logo>
-                                        <Image style={{ margin: 'auto' }} src='/logo.png' alt='site logo' />
-                                    </Logo>
-                                </Link>
+                            <LoginWrapper>                    
                                 <LoginInner>
                                     {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                                     <Title style={{ lineHeight: '1.6', fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.5rem' }}>Forgot Password</Title>
