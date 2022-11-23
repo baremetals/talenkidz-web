@@ -1,5 +1,5 @@
 import React from 'react';
-import EmailTemplate from 'components/EmailTemplate';
+import EmailTemplate from 'components/utilities/EmailTemplate';
 import { useRouter } from 'next/router';
 // import Footer from 'components/Footer';
 // import { withApollo } from 'utils/withApollo';

@@ -1,11 +1,10 @@
-import React from 'react';
 import Layout from 'components/Layout';
-import About from 'components/About';
+import About from 'components/service/About';
 
 export async function getStaticProps() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL
-  const about = await fetch(`${baseUrl}/about-us`)
-  const res = await about.json()
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const about = await fetch(`${baseUrl}/about-us`);
+  const res = await about.json();
 
   // console.log(res?.data?.attributes)
 
@@ -22,7 +21,7 @@ const AboutUs = ({ ...attributes }) => {
     current generation’s mindset, responsible for shaping their children’s future, 
     ultimately contributing to a better future tomorrow.
   `;
-  const url = "https://talentkids.io/about"
+  const url = 'https://talentkids.io/about';
   // console.log(cats?.data?.categories?.data);
 
   // const structuredData = {
@@ -40,7 +39,7 @@ const AboutUs = ({ ...attributes }) => {
   //   // datePublished: article?.attributes?.updatedAt,
   // };
   return (
-    <Layout 
+    <Layout
       title={`Talentkids | About Us`}
       metaDescription={description}
       canonicalUrl={url}
@@ -49,12 +48,11 @@ const AboutUs = ({ ...attributes }) => {
       // data={JSON.stringify(structuredData)}
       // imageHeight={'auto'}
       // imageWidth={'100%'}
-      type='about'    
+      type="about"
     >
-      <About data={attributes.attributes}/>
-
+      <About data={attributes.attributes} />
     </Layout>
-  )
+  );
 };
 
 export default AboutUs;

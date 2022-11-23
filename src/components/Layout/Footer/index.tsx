@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios';
 import { addToMailingList } from 'lib/helpers'
-import PolicyPopUp from "components/Policy"
+// import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaInstagram } from 'react-icons/fa'
@@ -30,13 +30,15 @@ import {
 } from "../../../styles/common.styles";
 
 import { NewsCard } from './NewsCard'
-import Button from 'components/Button';
+import Button from 'components/widgets/Button';
 // import AdComponent from 'components/AdComponent';
 
 import { FaceBook } from "../../../../public/assets/icons/FaceBook";
 import { Tiktok } from "../../../../public/assets/icons/Tiktok";
 import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
 import { Twitter } from "../../../../public/assets/icons/Twitter";
+import PolicyPopUp from 'components/service/Policy';
+
 // import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
 
 

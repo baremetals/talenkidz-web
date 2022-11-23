@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from "next/head";
-import EmailTemplate from 'components/EmailTemplate'
+import EmailTemplate from 'components/utilities/EmailTemplate'
 import { useRouter } from 'next/router';
 // import { useNoAuth } from "lib/noAuth";
 

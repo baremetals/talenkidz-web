@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Button from 'components/Button';
+import Button from 'components/widgets/Button';
 import NavBar from 'components/Layout/NavBar';
 import Footer from 'components/Layout/Footer';
 

@@ -1,69 +1,70 @@
-import React from 'react'
-import { GetServerSidePropsContext } from "next";
-import { client } from "lib/initApollo";
+import EventDetails from 'components/list/EventDetails';
+import Layout from 'components/Layout';
 import {
   EventDocument,
   EventEntityResponseCollection,
   EventQueryResult,
-} from "generated/graphql";
-import Layout from 'components/Layout';
-import EventDetails from 'components/EventDetails'
-import { useNoAuthPages } from "lib/noAuth";
-import { locationType, onlineLocationType, bothLocationType } from 'utils/types';
+} from 'generated/graphql';
+import { client } from 'lib/initApollo';
+import { useNoAuthPages } from 'lib/noAuth';
+import { GetServerSidePropsContext } from 'next';
+import {
+  bothLocationType,
+  locationType,
+  onlineLocationType,
+} from 'utils/types';
 
-const Event = (props: { data: { events: EventEntityResponseCollection; }; loading: boolean; error: any; }) => {
-
+const Event = (props: {
+  data: { events: EventEntityResponseCollection };
+  loading: boolean;
+  error: any;
+}) => {
   useNoAuthPages();
   const event = props?.data?.events?.data[0];
-  const location = event?.attributes?.Location
+  const location = event?.attributes?.Location;
   const meta = event?.attributes?.SEO;
-  const host = event?.attributes?.host?.data?.attributes
+  const host = event?.attributes?.host?.data?.attributes;
   // console.log(host)
-
-  
-
-  
 
   let place: locationType | onlineLocationType | bothLocationType;
 
-  if (event?.attributes?.venue === "both") {
-    place = [{
-      "@type": "VirtualLocation",
-      "url": event?.attributes?.link as string,
-    },
-    {
-      "@type": "Place",
-      "name": location?.name as string,
-      "address": {
-        "@type": "PostalAddress",
-        streetAddress: location?.street as string,
-        addressLocality: location?.town as string,
-        postalCode: location?.postCode as string,
-        "addressCountry": "UK"
-      }
-    },
-    ]
-  } 
-  else if (event?.attributes?.venue === "online") {
+  if (event?.attributes?.venue === 'both') {
+    place = [
+      {
+        '@type': 'VirtualLocation',
+        url: event?.attributes?.link as string,
+      },
+      {
+        '@type': 'Place',
+        name: location?.name as string,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: location?.street as string,
+          addressLocality: location?.town as string,
+          postalCode: location?.postCode as string,
+          addressCountry: 'UK',
+        },
+      },
+    ];
+  } else if (event?.attributes?.venue === 'online') {
     const ol = {
-      "@type": "VirtualLocation",
-      "url": event?.attributes?.link as string,
-    }
-    place = ol
-  } 
-  else {
+      '@type': 'VirtualLocation',
+      url: event?.attributes?.link as string,
+    };
+    place = ol;
+  } else {
     const loc = {
-      "@type": "Place",
-      "name": location?.name as string,
-      "address": {
-        "@type": "PostalAddress",
+      '@type': 'Place',
+      name: location?.name as string,
+      address: {
+        '@type': 'PostalAddress',
         streetAddress: location?.street,
         addressLocality: location?.town,
         postalCode: location?.postCode,
-        "addressCountry": "UK"
-      }
-    } as locationType
-    place = loc
+        addressCountry: 'UK',
+      },
+    } as locationType;
+    place = loc;
   }
 
   const structuredData = {
@@ -72,8 +73,8 @@ const Event = (props: { data: { events: EventEntityResponseCollection; }; loadin
     name: meta?.title,
     startDate: event?.attributes?.startDate,
     endDate: event?.attributes?.endDate,
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
     location: place,
     image: meta?.image,
     description: meta?.description,
@@ -82,10 +83,9 @@ const Event = (props: { data: { events: EventEntityResponseCollection; }; loadin
         '@type': 'Organization',
         name: host?.name,
         logo: host?.logo,
-        url: host?.website
+        url: host?.website,
       },
     ],
-    
   };
 
   // console.log('the data: ', structuredData)
@@ -103,8 +103,8 @@ const Event = (props: { data: { events: EventEntityResponseCollection; }; loadin
     >
       <EventDetails props={props} />
     </Layout>
-  )
-}
+  );
+};
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { slug } = ctx.query;
@@ -122,4 +122,4 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     props: { data }, // will be passed to the page component as props
   };
 }
-export default Event
+export default Event;

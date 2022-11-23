@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 import Layout from 'components/Layout';
 import Markdown from 'markdown-to-jsx';
+import { useEffect, useState } from 'react';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 
 const PrivacyPage = () => {
-
   const [content, setContent] = useState<string>('');
 
   const getPrivacyData = async function () {
-    const response = await fetch(`/api/kids/privacy`)
-    const res = await response.json()
-    return setContent(res?.content)
-  }
+    const response = await fetch(`/api/kids/privacy`);
+    const res = await response.json();
+    return setContent(res?.content);
+  };
 
   useEffect(() => {
-    getPrivacyData()
-  }, [])
+    getPrivacyData();
+  }, []);
 
   const description = `
     Our Privacy Policy explains how we collect, store and use the personal data you give to us. 
@@ -38,7 +37,7 @@ const PrivacyPage = () => {
         >
           <InnerContainer>
             <Title>Privacy policy</Title>
-            <Markdown>{content && content}</Markdown>
+            <Markdown>{content}</Markdown>
           </InnerContainer>
         </PageContainer>
       </Layout>
@@ -47,4 +46,3 @@ const PrivacyPage = () => {
 };
 
 export default PrivacyPage;
-

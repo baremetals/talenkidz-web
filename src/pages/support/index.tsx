@@ -1,5 +1,5 @@
 import React from 'react'
-import SupportPage from 'components/SuppportPage'
+import SupportPage from 'components/service/SuppportPage'
 
 function Support() {
     return (
