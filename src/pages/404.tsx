@@ -1,4 +1,4 @@
-import ErrorPage from 'components/ErrorPage';
+import ErrorPage from 'components/utilities/ErrorPage';
 import Layout from 'components/Layout';
 
 export default function PageNotFound() {

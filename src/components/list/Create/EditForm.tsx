@@ -14,19 +14,15 @@ import {
 } from '@mui/material';
 
 import {
-    useCategoriesQuery,
-    Exact,
-    CategoriesQuery,
     CategoriesDocument,
-    ListingEntity,
     Maybe,
     Listing,
     Event
 } from 'generated/graphql';
-import { QueryResult, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 

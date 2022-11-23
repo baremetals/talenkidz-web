@@ -1,4 +1,4 @@
-import Home from 'components/Home';
+import Home from 'components/service/Home';
 import Layout from 'components/Layout';
 
 // import { withApollo } from "utils/withApollo";

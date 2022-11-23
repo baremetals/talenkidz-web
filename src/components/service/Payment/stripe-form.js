@@ -7,7 +7,7 @@ import React, {SetStateAction, useState} from 'react';
 import {loadStripe, StripeCardNumberElement} from '@stripe/stripe-js';
 import {
   CardNumberElement,
-  CardCvcElement,
+  // CardCvcElement,
   CardExpiryElement,
   Elements,
   useElements,
@@ -60,7 +60,7 @@ const CheckoutForm = () => {
   const [name, setName] = useState('');
   const [postal, setPostal] = useState('');
   const [modalMessage, setModalMessage] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState({});
+  const [_paymentMethod, setPaymentMethod] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

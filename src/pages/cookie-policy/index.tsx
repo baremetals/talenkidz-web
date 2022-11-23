@@ -37,7 +37,7 @@ const CookiePolicy = () => {
         >
           <InnerContainer>
             <Title>How Talent Kids Uses Cookies </Title>
-            <Markdown>{content && content}</Markdown>
+            <Markdown>{content}</Markdown>
           </InnerContainer>
         </PageContainer>
       </Layout>

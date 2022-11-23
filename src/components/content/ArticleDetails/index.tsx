@@ -1,9 +1,9 @@
+import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { upperCase } from 'lib/helpers';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
-import { useState } from 'react';
 dayjs.extend(relativeTime);
 
 import {
@@ -36,7 +36,7 @@ export const ArticleDetails = (props: {
     error: any;
   };
 }) => {
-  const [socialDropdown, setSocialDropdown] = useState(false);
+  // const [socialDropdown, setSocialDropdown] = useState(false);
   const { data, loading, error } = props.props;
   // console.log(data)
 

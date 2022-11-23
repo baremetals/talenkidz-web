@@ -43,7 +43,7 @@ const OrgProfile = ({ user }: Props) => {
     const [bio, setBio] = useState<string>(user?.bio as string);
     const [backgroundImg, setBackgroundImg] = useState<any>(user?.profile?.data?.attributes?.backgroundImg);
     const [uploadImg, setUploadImg] = useState<FileType | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [_loading, setLoading] = useState<boolean>(false);
 
     const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files || event.target.files.length === 0) return;

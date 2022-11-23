@@ -104,7 +104,6 @@ const Form = ({ formType, id }: form) => {
     register,
     handleSubmit,
     setValue,
-    control,
     formState: { errors },
   } = useForm<FormProps>();
 
@@ -231,7 +230,7 @@ const Form = ({ formType, id }: form) => {
                 });
               }
             })
-            .catch((err) => {
+            .catch((_err) => {
               // console.log(err.response.data)
               setSubmitting(false);
               setMsg('Sorry something went wrong please try again later.');

@@ -41,6 +41,8 @@ export const formReducer = (
         showInput: true,
       };
     default:
-      state;
+      return {
+        ...state
+      }
   }
 };

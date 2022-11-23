@@ -52,7 +52,7 @@ const MyProfile = ({ user }: Props) => {
   const [backgroundImg, setBackgroundImg] = useState<FileType | string>(user?.backgroundImg as string || '');
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
   // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState<boolean>(false);
+  const [_loading, setLoading] = useState<boolean>(false);
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;

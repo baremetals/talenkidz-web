@@ -49,7 +49,7 @@ function Footer(): ReactElement {
 
     if (typeof window !== "undefined") {
         // eslint-disable-next-line no-unused-vars, no-async-promise-executor
-        const promise = new Promise(async function (resolve, reject) {
+        const _promise = new Promise(async function (resolve, reject) {
             const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
 
             if (r.data.name === 'no cookie') {

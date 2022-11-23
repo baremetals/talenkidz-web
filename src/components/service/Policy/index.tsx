@@ -188,7 +188,7 @@ function PolicyPopUp({ privacyPolicy }: policy) {
                                                 }
                                             }} 
                                             // value={set.consent ? 'yes' : 'no'}
-                                            checked={set.checked && set.checked}                                    
+                                            checked={set.checked}                                    
                                         ></Input>
                                         <LabelText htmlFor={set.title}>Consent </LabelText>
                                         <Button onClick={ () => toggleSetting(i)} className="toggle-button">{'>'}</Button>

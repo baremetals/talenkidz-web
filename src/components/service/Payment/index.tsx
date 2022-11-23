@@ -15,19 +15,19 @@ import NavBar from 'components/Layout/NavBar';
 
 import {
     InnerContainer,
-    Row,
-    Column,
+    // Row,
+    // Column,
     PageContainer,
-    WidgetPanel,
-    WidgetPanelTitle,
+    // WidgetPanel,
+    // WidgetPanelTitle,
     AlignCentered,
     PaymentOuter,
     CardStyle,
     PaymentInner,
-    PaymentDetail,
+    // PaymentDetail,
     PaymentForm,
-    Paragraph,
-    H6,
+    // Paragraph,
+    // H6,
     H3,
     StepTabs,
     StepItem,
@@ -43,8 +43,8 @@ import Button from 'components/widgets/Button';
 
 const CreateListing = () => {
 
-    const [formType, setFormType] = useState('activity')
-    const { user: user } = useAppSelector(isUser);
+    // const [formType, setFormType] = useState('activity')
+    const { user: _user } = useAppSelector(isUser);
 
     return (
         <>
