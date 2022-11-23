@@ -3,7 +3,7 @@ import React from 'react'
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { useIsAuth } from "lib/isAuth";
-import Org from "components/Organisations";
+import Org from "components/users/Organisations";
 import { requireAuthentication } from 'lib/requireAuthentication';
 import { initializeApollo } from "lib/apolloClient";
 import {

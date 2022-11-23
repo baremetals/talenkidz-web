@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
 import Layout from 'components/Layout';
-import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 import Markdown from 'markdown-to-jsx';
+import { useEffect, useState } from 'react';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 
 const CookiePolicy = () => {
-
   const [content, setContent] = useState<string>('');
 
   const getTermsData = async function () {
-    const response = await fetch(`/api/kids/cookie`)
-    const res = await response.json()
-    return setContent(res?.content)
-  }
+    const response = await fetch(`/api/kids/cookie`);
+    const res = await response.json();
+    return setContent(res?.content);
+  };
 
   useEffect(() => {
-    getTermsData()
-  }, [])
+    getTermsData();
+  }, []);
 
   const description = `
     Our website uses cookies, as almost all websites do, to help provide you with the best experience 
@@ -38,7 +37,7 @@ const CookiePolicy = () => {
         >
           <InnerContainer>
             <Title>How Talent Kids Uses Cookies </Title>
-            <Markdown>{content && content}</Markdown>
+            <Markdown>{content}</Markdown>
           </InnerContainer>
         </PageContainer>
       </Layout>

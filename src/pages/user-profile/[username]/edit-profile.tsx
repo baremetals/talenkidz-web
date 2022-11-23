@@ -10,7 +10,7 @@ import {
 } from "generated/graphql";
 import Head from 'next/head';
 import { useIsAuth } from 'lib/isAuth';
-import EditProfile from 'components/EditProfile';
+import EditProfile from 'components/users/EditProfile';
 
 type Props ={
   data: {

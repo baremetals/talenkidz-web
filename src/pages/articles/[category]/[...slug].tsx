@@ -1,14 +1,13 @@
-import React from 'react';
-import { GetServerSidePropsContext } from 'next';
-import { client } from 'lib/initApollo';
+import { ArticleDetails } from 'components/content/ArticleDetails';
+import Layout from 'components/Layout';
 import {
   ArticleDocument,
   ArticleEntityResponseCollection,
   ArticleQueryResult,
 } from 'generated/graphql';
-import { ArticleDetails } from 'components/ArticleDetails';
+import { client } from 'lib/initApollo';
 import { useNoAuthPages } from 'lib/noAuth';
-import Layout from 'components/Layout';
+import { GetServerSidePropsContext } from 'next';
 
 const Article = (props: {
   data: { articles: ArticleEntityResponseCollection };

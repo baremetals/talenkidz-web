@@ -1,6 +1,6 @@
+import ErrorPage from 'components/utilities/ErrorPage';
 import { NextPageContext } from "next";
 import { ErrorProps } from "next/error";
-import ErrorPage from "components/ErrorPage";
 
 function Error({ statusCode }: ErrorProps) {
   return <ErrorPage statusCode={statusCode} />;
