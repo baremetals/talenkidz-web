@@ -25,6 +25,10 @@ query Listings($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+        Location {
+          name
+          town
+        }
         host {
           data {
             attributes {

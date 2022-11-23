@@ -32,6 +32,10 @@ query FilteredEvents(
             }
           }
         }
+        Location {
+          name
+          town
+        }
         category {
           data {
             id

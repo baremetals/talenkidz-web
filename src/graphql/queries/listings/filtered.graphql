@@ -29,6 +29,10 @@ query FilteredListings(
             }
           }
         }
+        Location {
+          name
+          town
+        }
         host {
           data {
             attributes {

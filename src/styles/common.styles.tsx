@@ -219,13 +219,14 @@ export const SubTitle = styled.span`
     }
 `;
 
-export const Title = styled.h2`
-    font-size: 3rem;
-    line-height: 1.2;
-    margin-bottom:1.25rem;
-    @media (max-width: 991px) {
-        font-size: 2rem;
-    }
+export const Title = styled.h1`
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  @media (max-width: 991px) {
+    font-size: 2rem;
+  }
+  color: #1E0A3C;
 `;
 
 export const Text = styled.p`
@@ -571,9 +572,9 @@ export const Benefits = styled.section`
 // Footer 
 
 export const SiteFooter = styled.footer`
-    padding-top: 6.25rem;
-    padding-bottom: 6.25rem;
-    background-color: #232323;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #130429;
     @media (max-width: 991px) {
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
@@ -622,18 +623,27 @@ export const MediaObjectThumb = styled.div`
 export const MediaObjectBody = styled.div``;
 
 export const MediaObjectDate = styled.span`
-    font-size: .75rem;
-    font-weight: 300;
-    color: #74787C;
-    display: block;
-    margin-bottom: .5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #a40a52;
+  display: block;
+  margin-bottom: 0.2rem;
+`;
+
+export const MediaObjectSpan = styled.span`
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #74787c;
+  display: block;
+  margin-bottom: 0.1rem;
 `;
 
 export const MediaObjectTitle = styled.h4`
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.4;
+  color: #fff;
+  font-size: 1rem;
+  /* font-size: 14px; */
+  font-weight: 450;
+  line-height: 1.4;
 `;
 
 // Posts
@@ -664,9 +674,11 @@ export const PostBody = styled.div`
 `;
 
 export const PostTitle = styled.h3`
-    font-size: 1.625rem;
-    margin-bottom: .75rem;
-    line-height: 1.3;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  color: #39364f;
 `;
 
 export const Top = styled.div`
@@ -674,7 +686,7 @@ export const Top = styled.div`
 `
 
 export const Bottom = styled.div`
-    display: flex;
+  display: flex;
 `;
 
 export const PostDate = styled.div`
@@ -698,7 +710,7 @@ export const PostMedia = styled.div`
 `;
 
 export const SearchBar = styled.div`
-    background-color: #FFC000;
+    background-color: #e4ec8b;
     padding: 1.875rem;
     border-radius: .625rem;
     margin-bottom: 1.875rem;
@@ -749,19 +761,20 @@ export const WidgetPanel = styled.div`
 `;
 
 export const WidgetPanelTitle = styled.div`
-    padding: .875rem 1.875rem;
-    font-size: 1.375rem;
-    font-weight: 600;
-    background-color: #1AB9FF;
-    color: #fff;
-    @media (max-width: 991px) {
-        padding: .75rem 1.25rem;
-        font-size: 1.125rem;
-    }
+  padding: 0.875rem 1.875rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+  background-color: #86a6b4;
+  color: #ebebeb;
+  @media (max-width: 991px) {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.125rem;
+  }
 `;
 
 export const WidgetPanelListing = styled.div`
     padding: 1.875rem;
+    background-color: #f4f1f1;
     @media (max-width: 991px) {
         padding: 1.25rem;
     }
@@ -813,7 +826,7 @@ export const BlockquoteName = styled.span`
 // Login
 
 export const LoginWrapper = styled.div`
-    max-width: 42rem;
+    max-width: 31.5rem;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -824,7 +837,7 @@ export const LoginInner = styled.div`
     background-color: #fff;
     border-radius: .625rem;
     padding: 2rem 1.875rem;
-    margin-top: 2rem;
+    /* margin-top: .2rem; */
 `;
 
 export const FormWrap = styled(Form)``;
@@ -1094,21 +1107,21 @@ export const Avatar = styled.div`
 `;
 
 export const AvatarRow = styled.div`
-    display:flex;
-    align-items: center;
-    justify-content:center;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    > div{
-        font-size: inherit;
-        &:before{
-            content: "|";
-            margin: 0 1rem;
-        }
-        &:first-child:before{
-            display: none;
-        }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  > div {
+    font-size: inherit;
+    &:before {
+      content: '•';
+      margin: 0 1rem;
     }
+    &:first-child:before {
+      display: none;
+    }
+  }
 `;
 
 export const AddressMap = styled.div`

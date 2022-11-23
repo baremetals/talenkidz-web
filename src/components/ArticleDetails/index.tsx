@@ -28,7 +28,6 @@ import { ErrorMsg } from "components/Input";
 import { ClockSeven } from '../../../public/assets/icons/ClockSeven'
 import { ArticleEntityResponseCollection } from 'generated/graphql';
 import SocialShare from 'components/Layout/SocialShare';
-import { SocialDropDownIcon } from "../../../public/assets/icons/SocialDropDownIcon"
 
 export const ArticleDetails = (props: {
     props: {
@@ -62,11 +61,6 @@ export const ArticleDetails = (props: {
 
     const categoryArticle = article?.attributes?.category?.data?.attributes?.slug as string;
 
-
-    const socialToggle = () => {
-        setSocialDropdown(!socialDropdown)
-    }
-
     return (
         <>
             <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
@@ -86,7 +80,7 @@ export const ArticleDetails = (props: {
                                             <Image src={imageurl} alt='article image' />
                                         </PostThumb>
                                         <PostBody>
-                                            <PostTitle style={{ fontSize: '1.2rem', color: '#2e3032', marginBottom: '.3rem' }}>{article?.attributes?.title} <SocialShare toggle={socialToggle} socialDropdown={socialDropdown} pathname={`/articles/${categoryArticle.toLowerCase()}/${postSlug}`} ><SocialDropDownIcon /></SocialShare></PostTitle>
+                                            <PostTitle style={{ fontSize: '1.2rem', color: '#2e3032', marginBottom: '.3rem' }}>{article?.attributes?.title} <SocialShare pathname={`/articles/${categoryArticle.toLowerCase()}/${postSlug}`} /></PostTitle>
                                             <PostDate
                                                 style={{ marginBottom: "1.25rem" }}
                                             >

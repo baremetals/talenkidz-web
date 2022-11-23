@@ -16,16 +16,34 @@ const CookiePolicy = () => {
   useEffect(() => {
     getTermsData()
   }, [])
-  return <>
-    <Layout title={'Cookie Policy'} >
-    <PageContainer style={{ backgroundColor: '#f7f7f7' }} className="content">
-      <InnerContainer>
-        <Title>How Talent Kids Uses Cookies </Title>
-          <Markdown>{content && content}</Markdown>
-      </InnerContainer>
-    </PageContainer>
-    </Layout>
-  </>;
+
+  const description = `
+    Our website uses cookies, as almost all websites do, to help provide you with the best experience 
+    we can. Cookies are small text files that are placed on your computer or mobile phone when you 
+    browse websites.
+  `;
+  const url = 'https://talentkids.io/cookie-policy';
+  return (
+    <>
+      <Layout
+        title={'Talentkids | Cookie Policy'}
+        metaDescription={description}
+        canonicalUrl={url}
+        pageUrl={url}
+        type="cookie policy"
+      >
+        <PageContainer
+          style={{ backgroundColor: '#f7f7f7' }}
+          className="content"
+        >
+          <InnerContainer>
+            <Title>How Talent Kids Uses Cookies </Title>
+            <Markdown>{content && content}</Markdown>
+          </InnerContainer>
+        </PageContainer>
+      </Layout>
+    </>
+  );
 };
 
 export default CookiePolicy;

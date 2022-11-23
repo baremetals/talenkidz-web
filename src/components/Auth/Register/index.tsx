@@ -114,11 +114,6 @@ const Register = () => {
                     {({ isSubmitting, errors, touched, values }) => (
                         <InnerContainer>
                             <LoginWrapper>
-                                <Link href={'/'} passHref>
-                                    <Logo>
-                                        <Image style={{ margin: 'auto' }} src='/logo.png' alt="" />
-                                    </Logo>
-                                </Link>
                                 <LoginInner>
                                     {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                                     <Title style={{ lineHeight: '1.6', fontSize: '1.5rem', textAlign: 'center', marginBottom: '1.5rem' }}>Sign Up</Title>
