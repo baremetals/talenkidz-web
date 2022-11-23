@@ -1,6 +1,7 @@
 import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
 import { upperCase } from 'lib/helpers'
 
@@ -9,6 +10,7 @@ import {
     InnerBanner,
     InnerContainer,
     Title,
+    PostTitle,
     Text,
     PageContainer,
     Row,
@@ -27,49 +29,63 @@ import {
     WidgetPanelListing,
     WidgetPanelLink,
     Image,
+    PostThumb,
+    Bottom,
+    PostDate,
+    // PostMedia,
 } from 'styles/common.styles';
+
+// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
+// import { BookMark } from '../../../../public/assets/icons/BookMark'
 
 
 type listingProps = {
-    id: string;
-    attributes: {
-        // body: string;
-        category: {
-            data: {
-                id: string;
-                attributes: {
-                    // name: string;
-                    slug: string;
-                };
-            };
+  id: string;
+  attributes: {
+    // body: string;
+    category: {
+      data: {
+        id: string;
+        attributes: {
+          // name: string;
+          slug: string;
         };
-        startDate: string;
-        endDate: string;
-        createdAt: Date;
-        slug: string;
-        title: string;
-        description: string;
-        host: {
-            data: {
-                id: string;
-                attributes: {
-                    logo: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-        heroImage: {
-            data: {
-                id: string;
-                attributes: {
-                    url: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
+      };
     };
+    startDate: string;
+    endDate: string;
+    createdAt: Date;
+    slug: string;
+    title: string;
+    description: string;
+    host: {
+      data: {
+        id: string;
+        attributes: {
+          logo: string;
+          // slug: string;
+          name: string;
+        };
+      };
+    };
+    startTime: string
+    listImage: string;
+    price: string;
+    Location: {
+      name: string;
+      town: string;
+    };
+    // heroImage: {
+    //   data: {
+    //     id: string;
+    //     attributes: {
+    //       url: string;
+    //       // slug: string;
+    //       // img: string;
+    //     };
+    //   };
+    // };
+  };
 };
 
 type pageProps = {
@@ -162,18 +178,72 @@ function Listings({ listings, categories }: pageProps) {
                               />
                             </ListIcon>
                             <ListBody>
-                              <Title
-                                style={{
-                                  fontSize: '1.375rem',
-                                  marginBottom: '1.25rem',
-                                }}
+                              <PostThumb>
+                                <Image
+                                  src={list?.attributes?.listImage}
+                                  alt="article image"
+                                  style={{ height: '200px' }}
+                                />
+                              </PostThumb>
+                              <PostTitle
                               >
                                 {list?.attributes?.title}
-                              </Title>
-                              <Text style={{ marginBottom: '0' }}>
+                              </PostTitle>
+                              {/* <Text style={{ marginBottom: '0' }}>
                                 {list?.attributes?.description}
-                              </Text>
+                              </Text> */}
                             </ListBody>
+                            <Bottom style={{ marginBottom: '.25rem' }}>
+                              <PostDate style={{ color: '#a40a52' }}>
+                                {/* {dayjs(event?.attributes?.startDate).day()}{' '}
+                              , */}
+                                {dayjs(list?.attributes?.startDate).format(
+                                  'DD MMMM YYYY'
+                                )}
+                                , {list?.attributes?.startTime}
+                              </PostDate>
+                            </Bottom>
+                            <Bottom style={{ marginBottom: '.25rem' }}>
+                              <PostDate>
+                                {`${list?.attributes?.Location?.name}` +
+                                  ' • ' +
+                                  `${list?.attributes?.Location?.town}`}
+                              </PostDate>
+                            </Bottom>
+                            <Bottom style={{ marginBottom: '.25rem' }}>
+                              <PostDate>
+                                {list?.attributes?.price === '0'
+                                  ? 'Free'
+                                  : `£${list?.attributes?.price}`}{' '}
+                              </PostDate>
+                            </Bottom>
+                            <Bottom>
+                              <PostDate
+                                style={{
+                                  fontSize: '14px',
+                                  color: '#39364F',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                {
+                                  list?.attributes?.host?.data?.attributes
+                                    ?.name
+                                }{' '}
+                              </PostDate>
+
+                              {/* <PostMedia>
+                              <Link href={'/posts'}>
+                                <a>
+                                  <ThumbsUp />
+                                </a>
+                              </Link>
+                              <Link href={'/posts'}>
+                                <a>
+                                  <BookMark />
+                                </a>
+                              </Link>
+                            </PostMedia> */}
+                            </Bottom>
                           </ListCard>
                         </Link>
                       </Column>

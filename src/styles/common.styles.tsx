@@ -939,7 +939,7 @@ export const ListCard = styled.div`
     border: 1px solid #D9D9D9;
     border-radius: .625rem;
     padding: 2.25rem;
-    text-align: center;
+    /* text-align: center; */
     display: flex;
     flex-direction: column;
     width: 100%;

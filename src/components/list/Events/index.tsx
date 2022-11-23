@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import dayjs from "dayjs";
 import { upperCase } from 'lib/helpers'
 
-// import { ThumbsUp } from '../../../public/assets/icons/ThumbsUp'
-// import { BookMark } from '../../../public/assets/icons/BookMark'
+// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
+// import { BookMark } from '../../../../public/assets/icons/BookMark'
 import { Event, EventEntity, CategoryEntity } from 'generated/graphql';
 
 
@@ -35,10 +35,10 @@ import {
     PostTitle,
     Bottom,
     PostDate,
-    PostMedia,
+    // PostMedia,
 } from 'styles/common.styles';
-import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp';
-import { BookMark } from '../../../../public/assets/icons/BookMark';
+// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp';
+// import { BookMark } from '../../../../public/assets/icons/BookMark';
 
 type eventProps = {
   id: string;
