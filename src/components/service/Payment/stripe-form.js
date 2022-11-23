@@ -23,9 +23,9 @@ import {
 
 import { ErrorDialogContent, ErrorIcon } from './styles'
 
-import Dialog from 'components/Dialog';
+import Dialog from 'components/utilities/Dialog';
 import {logEvent, Result, ErrorResult} from './utils';
-import Button from 'components/Button';
+import Button from 'components/widgets/Button';
 
 const ELEMENT_OPTIONS = {
   style: {
