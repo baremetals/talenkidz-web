@@ -1,16 +1,14 @@
-import ConnectProvider from 'components/Auth/Connect'
+import ConnectProvider from 'components/users/Auth/Connect';
 import Layout from 'components/Layout';
-import React from 'react'
 import { useRouter } from 'next/router';
 
-
 const ConnectWithProvider = () => {
-    const router = useRouter();
-    const { provider } = router.query;
-    const description = `
+  const router = useRouter();
+  const { provider } = router.query;
+  const description = `
         Thiss page confirms login or registration using google or facebook.
     `;
-    const url = `https://talentkids.io/auth/connect/${provider}`;
+  const url = `https://talentkids.io/auth/connect/${provider}`;
   return (
     <Layout
       title={`Talentkids | ${provider} Login`}
@@ -22,6 +20,6 @@ const ConnectWithProvider = () => {
       <ConnectProvider />
     </Layout>
   );
-}
+};
 
-export default ConnectWithProvider
+export default ConnectWithProvider;

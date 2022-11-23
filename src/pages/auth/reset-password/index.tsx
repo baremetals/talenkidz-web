@@ -1,7 +1,6 @@
-import React from "react";
-import PasswordReset from "components/Auth/PasswordReset";
-import { withApollo } from "utils/withApollo";
+import PasswordReset from 'components/users/Auth/PasswordReset';
 import Layout from 'components/Layout';
+import { withApollo } from 'utils/withApollo';
 
 const ResetPassword = () => {
   const description = `

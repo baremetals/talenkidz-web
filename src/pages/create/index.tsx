@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateListing from 'components/Create'
+import CreateListing from 'components/list/Create'
 import { requireAuthentication } from 'lib/requireAuthentication';
 import { GetServerSideProps } from 'next';
 import { useIsAuth } from 'lib/isAuth';

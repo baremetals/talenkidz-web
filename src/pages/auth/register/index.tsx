@@ -1,7 +1,4 @@
-import React from 'react';
-import Register from 'components/Auth/Register';
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
+import Register from 'components/users/Auth/Register';
 import Layout from 'components/Layout';
 // import { withApollo } from 'utils/withApollo';
 
