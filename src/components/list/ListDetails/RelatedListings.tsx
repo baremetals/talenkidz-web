@@ -82,7 +82,7 @@ function RelatedListings({ category }: propType): ReactElement {
     return (
         <>
             <WidgetPanel>
-                <WidgetPanelTitle style={{ backgroundColor: '#8152cd' }}>Related Listings</WidgetPanelTitle>
+                <WidgetPanelTitle>Related Listings</WidgetPanelTitle>
                 <WidgetPanelListing>
                     <MediaObject>
                         {arty?.map((art, id) => (
