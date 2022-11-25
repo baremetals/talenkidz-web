@@ -73,9 +73,19 @@ function RelatedEvents({ category }: propType): ReactElement {
                         src={
                           eve?.attributes?.listImage || '/default-list-img.jpg'
                         }
-                        alt=""
+                        alt="event image"
                       />
                     </Link>
+                    <MediaObjectSpan
+                      style={{
+                        fontSize: '14px',
+                        color: '#39364F',
+                        fontWeight: '500',
+                        // marginTop: '0.1rem'
+                      }}
+                    >
+                      {eve?.attributes?.host?.data?.attributes?.name}{' '}
+                    </MediaObjectSpan>
                   </MediaObjectThumb>
                   <MediaObjectBody>
                     <Link
@@ -98,16 +108,6 @@ function RelatedEvents({ category }: propType): ReactElement {
                       {eve?.attributes?.price === '0'
                         ? 'Free'
                         : `£${eve?.attributes?.price}`}{' '}
-                    </MediaObjectSpan>
-                    <MediaObjectSpan
-                      style={{
-                        fontSize: '14px',
-                        color: '#39364F',
-                        fontWeight: '500',
-                        // marginTop: '0.1rem'
-                      }}
-                    >
-                      {eve?.attributes?.host?.data?.attributes?.name}{' '}
                     </MediaObjectSpan>
                   </MediaObjectBody>
                 </MediaObjectItem>

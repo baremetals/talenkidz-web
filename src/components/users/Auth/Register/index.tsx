@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-import { getRegisterValidationSchema } from "utils/formValidation";
+import { getRegisterValidationSchema } from "src/utils/formValidation";
 import TermsModal from "components/utilities/Modal/TermsModal"
 import { Error, ErrorMsg } from 'components/widgets/Input';
 import Provider from "../Provider"
@@ -51,9 +51,9 @@ import {
 
 import { RadioFormInput, RadioFormGroup } from '../auth-styles'
 
-import { Message } from "../../../../../public/assets/icons/Message";
-import { Lock } from "../../../../../public/assets/icons/Lock";
-import { Profile } from "../../../../../public/assets/icons/Profile";
+import { Message } from "public/assets/icons/Message";
+import { Lock } from "public/assets/icons/Lock";
+import { Profile } from "public/assets/icons/Profile";
 
 
 const Register = () => {

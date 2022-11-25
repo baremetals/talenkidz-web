@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { upperCase } from 'lib/helpers';
+import { upperCase } from 'src/lib/helpers';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
 dayjs.extend(relativeTime);
@@ -111,8 +111,13 @@ export const ArticleDetails = (props: {
                         )}{' '}
                         |{` ${article?.attributes?.readingTime}`}
                       </PostDate>
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <Markdown>
+                      <div
+                        style={{ marginBottom: '1.5rem' }}
+                        // dangerouslySetInnerHTML={{
+                        //   __html: article?.attributes?.body as string,
+                        // }}
+                      >
+                        <Markdown options={{ wrapper: 'article' }}>
                           {article?.attributes?.body as string}
                         </Markdown>
                       </div>

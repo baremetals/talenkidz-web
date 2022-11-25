@@ -3,11 +3,7 @@ import Layout from 'components/Layout';
 // import { withApollo } from 'utils/withApollo';
 
 function RegisterPage() {
-  const description = `
-        Please use the register page to sign up for an account. 
-        You will need to provide an email address and password.
-        You can also use your existing Google or Facebook account to register for an account.
-    `;
+  const description = `Register - Events and activities for kids`;
   const url = 'https://talentkids.io/auth/register';
   return (
     <Layout

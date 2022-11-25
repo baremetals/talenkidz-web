@@ -1,7 +1,8 @@
 // import { POSITION } from 'react-toastify/dist/utils';
 import styled from 'styled-components'
 import { Field, Form } from "formik";
-// import NextImage from "next/image";
+import * as NextImage from "next/image";
+// import Image from 'next/image';
 
 export const PageContainer = styled.section`
     padding-top: 3.75rem;
@@ -82,8 +83,8 @@ export const NavBarHeader = styled.nav`
 export const Logo = styled.div`
     margin-right: auto;
     font-weight: bold;
-    font-size: 2rem;
-    line-height: 1;
+    font-size: 1rem;
+    line-height: 0.5;
     img {
         width: 200px;
         aspect-ratio: inherit;
@@ -131,40 +132,40 @@ export const NavBarNav = styled.ul`
 `;
 
 export const NavBarItem = styled.li`
-    margin-right: 2rem;
+  margin-right: 2rem;
+  a {
+    display: block;
+    @media (max-width: 991px) {
+      padding: 0.75rem 1.375rem;
+    }
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  &.signup {
     a {
-        display: block;
-        @media (max-width: 991px) {
-            padding: .75rem 1.375rem;
-        }
-    }
-    &:last-child {
-        margin-right: 0;
-    }
-    &.signup {
-        a {
-            background-color: #3762e4;
-            color: #FFF;
-            padding: .5rem 1.375rem;
-            border-radius: .375rem;
-            &:hover {
-                background-color: #333;
-                color: #fff;
-            }
-            @media (max-width: 991px) {
-                border-radius: 0;
-                padding: .75rem 1.375rem;
-            }
-        }
-        @media (max-width: 991px) {
-            margin-top: auto;
-            border-bottom: none;
-        }
+      background-color: #3762e4;
+      color: #fff;
+      padding: 0.5rem 1.375rem;
+      border-radius: 0.375rem;
+      &:hover {
+        background-color: #333;
+        color: #fff;
+      }
+      @media (max-width: 991px) {
+        border-radius: 0;
+        padding: 0.75rem 1.375rem;
+      }
     }
     @media (max-width: 991px) {
-        margin-right: 0;
-        width: 100%;
+      margin-top: auto;
+      border-bottom: none;
     }
+  }
+  @media (max-width: 991px) {
+    margin-right: 0;
+    width: 100%;
+  }
 `;
 
 export const NavBarItemLink = styled.a`
@@ -227,6 +228,16 @@ export const Title = styled.h1`
     font-size: 2rem;
   }
   color: #1E0A3C;
+`;
+
+export const H2Title = styled.h2`
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  @media (max-width: 991px) {
+    font-size: 2rem;
+  }
+  color: #1e0a3c;
 `;
 
 export const Text = styled.p`
@@ -312,16 +323,16 @@ export const Image = styled.img`
 // Hero Banner
 
 export const Hero = styled.section`
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #ffe6e1;
-    height: 520px;
-    display: flex;
-    align-items: center;
-    @media (max-width: 991px) {
-        height: 400px;
-    }
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #06283d;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  @media (max-width: 991px) {
+    height: 400px;
+  }
 `;
 
 export const HeroContent = styled.div`

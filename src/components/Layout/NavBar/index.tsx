@@ -2,8 +2,8 @@ import React from "react";
 // import { useRouter } from "next/router";
 // import Link from "next/link";
 // import axios from 'axios';
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+import { useAppSelector } from "src/app/hooks";
+import { isUser } from "src/features/auth/selectors";
 
 // import {
 //     InnerContainer,

@@ -2,6 +2,7 @@ import React from 'react'
 // import dayjs from "dayjs";
 import Link from 'next/link'
 import { useListingsQuery } from "generated/graphql";
+import Image from 'next/image';
 
 // import Button from 'components/Auth/Button';
 // import Footer from 'components/Footer';
@@ -10,20 +11,20 @@ import { useListingsQuery } from "generated/graphql";
 // import Company from '../About/Company'
 
 import {
-    InnerContainer,
-    Heading,
-    SubTitle,
-    Title,
-    Row,
-    Column,
-    Image,
-    Classes,
-    PostCard,
-    PostCardThumb,
-    PostCardSummary,
-    PostCardTitle,
-    PostCardText,
-} from "../../../styles/common.styles";
+  InnerContainer,
+  Heading,
+  SubTitle,
+  H2Title,
+  Row,
+  Column,
+//   Image,
+  Classes,
+  PostCard,
+  PostCardThumb,
+  PostCardSummary,
+  PostCardTitle,
+  PostCardText,
+} from '../../../styles/common.styles';
 
 const ActivityCard = () => {
 
@@ -50,7 +51,7 @@ const ActivityCard = () => {
             <InnerContainer>
                 <Heading style={{ textAlign: "center" }}>
                     <SubTitle>On Going Events & Activities</SubTitle>
-                    <Title >Sports Creative Educational <br /> Events and Activities</Title>
+                    <H2Title >Sports Creative Educational <br /> Events and Activities</H2Title>
                 </Heading>
                 <Row>
                     {lists && lists?.map((list, id) => (
@@ -58,7 +59,7 @@ const ActivityCard = () => {
                             <PostCard>
                                 <PostCardThumb>
                                     <Link href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`} passHref>
-                                    <Image src={list?.attributes?.listImage || '/default-list-img.jpg'} alt="" />
+                                    <Image src={list?.attributes?.listImage || '/default-list-img.jpg'} alt="activity image" width="400%" height="250%"/>
                                     </Link>
                                 </PostCardThumb>
                                 <PostCardSummary>

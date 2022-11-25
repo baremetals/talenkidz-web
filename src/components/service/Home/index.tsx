@@ -1,6 +1,7 @@
 
 import React from 'react';
-
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
@@ -46,18 +47,38 @@ import {
 
     // Benefits,
 
-} from "../../../styles/common.styles";
+} from "styles/common.styles";
+
 
 const Home = () => {
-    return <>
-        <Hero style={{ backgroundImage: "url(/yung-buck.jpg)" }}>
-            <InnerContainer>
-                <HeroContent>
-                    <HeroSubTitle style={{ color: "white" }}>Talent Kids</HeroSubTitle>
-                    <HeroTitle style={{ color: "white" }}>Do What You Love For A Lifetime</HeroTitle>
-                    <Button content='Create an Account' type='button' disabled={false} loading={false}/>
-                </HeroContent>
-            </InnerContainer>
+    const router = useRouter()
+    return (
+      <>
+        <Hero>
+          <Image
+            src="/yung-buck.jpg"
+            alt="education activity card image"
+            width="720px"
+            height="720px"
+          />
+
+          <InnerContainer>
+            <HeroContent>
+              <HeroSubTitle style={{ color: 'white' }}>talentkids</HeroSubTitle>
+              <HeroTitle style={{ color: 'white' }}>
+                Do What You Love For A Lifetime
+              </HeroTitle>
+              <div onClick={() => router.push('/auth/register')}>
+                <Button
+                  bgColor="#3762e4"
+                  content="Get Started"
+                  type="button"
+                  disabled={false}
+                  loading={false}
+                />
+              </div>
+            </HeroContent>
+          </InnerContainer>
         </Hero>
         <OurServices />
 
@@ -112,7 +133,8 @@ const Home = () => {
                 </Row>
             </InnerContainer>
         </Benefits> */}
-    </>;
+      </>
+    );
 };
 
 export default Home;

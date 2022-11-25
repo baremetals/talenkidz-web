@@ -15,11 +15,7 @@ const TermsPage = () => {
   useEffect(() => {
     getTermsData();
   }, []);
-  const description = `
-    Please read the following terms and conditions carefully as they govern the use of this website. 
-    By using the https://talentkids.io/website you accept these terms of use as from the date you 
-    first access this website content.
-  `;
+  const description = "Talentkids terms and conditions";
   const url = 'https://talentkids.io/terms';
   return (
     <>

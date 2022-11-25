@@ -1,11 +1,12 @@
 import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dayjs from "dayjs";
-import { upperCase } from 'lib/helpers'
+import { upperCase } from 'src/lib/helpers'
 
-// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
-// import { BookMark } from '../../../../public/assets/icons/BookMark'
+// import { ThumbsUp } from 'public/assets/icons/ThumbsUp'
+// import { BookMark } from 'public/assets/icons/BookMark'
 import { Event, EventEntity, CategoryEntity } from 'generated/graphql';
 
 
@@ -17,7 +18,7 @@ import {
     PageContainer,
     Row,
     Column,
-
+    Image as Img,
     SearchBar,
     SearchInput,
     SearchButton,
@@ -27,8 +28,6 @@ import {
 
     WidgetPanelListing,
     WidgetPanelLink,
-    Image,
-
     Post,
     PostThumb,
     PostBody,
@@ -37,8 +36,7 @@ import {
     PostDate,
     // PostMedia,
 } from 'styles/common.styles';
-// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp';
-// import { BookMark } from '../../../../public/assets/icons/BookMark';
+
 
 type eventProps = {
   id: string;
@@ -116,7 +114,7 @@ const Events = ({ events, categories }: pageProps) => {
         };
     return (
       <>
-        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+        <InnerBanner>
           <InnerContainer>
             <Title>
               {`${
@@ -151,12 +149,14 @@ const Events = ({ events, categories }: pageProps) => {
                             href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
                             passHref
                           >
-                            <Image
+                            <Img
                               src={
                                 event?.attributes?.listImage ||
                                 '/default-list-img.jpg'
                               }
                               alt="event image"
+                              // width="400%"
+                              // height="300%"
                             />
                           </Link>
                         </PostThumb>
@@ -198,7 +198,11 @@ const Events = ({ events, categories }: pageProps) => {
                           </Bottom>
                           <Bottom>
                             <PostDate
-                              style={{ fontSize: '14px', color: '#39364F', fontWeight: '500' }}
+                              style={{
+                                fontSize: '14px',
+                                color: '#39364F',
+                                fontWeight: '500',
+                              }}
                             >
                               {event?.attributes?.host?.data?.attributes?.name}{' '}
                             </PostDate>
@@ -233,7 +237,7 @@ const Events = ({ events, categories }: pageProps) => {
                     onChange={handleSearch('search')}
                     style={{ fontSize: '14px', color: '#39364F' }}
                   />
-                  <SearchButton></SearchButton>
+                  <SearchButton aria-label="search icon button"></SearchButton>
                 </SearchBar>
                 <WidgetPanel>
                   <WidgetPanelTitle>Categories</WidgetPanelTitle>
@@ -243,7 +247,12 @@ const Events = ({ events, categories }: pageProps) => {
                         key={id}
                         style={{ fontSize: '14px', color: '#39364F' }}
                       >
-                        <Image src="/checkbox.svg" alt="" />
+                        <Img
+                          src="/checkbox.svg"
+                          alt=""
+                          // width="20px"
+                          // height="20px"
+                        />
                         <Link href={`/events/${cat?.attributes?.slug}`}>
                           {cat?.attributes?.slug}
                         </Link>

@@ -25,8 +25,8 @@ import {
 } from './editProfile.styles';
 
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
-import { Edit } from '../../../../public/assets/icons/Edit';
-import { toBase64 } from '../../../utils/base64';
+import { Edit } from 'public/assets/icons/Edit';
+import { toBase64 } from 'src/utils/base64';
 import { FileType } from './MyProfile';
 import axios from 'axios';
 

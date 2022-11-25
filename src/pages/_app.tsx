@@ -13,7 +13,7 @@ import { darkTheme } from "../styles/theme";
 
 import "../styles/globals.css";
 import GoogleAnalytics from 'components/Layout/Google';
-import { pageview } from 'lib/ga';
+import { pageview } from 'src/lib/ga';
 // import Layout from 'components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
