@@ -2,10 +2,10 @@ import React from 'react'
 
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { useIsAuth } from "lib/isAuth";
+import { useIsAuth } from "src/lib/isAuth";
 import Org from "components/users/Organisations";
-import { requireAuthentication } from 'lib/requireAuthentication';
-import { initializeApollo } from "lib/apolloClient";
+import { requireAuthentication } from 'src/lib/requireAuthentication';
+import { initializeApollo } from "src/lib/apolloClient";
 import {
     OrgDocument,
     OrgQueryResult,

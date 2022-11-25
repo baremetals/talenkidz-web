@@ -3,15 +3,15 @@ import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
-import store from "../app/store";
+import store from "src/app/store";
 import Head from "next/head";
 import nprogress from "nprogress";
 import Router from "next/router";
 
-import { useApollo } from "../lib/apolloClient";
-import { darkTheme } from "../styles/theme";
+import { useApollo } from "src/lib/apolloClient";
+import { darkTheme } from "styles/theme";
 
-import "../styles/globals.css";
+import "styles/globals.css";
 import GoogleAnalytics from 'components/Layout/Google';
 import { pageview } from 'src/lib/ga';
 // import Layout from 'components/Layout';

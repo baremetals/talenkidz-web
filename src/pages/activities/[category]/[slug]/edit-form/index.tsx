@@ -1,4 +1,4 @@
-import { client } from 'lib/initApollo';
+import { client } from 'src/lib/initApollo';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import EditForm from 'components/list/Create/EditForm';
@@ -10,8 +10,8 @@ import {
   ListQueryResult,
   Maybe,
 } from 'generated/graphql';
-import { useNoAuthPages } from 'lib/noAuth';
-import { requireAuthentication } from 'lib/requireAuthentication';
+import { useNoAuthPages } from 'src/lib/noAuth';
+import { requireAuthentication } from 'src/lib/requireAuthentication';
 
 const ListEditForm = (props: {
   data: { listings: ListingEntityResponseCollection };

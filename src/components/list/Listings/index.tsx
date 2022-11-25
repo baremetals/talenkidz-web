@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
-import { upperCase } from 'lib/helpers'
+import { upperCase } from 'src/lib/helpers'
 
 
 import {
