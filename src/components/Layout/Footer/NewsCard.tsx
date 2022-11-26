@@ -54,8 +54,8 @@ export const NewsCard = () => {
                       '/default-list-img.jpg'
                     }
                     alt="post image"
-                    width="400%"
-                    height="400%"
+                    width={80}
+                    height={80}
                   />
                   {/* <Img
                     src={

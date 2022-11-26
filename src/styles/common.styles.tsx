@@ -397,7 +397,9 @@ export const PostCardTitle = styled.div`
 `;
 
 export const PostCardText = styled.div`
-    margin-bottom: .625rem;
+  margin-bottom: 0.625rem;
+  font-size: 12px;
+  font-weight: normal;
 `;
 
 export const Row = styled.div`

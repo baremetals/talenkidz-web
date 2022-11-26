@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
-
+import Image from 'next/image';
 import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
 
 import {
@@ -11,7 +11,6 @@ import {
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-    Image,
 
     WidgetPanel,
     WidgetPanelTitle,
@@ -104,6 +103,8 @@ function RelatedArticles({ category }: propType): ReactElement {
                           '/default-list-img.jpg'
                         }
                         alt="article image"
+                        width={80}
+                        height={80}
                       />
                     </Link>
                   </MediaObjectThumb>

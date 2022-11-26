@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { ReactElement, useState } from 'react'
 import dayjs from "dayjs";
+import Image from 'next/image';
+// import Image from 'next/image';
 // import Link from 'next/link'
 // import { animateScroll as scroll } from "react-scroll";
 
@@ -15,11 +17,9 @@ import {
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-    Image,
     SearchBar,
     SearchInput,
     SearchButton,
-
     WidgetPanel,
     WidgetPanelTitle,
     MediaObjectSpan,
@@ -74,6 +74,8 @@ function RelatedEvents({ category }: propType): ReactElement {
                           eve?.attributes?.listImage || '/default-list-img.jpg'
                         }
                         alt="event image"
+                        width={80}
+                        height={80}
                       />
                     </Link>
                     <MediaObjectSpan

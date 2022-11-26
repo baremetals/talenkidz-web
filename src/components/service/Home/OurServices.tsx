@@ -38,8 +38,8 @@ const OurServices = () => {
                 <Image
                   src="/creative.jpg"
                   alt="creative activity card image"
-                  width="400%"
-                  height="250%"
+                  width={420}
+                  height={500}
                 />
               </CardThumb>
               <CardBody>
@@ -62,8 +62,8 @@ const OurServices = () => {
                 <Image
                   src="/sport.jpg"
                   alt="sports activity card image"
-                  width="400%"
-                  height="250%"
+                  width={420}
+                  height={500}
                 />
               </CardThumb>
               <CardBody>
@@ -86,8 +86,10 @@ const OurServices = () => {
                 <Image
                   src="/baby-edu.jpg"
                   alt="education activity card image"
-                  width="400%"
-                  height="250%"
+                  // width="400%"
+                  // height="250%"
+                  width={400}
+                  height={250}
                 />
               </CardThumb>
               <CardBody>
@@ -96,7 +98,7 @@ const OurServices = () => {
                 <div onClick={() => router.push('/auth/register')}>
                   <Button
                     content="Register"
-                    type={undefined}
+                    type="button"
                     disabled={false}
                     loading={false}
                   />

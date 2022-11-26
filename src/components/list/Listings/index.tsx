@@ -2,6 +2,7 @@ import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
 import { upperCase } from 'src/lib/helpers'
 
@@ -28,7 +29,6 @@ import {
 
     WidgetPanelListing,
     WidgetPanelLink,
-    Image,
     PostThumb,
     Bottom,
     PostDate,
@@ -105,7 +105,7 @@ function Listings({ listings, categories }: pageProps) {
         setFilteredListings(listings as SetStateAction<never[]>);
     }, [listings]);
 
-    // console.log(listings)
+    console.log(listings)
 
     const handleSearch =
         (name: string) => (event: { target: { value: string } }) => {
@@ -127,7 +127,9 @@ function Listings({ listings, categories }: pageProps) {
 
     return (
       <>
-        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+        <InnerBanner
+        // style={{ backgroundImage: 'url(/inner-banner.jpg)' }}
+        >
           <InnerContainer>
             <Title>
               {`${
@@ -171,10 +173,10 @@ function Listings({ listings, categories }: pageProps) {
                           <ListCard>
                             <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
                               <Image
-                                src={
-                                  list?.attributes?.host?.data?.attributes?.logo
-                                }
+                                src={list?.attributes?.host?.data?.attributes?.logo as string}
                                 alt="host logo image"
+                                width={73.99}
+                                height={73.99}
                               />
                             </ListIcon>
                             <ListBody>
@@ -182,13 +184,12 @@ function Listings({ listings, categories }: pageProps) {
                                 <Image
                                   src={list?.attributes?.listImage}
                                   alt="article image"
-                                  style={{ height: '200px' }}
+                                  // style={{ height: '200px' }}
+                                  width={285.33}
+                                  height={200}
                                 />
                               </PostThumb>
-                              <PostTitle
-                              >
-                                {list?.attributes?.title}
-                              </PostTitle>
+                              <PostTitle>{list?.attributes?.title}</PostTitle>
                               {/* <Text style={{ marginBottom: '0' }}>
                                 {list?.attributes?.description}
                               </Text> */}
@@ -225,10 +226,7 @@ function Listings({ listings, categories }: pageProps) {
                                   fontWeight: '500',
                                 }}
                               >
-                                {
-                                  list?.attributes?.host?.data?.attributes
-                                    ?.name
-                                }{' '}
+                                {list?.attributes?.host?.data?.attributes?.name}{' '}
                               </PostDate>
 
                               {/* <PostMedia>
@@ -258,7 +256,7 @@ function Listings({ listings, categories }: pageProps) {
                     name="search"
                     onChange={handleSearch('search')}
                   />
-                  <SearchButton></SearchButton>
+                  <SearchButton aria-label="search icon button"></SearchButton>
                 </SearchBar>
                 <WidgetPanel>
                   <WidgetPanelTitle>Categories</WidgetPanelTitle>
@@ -268,7 +266,12 @@ function Listings({ listings, categories }: pageProps) {
                         key={id}
                         style={{ fontSize: '14px', color: '#39364F' }}
                       >
-                        <Image src="/checkbox.svg" alt="" />
+                        <Image
+                          src={require("public/checkbox.svg")}
+                          alt="checkboxes"
+                          width={20}
+                          height={20}
+                        />
                         <Link href={`/activities/${cat?.attributes?.slug}`}>
                           {cat?.attributes?.slug}
                         </Link>

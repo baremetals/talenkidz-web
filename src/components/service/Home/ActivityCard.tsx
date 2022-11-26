@@ -1,5 +1,5 @@
 import React from 'react'
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import Link from 'next/link'
 import { useListingsQuery } from "generated/graphql";
 import Image from 'next/image';
@@ -17,14 +17,16 @@ import {
   H2Title,
   Row,
   Column,
-//   Image,
+  //   Image,
   Classes,
   PostCard,
   PostCardThumb,
   PostCardSummary,
-  PostCardTitle,
+//   PostCardTitle,
+  PostTitle,
   PostCardText,
-} from '../../../styles/common.styles';
+  PostDate,
+} from 'styles/common.styles';
 
 const ActivityCard = () => {
 
@@ -47,34 +49,75 @@ const ActivityCard = () => {
 
     const lists = data?.listings?.data
     return (
-        <><Classes>
-            <InnerContainer>
-                <Heading style={{ textAlign: "center" }}>
-                    <SubTitle>On Going Events & Activities</SubTitle>
-                    <H2Title >Sports Creative Educational <br /> Events and Activities</H2Title>
-                </Heading>
-                <Row>
-                    {lists && lists?.map((list, id) => (
-                        <Column key={id}>
-                            <PostCard>
-                                <PostCardThumb>
-                                    <Link href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`} passHref>
-                                    <Image src={list?.attributes?.listImage || '/default-list-img.jpg'} alt="activity image" width="400%" height="250%"/>
-                                    </Link>
-                                </PostCardThumb>
-                                <PostCardSummary>
-                                    <Link href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`} passHref>
-                                    <PostCardTitle>{list?.attributes?.title}</PostCardTitle>
-                                    </Link>
-                                    <PostCardText>{list?.attributes?.description?.slice(0, 50)}</PostCardText>        
-                                </PostCardSummary>
-                            </PostCard>
-                        </Column>
-                    ))}                                                        
-                </Row>
-            </InnerContainer>
-        </Classes></>
-    )
+      <>
+        <Classes>
+          <InnerContainer>
+            <Heading style={{ textAlign: 'center' }}>
+              <SubTitle>On Going Events & Activities</SubTitle>
+              <H2Title>
+                Sports Creative Educational <br /> Events and Activities
+              </H2Title>
+            </Heading>
+            <Row>
+              {lists &&
+                lists?.map((list, id) => (
+                  <Column key={id}>
+                    <PostCard>
+                      <PostCardThumb>
+                        <Link
+                          href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`}
+                          passHref
+                        >
+                          <Image
+                            src={
+                              list?.attributes?.listImage ||
+                              '/default-list-img.jpg'
+                            }
+                            alt="activity image"
+                            width={400}
+                            height={250}
+                          />
+                        </Link>
+                      </PostCardThumb>
+                      <PostCardSummary>
+                        <Link
+                          href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`}
+                          passHref
+                        >
+                          <PostTitle>
+                            {list?.attributes?.title?.slice(0, 50)}...
+                          </PostTitle>
+                        </Link>
+                        <PostCardText>
+                          {list?.attributes?.description?.slice(0, 70)}
+                        </PostCardText>
+                        <PostDate>
+                          {`${list?.attributes?.Location?.name}` +
+                            ' • ' +
+                            `${list?.attributes?.Location?.town}`}
+                        </PostDate>
+                        <PostDate style={{ color: '#a40a52' }}>
+                          {/* {dayjs(event?.attributes?.startDate).day()}{' '}
+                              , */}
+                          {dayjs(list?.attributes?.startDate).format(
+                            'DD MMMM YYYY'
+                          )}
+                          , {list?.attributes?.startTime}
+                        </PostDate>
+                        <PostDate>
+                          {list?.attributes?.price === '0'
+                            ? 'Free'
+                            : `£${list?.attributes?.price}`}{' '}
+                        </PostDate>
+                      </PostCardSummary>
+                    </PostCard>
+                  </Column>
+                ))}
+            </Row>
+          </InnerContainer>
+        </Classes>
+      </>
+    );
 }
 
 export default ActivityCard

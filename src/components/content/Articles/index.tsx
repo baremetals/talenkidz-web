@@ -26,7 +26,6 @@ import {
     Bottom,
     PostDate,
     PostMedia,
-    Image as Img,
 
     SearchBar,
     SearchInput,
@@ -126,7 +125,7 @@ const Articles = ({ articles, categories }: pageProps) => {
         };
     return (
       <>
-        <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+        <InnerBanner>
           <InnerContainer>
             <Title>
               {`${
@@ -161,14 +160,14 @@ const Articles = ({ articles, categories }: pageProps) => {
                       >
                         <Post>
                           <PostThumb>
-                            <Img
+                            <Image
                               src={
                                 art?.attributes?.heroImage?.data?.attributes
                                   ?.url
                               }
                               alt="article image"
-                            //   width="400%"
-                            //   height="300%"
+                              width={359.3}
+                              height={269.47}
                             />
                           </PostThumb>
                           <PostBody>
@@ -226,14 +225,19 @@ const Articles = ({ articles, categories }: pageProps) => {
                     name="search"
                     onChange={handleSearch('search')}
                   />
-                  <SearchButton></SearchButton>
+                  <SearchButton aria-label="search icon button"></SearchButton>
                 </SearchBar>
                 <WidgetPanel>
                   <WidgetPanelTitle>Categories</WidgetPanelTitle>
                   <WidgetPanelListing>
                     {categories?.map((cat, id) => (
                       <WidgetPanelLink key={id}>
-                        <Img src="/checkbox.svg" alt="" />
+                        <Image
+                          src={require("public/checkbox.svg")}
+                          alt="checkboxes"
+                          // width={20}
+                          // height={20}
+                        />
                         <Link href={`/articles/${cat?.attributes?.slug}`}>
                           {cat?.attributes?.slug}
                         </Link>

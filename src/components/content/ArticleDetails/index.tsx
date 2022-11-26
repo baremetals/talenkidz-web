@@ -4,11 +4,11 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { upperCase } from 'src/lib/helpers';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
+import Image from 'next/image';
 dayjs.extend(relativeTime);
 
 import {
   Column,
-  Image,
   InnerBanner,
   InnerContainer,
   PageContainer,
@@ -27,7 +27,7 @@ import { ErrorMsg } from 'components/widgets/Input';
 
 import SocialShare from 'components/utilities/SocialShare';
 import { ArticleEntityResponseCollection } from 'generated/graphql';
-import { ClockSeven } from '../../../../public/assets/icons/ClockSeven';
+import { ClockSeven } from 'public/assets/icons/ClockSeven';
 
 export const ArticleDetails = (props: {
   props: {
@@ -64,7 +64,10 @@ export const ArticleDetails = (props: {
 
   return (
     <>
-      <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+      <InnerBanner 
+      // style={{ backgroundImage: 'url(/inner-banner.jpg)' }}
+      
+      >
         <InnerContainer>
           <Title>{article?.attributes?.title}</Title>
           <Text style={{ marginBottom: '0', color: '#000000' }}>
@@ -88,7 +91,12 @@ export const ArticleDetails = (props: {
                     }}
                   >
                     <PostThumb>
-                      <Image src={imageurl} alt="article image" />
+                      <Image
+                        src={imageurl as string}
+                        alt="article image"
+                        width={700.59}
+                        height={525.44}
+                      />
                     </PostThumb>
                     <PostBody>
                       <PostTitle

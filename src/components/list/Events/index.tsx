@@ -149,14 +149,14 @@ const Events = ({ events, categories }: pageProps) => {
                             href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
                             passHref
                           >
-                            <Img
+                            <Image
                               src={
                                 event?.attributes?.listImage ||
                                 '/default-list-img.jpg'
                               }
                               alt="event image"
-                              // width="400%"
-                              // height="300%"
+                              width={359.32}
+                              height={269.49}
                             />
                           </Link>
                         </PostThumb>
@@ -247,11 +247,11 @@ const Events = ({ events, categories }: pageProps) => {
                         key={id}
                         style={{ fontSize: '14px', color: '#39364F' }}
                       >
-                        <Img
+                        <Image
                           src="/checkbox.svg"
                           alt=""
-                          // width="20px"
-                          // height="20px"
+                          width={20}
+                          height={20}
                         />
                         <Link href={`/events/${cat?.attributes?.slug}`}>
                           {cat?.attributes?.slug}

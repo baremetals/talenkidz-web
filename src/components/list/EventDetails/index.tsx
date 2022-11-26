@@ -7,12 +7,12 @@ import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';
 import { MdOutlineSchedule } from 'react-icons/md';
 import { VscLocation } from 'react-icons/vsc';
+import Image from 'next/image';
 import {
   AddressMap,
   Avatar,
   AvatarRow,
   Column,
-  Image,
   InnerBanner,
   InnerContainer,
   PageContainer,
@@ -69,7 +69,9 @@ function EventDetails(props: {
 
   return (
     <>
-      <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+      <InnerBanner 
+      // style={{ backgroundImage: 'url(/inner-banner.jpg)' }}
+      >
         <InnerContainer>
           <Title role="heading">{event?.attributes?.title}</Title>
           <Text style={{ marginBottom: '0', color: '#1E0A3C' }}>
@@ -81,12 +83,14 @@ function EventDetails(props: {
             <PostDate>
               <Avatar>
                 <Image
-                  style={{ width: '3rem', height: '3rem' }}
+                  // style={{ width: '3rem', height: '3rem' }}
                   src={
                     (event?.attributes?.host?.data?.attributes
                       ?.logo as string) || '/logo-w.svg'
                   }
                   alt="host logo image"
+                  width={48}
+                  height={48}
                 />
                 By : {host?.name || 'TalentKids'}
               </Avatar>
@@ -167,7 +171,12 @@ function EventDetails(props: {
                     <Post>
                       <PostThumb>
                         {imageurl && (
-                          <Image src={imageurl} alt="host logo image" />
+                          <Image
+                            src={imageurl}
+                            alt="host logo image"
+                            width={750.61}
+                            height={562.96}
+                          />
                         )}
                       </PostThumb>
                       <PostBody>

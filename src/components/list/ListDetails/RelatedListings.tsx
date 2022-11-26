@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import { useFilteredListingsQuery, ListingEntity } from "generated/graphql";
+import Image from 'next/image';
 
 import {
     MediaObject,
@@ -9,7 +10,6 @@ import {
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-    Image,
     WidgetPanel,
     WidgetPanelTitle,
     WidgetPanelListing,
@@ -98,6 +98,8 @@ function RelatedListings({ category }: propType): ReactElement {
                           art?.attributes?.listImage || '/default-list-img.jpg'
                         }
                         alt="activity image"
+                        width={80}
+                        height={80}
                       />
                     </Link>
                     <MediaObjectSpan

@@ -80,8 +80,8 @@ export default function UserHeader() {
                   <Image
                     src={'/logo.png'}
                     alt="talentkids logo"
-                    width="200px"
-                    height="40px"
+                    width={200}
+                    height={45.69}
                   />
                 </Logo>
               </Link>
