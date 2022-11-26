@@ -54,6 +54,8 @@ const Home = () => {
     const router = useRouter()
     return (
       <>
+
+      
         <Hero>
           <Image
             src="/yung-buck.jpg"
