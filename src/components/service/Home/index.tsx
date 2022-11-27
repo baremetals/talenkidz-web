@@ -62,6 +62,7 @@ const Home = () => {
             alt="education activity card image"
             width={"0"}
             height="0"
+              className="banner-bg"
           />
 
           <InnerContainer>
