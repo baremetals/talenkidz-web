@@ -383,11 +383,11 @@ p {
     z-index: -1;
 }
 
-ol[start] a {
+article ol[start] a {
     color: #bc70ad;
 }
 
-ol[start] {
+article ol[start] {
     font-size: 24px;
     padding-left: 30px;
     font-weight: bold;
