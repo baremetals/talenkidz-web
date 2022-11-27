@@ -60,8 +60,8 @@ const Home = () => {
           <Image
             src="/yung-buck.jpg"
             alt="education activity card image"
-            width={"720px"}
-            height="720px"
+            width={"0"}
+            height="0"
           />
 
           <InnerContainer>
