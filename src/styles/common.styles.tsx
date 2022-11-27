@@ -132,40 +132,40 @@ export const NavBarNav = styled.ul`
 `;
 
 export const NavBarItem = styled.li`
-  margin-right: 2rem;
-  a {
-    display: block;
-    @media (max-width: 991px) {
-      padding: 0.75rem 1.375rem;
-    }
-  }
-  &:last-child {
-    margin-right: 0;
-  }
-  &.signup {
+    margin-right: 2rem;
     a {
-      background-color: #3762e4;
-      color: #fff;
-      padding: 0.5rem 1.375rem;
-      border-radius: 0.375rem;
-      &:hover {
-        background-color: #333;
-        color: #fff;
-      }
-      @media (max-width: 991px) {
-        border-radius: 0;
-        padding: 0.75rem 1.375rem;
-      }
+        display: block;
+        @media (max-width: 991px) {
+            padding: 0.75rem 1.375rem;
+        }
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+    &.signup {
+        a {
+            background-color: #3762e4;
+            color: #fff;
+            padding: 0.5rem 1.375rem;
+            border-radius: 0.375rem;
+            &:hover {
+                background-color: #333;
+                color: #fff;
+            }
+            @media (max-width: 991px) {
+                border-radius: 0;
+                padding: 0.75rem 1.375rem;
+            }
+        }
+        @media (max-width: 991px) {
+            margin-top: auto;
+            border-bottom: none;
+        }
     }
     @media (max-width: 991px) {
-      margin-top: auto;
-      border-bottom: none;
+        margin-right: 0;
+        width: 100%;
     }
-  }
-  @media (max-width: 991px) {
-    margin-right: 0;
-    width: 100%;
-  }
 `;
 
 export const NavBarItemLink = styled.a`
@@ -221,23 +221,23 @@ export const SubTitle = styled.span`
 `;
 
 export const Title = styled.h1`
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-  @media (max-width: 991px) {
-    font-size: 2rem;
-  }
-  color: #1E0A3C;
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    color: #1E0A3C;
+    @media (max-width: 991px) {
+        font-size: 2rem;
+    }
 `;
 
 export const H2Title = styled.h2`
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-  @media (max-width: 991px) {
-    font-size: 2rem;
-  }
-  color: #1e0a3c;
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    color: #1e0a3c;
+    @media (max-width: 991px) {
+        font-size: 2rem;
+    }
 `;
 
 export const Text = styled.p`
@@ -323,16 +323,17 @@ export const Image = styled.img`
 // Hero Banner
 
 export const Hero = styled.section`
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: #06283d;
-  height: 520px;
-  display: flex;
-  align-items: center;
-  @media (max-width: 991px) {
-    height: 400px;
-  }
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #06283d;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    transform: translate(0);
+    @media (max-width: 991px) {
+        height: 400px;
+    }
 `;
 
 export const HeroContent = styled.div`
@@ -380,6 +381,12 @@ export const PostCard = styled.div`
 
 export const PostCardThumb = styled.div`
     margin-bottom: 1.5rem;
+    span {
+        width: 100% !important;
+        img {
+            object-fit: cover;
+        }
+    }
 `;
 
 export const PostCardSummary = styled.div`
@@ -493,6 +500,9 @@ export const CardThumb = styled.div`
     height: 438px;
     display: block;
     position: relative;
+    span {
+        height: 100% !important;
+    }
     &:before {
         content: '';
         background-color: #103741;
@@ -603,7 +613,7 @@ export const FooterTitle = styled.h4`
 
 export const FooterLinks = styled.div`
     a {
-        color: #74787C;
+        color: rgb(255 255 255 / 80%);
         text-decoration: none;
         display: table;
         line-height: 1;
@@ -636,27 +646,27 @@ export const MediaObjectThumb = styled.div`
 export const MediaObjectBody = styled.div``;
 
 export const MediaObjectDate = styled.span`
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #a40a52;
-  display: block;
-  margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #a40a52;
+    display: block;
+    margin-bottom: 0.2rem;
 `;
 
 export const MediaObjectSpan = styled.span`
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: #74787c;
-  display: block;
-  margin-bottom: 0.1rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #74787c;
+    display: block;
+    margin-bottom: 0.1rem;
 `;
 
 export const MediaObjectTitle = styled.h4`
-  color: #fff;
-  font-size: 1rem;
-  /* font-size: 14px; */
-  font-weight: 450;
-  line-height: 1.4;
+    color: #fff;
+    font-size: 1rem;
+    /* font-size: 14px; */
+    font-weight: 450;
+    line-height: 1.4;
 `;
 
 // Posts
@@ -678,6 +688,12 @@ export const Post = styled.div`
 
 export const PostThumb = styled.div`
     margin-bottom: 1.125rem;
+    span {
+        width: 100% !important;
+        img {
+            object-fit: cover;
+        }
+    }
 `;
 
 export const PostBody = styled.div`
@@ -687,11 +703,11 @@ export const PostBody = styled.div`
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
-  color: #39364f;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    color: #39364f;
 `;
 
 export const Top = styled.div`
@@ -699,7 +715,7 @@ export const Top = styled.div`
 `
 
 export const Bottom = styled.div`
-  display: flex;
+    display: flex;
 `;
 
 export const PostDate = styled.div`
@@ -751,7 +767,7 @@ export const SearchButton = styled.button`
     border-radius: .625rem;
     width: 3.125rem;
     border: none;
-    background-color: transparent;
+    background-color: transparent !important;
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png);
     padding: 0;
     background-size: 1.5rem;
@@ -774,15 +790,15 @@ export const WidgetPanel = styled.div`
 `;
 
 export const WidgetPanelTitle = styled.div`
-  padding: 0.875rem 1.875rem;
-  font-size: 1.375rem;
-  font-weight: 600;
-  background-color: #86a6b4;
-  color: #ebebeb;
-  @media (max-width: 991px) {
-    padding: 0.75rem 1.25rem;
-    font-size: 1.125rem;
-  }
+    padding: 0.875rem 1.875rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    background-color: #86a6b4;
+    color: #ebebeb;
+    @media (max-width: 991px) {
+        padding: 0.75rem 1.25rem;
+        font-size: 1.125rem;
+    }
 `;
 
 export const WidgetPanelListing = styled.div`
@@ -796,13 +812,15 @@ export const WidgetPanelListing = styled.div`
 export const WidgetPanelLink = styled.div`
     margin-bottom: .5rem;
     text-transform: capitalize;
-    img{
+    & > span {
+        vertical-align: middle;
+        margin-right: 10px !important;
+    }
+    img {
         display: inline;
         width: 20px;
         height: 20px;
         border-radius: 0;
-        vertical-align: middle;
-        margin-right: 10px;
     }
     @media (max-width: 991px) {
         font-size: .875rem;
