@@ -640,7 +640,7 @@ export const MediaObjectThumb = styled.div`
     overflow: hidden;
     img {
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 `;
 
