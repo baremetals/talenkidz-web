@@ -382,3 +382,13 @@ p {
     object-fit: cover;
     z-index: -1;
 }
+
+ol[start] a {
+    color: #3762e4;
+}
+
+ol[start] {
+    font-size: 24px;
+    padding-left: 30px;
+    font-weight: bold;
+}
