@@ -637,6 +637,7 @@ export const MediaObjectThumb = styled.div`
     height: 5rem;
     margin-right: 1.25rem;
     border-radius: .25rem;
+    overflow: hidden;
     img {
         height: 100%;
         object-fit: cover;
