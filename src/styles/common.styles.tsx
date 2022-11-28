@@ -1011,13 +1011,14 @@ export const ServiceIcon = styled.div`
 `;
 
 export const Widget = styled.div`
-    box-shadow: 0 0 10px rgba(0,0,0,.08);
-    padding: 1.875rem;
-    border-radius: .625rem;
-    margin-bottom: 1.875rem;
-    @media (max-width: 991px) {
-        padding: 1.25rem;
-    }
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  padding: 1.875rem;
+  border-radius: 0.625rem;
+  margin-bottom: 1.875rem;
+  @media (max-width: 991px) {
+    padding: 1.25rem;
+  }
+  background-color: #f9f9f9;
 `;
 
 export const WidgetTitle = styled.h3`
@@ -1036,7 +1037,8 @@ export const WidgetHeader = styled.div`
     }
 `
 
-export const WidgetBody = styled.div``;
+export const WidgetBody = styled.div`
+`;
 
 export const WidgetText = styled.p`
     font-weight: 400;

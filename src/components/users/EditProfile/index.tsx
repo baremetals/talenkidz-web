@@ -31,6 +31,7 @@ import {
 import { BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
 import { toBase64 } from 'src/utils/base64';
+import Spinner from 'components/utilities/Spinner';
 
 type Props = {
   user: UsersPermissionsUser
@@ -162,12 +163,17 @@ const EditProfile = ({ user }: mixProps) => {
       <NavBar />
       <InnerContainer>
         <TabContent>
-          <Row className='g-10'>
-            <Column className='col' style={{ maxWidth: '18rem', paddingRight: '0.6875rem' }}>
+          <Row className="g-10">
+            <Column
+              className="col"
+              style={{ maxWidth: '18rem', paddingRight: '0.6875rem' }}
+            >
               <InnerSidebar>
                 <ImageWrapper>
                   <div className="overlay"></div>
-                  {profileImg && <Image src={profileImg} alt="profile picture" />}
+                  {profileImg && (
+                    <Image src={profileImg} alt="profile picture" />
+                  )}
                   {!profileImg && (
                     <ProfilePicturePlaceHolder>
                       No profile picture yet.
@@ -177,7 +183,7 @@ const EditProfile = ({ user }: mixProps) => {
                     <ActionButton>
                       <EditButton htmlFor="upload-profile-photo">
                         <input
-                          style={{ display: "none" }}
+                          style={{ display: 'none' }}
                           id="upload-profile-photo"
                           name="upload-profile-photo"
                           type="file"
@@ -202,18 +208,32 @@ const EditProfile = ({ user }: mixProps) => {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                   >
-                    <Tab label={"My Profile >"} onClick={() => uploadProfileImage()}></Tab>
-                    {loading && <span>updating.....</span>}
+                    <Tab
+                      label={loading ? 'updating image...' : 'My Profile >'}
+                      onClick={() => uploadProfileImage()}
+                    ></Tab>
                     {/* <Tab label="Billing Info" /> */}
+                    {loading && (
+                      <Spinner
+                        style={{
+                          position: 'relative',
+                          backgroundColor: 'transparent',
+                          boxShadow: 'none',
+                        }}
+                      />
+                    )}
                   </Tabs>
                 </Navigation>
               </InnerSidebar>
             </Column>
-            <Column className='col' style={{ paddingLeft: '0.6875rem' }}>
+            <Column className="col" style={{ paddingLeft: '0.6875rem' }}>
               <TabPanel value={activeTab} index={0} {...a11yProps(1)}>
-                {usr?.userType === 'organisation' && <OrgProfile user={user as Organisation} />}
-                {usr?.userType === 'candidate' && <MyProfile user={user as UsersPermissionsUser} />}
-
+                {usr?.userType === 'organisation' && (
+                  <OrgProfile user={user as Organisation} />
+                )}
+                {usr?.userType === 'candidate' && (
+                  <MyProfile user={user as UsersPermissionsUser} />
+                )}
               </TabPanel>
               <TabPanel value={activeTab} index={1} {...a11yProps(2)}>
                 {/* <BillingInfo user={user} /> */}

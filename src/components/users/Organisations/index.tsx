@@ -61,13 +61,13 @@ import {
 } from '../ProfilePage/profile.styles';
 // import { ShareCard } from '../ProfilePage/ShareCard';
 
-import { BookMarkBorder } from '../../../../public/assets/icons/BookMarkBorder';
-import { BriefcaseBorder } from '../../../../public/assets/icons/BriefcaseBorder';
-// import { Send } from '../../../../public/assets/icons/Send';
-// import { Plus } from '../../../../public/assets/icons/Plus';
-import { Edit } from '../../../../public/assets/icons/Edit';
-import { Delete } from '../../../../public/assets/icons/Delete';
-import { Union } from '../../../../public/assets/icons/Union';
+import { BookMarkBorder } from 'public/assets/icons/BookMarkBorder';
+import { BriefcaseBorder } from 'public/assets/icons/BriefcaseBorder';
+// import { Send } from 'public/assets/icons/Send';
+// import { Plus } from 'public/assets/icons/Plus';
+import { Edit } from 'public/assets/icons/Edit';
+import { Delete } from 'public/assets/icons/Delete';
+import { Union } from 'public/assets/icons/Union';
 // import { NavCard } from './NavCard';
 import { Card } from './Card';
 // import { useQuery } from '@apollo/client';
@@ -201,14 +201,22 @@ const Organisations = ({ id, attributes }: idProps) => {
   return (
     <>
       <NavBar />
-      <Dashboard>
+      <Dashboard
+        style={{
+          backgroundColor: '#f4f7f5',
+        }}
+      >
         <ProfileCoverImage
           src={user?.backgroundImg as string}
-          alt='Profile Banner'
+          alt="Profile Banner"
         />
         <InnerContainer>
-          <ProfileInfo>
-            <UserProfileImage src={logo as string} alt='user profile' />
+          <ProfileInfo
+          // style={{
+          //   backgroundColor: '#f4f7f5',
+          // }}
+          >
+            <UserProfileImage src={logo as string} alt="user profile" />
             <ProfileBasicInfo>
               <Title
                 style={{
@@ -231,7 +239,7 @@ const Organisations = ({ id, attributes }: idProps) => {
                   alignItems: 'center',
                 }}
               >
-                <BriefcaseBorder />
+                {organisationType && <BriefcaseBorder />}
                 {organisationType}
               </Text>
               <Text
@@ -243,7 +251,7 @@ const Organisations = ({ id, attributes }: idProps) => {
                   alignItems: 'center',
                 }}
               >
-                <BookMarkBorder />
+                {organisationType && <BookMarkBorder />}
                 <a href={website as string}>{website}</a>
               </Text>
             </ProfileBasicInfo>
@@ -262,15 +270,15 @@ const Organisations = ({ id, attributes }: idProps) => {
             </ProfileActions>
           </ProfileInfo>
           <ProfileContent>
-            <Row className='g-10'>
+            <Row className="g-10">
               <Column
-                className='col'
+                className="col"
                 style={{ maxWidth: '24.438rem', paddingRight: '0.6875rem' }}
               >
                 <Widget>
                   <WidgetHeader>
                     <WidgetTitle>Bio</WidgetTitle>
-                    <WidgetHeaderLink href='#'>Know More</WidgetHeaderLink>
+                    {/* <WidgetHeaderLink href="#">Know More</WidgetHeaderLink> */}
                   </WidgetHeader>
                   <WidgetBody>
                     <WidgetText>{bio}</WidgetText>
@@ -279,14 +287,14 @@ const Organisations = ({ id, attributes }: idProps) => {
                 <Widget>
                   <WidgetHeader>
                     <WidgetTitle>Activities</WidgetTitle>
-                    <WidgetHeaderLink href='#'>View all</WidgetHeaderLink>
+                    {/* <WidgetHeaderLink href="#">View all</WidgetHeaderLink> */}
                   </WidgetHeader>
                   <WidgetBody>
                     <PhotoGallery>
-                      {activities?.slice(0, 6).map((a) => (
+                      {activities?.slice(0, 7).map((a) => (
                         <Image
                           src={a?.attributes?.listImage as string}
-                          alt=''
+                          alt="activity image"
                           key={a?.id}
                         />
                       ))}
@@ -296,14 +304,14 @@ const Organisations = ({ id, attributes }: idProps) => {
                 <Widget>
                   <WidgetHeader>
                     <WidgetTitle>Events</WidgetTitle>
-                    <WidgetHeaderLink href='#'>View all</WidgetHeaderLink>
+                    {/* <WidgetHeaderLink href="#">View all</WidgetHeaderLink> */}
                   </WidgetHeader>
                   <WidgetBody>
                     <VideoGallery>
                       {events?.slice(0, 3).map((a) => (
                         <Image
                           src={a?.attributes?.listImage as string}
-                          alt=''
+                          alt=""
                           key={a?.id}
                         />
                       ))}
@@ -315,12 +323,12 @@ const Organisations = ({ id, attributes }: idProps) => {
                                 <ShareCard avatar={logo as string} />
                             </>} */}
               {activities.length > 0 && (
-                <Column className='col' style={{ paddingLeft: '0.6875rem' }}>
+                <Column className="col" style={{ paddingLeft: '0.6875rem' }}>
                   {activities?.map((a, i) => (
                     <Card
                       key={a?.id}
                       id={a?.id as string}
-                      type='Activity'
+                      type="Activity"
                       colour={
                         a?.attributes?.category?.data?.attributes
                           ?.colour as string
@@ -341,7 +349,7 @@ const Organisations = ({ id, attributes }: idProps) => {
                       <PostTopRightWrap>
                         <PostDropdown>
                           <span
-                            className='DropDownIcon'
+                            className="DropDownIcon"
                             onClick={() => setDropdown(!dropdown)}
                           >
                             <Union />
@@ -349,8 +357,17 @@ const Organisations = ({ id, attributes }: idProps) => {
                           <DropdownMenu
                             className={`${dropdown ? 'opened' : ''}`}
                           >
-                                      <Link href={`/activities/${a?.attributes?.category?.data?.attributes
-                                          ?.slug as string}/${a?.attributes?.slug}/edit-form`} passHref><DropdownMenuItem><Edit /> Edit</DropdownMenuItem></Link>
+                            <Link
+                              href={`/activities/${
+                                a?.attributes?.category?.data?.attributes
+                                  ?.slug as string
+                              }/${a?.attributes?.slug}/edit-form`}
+                              passHref
+                            >
+                              <DropdownMenuItem>
+                                <Edit /> Edit
+                              </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem
                               onClick={() =>
                                 removeItem(a?.id as string, 'Activity', i)
@@ -367,12 +384,12 @@ const Organisations = ({ id, attributes }: idProps) => {
               )}
 
               {events.length > 0 && (
-                <Column className='col' style={{ paddingLeft: '0.6875rem' }}>
+                <Column className="col" style={{ paddingLeft: '0.6875rem' }}>
                   {events?.map((e, i) => (
                     <Card
                       key={e?.id}
                       id={e?.id as string}
-                      type='Event'
+                      type="Event"
                       colour={
                         e?.attributes?.category?.data?.attributes
                           ?.colour as string
@@ -393,7 +410,7 @@ const Organisations = ({ id, attributes }: idProps) => {
                       <PostTopRightWrap>
                         <PostDropdown>
                           <span
-                            className='DropDownIcon'
+                            className="DropDownIcon"
                             onClick={() => setEventDropdown(!eventDropdown)}
                           >
                             <Union />
@@ -401,8 +418,17 @@ const Organisations = ({ id, attributes }: idProps) => {
                           <DropdownMenu
                             className={`${eventDropdown ? 'opened' : ''}`}
                           >
-                                      <Link href={`/events/${e?.attributes?.category?.data?.attributes
-                                          ?.slug as string}/${e?.attributes?.slug}/edit-form`} passHref><DropdownMenuItem><Edit /> Edit</DropdownMenuItem></Link>
+                            <Link
+                              href={`/events/${
+                                e?.attributes?.category?.data?.attributes
+                                  ?.slug as string
+                              }/${e?.attributes?.slug}/edit-form`}
+                              passHref
+                            >
+                              <DropdownMenuItem>
+                                <Edit /> Edit
+                              </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem
                               onClick={() =>
                                 removeItem(e?.id as string, 'Event', i)

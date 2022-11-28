@@ -26,15 +26,15 @@ import {
   UsernameWrapper,
 } from '../ProfilePage/profile.styles';
 
-import { Text, Widget } from 'styles/common.styles';
+import { Text, Widget, H2Title } from 'styles/common.styles';
 
-// import { Edit } from '../../../public/assets/icons/Edit'
-// import { Delete } from '../../../public/assets/icons/Delete'
-// import { Union } from '../../../public/assets/icons/Union'
-// import { HotLike } from '../../../public/assets/icons/HotLike'
-// import { CommentPost } from '../../../public/assets/icons/CommentPost'
+// import { Edit } from 'public/assets/icons/Edit'
+// import { Delete } from 'public/assets/icons/Delete'
+// import { Union } from 'public/assets/icons/Union'
+// import { HotLike } from 'public/assets/icons/HotLike'
+// import { CommentPost } from 'public/assets/icons/CommentPost'
 import ShareIcon from 'components/utilities/SocialShare/ShareIcon';
-import { Shortcut } from '../../../../public/assets/icons/Shortcut';
+import { Shortcut } from 'public/assets/icons/Shortcut';
 // import { json } from 'node:stream/consumers';
 
 type cardProps = {
@@ -54,10 +54,10 @@ type cardProps = {
 };
 
 export const Card = ({
-  id,
+  // id,
   avatar,
   username,
-  body,
+  // body,
   createdAt,
   slug,
   title,
@@ -115,9 +115,13 @@ export const Card = ({
         </PostTop>
 
         <PostCenterWrap>
-          <button style={{ backgroundColor: `${colour}` }}>{category}</button>
-          <PostTextWrapper>
-            <Text>{body}</Text>
+          <button style={{ backgroundColor: `${colour}`, color: 'white' }}>{category}</button>
+          <PostTextWrapper
+            style={{ marginBottom: '0.5rem', marginTop: '0.5rem' }}
+          >
+            <H2Title style={{ fontSize: '1rem' }}>
+              {title.slice(0, 60)}...
+            </H2Title>
           </PostTextWrapper>
           <PostMedia>
             <Image src={content} alt="Post image" />
@@ -130,12 +134,14 @@ export const Card = ({
               {/* <GivenReactionsWrapper>
                                 {renderReactionIcons()}
                             </GivenReactionsWrapper> */}
-              <span>{title}</span>
-            </PostStatsReactions>
-            <PostStatsCommentsShare>
+              {/* <span>{title.slice(0, 30)}...</span> */}
               <button>{type}</button>
+            </PostStatsReactions>
+            {/* <span>{title.slice(0, 20)}</span> */}
+            <PostStatsCommentsShare>
+              {/* <button>{type}</button> */}
               <Link passHref href={`/activities/${category}/${slug}`}>
-                <span>View {'>'}</span>
+                <span>Read More</span>
               </Link>
             </PostStatsCommentsShare>
           </PostStatsWrapper>
@@ -145,8 +151,8 @@ export const Card = ({
               onMouseOver={onLikeMouseOver}
               onMouseLeave={onLikeMouseLeave}
             >
-              {/* {showReactionPicker && <Reactions.FacebookSelector iconSize={28} />}
-                            2
+              {/* {showReactionPicker && <Reactions.FacebookSelector iconSize={28} />} */}
+              {/* 2
                             <HotLike /> */}
             </PostAction>
             <PostAction>
