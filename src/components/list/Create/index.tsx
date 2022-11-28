@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 // import { useRouter } from 'next/router';
 
 
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+import { useAppSelector } from "src/app/hooks";
+import { isUser } from "src/features/auth/selectors";
 
 import Form from './Form';
 import Footer from 'components/Layout/Footer';

@@ -16,11 +16,7 @@ const PrivacyPage = () => {
     getPrivacyData();
   }, []);
 
-  const description = `
-    Our Privacy Policy explains how we collect, store and use the personal data you give to us. 
-    We’ll keep this page updated so that you can be confident when sharing your data with us that 
-    it will only be used in accordance with this policy. 
-  `;
+  const description = "Talentkids Pookie Policy";
   const url = 'https://talentkids.io/privacy';
   return (
     <>

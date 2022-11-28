@@ -5,14 +5,14 @@ import {
   EventEntityResponseCollection,
   EventQueryResult,
 } from 'generated/graphql';
-import { client } from 'lib/initApollo';
-import { useNoAuthPages } from 'lib/noAuth';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/lib/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import {
   bothLocationType,
   locationType,
   onlineLocationType,
-} from 'utils/types';
+} from 'src/utils/types';
 
 const Event = (props: {
   data: { events: EventEntityResponseCollection };

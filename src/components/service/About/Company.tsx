@@ -16,7 +16,7 @@ import {
     Listings,
     ListingsItem,
     ButtonOutLine,
-} from "../../../styles/common.styles";
+} from "styles/common.styles";
 
 const Company = () => {
   return (

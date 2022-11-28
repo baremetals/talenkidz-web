@@ -1,8 +1,8 @@
 import React from 'react'
 import CreateListing from 'components/list/Create'
-import { requireAuthentication } from 'lib/requireAuthentication';
+import { requireAuthentication } from 'src/lib/requireAuthentication';
 import { GetServerSideProps } from 'next';
-import { useIsAuth } from 'lib/isAuth';
+import { useIsAuth } from 'src/lib/isAuth';
 
 export const getServerSideProps: GetServerSideProps = requireAuthentication(
   async (_ctx) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from "next";
-import { requireAuthentication } from 'lib/requireAuthentication';
-import { initializeApollo } from "lib/apolloClient";
+import { requireAuthentication } from 'src/lib/requireAuthentication';
+import { initializeApollo } from "src/lib/apolloClient";
 import {
   Organisation,
     OrganisationEntityResponseCollection,
@@ -11,7 +11,7 @@ import {
     // UsersPermissionsUserEntityResponseCollection,
 } from "generated/graphql";
 import Head from 'next/head';
-import { useIsAuth } from 'lib/isAuth';
+import { useIsAuth } from 'src/lib/isAuth';
 import EditProfile from 'components/users/EditProfile';
 
 

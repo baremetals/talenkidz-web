@@ -1,4 +1,4 @@
-import { client } from 'lib/initApollo';
+import { client } from 'src/lib/initApollo';
 import { GetServerSidePropsContext } from 'next';
 
 import Layout from 'components/Layout';
@@ -8,12 +8,12 @@ import {
   ListingEntityResponseCollection,
   ListQueryResult,
 } from 'generated/graphql';
-import { useNoAuthPages } from 'lib/noAuth';
+import { useNoAuthPages } from 'src/lib/noAuth';
 import {
   bothLocationType,
   locationType,
   onlineLocationType,
-} from 'utils/types';
+} from 'src/utils/types';
 
 const ListDetailsPage = (props: {
   data: { listings: ListingEntityResponseCollection };

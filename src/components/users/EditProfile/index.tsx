@@ -1,7 +1,7 @@
 import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { Tabs, Tab } from '@mui/material';
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+import { useAppSelector } from "src/app/hooks";
+import { isUser } from "src/features/auth/selectors";
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
 import { FormData } from "formdata-node";
 import axios from "axios";
@@ -29,8 +29,8 @@ import {
 } from './editProfile.styles';
 
 import { BsTrash } from 'react-icons/bs';
-import { Edit } from '../../../../public/assets/icons/Edit';
-import { toBase64 } from '../../../utils/base64';
+import { Edit } from 'public/assets/icons/Edit';
+import { toBase64 } from 'src/utils/base64';
 
 type Props = {
   user: UsersPermissionsUser

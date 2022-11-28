@@ -1,16 +1,16 @@
 import React from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
+import Image from 'next/image';
 import { useArticlesQuery } from "generated/graphql";
 
 import {
-    Image,
     MediaObjectItem,
     MediaObjectThumb,
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-} from "../../../styles/common.styles";
+} from "styles/common.styles";
 
 // type cardProps = {
 //     image: string;
@@ -39,24 +39,49 @@ export const NewsCard = () => {
     const articles = data?.articles?.data
 
     return (
-        <>
-            {articles && articles?.map((art, id) => (
-                <MediaObjectItem key={id}>
-                    <MediaObjectThumb>
-                        <Link passHref href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}>
-                            <Image src={art?.attributes?.heroImage?.data?.attributes?.url || '/default-list-img.jpg'} alt="post image" />
-                        </Link>
-                    </MediaObjectThumb>
+      <>
+        {articles &&
+          articles?.map((art, id) => (
+            <MediaObjectItem key={id}>
+              <MediaObjectThumb>
+                <Link
+                  passHref
+                  href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                >
+                  <Image
+                    src={
+                      art?.attributes?.heroImage?.data?.attributes?.url ||
+                      '/default-list-img.jpg'
+                    }
+                    alt="post image"
+                    width={80}
+                    height={80}
+                  />
+                  {/* <Img
+                    src={
+                      art?.attributes?.heroImage?.data?.attributes?.url ||
+                      '/default-list-img.jpg'
+                    }
+                    alt="post image"
+                  /> */}
+                </Link>
+              </MediaObjectThumb>
 
-                    <MediaObjectBody>
-                        <MediaObjectDate>{dayjs(art?.attributes?.createdAt).format('DD MMMM YYYY')}</MediaObjectDate>
-                        <Link passHref href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}>
-                            <MediaObjectTitle>{art?.attributes?.title.slice(0, 55)} ...</MediaObjectTitle>
-                        </Link>
-                    </MediaObjectBody>
-                </MediaObjectItem>
-            ))}
-
-        </>
-    )
+              <MediaObjectBody>
+                <MediaObjectDate>
+                  {dayjs(art?.attributes?.createdAt).format('DD MMMM YYYY')}
+                </MediaObjectDate>
+                <Link
+                  passHref
+                  href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                >
+                  <MediaObjectTitle>
+                    {art?.attributes?.title.slice(0, 55)} ...
+                  </MediaObjectTitle>
+                </Link>
+              </MediaObjectBody>
+            </MediaObjectItem>
+          ))}
+      </>
+    );
 }

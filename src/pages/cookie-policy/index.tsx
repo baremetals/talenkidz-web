@@ -16,11 +16,7 @@ const CookiePolicy = () => {
     getTermsData();
   }, []);
 
-  const description = `
-    Our website uses cookies, as almost all websites do, to help provide you with the best experience 
-    we can. Cookies are small text files that are placed on your computer or mobile phone when you 
-    browse websites.
-  `;
+  const description = "Talentkids Cookie Policy";
   const url = 'https://talentkids.io/cookie-policy';
   return (
     <>

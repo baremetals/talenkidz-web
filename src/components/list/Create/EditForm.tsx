@@ -62,9 +62,9 @@ import {
 } from 'components//users/EditProfile/editProfile.styles';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../../public/assets/icons/Edit';
-import { toBase64 } from 'utils/base64';
+import { toBase64 } from 'src/utils/base64';
 import { addressType } from './Form';
-import { FileType, FormProps } from 'utils/types';
+import { FileType, FormProps } from 'src/utils/types';
 import GoogleMap from 'components/utilities/Google/GoogleMap';
 import SearchBox from 'components/utilities/Google/SearchBox';
 // import { Modal } from 'components/Modal';

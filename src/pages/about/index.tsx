@@ -18,8 +18,8 @@ const AboutUs = ({ ...attributes }) => {
 
   const description = `
     Talentkids is a solution for the future generation while reshaping the 
-    current generation’s mindset, responsible for shaping their children’s future, 
-    ultimately contributing to a better future tomorrow.
+    current generation’s mindset, responsible for shaping children’s future, 
+    and ultimately contributing to a better tomorrow.
   `;
   const url = 'https://talentkids.io/about';
   // console.log(cats?.data?.categories?.data);
@@ -40,7 +40,7 @@ const AboutUs = ({ ...attributes }) => {
   // };
   return (
     <Layout
-      title={`Talentkids | About Us`}
+      title={`What is Talentkids?`}
       metaDescription={description}
       canonicalUrl={url}
       pageUrl={url}

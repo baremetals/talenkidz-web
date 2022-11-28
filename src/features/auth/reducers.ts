@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState } from "models/User";
+import { AuthState } from "src/models/User";
 
 const isBrowser = typeof window !== "undefined";
 

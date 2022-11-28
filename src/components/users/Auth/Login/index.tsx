@@ -4,12 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Formik } from "formik";
 import axios from 'axios';
-import { getLoginValidationSchema } from "utils/formValidation";
+import { getLoginValidationSchema } from "src/utils/formValidation";
 
 // Redux imports
-import { useAppDispatch } from "app/hooks";
-import { setSuccess, setError } from "features/ui/reducers";
-import { setUser } from "features/auth";
+import { useAppDispatch } from "src/app/hooks";
+import { setSuccess, setError } from "src/features/ui/reducers";
+import { setUser } from "src/features/auth";
 
 import Button from '../../Auth/Button';
 import { Error, ErrorMsg } from 'components/widgets/Input';
@@ -31,8 +31,8 @@ import {
     Image
 } from 'styles/common.styles';
 
-import { Message } from "../../../../../public/assets/icons/Message";
-import { Lock } from "../../../../../public/assets/icons/Lock";
+import { Message } from "public/assets/icons/Message";
+import { Lock } from "public/assets/icons/Lock";
 import Provider from '../Provider';
 
 

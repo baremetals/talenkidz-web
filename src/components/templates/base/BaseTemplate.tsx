@@ -1,27 +1,9 @@
 import {
   InnerBanner,
   InnerContainer,
-  Row,
-  Column,
   Title,
   Text,
   PageContainer,
-  Post,
-  PostThumb,
-  PostBody,
-  PostTitle,
-  Top,
-  Bottom,
-  PostDate,
-  PostMedia,
-  Image,
-  SearchBar,
-  SearchInput,
-  SearchButton,
-  WidgetPanel,
-  WidgetPanelTitle,
-  WidgetPanelListing,
-  WidgetPanelLink,
 } from 
 // '../../../styles/common.styles';
 'styles/common.styles';
