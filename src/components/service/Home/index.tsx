@@ -1,15 +1,19 @@
 
 import React from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+// import Image from 'next/image';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
+import dynamic from 'next/dynamic';
 
 import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
 // import Company from '../About/Company'
-import ActivityCard from './ActivityCard'
+
+const ActivityCard = dynamic(() => import('./ActivityCard'), {
+  ssr: false,
+});
 
 import {
     // PageContainer,
@@ -57,13 +61,13 @@ const Home = () => {
 
       
         <Hero>
-          <Image
-            src="/yung-buck.jpg"
+          {/* <Image
+            src="/twokids.jpg"
             alt="education activity card image"
             width={"0"}
             height="0"
             className="banner-bg"
-          />
+          /> */}
 
           <InnerContainer>
             <HeroContent>

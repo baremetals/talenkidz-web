@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-
+import dynamic from 'next/dynamic';
 import Link from 'next/link'
 import axios from 'axios';
 import { addToMailingList } from 'src/lib/helpers'
@@ -7,6 +7,12 @@ import { addToMailingList } from 'src/lib/helpers'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaInstagram } from 'react-icons/fa'
+
+const NewsCard = dynamic(() => import('./NewsCard'), {
+  ssr: false,
+});
+
+
 
 
 
@@ -27,9 +33,9 @@ import {
   // SwitchBox,
   // Switch,
   NewsletterBox,
-} from '../../../styles/common.styles';
+} from 'styles/common.styles';
 
-import { NewsCard } from './NewsCard'
+// import { NewsCard } from './NewsCard'
 import Button from 'components/widgets/Button';
 // import AdComponent from 'components/AdComponent';
 

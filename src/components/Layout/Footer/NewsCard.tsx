@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
 import Image from 'next/image';
@@ -17,7 +17,7 @@ import {
 //     date: string;
 //     title: string;
 // }
-export const NewsCard = () => {
+function NewsCard(): ReactElement {
 
     const { data, loading, error } = useArticlesQuery({
         variables: {
@@ -85,3 +85,4 @@ export const NewsCard = () => {
       </>
     );
 }
+export default NewsCard

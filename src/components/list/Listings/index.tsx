@@ -105,7 +105,7 @@ function Listings({ listings, categories }: pageProps) {
         setFilteredListings(listings as SetStateAction<never[]>);
     }, [listings]);
 
-    console.log(listings)
+    // console.log(listings)
 
     const handleSearch =
         (name: string) => (event: { target: { value: string } }) => {
