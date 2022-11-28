@@ -26,7 +26,7 @@ import {
   UsernameWrapper,
 } from '../ProfilePage/profile.styles';
 
-import { Text, Widget } from 'styles/common.styles';
+import { Text, Widget, H2Title } from 'styles/common.styles';
 
 // import { Edit } from 'public/assets/icons/Edit'
 // import { Delete } from 'public/assets/icons/Delete'
@@ -115,11 +115,13 @@ export const Card = ({
         </PostTop>
 
         <PostCenterWrap>
-          <button style={{ backgroundColor: `${colour}` }}>{category}</button>
+          <button style={{ backgroundColor: `${colour}`, color: 'white' }}>{category}</button>
           <PostTextWrapper
             style={{ marginBottom: '0.5rem', marginTop: '0.5rem' }}
           >
-            <Text>{title.slice(0, 45)}...</Text>
+            <H2Title style={{ fontSize: '1rem' }}>
+              {title.slice(0, 60)}...
+            </H2Title>
           </PostTextWrapper>
           <PostMedia>
             <Image src={content} alt="Post image" />
@@ -133,10 +135,11 @@ export const Card = ({
                                 {renderReactionIcons()}
                             </GivenReactionsWrapper> */}
               {/* <span>{title.slice(0, 30)}...</span> */}
+              <button>{type}</button>
             </PostStatsReactions>
             {/* <span>{title.slice(0, 20)}</span> */}
             <PostStatsCommentsShare>
-              <button>{type}</button>
+              {/* <button>{type}</button> */}
               <Link passHref href={`/activities/${category}/${slug}`}>
                 <span>Read More</span>
               </Link>
@@ -149,7 +152,7 @@ export const Card = ({
               onMouseLeave={onLikeMouseLeave}
             >
               {/* {showReactionPicker && <Reactions.FacebookSelector iconSize={28} />} */}
-                            {/* 2
+              {/* 2
                             <HotLike /> */}
             </PostAction>
             <PostAction>
