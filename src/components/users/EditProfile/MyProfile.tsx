@@ -1,38 +1,39 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
-import { FormData } from "formdata-node";
-import axios from "axios";
+import axios from 'axios';
+import { FormData } from 'formdata-node';
+import { ChangeEvent, useState } from 'react';
 
-import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { TextField } from '@mui/material';
 import { UsersPermissionsUser } from 'generated/graphql';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
-  EditProfileTab,
-  HeaderLine,
-  PersonalInformationForm,
-  FormItem,
-  FormGroup,
-  SubmitButton,
-  CoverPictureUploaderWrapper,
-  Image,
-  Label,
-  CoverPictureWrapper,
-  ImageActions,
   ActionButton,
+  CoverPictureUploaderWrapper,
+  CoverPictureWrapper,
+  EditButton,
+  EditProfileTab,
+  FormGroup,
+  FormItem,
+  HeaderLine,
+  Image,
+  ImageActions,
+  Label,
   NoCoverPictureWrapper,
+  PersonalInformationForm,
   SelectCoverPictureButton,
-  EditButton
+  SubmitButton,
 } from './editProfile.styles';
 
-import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
+import Spinner from 'components/utilities/Spinner';
 import { Edit } from 'public/assets/icons/Edit';
+import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { toBase64 } from 'src/utils/base64';
 
 type Props = {
-  user: UsersPermissionsUser
-}
+  user: UsersPermissionsUser;
+};
 
 export type FileType = {
   lastModified: any;
@@ -41,18 +42,23 @@ export type FileType = {
   size: number;
   type: string;
   webkitRelativePath: string;
-}
+};
 
 const MyProfile = ({ user }: Props) => {
-  const [fullName, setFullName] = useState<string>(user.fullName || '');
-  const [username, setUsername] = useState<string>(user.username || '');
-  const [pronoun, setPronoun] = useState<string>(user.pronoun || 'test');
-  const [gender, setGender] = useState<string>(user.gender || '');
-  const [bio, setBio] = useState<string>(user.bio || 'lake');
-  const [backgroundImg, setBackgroundImg] = useState<FileType | string>(user?.backgroundImg as string || '');
+  const [backgroundImg, setBackgroundImg] = useState<FileType | string>(
+    (user?.backgroundImg as string) || ''
+  );
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+
+  const [profile, setProfile] = useState({
+    fullName: user.fullName || '',
+    username: user.username || '',
+    pronoun: user.pronoun || '',
+    gender: user.gender || '',
+    bio: user.bio || 'lake',
+  });
   // eslint-disable-next-line no-unused-vars
-  const [_loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -60,20 +66,23 @@ const MyProfile = ({ user }: Props) => {
     setBackgroundImg(base64);
     setUploadImg(event.target.files[0] as any);
     // console.log(event)
-  }
+  };
   // console.log(user)
 
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.value);
+    setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const handleSubmit = async () => {
-
     // console.log(uploadImg)
-
     if (uploadImg !== null) {
-      setLoading(true)
-      let form = new FormData()
-      form.append('file', uploadImg, uploadImg?.name)
+      setLoading(true);
+      let form = new FormData();
+      form.append('file', uploadImg, uploadImg?.name);
       try {
         const res = await axios(`/api/upload`, {
-          method: "post",
+          method: 'post',
           headers: {
             Accept: 'multipart/form-data',
           },
@@ -83,70 +92,71 @@ const MyProfile = ({ user }: Props) => {
 
         if (res?.data?.content?.url) {
           const data = {
-            fullName,
-            username,
-            pronoun,
-            bio,
-            gender,
+            fullName: profile?.fullName,
+            username: profile?.username,
+            pronoun: profile?.pronoun,
+            bio: profile?.bio,
+            gender: profile?.gender,
             backgroundImg: res?.data?.content?.url,
-          }
-          console.log(data)
+          };
+          console.log(data);
 
           const dta = await axios.post('/api/user/update', {
-            data
-          })
-          console.log(dta)
+            data,
+          });
+          console.log(dta);
           if (dta.status === 200) {
             setUploadImg(null);
-            setLoading(false)
-            toast.success(dta?.data?.message, { position: "top-center", })
+            setLoading(false);
+            toast.success(dta?.data?.message, { position: 'top-center' });
           } else {
-            setLoading(false)
+            setLoading(false);
             await axios.post('/api/upload/delete', {
-              data: { id: res?.data?.content?.id }
-            })
-            toast.error('Issue updating details', { position: "top-center", })
+              data: { id: res?.data?.content?.id },
+            });
+            toast.error('Issue updating details', { position: 'top-center' });
           }
-
         } else {
-          setLoading(false)
-          toast.error('Issue uploading image', { position: "top-center", })
+          setLoading(false);
+          toast.error('Issue uploading image', { position: 'top-center' });
         }
-
       } catch (err) {
         console.log(err);
-        setLoading(false)
-        toast.error('issues from mars come back later', { position: "top-center", })
+        setLoading(false);
+        toast.error('issues from mars come back later', {
+          position: 'top-center',
+        });
       }
     } else {
       const data = {
-        fullName,
-        username,
-        pronoun,
-        bio,
-        gender,
-        backgroundImg
-      }
+        fullName: profile?.fullName,
+        username: profile?.username,
+        pronoun: profile?.pronoun,
+        bio: profile?.bio,
+        gender: profile?.gender,
+        backgroundImg,
+      };
       try {
         const dta = await axios.post('/api/user/update', {
-          data
-        })
+          data,
+        });
 
         if (dta.status === 200) {
           setUploadImg(null);
-          setLoading(false)
-          toast.success(dta?.data?.message, { position: "top-center", })
+          setLoading(false);
+          toast.success(dta?.data?.message, { position: 'top-center' });
         } else {
-          setLoading(false)
-          toast.error('Issue updating details', { position: "top-center", })
+          setLoading(false);
+          toast.error('Issue updating details', { position: 'top-center' });
         }
-
       } catch (err) {
-        setLoading(false)
-        toast.error('Something went wrong please try again later', { position: "top-center", })
+        setLoading(false);
+        toast.error('Something went wrong please try again later', {
+          position: 'top-center',
+        });
       }
     }
-  }
+  };
 
   return (
     <>
@@ -158,8 +168,9 @@ const MyProfile = ({ user }: Props) => {
             fullWidth
             label="Full Name"
             variant="outlined"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            name="fullName"
+            value={profile?.fullName}
+            onChange={handleChange}
           />
           <FormGroup>
             <FormItem>
@@ -167,60 +178,63 @@ const MyProfile = ({ user }: Props) => {
                 fullWidth
                 label="Username"
                 variant="outlined"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="username"
+                value={profile?.username}
+                onChange={handleChange}
               />
             </FormItem>
             <FormItem>
-              <FormControl fullWidth>
+              {/* <FormControl fullWidth>
                 <InputLabel>Gender</InputLabel>
                 <Select
                   labelId="gender-select-label"
                   value={gender}
                   label="Gender"
-                  onChange={(e) => setGender(e.target.value as SetStateAction<string>)}
+                  onChange={(e) =>
+                    setGender(e.target.value as SetStateAction<string>)
+                  }
                 >
                   <MenuItem value={'male'}>Male</MenuItem>
                   <MenuItem value={'female'}>Female</MenuItem>
                   <MenuItem value={'Rather not say'}>Rather not say</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
+              <TextField
+                fullWidth
+                label="Gender"
+                variant="outlined"
+                name="gender"
+                value={profile?.gender}
+                onChange={handleChange}
+              />
             </FormItem>
             <FormItem>
-              <FormControl fullWidth>
-                <InputLabel>Pronoun</InputLabel>
-                <Select
-                  labelId="pronoun-select-label"
-                  value={pronoun}
-                  label="Pronoun"
-                  onChange={(e) => setPronoun(e.target.value as SetStateAction<string>)}
-                >
-                  <MenuItem value={'Him/He'}>Him/He</MenuItem>
-                  <MenuItem value={'Her/She'}>Her/She</MenuItem>
-                  <MenuItem value={'Miss'}>Mrs</MenuItem>
-                  <MenuItem value={'Ms'}>Ms</MenuItem>
-                  <MenuItem value={'Sir'}>Sir</MenuItem>
-                </Select>
-              </FormControl>
+              <TextField
+                fullWidth
+                label="Gender"
+                variant="outlined"
+                name="pronoun"
+                value={profile?.pronoun}
+                onChange={handleChange}
+              />
             </FormItem>
           </FormGroup>
           <CoverPictureUploaderWrapper>
             <Label>Cover Picture</Label>
-            <TextField
-              style={{ display: 'none' }}
-              fullWidth
-              type="file"
-            />
-            { backgroundImg ? (
+            <TextField style={{ display: 'none' }} fullWidth type="file" />
+            {backgroundImg ? (
               <>
                 <CoverPictureWrapper>
                   <div className="overlay"></div>
-                  <Image src={backgroundImg as string} alt="User cover picture" />
+                  <Image
+                    src={backgroundImg as string}
+                    alt="User cover picture"
+                  />
                   <ImageActions>
                     <ActionButton>
                       <EditButton htmlFor="upload-bg-photo">
                         <input
-                          style={{ display: "none" }}
+                          style={{ display: 'none' }}
                           id="upload-bg-photo"
                           name="upload-bg-photo"
                           type="file"
@@ -237,21 +251,21 @@ const MyProfile = ({ user }: Props) => {
               </>
             ) : (
               <NoCoverPictureWrapper>
-                  <EditButton htmlFor="upload-bg-photo">
-                    <input
-                      style={{ display: "none" }}
-                      id="upload-bg-photo"
-                      name="upload-bg-photo"
-                      type="file"
-                      onChange={(e) => handleImgChange(e)}
-                    />
-                    <SelectCoverPictureButton>
-                      <BsCloudArrowUp />
-                      Select a cover picture
-                    </SelectCoverPictureButton>
-                  </EditButton>
+                <EditButton htmlFor="upload-bg-photo">
+                  <input
+                    style={{ display: 'none' }}
+                    id="upload-bg-photo"
+                    name="upload-bg-photo"
+                    type="file"
+                    onChange={(e) => handleImgChange(e)}
+                  />
+                  <SelectCoverPictureButton>
+                    <BsCloudArrowUp />
+                    Select a cover picture
+                  </SelectCoverPictureButton>
+                </EditButton>
               </NoCoverPictureWrapper>
-            ) }
+            )}
           </CoverPictureUploaderWrapper>
           <TextField
             label="Bio"
@@ -259,9 +273,20 @@ const MyProfile = ({ user }: Props) => {
             fullWidth
             rows={4}
             value={user.bio}
-            onChange={(e) => setBio(e.target.value)}
+            onChange={handleChange}
           />
-          <SubmitButton type="button" onClick={() => handleSubmit()}>Save Changes</SubmitButton>
+          <SubmitButton type="button" onClick={() => handleSubmit()}>
+            {loading ? 'Saving...' : 'Save Changes'}
+            {loading && (
+              <Spinner
+                style={{
+                  position: 'relative',
+                  backgroundColor: 'transparent',
+                  boxShadow: 'none',
+                }}
+              />
+            )}
+          </SubmitButton>
         </PersonalInformationForm>
       </EditProfileTab>
       <ToastContainer />
