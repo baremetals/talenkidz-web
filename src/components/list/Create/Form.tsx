@@ -48,7 +48,7 @@ import {
   NoCoverPictureWrapper,
   SelectCoverPictureButton,
 } from 'components/users/EditProfile/editProfile.styles';
-import { toBase64 } from 'utils/base64';
+import { toBase64 } from 'src/utils/base64';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from '../../../../public/assets/icons/Edit';
 
@@ -57,7 +57,7 @@ import SearchBox from 'components/utilities/Google/SearchBox';
 import { formReducer, INITIAL_STATE } from './formReducer';
 import slugify from 'slugify';
 import axios from 'axios';
-import { FileType, FormProps } from 'utils/types';
+import { FileType, FormProps } from 'src/utils/types';
 
 
 

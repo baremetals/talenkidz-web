@@ -1,9 +1,10 @@
 
 import React, { SetStateAction, useEffect, useState } from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dayjs from "dayjs";
-import { upperCase } from 'lib/helpers'
+import { upperCase } from 'src/lib/helpers'
 
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
@@ -25,7 +26,6 @@ import {
     Bottom,
     PostDate,
     PostMedia,
-    Image,
 
     SearchBar,
     SearchInput,
@@ -124,79 +124,132 @@ const Articles = ({ articles, categories }: pageProps) => {
             } else setFilteredArticles(articles as SetStateAction<never[]>);
         };
     return (
-        <>
+      <>
+        <InnerBanner>
+          <InnerContainer>
+            <Title>
+              {`${
+                router.query.category === undefined
+                  ? 'Latest'
+                  : upperCase(router.query.category as string)
+              }`}{' '}
+              Articles
+            </Title>
+            <Text style={{ marginBottom: '0', color: '#000000' }}>
+              <Link href={'/'}>Home </Link> /{' '}
+              <Link href={'/articles'}>Articles </Link>{' '}
+              {`${
+                router.query.category === undefined
+                  ? ''
+                  : '/ ' + upperCase(router.query.category as string)
+              }`}
+            </Text>
+          </InnerContainer>
+        </InnerBanner>
 
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-                <InnerContainer>
-                    <Title>{`${router.query.category === undefined ? "Latest" : upperCase(router.query.category as string)}`} Articles</Title>
-                    <Text style={{ marginBottom: '0', color: "#000000" }}><Link href={'/'}>Home </Link> / <Link href={'/articles'}>Articles </Link> {`${router.query.category === undefined ? "" : '/ ' + upperCase(router.query.category as string)}`}</Text>
-                </InnerContainer>
-            </InnerBanner>
+        <PageContainer>
+          <InnerContainer>
+            <Row>
+              <Column className="column-7">
+                <Row>
+                  {filteredArticles?.map((art: articleProps, id) => (
+                    <Column style={{ minWidth: '50%' }} key={id}>
+                      <Link
+                        href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                        passHref
+                      >
+                        <Post>
+                          <PostThumb>
+                            <Image
+                              src={
+                                art?.attributes?.heroImage?.data?.attributes
+                                  ?.url
+                              }
+                              alt="article image"
+                              width={359.3}
+                              height={269.47}
+                            />
+                          </PostThumb>
+                          <PostBody>
+                            <Top>
+                              <PostTitle
+                                style={{
+                                  fontSize: '1rem',
+                                  color: '#2e3032',
+                                  marginBottom: '.3rem',
+                                }}
+                              >
+                                {art?.attributes?.title.slice(0, 40)}...
+                              </PostTitle>
+                              <Text>
+                                {art?.attributes?.blurb.slice(0, 80)}...
+                              </Text>
+                            </Top>
+                            <Bottom style={{ fontSize: '.75rem' }}>
+                              {
+                                art?.attributes?.author?.data?.attributes
+                                  ?.fullName
+                              }
+                            </Bottom>
+                            <Bottom>
+                              <PostDate>
+                                {dayjs(art?.attributes?.updatedAt).format(
+                                  'DD MMMM YYYY'
+                                )}{' '}
+                              </PostDate>
 
-            <PageContainer>
-                <InnerContainer>
-                    <Row>
-                        <Column className='column-7'>
-                            <Row>
-                                {filteredArticles?.map((art: articleProps, id) => (
-                                    <Column style={{ minWidth: "50%" }} key={id}>
-                                        <Link href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`} passHref>
-                                            <Post>
-                                                <PostThumb>
-                                                    <Image src={art?.attributes?.heroImage?.data?.attributes?.url} alt='article image' />
-                                                </PostThumb>
-                                                <PostBody>
-                                                    <Top>
-                                                        <PostTitle style={{ fontSize: '1rem', color: '#2e3032', marginBottom: '.3rem' }}>{art?.attributes?.title}</PostTitle>
-                                                        <Text>{art?.attributes?.blurb.slice(0, 80)}...</Text>
-                                                    </Top>
-                                                    <Bottom style={{ fontSize: '.75rem' }}>
-                                                        
-                                                            {art?.attributes?.author?.data?.attributes?.fullName}                                                       
-                                                    </Bottom>
-                                                    <Bottom>
-                                                        <PostDate>{dayjs(art?.attributes?.updatedAt).format('DD MMMM YYYY')} </PostDate>
-                                                        
-                                                        <PostMedia style={{ fontSize: '.75rem', color: '#74787C' }}>
-                                                            {art?.attributes?.readingTime}
-                                                        </PostMedia>
-                                                        {/* <PostMedia>
+                              <PostMedia
+                                style={{ fontSize: '.75rem', color: '#74787C' }}
+                              >
+                                {art?.attributes?.readingTime}
+                              </PostMedia>
+                              {/* <PostMedia>
                                                             <Link href={'/posts'}><a><ThumbsUp /></a></Link>
                                                             <PostMedia>
                                                                 <Link href={'/posts'}><a><BookMark /></a></Link>
                                                             </PostMedia>
                                                         </PostMedia> */}
-                                                    </Bottom>
-                                                </PostBody>
-                                            </Post>
-                                        </Link>
-                                    </Column>
-                                ))}
-                            </Row>
-                        </Column>
-                        <Column>
-                            <SearchBar>
-                                <SearchInput placeholder="Search" type="text"
-                                    name="search"
-                                    onChange={handleSearch("search")}
-                                />
-                                <SearchButton></SearchButton>
-                            </SearchBar>
-                            <WidgetPanel>
-                                <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                                <WidgetPanelListing>
-
-                                    {categories?.map((cat, id) => (
-                                        <WidgetPanelLink key={id} ><Image src='/checkbox.svg' alt='' /><Link href={`/articles/${cat?.attributes?.slug}`}>{cat?.attributes?.slug}</Link></WidgetPanelLink>
-                                    ))}
-                                </WidgetPanelListing>
-
-                            </WidgetPanel>
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
-        </>
+                            </Bottom>
+                          </PostBody>
+                        </Post>
+                      </Link>
+                    </Column>
+                  ))}
+                </Row>
+              </Column>
+              <Column>
+                <SearchBar>
+                  <SearchInput
+                    placeholder="Search"
+                    type="text"
+                    name="search"
+                    onChange={handleSearch('search')}
+                  />
+                  <SearchButton aria-label="search icon button"></SearchButton>
+                </SearchBar>
+                <WidgetPanel>
+                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
+                  <WidgetPanelListing>
+                    {categories?.map((cat, id) => (
+                      <WidgetPanelLink key={id}>
+                        <Image
+                          src={require("public/checkbox.svg")}
+                          alt="checkboxes"
+                          // width={20}
+                          // height={20}
+                        />
+                        <Link href={`/articles/${cat?.attributes?.slug}`}>
+                          {cat?.attributes?.slug}
+                        </Link>
+                      </WidgetPanelLink>
+                    ))}
+                  </WidgetPanelListing>
+                </WidgetPanel>
+              </Column>
+            </Row>
+          </InnerContainer>
+        </PageContainer>
+      </>
     );
 }
 

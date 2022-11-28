@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { Formik } from "formik";
 import axios from 'axios';
-import { getForgotPasswordValidationSchema } from "utils/formValidation";
+import { getForgotPasswordValidationSchema } from "src/utils/formValidation";
 
 
 import { Error, ErrorMsg } from "components/widgets/Input";

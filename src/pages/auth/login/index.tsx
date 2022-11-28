@@ -1,17 +1,13 @@
 import Login from 'components/users/Auth/Login';
 import Layout from 'components/Layout';
-// import { withApollo } from "../../../utils/withApollo";
+// import { withApollo } from "src/utils/withApollo";
 
 function LoginPage() {
-  const description = `
-        Please use the login page to access your account. 
-        You will need to provide your account email address and password.
-        If you cannot remember your email address please use the forgot password form.
-    `;
+  const description = "Talentkids - Login";
   const url = 'https://talentkids.io/auth/login';
   return (
     <Layout
-      title={`Talentkids | Login`}
+      title={`Welcome to Talentkids | Login`}
       metaDescription={description}
       canonicalUrl={url}
       pageUrl={url}

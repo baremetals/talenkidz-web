@@ -1,45 +1,51 @@
 import React, { ReactElement, useState } from 'react'
-
+import dynamic from 'next/dynamic';
 import Link from 'next/link'
 import axios from 'axios';
-import { addToMailingList } from 'lib/helpers'
+import { addToMailingList } from 'src/lib/helpers'
 // import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaInstagram } from 'react-icons/fa'
 
+const NewsCard = dynamic(() => import('./NewsCard'), {
+  ssr: false,
+});
+
+
+
 
 
 import {
-    Column,
-    InnerContainer,
-    // Logo,
-    Row,
-    // Image,
-    SiteFooter,
-    FooterLinks,
-    FooterTitle,
-    MediaObject,
-    Title,
-    Text,
-    Input,
-    // LabelText,
-    // SwitchBox,
-    // Switch,
-    NewsletterBox
-} from "../../../styles/common.styles";
+  Column,
+  InnerContainer,
+  // Logo,
+  Row,
+  // Image,
+  SiteFooter,
+  FooterLinks,
+  FooterTitle,
+  MediaObject,
+  H2Title,
+  Text,
+  Input,
+  // LabelText,
+  // SwitchBox,
+  // Switch,
+  NewsletterBox,
+} from 'styles/common.styles';
 
-import { NewsCard } from './NewsCard'
+// import { NewsCard } from './NewsCard'
 import Button from 'components/widgets/Button';
 // import AdComponent from 'components/AdComponent';
 
-import { FaceBook } from "../../../../public/assets/icons/FaceBook";
-import { Tiktok } from "../../../../public/assets/icons/Tiktok";
-import { LinkedIn } from "../../../../public/assets/icons/LinkedIn";
-import { Twitter } from "../../../../public/assets/icons/Twitter";
+import { FaceBook } from "public/assets/icons/FaceBook";
+import { Tiktok } from "public/assets/icons/Tiktok";
+import { LinkedIn } from "public/assets/icons/LinkedIn";
+import { Twitter } from "public/assets/icons/Twitter";
 import PolicyPopUp from 'components/service/Policy';
 
-// import { WhatsApp } from "../../../../public/assets/icons/WhatsApp";
+// import { WhatsApp } from "public/assets/icons/WhatsApp";
 
 
 function Footer(): ReactElement {
@@ -100,11 +106,11 @@ function Footer(): ReactElement {
                                     <Image src={'/logo-white.png'} alt='' />
                                 </Logo>
                             </Link> */}
-                <Title
+                <H2Title
                   style={{ color: '#fff', fontSize: '1.75rem', marginTop: '0' }}
                 >
                   Get The Newsletter
-                </Title>
+                </H2Title>
                 <Text style={{}}>
                   Keep the kids happy with entertaining and educational ideas
                 </Text>
@@ -131,22 +137,37 @@ function Footer(): ReactElement {
                 </NewsletterBox>
                 {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
                 <div className="footer_social">
-                  <a href={'https://www.facebook.com/jointalentkids'}>
+                  <a
+                    href={'https://www.facebook.com/jointalentkids'}
+                    aria-label="FaceBook"
+                  >
                     <FaceBook />
                   </a>
-                  <a href={'https://twitter.com/talentkids_join'}>
+                  <a
+                    href={'https://twitter.com/talentkids_join'}
+                    aria-label="Twitter"
+                  >
                     <Twitter />
                   </a>
-                  <a href={'https://www.linkedin.com/company/join-talentkids'}>
+                  <a
+                    href={'https://www.linkedin.com/company/join-talentkids'}
+                    aria-label="LinkedIn"
+                  >
                     <LinkedIn />
                   </a>
-                  {/* <a href={'https://web.whatsapp.com/'}>
+                  {/* <a href={'https://web.whatsapp.com/'} aria-label="WhatsApp">
                     <WhatsApp />
                   </a> */}
-                  <a href={'https://www.instagram.com/join__talentkids'}>
+                  <a
+                    href={'https://www.instagram.com/join__talentkids'}
+                    aria-label="Instagram"
+                  >
                     <FaInstagram />
                   </a>
-                  <a href={'https://www.tiktok.com/@join_talentkids'}>
+                  <a
+                    href={'https://www.tiktok.com/@join_talentkids'}
+                    aria-label="Tiktok"
+                  >
                     <Tiktok />
                   </a>
                 </div>

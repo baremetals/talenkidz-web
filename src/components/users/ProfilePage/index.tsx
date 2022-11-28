@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { UsersPermissionsUser } from 'generated/graphql';
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth/selectors";
+import { useAppSelector } from "src/app/hooks";
+import { isUser } from "src/features/auth/selectors";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

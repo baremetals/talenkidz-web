@@ -47,8 +47,7 @@ const FaqPage = ({ ...data }) => {
     mainEntity,
   };
 
-  const description =
-    'use the the faqs to to get more information about the company and services.';
+  const description = 'Talentkids faqs';
   const url = 'https://talentkids.io/faqs';
   // console.log(cats?.data?.categories?.data);
   // console.log(data.data)

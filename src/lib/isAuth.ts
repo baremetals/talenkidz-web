@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAppDispatch } from "app/hooks";
-import { setUser } from "features/auth";
+import { useAppDispatch } from "src/app/hooks";
+import { setUser } from "src/features/auth";
 import axios from "axios";
 
 export const useIsAuth = () => {

@@ -5,8 +5,8 @@ import {
   ArticleEntityResponseCollection,
   ArticleQueryResult,
 } from 'generated/graphql';
-import { client } from 'lib/initApollo';
-import { useNoAuthPages } from 'lib/noAuth';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/lib/noAuth';
 import { GetServerSidePropsContext } from 'next';
 
 const Article = (props: {

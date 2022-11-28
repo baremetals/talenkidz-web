@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { EditorState } from "draft-js";
 import axios from "axios";
 
-import { useAppSelector } from "app/hooks";
-import { isUser } from "features/auth";
+import { useAppSelector } from "src/app/hooks";
+import { isUser } from "src/features/auth";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from 'components/utilities/Modal'

@@ -1,4 +1,4 @@
-import { client } from 'lib/initApollo';
+import { client } from 'src/lib/initApollo';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import EditForm from 'components/list/Create/EditForm';
@@ -10,8 +10,8 @@ import {
   EventQueryResult,
   Maybe,
 } from 'generated/graphql';
-import { useIsAuth } from 'lib/isAuth';
-import { requireAuthentication } from 'lib/requireAuthentication';
+import { useIsAuth } from 'src/lib/isAuth';
+import { requireAuthentication } from 'src/lib/requireAuthentication';
 
 const EventEditForm = (props: {
   data: { events: EventEntityResponseCollection };

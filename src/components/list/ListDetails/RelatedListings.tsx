@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import { useFilteredListingsQuery, ListingEntity } from "generated/graphql";
+import Image from 'next/image';
 
 import {
     MediaObject,
@@ -9,10 +10,10 @@ import {
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-    Image,
     WidgetPanel,
     WidgetPanelTitle,
     WidgetPanelListing,
+    MediaObjectSpan,
 } from "../../../styles/common.styles";
 import Link from 'next/link';
 
@@ -80,30 +81,67 @@ function RelatedListings({ category }: propType): ReactElement {
     
 
     return (
-        <>
-            <WidgetPanel>
-                <WidgetPanelTitle>Related Listings</WidgetPanelTitle>
-                <WidgetPanelListing>
-                    <MediaObject>
-                        {arty?.map((art, id) => (
-                            <MediaObjectItem key={id}>
-                                <MediaObjectThumb>
-                                    <Link href={`/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`} passHref>
-                                    <Image src={art?.attributes?.listImage || '/default-list-img.jpg'} alt="" />
-                                    </Link>
-                                </MediaObjectThumb>
-                                <MediaObjectBody>
-                                    <MediaObjectDate>{dayjs(art?.attributes?.startDate).format('DD MMMM YYYY')}</MediaObjectDate>
-                                    <Link href={`/activitiess/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`} passHref>
-                                    <MediaObjectTitle>{art?.attributes?.title}</MediaObjectTitle>
-                                    </Link>
-                                </MediaObjectBody>
-                            </MediaObjectItem>
-                        ))}                        
-                    </MediaObject>
-                </WidgetPanelListing>
-            </WidgetPanel>
-        </>
+      <>
+        <WidgetPanel>
+          <WidgetPanelTitle>Related Listings</WidgetPanelTitle>
+          <WidgetPanelListing>
+            <MediaObject>
+              {arty?.map((art, id) => (
+                <MediaObjectItem key={id}>
+                  <MediaObjectThumb>
+                    <Link
+                      href={`/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                      passHref
+                    >
+                      <Image
+                        src={
+                          art?.attributes?.listImage || '/default-list-img.jpg'
+                        }
+                        alt="activity image"
+                        width={80}
+                        height={80}
+                      />
+                    </Link>
+                    <MediaObjectSpan
+                      style={{
+                        fontSize: '14px',
+                        color: '#39364F',
+                        fontWeight: '500',
+                        // marginTop: '0.1rem'
+                      }}
+                    >
+                      {art?.attributes?.host?.data?.attributes?.name}{' '}
+                    </MediaObjectSpan>
+                  </MediaObjectThumb>
+                  <MediaObjectBody>
+                    <Link
+                      href={`/activitiess/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                      passHref
+                    >
+                      <MediaObjectTitle>
+                        {art?.attributes?.title?.slice(0, 23)}...
+                      </MediaObjectTitle>
+                    </Link>
+                    <MediaObjectDate>
+                      {dayjs(art?.attributes?.startDate).format('DD MMMM YYYY')}
+                    </MediaObjectDate>
+                    <MediaObjectSpan>
+                      {`${art?.attributes?.Location?.name}` +
+                        ' • ' +
+                        `${art?.attributes?.Location?.town}`}
+                    </MediaObjectSpan>
+                    <MediaObjectSpan>
+                      {art?.attributes?.price === '0'
+                        ? 'Free'
+                        : `£${art?.attributes?.price}`}{' '}
+                    </MediaObjectSpan>
+                  </MediaObjectBody>
+                </MediaObjectItem>
+              ))}
+            </MediaObject>
+          </WidgetPanelListing>
+        </WidgetPanel>
+      </>
     );
 }
 

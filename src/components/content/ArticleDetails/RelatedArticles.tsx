@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
-
+import Image from 'next/image';
 import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
 
 import {
@@ -11,14 +11,14 @@ import {
     MediaObjectBody,
     MediaObjectDate,
     MediaObjectTitle,
-    Image,
 
     WidgetPanel,
     WidgetPanelTitle,
 
     WidgetPanelListing,
+    MediaObjectSpan,
     // WidgetPanelLink
-} from "../../../styles/common.styles";
+} from "styles/common.styles";
 
 
 // type articleProps = {
@@ -85,30 +85,53 @@ function RelatedArticles({ category }: propType): ReactElement {
 
 
     return (
-        <>
-            <WidgetPanel>
-                <WidgetPanelTitle>Related Articles</WidgetPanelTitle>
-                <WidgetPanelListing>
-                    <MediaObject>
-                        {arty?.map((art, id) => (
-                            <MediaObjectItem key={id}>
-                                <MediaObjectThumb>
-                                    <Link href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`} passHref>
-                                        <Image src={art?.attributes?.heroImage?.data?.attributes?.url || '/default-list-img.jpg'} alt="post image" />
-                                    </Link>
-                                </MediaObjectThumb>
-                                <MediaObjectBody>
-                                    <MediaObjectDate>{dayjs(art?.attributes?.createdAt).format('DD MMMM YYYY')}</MediaObjectDate>
-                                    <Link passHref href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}>
-                                    <MediaObjectTitle>{art?.attributes?.title}</MediaObjectTitle>
-                                    </Link>
-                                </MediaObjectBody>
-                            </MediaObjectItem>
-                        ))}
-                    </MediaObject>
-                </WidgetPanelListing>
-            </WidgetPanel>
-        </>
+      <>
+        <WidgetPanel>
+          <WidgetPanelTitle>Related Articles</WidgetPanelTitle>
+          <WidgetPanelListing>
+            <MediaObject>
+              {arty?.map((art, id) => (
+                <MediaObjectItem key={id}>
+                  <MediaObjectThumb>
+                    <Link
+                      href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                      passHref
+                    >
+                      <Image
+                        src={
+                          art?.attributes?.heroImage?.data?.attributes?.url ||
+                          '/default-list-img.jpg'
+                        }
+                        alt="article image"
+                        width={80}
+                        height={80}
+                      />
+                    </Link>
+                  </MediaObjectThumb>
+                  <MediaObjectBody>
+                    <Link
+                      passHref
+                      href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                    >
+                      <MediaObjectTitle>
+                        {art?.attributes?.title?.slice(0, 50)}
+                      </MediaObjectTitle>
+                    </Link>
+                    <MediaObjectDate>
+                      {dayjs(art?.attributes?.createdAt).format('DD MMMM YYYY')}
+                    </MediaObjectDate>
+                    <MediaObjectSpan>
+                      {`${art?.attributes?.author?.data?.attributes?.fullName}` +
+                        ' • ' +
+                        `${art?.attributes?.readingTime}`}
+                    </MediaObjectSpan>
+                  </MediaObjectBody>
+                </MediaObjectItem>
+              ))}
+            </MediaObject>
+          </WidgetPanelListing>
+        </WidgetPanel>
+      </>
     );
 }
 

@@ -2,9 +2,9 @@
 import React, { SetStateAction, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { useAppSelector } from 'app/hooks';
-import { isUser } from 'features/auth/selectors';
-import { client } from 'lib/initApollo';
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth/selectors';
+import { client } from 'src/lib/initApollo';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
