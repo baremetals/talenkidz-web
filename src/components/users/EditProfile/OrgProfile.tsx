@@ -5,7 +5,7 @@ import { FormData } from "formdata-node";
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Spinner from 'components/utilities/Spinner';
 import {
     EditProfileTab,
     HeaderLine,
@@ -35,15 +35,20 @@ type Props = {
 }
 
 const OrgProfile = ({ user }: Props) => {
-    const [orgName, setOrgName] = useState<string>(user?.name as string);
-    const [username, setUsername] = useState<string>(user?.slug as string);
-    const [email, setEmail] = useState<string>(user?.profile?.data?.attributes?.email as string);
-    const [website, setWebsite] = useState<string>(user?.website as string);
-    const [organisationType, setOrganisationType] = useState<string>(user?.organisationType as string);
-    const [bio, setBio] = useState<string>(user?.bio as string);
-    const [backgroundImg, setBackgroundImg] = useState<any>(user?.profile?.data?.attributes?.backgroundImg);
+    const [backgroundImg, setBackgroundImg] = useState<any>(
+      user?.profile?.data?.attributes?.backgroundImg || ''
+    );
     const [uploadImg, setUploadImg] = useState<FileType | null>(null);
-    const [_loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const [profile, setProfile] = useState({
+      orgName: user.name || '',
+      username: user.slug || '',
+      email: user?.profile?.data?.attributes?.email || '',
+      website: user.website || '',
+      bio: user.bio || '',
+      organisationType: user.organisationType || '',
+    });
 
     const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files || event.target.files.length === 0) return;
@@ -51,6 +56,11 @@ const OrgProfile = ({ user }: Props) => {
         setBackgroundImg(base64);
         setUploadImg(event.target.files[0] as any);
     }
+
+    const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    //   console.log(e.target.value);
+      setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
     // console.log(user)
     const handleSubmit = async () => {
@@ -72,15 +82,14 @@ const OrgProfile = ({ user }: Props) => {
 
                 if (res?.data?.content?.url) {
                     const data = {
-                        username,
-                        backgroundImg: res?.data?.content?.url,
-                        name: orgName,
-                        email,
-                        organisationType,
-                        bio,
-                        website,
-                    
-                    }
+                      username: profile?.username,
+                      backgroundImg: res?.data?.content?.url,
+                      name: profile.orgName,
+                      email: profile?.email,
+                      organisationType: profile?.organisationType,
+                      bio: profile?.bio,
+                      website: profile?.website,
+                    };
                     // console.log(data)
 
                     const dta = await axios.post('/api/user/update', {
@@ -114,14 +123,14 @@ const OrgProfile = ({ user }: Props) => {
             console.log('iam going of boy')
             try {
                 const data = {
-                name: orgName,
-                username,
-                email,
-                organisationType,
-                bio,
-                website,
-                backgroundImg
-            }
+                  name: profile?.orgName,
+                  username: profile?.username,
+                  email: profile?.email,
+                  organisationType: profile?.organisationType,
+                  bio: profile?.bio,
+                  website: profile?.website,
+                  backgroundImg,
+                };
             const res = await axios.post('/api/org/update', {
                 data
             })
@@ -143,56 +152,62 @@ const OrgProfile = ({ user }: Props) => {
     }
 
     return (
-        <>
-            <EditProfileTab>
-                <h3>Personal Information</h3>
-                <HeaderLine />
-                <PersonalInformationForm onSubmit={handleSubmit}>
-                    <TextField
-                        fullWidth
-                        label="Organisation Name"
-                        variant="outlined"
-                        value={orgName}
-                        onChange={(e) => setOrgName(e.target.value)}
-                    />
-                    <FormGroup>
-                        <FormItem>
-                            <TextField
-                                fullWidth
-                                label="Username"
-                                variant="outlined"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </FormItem>
-                        <FormItem>
-                            <TextField
-                                fullWidth
-                                label="Email"
-                                variant="outlined"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </FormItem>
-                        <FormItem>
-                            <TextField
-                                fullWidth
-                                label="organisationType"
-                                variant="outlined"
-                                value={organisationType}
-                                onChange={(e) => setOrganisationType(e.target.value)}
-                            />
-                        </FormItem>
-                        <FormItem>
-                            <TextField
-                                fullWidth
-                                label="Website"
-                                variant="outlined"
-                                value={website}
-                                onChange={(e) => setWebsite(e.target.value)}
-                            />
-                        </FormItem>
-                        {/* <FormItem>
+      <>
+        <EditProfileTab>
+          <h3>Personal Information</h3>
+          <HeaderLine />
+          <PersonalInformationForm onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Organisation Name"
+              variant="outlined"
+              name="orgName"
+              value={profile?.orgName}
+              onChange={handleChange}
+            />
+            <FormGroup>
+              <FormItem>
+                <TextField
+                  fullWidth
+                  label="Username"
+                  variant="outlined"
+                  name="username"
+                  value={profile?.username}
+                  onChange={handleChange}
+                />
+              </FormItem>
+              <FormItem>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  disabled
+                  value={profile?.email}
+                  onChange={handleChange}
+                />
+              </FormItem>
+              <FormItem>
+                <TextField
+                  fullWidth
+                  label="organisationType"
+                  variant="outlined"
+                  name="organisationType"
+                  value={profile?.organisationType}
+                  onChange={handleChange}
+                />
+              </FormItem>
+              <FormItem>
+                <TextField
+                  fullWidth
+                  label="Website"
+                  variant="outlined"
+                  name="website"
+                  value={profile?.website}
+                  onChange={handleChange}
+                />
+              </FormItem>
+              {/* <FormItem>
                             <FormControl fullWidth>
                                 <InputLabel>Gender</InputLabel>
                                 <Select
@@ -206,7 +221,7 @@ const OrgProfile = ({ user }: Props) => {
                                 </Select>
                             </FormControl>
                         </FormItem> */}
-                        {/* <FormItem>
+              {/* <FormItem>
                             <FormControl fullWidth>
                                 <InputLabel>Pronoun</InputLabel>
                                 <Select
@@ -223,69 +238,77 @@ const OrgProfile = ({ user }: Props) => {
                                 </Select>
                             </FormControl>
                         </FormItem> */}
-                    </FormGroup>
-                    <CoverPictureUploaderWrapper>
-                        <Label>Cover Picture</Label>
-                        <TextField
+            </FormGroup>
+            <CoverPictureUploaderWrapper>
+              <Label>Cover Picture</Label>
+              <TextField style={{ display: 'none' }} fullWidth type="file" />
+              {backgroundImg ? (
+                <>
+                  <CoverPictureWrapper>
+                    <div className="overlay"></div>
+                    <Image src={backgroundImg} alt="User cover picture" />
+                    <ImageActions>
+                      <ActionButton>
+                        <EditButton htmlFor="upload-bg-photo">
+                          <input
                             style={{ display: 'none' }}
-                            fullWidth
+                            id="upload-bg-photo"
+                            name="upload-bg-photo"
                             type="file"
-                        />
-                        {backgroundImg ? (
-                            <>
-                                <CoverPictureWrapper>
-                                    <div className="overlay"></div>
-                                    <Image src={backgroundImg} alt="User cover picture" />
-                                    <ImageActions>
-                                        <ActionButton>
-                                        <EditButton htmlFor="upload-bg-photo">
-                                            <input
-                                            style={{ display: "none" }}
-                                            id="upload-bg-photo"
-                                            name="upload-bg-photo"
-                                            type="file"
-                                            onChange={(e) => handleImgChange(e)}
-                                            />
-                                            <Edit />
-                                        </EditButton>
-                                        </ActionButton>
-                                        <ActionButton  onClick={() => setBackgroundImg('')}>
-                                            <BsTrash />
-                                        </ActionButton>
-                                    </ImageActions>
-                                </CoverPictureWrapper>
-                            </>
-                        ) : (
-                            <NoCoverPictureWrapper>
-                                <EditButton htmlFor="upload-bg-photo">
-                                    <input
-                                        style={{ display: "none" }}
-                                        id="upload-bg-photo"
-                                        name="upload-bg-photo"
-                                        type="file"
-                                        onChange={(e) => handleImgChange(e)}
-                                    />
-                                    <SelectCoverPictureButton>
-                                        <BsCloudArrowUp />
-                                        Select a cover picture
-                                    </SelectCoverPictureButton>
-                                </EditButton>
-                            </NoCoverPictureWrapper>
-                        )}
-                    </CoverPictureUploaderWrapper>
-                    <TextField
-                        label="Bio"
-                        multiline
-                        fullWidth
-                        rows={4}
-                        value={bio}
-                        onChange={(e) => setBio(e.target.value)}
+                            onChange={(e) => handleImgChange(e)}
+                          />
+                          <Edit />
+                        </EditButton>
+                      </ActionButton>
+                      <ActionButton onClick={() => setBackgroundImg('')}>
+                        <BsTrash />
+                      </ActionButton>
+                    </ImageActions>
+                  </CoverPictureWrapper>
+                </>
+              ) : (
+                <NoCoverPictureWrapper>
+                  <EditButton htmlFor="upload-bg-photo">
+                    <input
+                      style={{ display: 'none' }}
+                      id="upload-bg-photo"
+                      name="upload-bg-photo"
+                      type="file"
+                      onChange={(e) => handleImgChange(e)}
                     />
-                    <SubmitButton type="button" onClick={() => handleSubmit()}>Save Changes</SubmitButton>
-                </PersonalInformationForm>
-            </EditProfileTab>
-            <ToastContainer />
-        </>
+                    <SelectCoverPictureButton>
+                      <BsCloudArrowUp />
+                      Select a cover picture
+                    </SelectCoverPictureButton>
+                  </EditButton>
+                </NoCoverPictureWrapper>
+              )}
+            </CoverPictureUploaderWrapper>
+            <TextField
+              label="Bio"
+              multiline
+              fullWidth
+              rows={4}
+              name="bio"
+              value={profile?.bio}
+              onChange={handleChange}
+            />
+            <SubmitButton type="button" onClick={() => handleSubmit()}>
+              {loading ? 'Saving...' : 'Save Changes'}
+              {loading && (
+                <Spinner
+                  style={{
+                    position: 'relative',
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                  }}
+                />
+              )}
+            </SubmitButton>
+          </PersonalInformationForm>
+        </EditProfileTab>
+        <ToastContainer />
+      </>
     );
 };
 

@@ -12,7 +12,7 @@ function HomePage() {
 
   const structuredData = {
       '@context': 'https://schema.org',
-      '@type': 'Events',
+      '@type': 'Organization',
       // headline: meta?.title,
       // description: meta?.description,
       // author: [
