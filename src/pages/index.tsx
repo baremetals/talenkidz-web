@@ -1,5 +1,5 @@
-import Home from 'components/service/Home';
 import Layout from 'components/Layout';
+import Home from 'components/service/Home';
 
 // import { withApollo } from "utils/withApollo";
 
@@ -11,18 +11,22 @@ function HomePage() {
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: 'https://www.talentkids.io',
+    maintainer: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      // headline: meta?.title,
-      // description: meta?.description,
-      // author: [
-      //     {
-      //         '@type': 'Person',
-      //         name: author?.fullName,
-      //     },
-      // ],
-      // image: meta?.image,
-      // datePublished: article?.attributes?.updatedAt,
+      name: 'Talentkids Ltd',
+      email: 'talentkids@talentkids.io',
+      sameAs: [
+        'https://twitter.com/talentkids_join',
+        'https://www.facebook.com/jointalentkids',
+        'https://www.tiktok.com/@join_talentkids',
+        'https://www.linkedin.com/company/join-talentkids',
+        'https://www.instagram.com/join__talentkids',
+      ],
+    },
   };
   return (
     <Layout
