@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { addToMailingList } from 'src/lib/helpers';
 
 import Spinner from 'components/utilities/Spinner';
 import {
@@ -12,7 +13,7 @@ import {
   Title,
 } from 'styles/common.styles';
 
-const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+// const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {
   const router = useRouter();
   const [text, setText] = useState('Loading...');
@@ -23,53 +24,92 @@ const ConnectProvider = () => {
   useEffect(() => {
     // Successfully logged with the provider
     // Now logging with strapi by using the access_token (given by the provider) in props.location.search
-    if (
-      provider !== undefined &&
-      access_token !== undefined &&
-      id_token !== undefined
-    ) {
-      fetch(
-        `${backendUrl}/auth/${provider}/callback?access_token=${access_token}`
-      )
-        .then((res) => {
-          if (res.status !== 200) {
-            setSpinner(false);
-            setText('An error occurred, Please try again.');
-            setTimeout(() => router.push('/auth/login'), 3000);
-          }
-          return res;
-        })
-        .then((res) => res.json())
-        .then(async (res) => {
-          // console.log(res)
-          await axios.post('/api/auth', {
+    async function fetchUser() {
+      if (
+        provider !== undefined &&
+        access_token !== undefined &&
+        id_token !== undefined
+      ) {
+        await axios
+          .post('/api/auth', {
             data: {
-              ...res,
+              access_token,
+              provider,
               flag: 'CONNECT',
             },
+          })
+          .then(async(res) => {
+            // console.log('the response', res);
+            await addToMailingList(res.data.email);
+            setText(
+              'You have been successfully logged in. You will be redirected in a few seconds...'
+            );
+            setTimeout(
+              () => router.push(`/user-profile/${res.data.username}`),
+              3000
+            ); //
+          })
+          .catch((err) => {
+            console.log(err);
+            setSpinner(false);
+            setText('An error occurred, Please try again..');
+            setTimeout(() => router.push('/auth/login'), 3000);
           });
-          // Successfully logged with Strapi
-
-          setText(
-            'You have been successfully logged in. You will be redirected in a few seconds...'
-          );
-          setTimeout(
-            () => router.push(`/user-profile/${res.user.username}`),
-            3000
-          ); // Redirect to homepage after 3 sec
-        })
-        .catch((err) => {
-          console.log(err);
-          setSpinner(false);
-          setText('An error occurred, Please try again..');
-          setTimeout(() => router.push('/auth/login'), 3000);
-        });
-    } else {
-      setSpinner(false);
-      setText('An error occurred, Please try again.');
-      setTimeout(() => router.push('/auth/login'), 3000);
+      } 
     }
+    fetchUser();
   }, [provider, access_token, router, id_token]);
+
+  // useEffect(() => {
+  //   // Successfully logged with the provider
+  //   // Now logging with strapi by using the access_token (given by the provider) in props.location.search
+  //   if (
+  //     provider !== undefined &&
+  //     access_token !== undefined &&
+  //     id_token !== undefined
+  //   ) {
+  //     fetch(
+  //       `${backendUrl}/auth/${provider}/callback?access_token=${access_token}`
+  //     )
+  //       .then((res) => {
+  //         if (res.status !== 200) {
+  //           setSpinner(false);
+  //           setText('An error occurred, Please try again.');
+  //           setTimeout(() => router.push('/auth/login'), 3000);
+  //         }
+  //         return res;
+  //       })
+  //       .then((res) => res.json())
+  //       .then(async (res) => {
+  //         // console.log(res)
+  //         await axios.post('/api/auth', {
+  //           data: {
+  //             ...res,
+  //             flag: 'CONNECT',
+  //           },
+  //         });
+  //         // Successfully logged with Strapi
+
+  //         setText(
+  //           'You have been successfully logged in. You will be redirected in a few seconds...'
+  //         );
+  //         setTimeout(
+  //           () => router.push(`/user-profile/${res.user.username}`),
+  //           3000
+  //         ); // Redirect to homepage after 3 sec
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         setSpinner(false);
+  //         setText('An error occurred, Please try again..');
+  //         setTimeout(() => router.push('/auth/login'), 3000);
+  //       });
+  //   } else {
+  //     setSpinner(false);
+  //     setText('An error occurred, Please try again.');
+  //     setTimeout(() => router.push('/auth/login'), 3000);
+  //   }
+  // }, [provider, access_token, router, id_token]);
   return (
     <>
       <PageContainer style={{ minHeight: '100vh' }}>

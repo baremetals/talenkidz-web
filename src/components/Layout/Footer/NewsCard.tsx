@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import Link from 'next/link'
 import Image from 'next/image';
 import { useArticlesQuery } from "generated/graphql";
+import { useRouter } from 'next/router';
 
 import {
     MediaObjectItem,
@@ -18,7 +19,7 @@ import {
 //     title: string;
 // }
 function NewsCard(): ReactElement {
-
+  const router = useRouter();
     const { data, loading, error } = useArticlesQuery({
         variables: {
             pagination: {
@@ -43,11 +44,17 @@ function NewsCard(): ReactElement {
         {articles &&
           articles?.map((art, id) => (
             <MediaObjectItem key={id}>
-              <MediaObjectThumb>
-                <Link
+              <MediaObjectThumb
+                onClick={() =>
+                  router.push(
+                    `/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`
+                  )
+                }
+              >
+                {/* <Link
                   passHref
                   href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                >
+                > */}
                   <Image
                     src={
                       art?.attributes?.heroImage?.data?.attributes?.url ||
@@ -64,7 +71,7 @@ function NewsCard(): ReactElement {
                     }
                     alt="post image"
                   /> */}
-                </Link>
+                {/* </Link> */}
               </MediaObjectThumb>
 
               <MediaObjectBody>

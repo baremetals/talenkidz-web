@@ -50,7 +50,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ statusCode = 400 }: any) => {
     const [errTitle] = useState(getError(statusCode).title);
     const [errMsg] = useState(getError(statusCode).message);
     const [image] = useState(getError(statusCode).image);
-    console.log(router)
+    // console.log(router)
     const goToHomePage = () => {
         // router.push('/');
         router.back()
