@@ -38,6 +38,12 @@ const Layout = ({
   keywords,
   author,
 }: LayoutProps) => {
+
+  //  const structuredData = {
+  //    '@context': 'https://schema.org',
+  //    '@type': 'WebSite',
+  //    url: 'https://www.talentkids.io',
+  //  };
   return (
     <div>
       <Head>
@@ -79,6 +85,11 @@ const Layout = ({
           // dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
           dangerouslySetInnerHTML={{ __html: data as string }}
         />
+        {/* <script
+          key="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        /> */}
       </Head>
       <NavBar />
       {children}
