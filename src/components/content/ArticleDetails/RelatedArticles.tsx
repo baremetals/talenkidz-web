@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import Link from 'next/link'
 import Image from 'next/image';
 import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
+import { useRouter } from 'next/router';
 
 import {
     MediaObject,
@@ -66,7 +67,7 @@ type propType = {
 };
 
 function RelatedArticles({ category }: propType): ReactElement {
-
+  const router = useRouter();
     const { data } = useFilteredArticlesQuery({
         variables: {
             filters: {
@@ -92,21 +93,27 @@ function RelatedArticles({ category }: propType): ReactElement {
             <MediaObject>
               {arty?.map((art, id) => (
                 <MediaObjectItem key={id}>
-                  <MediaObjectThumb>
-                    <Link
+                  <MediaObjectThumb
+                    onClick={() =>
+                      router.push(
+                        `/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`
+                      )
+                    }
+                  >
+                    {/* <Link
                       href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
                       passHref
-                    >
-                      <Image
-                        src={
-                          art?.attributes?.heroImage?.data?.attributes?.url ||
-                          '/default-list-img.jpg'
-                        }
-                        alt="article image"
-                        width={80}
-                        height={80}
-                      />
-                    </Link>
+                    > */}
+                    <Image
+                      src={
+                        art?.attributes?.heroImage?.data?.attributes?.url ||
+                        '/default-list-img.jpg'
+                      }
+                      alt="article image"
+                      width={80}
+                      height={80}
+                    />
+                    {/* </Link> */}
                   </MediaObjectThumb>
                   <MediaObjectBody>
                     <Link

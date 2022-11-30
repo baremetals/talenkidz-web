@@ -21,13 +21,13 @@ type registerUserProps = {
 };
 
 const initialValues = {
-    fullName: "",
-    username: "",
-    userType: "candidate",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    error: "",
+  fullName: '',
+  username: '',
+  userType: 'candidate',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  error: '',
 };
 
 import Button from 'components/users/Auth/Button';
@@ -54,6 +54,7 @@ import { RadioFormInput, RadioFormGroup } from '../auth-styles'
 import { Message } from "public/assets/icons/Message";
 import { Lock } from "public/assets/icons/Lock";
 import { Profile } from "public/assets/icons/Profile";
+import { addToMailingList } from 'src/lib/helpers';
 
 
 const Register = () => {
@@ -71,11 +72,13 @@ const Register = () => {
                     email: values.email,
                     userType: values.userType,
                     password: values.password,
+                    mailinglist: true,
                     flag: "REGISTER"
                 }
             })
-            .then((res) => {
+            .then(async (res) => {
                 // console.log(res.data)
+                await addToMailingList(res.data.email);
                 if (res.data.resp === false) {
                     router.push("/auth/register/activate-email");
                 }

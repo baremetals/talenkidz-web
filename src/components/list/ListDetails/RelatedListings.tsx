@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import { useFilteredListingsQuery, ListingEntity } from "generated/graphql";
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import {
     MediaObject,
@@ -14,7 +15,7 @@ import {
     WidgetPanelTitle,
     WidgetPanelListing,
     MediaObjectSpan,
-} from "../../../styles/common.styles";
+} from "styles/common.styles";
 import Link from 'next/link';
 
 // type articleProps = {
@@ -62,7 +63,7 @@ type propType = {
 };
 
 function RelatedListings({ category }: propType): ReactElement {
-
+  const router = useRouter();
     const { data } = useFilteredListingsQuery({
         variables: {
             filters: {
@@ -88,11 +89,17 @@ function RelatedListings({ category }: propType): ReactElement {
             <MediaObject>
               {arty?.map((art, id) => (
                 <MediaObjectItem key={id}>
-                  <MediaObjectThumb>
-                    <Link
+                  <MediaObjectThumb
+                    onClick={() =>
+                      router.push(
+                        `/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`
+                      )
+                    }
+                  >
+                    {/* <Link
                       href={`/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
                       passHref
-                    >
+                    > */}
                       <Image
                         src={
                           art?.attributes?.listImage || '/default-list-img.jpg'
@@ -101,7 +108,7 @@ function RelatedListings({ category }: propType): ReactElement {
                         width={80}
                         height={80}
                       />
-                    </Link>
+                    {/* </Link> */}
                     <MediaObjectSpan
                       style={{
                         fontSize: '14px',

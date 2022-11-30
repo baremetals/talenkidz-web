@@ -1,6 +1,7 @@
 import axios from 'axios';
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
+// import { addToMailingList } from 'src/lib/helpers';
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
@@ -8,6 +9,9 @@ const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 type Data = {
   message?: string;
   resp?: string;
+  email?: string;
+  username?: string;
+  user?: user | org;
 };
 
 type user = {
@@ -39,6 +43,22 @@ export default async function auth(
 ) {
   const { data } = req.body;
 
+  function setTheCookie(user: user | org) {
+    return res.setHeader(
+      'Set-Cookie',
+      cookie.serialize(
+        process.env.COOKIE_NAME as string,
+        JSON.stringify(user),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          maxAge: 60 * 60 * 24 * 5, // 5 days
+          sameSite: 'strict',
+          path: '/',
+        }
+      )
+    );
+  }
   // console.log(data, 'I am here');
 
   // Register request
@@ -57,8 +77,10 @@ export default async function auth(
           // organisationName: data.organisationName || "",
         },
       });
-
-      res.status(200).json({ resp: resp.data.user.confirmed });
+      
+      res
+        .status(200)
+        .json({ resp: resp.data.user.confirmed, email: resp.data.user.email });
     } catch (err: any) {
       console.log(err.response.data.error.message);
       res.status(401).json({ message: err.response.data.error.message });
@@ -87,20 +109,7 @@ export default async function auth(
           userType: response.data.user.userType,
           jwt: response.data.jwt,
         };
-        res.setHeader(
-          'Set-Cookie',
-          cookie.serialize(
-            process.env.COOKIE_NAME as string,
-            JSON.stringify(user),
-            {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              maxAge: 60 * 60 * 24 * 5, // 5 days
-              sameSite: 'strict',
-              path: '/',
-            }
-          )
-        );
+        setTheCookie(user)
       } else {
         const org: org = {
           id: response.data.user.id,
@@ -114,20 +123,7 @@ export default async function auth(
           logo: response.data.user.avatar,
           fullProfile: response.data.user.organisation.fullProfile,
         };
-        res.setHeader(
-          'Set-Cookie',
-          cookie.serialize(
-            process.env.COOKIE_NAME as string,
-            JSON.stringify(org),
-            {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              maxAge: 60 * 60 * 24 * 2, // 2 days
-              sameSite: 'strict',
-              path: '/',
-            }
-          )
-        );
+        setTheCookie(org);
       }
         
       res.send(response.data.user);
@@ -138,36 +134,45 @@ export default async function auth(
   }
 
   if (data.flag === 'CONNECT') {
-    // console.log(data);
+    // console.log('the data: ');
     try {
-      // console.log("failing here");
+
+      const response =  await fetch(
+        `${baseUrl}/auth/${data?.provider}/callback?access_token=${data?.access_token}`
+      );
+      const auth = await response.json();
+      // console.log('my user', auth)
       const user: user = {
-        id: data.user.id,
-        username: data.user.username,
-        fullName: 'Joe Blogs',
-        avatar: data.user.avatar,
-        backgroundImg: data.user.backgroundImg,
-        userType: data.user.userType,
-        jwt: data.jwt,
+        id: auth.user.id,
+        username: auth.user.username,
+        fullName: auth.user.fullName,
+        avatar: auth.user.avatar,
+        backgroundImg: auth.user.backgroundImg,
+        userType: auth.user.userType,
+        jwt: auth.jwt,
       };
-      res.setHeader(
-        'Set-Cookie',
-        cookie.serialize(
-          process.env.COOKIE_NAME as string,
-          JSON.stringify(user),
-          {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== 'development',
-            maxAge: 60 * 60 * 24 * 5, // 5 days
-            sameSite: 'strict',
-            path: '/',
-          }
-        )
-      )
-      res.end();
+
+      if (auth.user.mailinglist === false) {
+        // console.log('fuck in here');
+        await axios({
+          method: 'PUT',
+          url: `${baseUrl}/users/${auth.user.id}`,
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${auth.jwt}`,
+          },
+          data: {
+            mailinglist: true,
+          },
+        });
+        // console.log('Im done, move on');
+      } 
+      setTheCookie(user);
+      res.status(200).json({ email: auth.user.email, username: auth.user.username  });
+     
     } catch (err: any) {
-      // console.log(err.response.data);
-      res.send(err.response.data);
+      // console.log(err);
+      res.send(err.response);
     }
   }
 

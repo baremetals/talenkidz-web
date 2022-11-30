@@ -3,8 +3,8 @@ import Button from 'components/users/Auth/Button';
 
 import { useRouter } from 'next/router';
 
-import { GoogleLogin } from "../../../../../public/assets/icons/GoogleLogin";
-import { FacebookLogin } from "../../../../../public/assets/icons/FacebookLogin";
+import { GoogleLogin } from "public/assets/icons/GoogleLogin";
+import { FacebookLogin } from "public/assets/icons/FacebookLogin";
 
 import { FormGroup } from 'styles/common.styles';
 
