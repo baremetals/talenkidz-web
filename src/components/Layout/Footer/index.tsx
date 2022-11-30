@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaInstagram } from 'react-icons/fa'
 
+
 const NewsCard = dynamic(() => import('./NewsCard'), {
   ssr: false,
 });
@@ -49,6 +50,7 @@ import PolicyPopUp from 'components/service/Policy';
 
 
 function Footer(): ReactElement {
+  
     const [privacyPolicy, setPrivacyPolicy] = useState(false);
     // const [manageSetting, setManageSetting] = useState(false);
     const [email, setEmail] = useState<string>('');
@@ -69,20 +71,6 @@ function Footer(): ReactElement {
             }
         });
     }
-
-    // const promise = new Promise(async function (resolve, reject) {
-    //     const r = await axios.post('/api/policy', { data: { flag: 'getCookie' } })
-
-    //     if (r.data.name === 'no cookie') {
-    //         // console.log(r.data.name);
-    //         setPrivacyPolicy(true)
-    //     }
-    //     else {
-    //         // console.log(r.data.policyOptions); 
-    //         resolve("Stuff worked!");
-    //         // reject(Error("It broke"));
-    //     }
-    // });
 
     const handleSubmit = async () => {
         try {

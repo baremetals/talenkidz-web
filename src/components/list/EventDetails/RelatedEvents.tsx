@@ -2,7 +2,7 @@
 import React, { ReactElement, useState } from 'react'
 import dayjs from "dayjs";
 import Image from 'next/image';
-// import Image from 'next/image';
+import { useRouter } from 'next/router';
 // import Link from 'next/link'
 // import { animateScroll as scroll } from "react-scroll";
 
@@ -38,7 +38,7 @@ type propType = {
 
 function RelatedEvents({ category }: propType): ReactElement {
 
-
+  const router = useRouter();
     const { data } = useFilteredEventsQuery({
         variables: {
             filters: {
@@ -64,20 +64,26 @@ function RelatedEvents({ category }: propType): ReactElement {
             <MediaObject>
               {events?.map((eve, id) => (
                 <MediaObjectItem key={id}>
-                  <MediaObjectThumb>
-                    <Link
+                  <MediaObjectThumb
+                    onClick={() =>
+                      router.push(
+                        `/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`
+                      )
+                    }
+                  >
+                    {/* <Link
                       href={`/events/${eve?.attributes?.category?.data?.attributes?.slug}/${eve?.attributes?.slug}`}
                       passHref
-                    >
-                      <Image
-                        src={
-                          eve?.attributes?.listImage || '/default-list-img.jpg'
-                        }
-                        alt="event image"
-                        width={80}
-                        height={80}
-                      />
-                    </Link>
+                    > */}
+                    <Image
+                      src={
+                        eve?.attributes?.listImage || '/default-list-img.jpg'
+                      }
+                      alt="event image"
+                      width={80}
+                      height={80}
+                    />
+                    {/* </Link> */}
                     <MediaObjectSpan
                       style={{
                         fontSize: '14px',

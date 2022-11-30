@@ -144,21 +144,27 @@ const Events = ({ events, categories }: pageProps) => {
                   {filteredEvents?.map((event: eventProps, id) => (
                     <Column style={{ minWidth: '50%' }} key={id}>
                       <Post>
-                        <PostThumb>
-                          <Link
+                        <PostThumb
+                          onClick={() =>
+                            router.push(
+                              `/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`
+                            )
+                          }
+                        >
+                          {/* <Link
                             href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
                             passHref
-                          >
-                            <Image
-                              src={
-                                event?.attributes?.listImage ||
-                                '/default-list-img.jpg'
-                              }
-                              alt="event image"
-                              width={359.32}
-                              height={269.49}
-                            />
-                          </Link>
+                          > */}
+                          <Image
+                            src={
+                              event?.attributes?.listImage ||
+                              '/default-list-img.jpg'
+                            }
+                            alt="event image"
+                            width={359.32}
+                            height={269.49}
+                          />
+                          {/* </Link> */}
                         </PostThumb>
                         <PostBody>
                           <Link

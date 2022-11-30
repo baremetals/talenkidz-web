@@ -27,9 +27,10 @@ import {
   PostCardText,
   PostDate,
 } from 'styles/common.styles';
+import { useRouter } from 'next/router';
 
 const ActivityCard = () => {
-
+  const router = useRouter()
     const { data, loading, error } = useListingsQuery({
         variables: {
             pagination: {
@@ -63,21 +64,27 @@ const ActivityCard = () => {
                 lists?.map((list, id) => (
                   <Column key={id}>
                     <PostCard>
-                      <PostCardThumb>
-                        <Link
+                      <PostCardThumb
+                        onClick={() =>
+                          router.push(
+                            `/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`
+                          )
+                        }
+                      >
+                        {/* <Link
                           href={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`}
                           passHref
-                        >
-                          <Image
-                            src={
-                              list?.attributes?.listImage ||
-                              '/default-list-img.jpg'
-                            }
-                            alt="activity image"
-                            width={400}
-                            height={250}
-                          />
-                        </Link>
+                        > */}
+                        <Image
+                          src={
+                            list?.attributes?.listImage ||
+                            '/default-list-img.jpg'
+                          }
+                          alt="activity image"
+                          width={400}
+                          height={250}
+                        />
+                        {/* </Link> */}
                       </PostCardThumb>
                       <PostCardSummary>
                         <Link

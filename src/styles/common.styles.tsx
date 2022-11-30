@@ -1,8 +1,7 @@
 // import { POSITION } from 'react-toastify/dist/utils';
 import styled from 'styled-components'
 import { Field, Form } from "formik";
-import * as NextImage from "next/image";
-// import Image from 'next/image';
+
 
 export const PageContainer = styled.section`
     padding-top: 3.75rem;
