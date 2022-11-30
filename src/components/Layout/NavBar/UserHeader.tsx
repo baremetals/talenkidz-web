@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from 'next/image';
 import axios from 'axios';
-import { useAppSelector } from "src/app/hooks";
+import { useAppSelector, useAppDispatch } from 'src/app/hooks';
+import { signOutUser } from 'src/features/auth';
 import { isUser } from "src/features/auth/selectors";
 import {
     InnerContainer,
@@ -27,6 +28,7 @@ import {
 
 export default function UserHeader() {
     const router = useRouter();
+    const dispatch = useAppDispatch();
     const { user: user } = useAppSelector(isUser);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
@@ -59,6 +61,7 @@ export default function UserHeader() {
             });
             // console.log(res);
             if (res.status === 200 || res?.data?.message) {
+              dispatch(signOutUser());
                 router.push("/auth/login");
             }
         } catch (error) {
