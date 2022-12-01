@@ -23,32 +23,34 @@ const Provider = () => {
   return (
     <div className="social_login">
       <FormGroup
+        style={{padding: '0'}}
         className="submit-button google"
         onClick={() => handleAuth('google')}
       >
         <Button
-          bgColor="#e04a32"
+          bgColor="#4285f4"
           type="button"
           disabled={isDisabled.google}
           loading={isDisabled.google}
-          content="google"
+          content="Sign in with Google"
         >
-          <GoogleLogin />
+          <span style={{}}><GoogleLogin /></span>
         </Button>
       </FormGroup>
       <FormGroup
+        style={{padding: '0'}}
         className="submit-button facebook"
         onClick={() => handleAuth('facebook')}
       >
         <Button
-          bgColor="#4f7ebe"
+          bgColor="#1877f2"
           // style={{ backgroundColor: '' }}
           type="button"
           disabled={isDisabled.facebook}
           loading={isDisabled.facebook}
-          content="facebook"
+          content="Continue with Facebook"
         >
-          <FacebookLogin />
+          <span style={{}}><FacebookLogin /></span>
         </Button>
       </FormGroup>
     </div>
