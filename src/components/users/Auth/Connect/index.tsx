@@ -18,7 +18,7 @@ const ConnectProvider = () => {
   const router = useRouter();
   const [text, setText] = useState('Loading...');
   const [spinner, setSpinner] = useState(false);
-  const { provider, access_token, id_token } = router.query;
+  const { provider, access_token } = router.query;
   // console.log('wait bro find it', router.query)
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const ConnectProvider = () => {
     async function fetchUser() {
       if (
         provider !== undefined &&
-        access_token !== undefined &&
-        id_token !== undefined
+        access_token !== undefined
+        // id_token !== undefined
       ) {
         await axios
           .post('/api/auth', {
@@ -58,7 +58,7 @@ const ConnectProvider = () => {
       } 
     }
     fetchUser();
-  }, [provider, access_token, router, id_token]);
+  }, [provider, access_token, router]);
 
   // useEffect(() => {
   //   // Successfully logged with the provider
