@@ -168,9 +168,9 @@ function Footer(): ReactElement {
                   <Link href={'/contact'}>Contact us</Link>
                   {/* <Link href={'/newsletter'}>Newsletter</Link> */}
                   <Link href={'/faqs'}>FAQs</Link>
-                  <Link href={'/cookie-policy'}>Cookie Policy</Link>
+                  {/* <Link href={'/cookie-policy'}>Cookie Policy</Link>
                   <Link href={'/privacy'}>Privacy Policy</Link>
-                  <Link href={'/terms'}>Terms and conditions</Link>
+                  <Link href={'/terms'}>Terms and conditions</Link> */}
                   {/* <Link href={'/'}>Appointment</Link> */}
                 </FooterLinks>
               </Column>
@@ -181,6 +181,7 @@ function Footer(): ReactElement {
                 </MediaObject>
               </Column>
             </Row>
+            <Text style={{textAlign: 'center', color: '#fff', marginTop: '1rem'}}>Talentkids Ltd © 2022 &nbsp; &nbsp; <Link href={'/cookie-policy'}>Cookie Policy</Link> &nbsp; | &nbsp; <Link href={'/privacy'}>Privacy Policy</Link> &nbsp; | &nbsp; <Link href={'/terms'}>Terms and conditions</Link></Text>
           </InnerContainer>
         </SiteFooter>
         <ToastContainer />
