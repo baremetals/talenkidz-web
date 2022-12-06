@@ -42,7 +42,7 @@ function FilteredArticlesPage(props: pageProps) {
     // image: meta?.image,
     // datePublished: article?.attributes?.updatedAt,
   };
-  console.log(art);
+  // console.log(art);
   useNoAuthPages();
   return (
     <Layout

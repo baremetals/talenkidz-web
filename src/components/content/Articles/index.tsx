@@ -97,7 +97,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   const [state, dispatch] = useReducer(articleReducer, Article_State);
   const { state: searchState } = useContext(SearchContext);
 
-  console.log(total)
+  // console.log(total)
   const fetchData = useFetchEntities({
     limit: 4,
     start: state.articlesLength as number,
