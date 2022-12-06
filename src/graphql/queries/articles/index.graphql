@@ -36,5 +36,10 @@ query Articles($pagination: PaginationArg, $sort: [String]) {
         }
       }
     }
+    meta {
+      pagination {
+        total
+      }
+    }
   }
 }

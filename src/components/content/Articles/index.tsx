@@ -1,158 +1,214 @@
-
-import React, { SetStateAction, useEffect, useState } from 'react'
-import Link from 'next/link';
+import dayjs from 'dayjs';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import dayjs from "dayjs";
-import { upperCase } from 'src/lib/helpers'
+import React, { useEffect, useReducer, useState, useContext } from 'react';
+import { upperCase } from 'src/lib/helpers';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
 import {
-    InnerBanner,
-    InnerContainer,
-    Row,
-    Column,
-    Title,
-    Text,
-    PageContainer,
-
-    Post,
-    PostThumb,
-    PostBody,
-    PostTitle,
-    Top,
-    Bottom,
-    PostDate,
-    PostMedia,
-
-    SearchBar,
-    SearchInput,
-    SearchButton,
-
-    WidgetPanel,
-    WidgetPanelTitle,
-
-    WidgetPanelListing,
-    WidgetPanelLink
+  Bottom,
+  Column,
+  InnerBanner,
+  InnerContainer,
+  PageContainer,
+  Post,
+  PostBody,
+  PostDate,
+  PostMedia,
+  PostThumb,
+  PostTitle,
+  Row,
+  Text,
+  Title,
+  Top,
 } from 'styles/common.styles';
+import EntitySearch from 'components/utilities/search/EntitySearch';
 
-// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
-import { Article, ArticleEntity, CategoryEntity } from 'generated/graphql';
-// import { BookMark } from '../../../../public/assets/icons/BookMark';
+import {
+  ArticleEntity,
+  CategoryEntity,
+  ArticlesDocument,
+} from 'generated/graphql';
+import { BookMark } from 'public/assets/icons/BookMark';
+import { ThumbsUp } from 'public/assets/icons/ThumbsUp';
+import {
+  articleReducer,
+  INITIAL_STATE as Article_State,
+} from './articleReducer';
+import { useFetchEntities } from 'components/utilities/hooks/useFetchEntities';
+import Categories from 'components/utilities/category/Category';
+import { SearchContext } from 'components/utilities/search/SearchContext';
 
-type articleProps = {
-    id: string;
-    attributes: {
-        readingTime: string;
-        body: string;
-        category: {
-            data: {
-                id: string;
-                attributes: {
-                    // name: string;
-                    slug: string;
-                };
-            };
-        };
-        updatedAt: Date;
-        slug: string;
-        title: string;
-        blurb: string;
-        author: {
-            data: {
-                id: string;
-                attributes: {
-                    fullName: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-        heroImage: {
-            data: {
-                id: string;
-                attributes: {
-                    url: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-    };
-};
+//     id: string;
+//     attributes: {
+//         readingTime: string;
+//         body: string;
+//         category: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     // name: string;
+//                     slug: string;
+//                 };
+//             };
+//         };
+//         updatedAt: Date;
+//         slug: string;
+//         title: string;
+//         blurb: string;
+//         author: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     fullName: string;
+//                     // slug: string;
+//                     // img: string;
+//                 };
+//             };
+//         };
+//         heroImage: {
+//             data: {
+//                 id: string;
+//                 attributes: {
+//                     url: string;
+//                     // slug: string;
+//                     // img: string;
+//                 };
+//             };
+//         };
+//     };
+// };
 
 type pageProps = {
-    articles: ArticleEntity[]
-    categories: CategoryEntity[]
-}
-// { props: ArticleEntity[] }
+  articles: ArticleEntity[];
+  categories: CategoryEntity[];
+  total: number;
+};
 
 
-const Articles = ({ articles, categories }: pageProps) => {
-    const router = useRouter();
-    // console.log(router.query.category)
-    const [filteredArticles, setFilteredArticles] = useState([]);
-    const [values, setValues] = useState({
-        category: "",
-        search: "",
+const Articles = ({ articles, categories, total }: pageProps) => {
+  const router = useRouter();
+  const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [state, dispatch] = useReducer(articleReducer, Article_State);
+  const { state: searchState } = useContext(SearchContext);
+
+  const fetchData = useFetchEntities({
+    limit: 4,
+    start: state.articlesLength as number,
+    gQDocument: ArticlesDocument,
+  });
+
+  useEffect(() => {
+    setFilteredArticles(state.articles);
+  }, [state]);
+
+  useEffect(() => {
+    dispatch({
+      type: 'SET_ARTICLES',
+      payload: {
+        // ...state,
+        articles: articles,
+        total,
+        articlesLength: articles?.length,
+      },
     });
-    // console.log(props?.props);
-    // const articles = props?.props
+  }, [articles, total]);
 
-    useEffect(() => {
-        setFilteredArticles(articles as SetStateAction<never[]>);
-    }, [articles]);
+  useEffect(() => {
+    setHasMore(
+      filteredArticles.length >= total || searchState.searching ? false : true
+    );
+  }, [filteredArticles.length, total, searchState.searching]);
 
+  //   const data = {
+  //     limit: 4,
+  //     start: state.articlesLength as number,
+  //     gQDocument: ArticlesDocument,
+  //     // stopLoading: searchState.stopLoading,
+  //   };
+  //   // console.log(
+  //   //   searchState.searching,
+  //   //   'losers'
+  //   // );
+  //   if (!searchState.searching && filteredArticles.length <= total) {
+  //     const newArticles = await fetchData({ ...data });
+  //     // console.log(newArticles);
+  //     setFilteredArticles((filteredArticles) => [
+  //       ...filteredArticles,
+  //       // eslint-disable-next-line no-unsafe-optional-chaining
+  //       ...newArticles?.articles?.data,
+  //     ]);
+  //   }
+  // };
+  
+  const getData = async () => {
+    
+    if (!searchState.searching && filteredArticles.length <= total) {
+      const res = await fetchData;
+      console.log(res);
+      setFilteredArticles((filteredArticles) => [
+        ...filteredArticles,
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        ...res?.articles?.data,
+      ]);
+    }
+  }
+  return (
+    <>
+      <InnerBanner>
+        <InnerContainer>
+          <Title>
+            {`${
+              router.query.category === undefined
+                ? 'Latest'
+                : upperCase(router.query.category as string)
+            }`}{' '}
+            Articles
+          </Title>
+          <Text style={{ marginBottom: '0', color: '#000000' }}>
+            <Link href={'/'}>Home </Link> /{' '}
+            <Link href={'/articles'}>Articles </Link>{' '}
+            {`${
+              router.query.category === undefined
+                ? ''
+                : '/ ' + upperCase(router.query.category as string)
+            }`}
+          </Text>
+        </InnerContainer>
+      </InnerBanner>
 
-    const handleSearch =
-        (name: string) => (event: { target: { value: string } }) => {
-            setValues({ ...values, [name]: event.target.value });
-            // console.log(event.target.value);
-            const searchValue = event.target.value;
-            if (searchValue !== "") {
-                const filteredData = articles?.filter((post) => {
-                    const article = post?.attributes as Article
-                    console.log(Object.values(article))
-                    return Object.values(article)
-                        .join(" ")
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase());
-                });
-                setFilteredArticles(filteredData as SetStateAction<never[]>);
-            } else setFilteredArticles(articles as SetStateAction<never[]>);
-        };
-    return (
-      <>
-        <InnerBanner>
-          <InnerContainer>
-            <Title>
-              {`${
-                router.query.category === undefined
-                  ? 'Latest'
-                  : upperCase(router.query.category as string)
-              }`}{' '}
-              Articles
-            </Title>
-            <Text style={{ marginBottom: '0', color: '#000000' }}>
-              <Link href={'/'}>Home </Link> /{' '}
-              <Link href={'/articles'}>Articles </Link>{' '}
-              {`${
-                router.query.category === undefined
-                  ? ''
-                  : '/ ' + upperCase(router.query.category as string)
-              }`}
-            </Text>
-          </InnerContainer>
-        </InnerBanner>
-
-        <PageContainer>
-          <InnerContainer>
-            <Row>
-              <Column className="column-7">
+      <PageContainer>
+        <InnerContainer>
+          <Row>
+            <Column
+              className="column-7"
+              id="scrollableDiv"
+              style={{
+                height: 300,
+                overflow: 'auto',
+                display: 'flex',
+                // flexDirection: 'column-reverse',
+              }}
+            >
+                <InfiniteScroll
+                dataLength={filteredArticles.length} //This is important field to render the next data
+                next={getData}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                  <p style={{ textAlign: 'center' }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+                // style={{ display: 'flex', flexDirection: 'column-reverse' }}
+              >
                 <Row>
-                  {filteredArticles?.map((art: articleProps, id) => (
+                  {filteredArticles?.map((art, id) => (
                     <Column style={{ minWidth: '50%' }} key={id}>
                       <Link
                         href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
@@ -163,7 +219,7 @@ const Articles = ({ articles, categories }: pageProps) => {
                             <Image
                               src={
                                 art?.attributes?.heroImage?.data?.attributes
-                                  ?.url
+                                  ?.url as string
                               }
                               alt="article image"
                               width={359.3}
@@ -172,6 +228,20 @@ const Articles = ({ articles, categories }: pageProps) => {
                           </PostThumb>
                           <PostBody>
                             <Top>
+                              <PostMedia>
+                                <Link href={'/posts'}>
+                                  <a>
+                                    <ThumbsUp />
+                                  </a>
+                                </Link>
+
+                                <Link href={'/posts'}>
+                                  <a>
+                                    <BookMark />
+                                  </a>
+                                </Link>
+                              </PostMedia>
+                              <br />
                               <PostTitle
                                 style={{
                                   fontSize: '1rem',
@@ -182,7 +252,7 @@ const Articles = ({ articles, categories }: pageProps) => {
                                 {art?.attributes?.title.slice(0, 40)}...
                               </PostTitle>
                               <Text>
-                                {art?.attributes?.blurb.slice(0, 80)}...
+                                {art?.attributes?.blurb?.slice(0, 80)}...
                               </Text>
                             </Top>
                             <Bottom style={{ fontSize: '.75rem' }}>
@@ -199,7 +269,10 @@ const Articles = ({ articles, categories }: pageProps) => {
                               </PostDate>
 
                               <PostMedia
-                                style={{ fontSize: '.75rem', color: '#74787C' }}
+                                style={{
+                                  fontSize: '.75rem',
+                                  color: '#74787C',
+                                }}
                               >
                                 {art?.attributes?.readingTime}
                               </PostMedia>
@@ -216,41 +289,20 @@ const Articles = ({ articles, categories }: pageProps) => {
                     </Column>
                   ))}
                 </Row>
-              </Column>
-              <Column>
-                <SearchBar>
-                  <SearchInput
-                    placeholder="Search"
-                    type="text"
-                    name="search"
-                    onChange={handleSearch('search')}
-                  />
-                  <SearchButton aria-label="search icon button"></SearchButton>
-                </SearchBar>
-                <WidgetPanel>
-                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                  <WidgetPanelListing>
-                    {categories?.map((cat, id) => (
-                      <WidgetPanelLink key={id}>
-                        <Image
-                          src={require("public/checkbox.svg")}
-                          alt="checkboxes"
-                          // width={20}
-                          // height={20}
-                        />
-                        <Link href={`/articles/${cat?.attributes?.slug}`}>
-                          {cat?.attributes?.slug}
-                        </Link>
-                      </WidgetPanelLink>
-                    ))}
-                  </WidgetPanelListing>
-                </WidgetPanel>
-              </Column>
-            </Row>
-          </InnerContainer>
-        </PageContainer>
-      </>
-    );
-}
+                </InfiniteScroll>
+            </Column>
+            <Column>
+              <EntitySearch
+                entities={articles}
+                setFilteredEntities={setFilteredArticles as any}
+              />
+              <Categories categories={categories} />
+            </Column>
+          </Row>
+        </InnerContainer>
+      </PageContainer>
+    </>
+  );
+};
 
-export default Articles
+export default Articles;

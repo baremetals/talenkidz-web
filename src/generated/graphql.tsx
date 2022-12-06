@@ -396,9 +396,11 @@ export type ComponentAddressLocationInput = {
 
 export type ComponentSeoSeo = {
   __typename?: 'ComponentSeoSeo';
+  author?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
+  keywords?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -407,8 +409,10 @@ export type ComponentSeoSeo = {
 
 export type ComponentSeoSeoFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
+  author?: InputMaybe<StringFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   image?: InputMaybe<StringFilterInput>;
+  keywords?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentSeoSeoFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentSeoSeoFiltersInput>>>;
@@ -418,9 +422,11 @@ export type ComponentSeoSeoFiltersInput = {
 };
 
 export type ComponentSeoSeoInput = {
+  author?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['String']>;
+  keywords?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Scalars['String']>;
@@ -544,6 +550,12 @@ export enum Enum_Listing_Venue {
   Both = 'both',
   Location = 'location',
   Online = 'online'
+}
+
+export enum Enum_Userspermissionsuser_Membership {
+  Basic = 'basic',
+  Organisation = 'organisation',
+  Premium = 'premium'
 }
 
 export enum Enum_Userspermissionsuser_Usertype {
@@ -2482,6 +2494,8 @@ export type UsersPermissionsUser = {
   email: Scalars['String'];
   fullName?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
+  mailinglist?: Maybe<Scalars['Boolean']>;
+  membership?: Maybe<Enum_Userspermissionsuser_Membership>;
   organisation?: Maybe<OrganisationEntityResponse>;
   pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
@@ -2522,6 +2536,8 @@ export type UsersPermissionsUserFiltersInput = {
   fullName?: InputMaybe<StringFilterInput>;
   gender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  mailinglist?: InputMaybe<BooleanFilterInput>;
+  membership?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   organisation?: InputMaybe<OrganisationFiltersInput>;
@@ -2546,6 +2562,8 @@ export type UsersPermissionsUserInput = {
   email?: InputMaybe<Scalars['String']>;
   fullName?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
+  mailinglist?: InputMaybe<Scalars['Boolean']>;
+  membership?: InputMaybe<Enum_Userspermissionsuser_Membership>;
   organisation?: InputMaybe<Scalars['ID']>;
   password?: InputMaybe<Scalars['String']>;
   pronoun?: InputMaybe<Scalars['String']>;
@@ -2583,7 +2601,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type CategoriesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2862,6 +2880,11 @@ export const ArticlesDocument = gql`
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

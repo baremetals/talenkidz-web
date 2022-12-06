@@ -7,13 +7,17 @@ import {
   CategoriesDocument,
   CategoriesQueryResult,
   CategoryEntity,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/lib/noAuth';
 import { GetServerSidePropsContext } from 'next';
+import {
+  SearchProvider,
+} from 'components/utilities/search/SearchContext';
 
 type pageProps = {
-  art: { articles: { data: ArticleEntity[] } };
+  art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
 };
 
@@ -21,8 +25,9 @@ function ArticlesPage(props: pageProps) {
   const { cats, art } = props;
   const description = 'Articles';
   const url = 'https://talentkids.io/articles';
-  // console.log(cats?.data?.categories?.data);
+  // console.log(art);
 
+  
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPostings',
@@ -47,10 +52,13 @@ function ArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-      <Articles
-        articles={art?.articles?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <SearchProvider>
+        <Articles
+          articles={art?.articles?.data}
+          categories={cats?.data?.categories?.data}
+          total={art?.articles?.meta?.pagination?.total}
+        />
+      </SearchProvider>
     </Layout>
   );
 }
@@ -61,7 +69,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
     variables: {
       pagination: {
         start: 0,
-        limit: 6,
+        limit: 4,
       },
       sort: 'updatedAt:desc',
     },

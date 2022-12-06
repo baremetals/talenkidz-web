@@ -50,7 +50,7 @@ import {
 } from 'components/users/EditProfile/editProfile.styles';
 import { toBase64 } from 'src/utils/base64';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
-import { Edit } from '../../../../public/assets/icons/Edit';
+import { Edit } from 'public/assets/icons/Edit';
 
 import GoogleMap from 'components/utilities/Google/GoogleMap';
 import SearchBox from 'components/utilities/Google/SearchBox';
