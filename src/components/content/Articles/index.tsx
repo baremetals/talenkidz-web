@@ -97,6 +97,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   const [state, dispatch] = useReducer(articleReducer, Article_State);
   const { state: searchState } = useContext(SearchContext);
 
+  console.log(total)
   const fetchData = useFetchEntities({
     limit: 4,
     start: state.articlesLength as number,
@@ -150,7 +151,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
     
     if (!searchState.searching && filteredArticles.length <= total) {
       const res = await fetchData;
-      console.log(res);
+      // console.log(res);
       setFilteredArticles((filteredArticles) => [
         ...filteredArticles,
         // eslint-disable-next-line no-unsafe-optional-chaining

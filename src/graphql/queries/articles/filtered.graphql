@@ -40,5 +40,10 @@ query FilteredArticles(
         }
       }
     }
+    meta {
+      pagination {
+        total
+      }
+    }
   }
 }

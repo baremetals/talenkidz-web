@@ -7,14 +7,16 @@ import {
   CategoryEntity,
   FilteredArticlesDocument,
   FilteredArticlesQueryResult,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/lib/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { SearchProvider } from 'components/utilities/search/SearchContext';
 
 type pageProps = {
-  art: { articles: { data: ArticleEntity[] } };
+  art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
 };
 
@@ -40,7 +42,7 @@ function FilteredArticlesPage(props: pageProps) {
     // image: meta?.image,
     // datePublished: article?.attributes?.updatedAt,
   };
-  // console.log(art);
+  console.log(art);
   useNoAuthPages();
   return (
     <Layout
@@ -51,10 +53,13 @@ function FilteredArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-      <Articles
-        articles={art?.articles?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <SearchProvider>
+        <Articles
+          articles={art?.articles?.data}
+          categories={cats?.data?.categories?.data}
+          total={art?.articles?.meta?.pagination?.total}
+        />
+      </SearchProvider>
     </Layout>
   );
 }
