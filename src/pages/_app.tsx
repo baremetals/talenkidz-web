@@ -14,6 +14,7 @@ import { darkTheme } from "styles/theme";
 import "styles/globals.css";
 import GoogleAnalytics from 'components/Layout/Google';
 import { pageview } from 'src/lib/ga';
+import { AuthProvider } from 'src/context/AuthContext';
 // import Layout from 'components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -63,9 +64,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GoogleAnalytics />
       <Provider store={store}>
-        <ApolloProvider client={apolloClient} >
+        <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={darkTheme}>
+            <AuthProvider>
               <Component {...pageProps} />
+            </AuthProvider>
           </ThemeProvider>
         </ApolloProvider>
       </Provider>

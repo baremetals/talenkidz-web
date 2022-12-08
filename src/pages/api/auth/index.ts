@@ -9,8 +9,11 @@ const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 type Data = {
   message?: string;
   resp?: string;
+  jwt?: string;
   email?: string;
   username?: string;
+  id?: string;
+  name?: string;
   user?: user | org;
 };
 
@@ -65,7 +68,7 @@ export default async function auth(
   if (data.flag === 'REGISTER') {
     try {
       // console.log('register me!', baseUrl);
-      const resp = await axios({
+      await axios({
         method: 'POST',
         url: `${baseUrl}/auth/local/register`,
         data: {
@@ -74,15 +77,16 @@ export default async function auth(
           password: data.password,
           userType: data.userType,
           username: data.username,
+          mailinglist:data.mailinglist,
+          firebasePassword: data.firebasePassword,
+
           // organisationName: data.organisationName || "",
         },
       });
       
-      res
-        .status(200)
-        .json({ resp: resp.data.user.confirmed, email: resp.data.user.email });
+      res.status(200).json({ message: 'Registration successful' });
     } catch (err: any) {
-      console.log(err.response.data.error.message);
+      // console.log(err.response.data.error.message);
       res.status(401).json({ message: err.response.data.error.message });
     }
   }
@@ -125,11 +129,15 @@ export default async function auth(
         };
         setTheCookie(org);
       }
+
+      // console.log(response);
         
-      res.send(response.data.user);
+      // res.send(response.data.user);
+      res.status(200).json({ user: response.data.user });
     } catch (err: any) {
-      console.log(err.response.data);
-      res.send(err.response.data);
+      // console.log(err.response.data);
+      // res.send(err.response.data);
+      res.status(401).json({ message: err.response.data.error.message, name: err.response.data.error.name  });
     }
   }
 
@@ -150,25 +158,9 @@ export default async function auth(
         backgroundImg: auth.user.backgroundImg,
         userType: auth.user.userType,
         jwt: auth.jwt,
-      };
-
-      if (auth.user.mailinglist === false) {
-        // console.log('fuck in here');
-        await axios({
-          method: 'PUT',
-          url: `${baseUrl}/users/${auth.user.id}`,
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${auth.jwt}`,
-          },
-          data: {
-            mailinglist: true,
-          },
-        });
-        // console.log('Im done, move on');
-      } 
+      }; 
       setTheCookie(user);
-      res.status(200).json({ email: auth.user.email, username: auth.user.username  });
+      res.status(200).json({ user: auth.user });
      
     } catch (err: any) {
       // console.log(err);

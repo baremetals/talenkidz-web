@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { addToMailingList } from 'src/lib/helpers';
+
 
 import Spinner from 'components/utilities/Spinner';
 import {
@@ -12,17 +11,18 @@ import {
   PageContainer,
   Title,
 } from 'styles/common.styles';
+import { AuthContext } from 'src/context/AuthContext';
 
 // const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {
   const router = useRouter();
   const [text, setText] = useState('Loading...');
-  const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState(true);
   const { provider, access_token } = router.query;
+  const { loginWithProvider } = useContext(AuthContext);
   // console.log('wait bro find it', router.query)
 
   useEffect(() => {
-    // Successfully logged with the provider
     // Now logging with strapi by using the access_token (given by the provider) in props.location.search
     async function fetchUser() {
       if (
@@ -30,24 +30,11 @@ const ConnectProvider = () => {
         access_token !== undefined
         // id_token !== undefined
       ) {
-        await axios
-          .post('/api/auth', {
-            data: {
-              access_token,
-              provider,
-              flag: 'CONNECT',
-            },
-          })
-          .then(async(res) => {
+        await loginWithProvider(access_token as string, provider as string)
+          .then(async (_res) => {
+            setSpinner(false);
             // console.log('the response', res);
-            await addToMailingList(res.data.email);
-            setText(
-              'You have been successfully logged in. You will be redirected in a few seconds...'
-            );
-            setTimeout(
-              () => router.push(`/user-profile/${res.data.username}`),
-              3000
-            ); //
+            // setText(res?.success as string);
           })
           .catch((err) => {
             console.log(err);
@@ -55,10 +42,14 @@ const ConnectProvider = () => {
             setText('An error occurred, Please try again..');
             setTimeout(() => router.push('/auth/login'), 3000);
           });
-      } 
+      }
     }
-    fetchUser();
-  }, [provider, access_token, router]);
+    const listen = fetchUser();
+
+    return () => {
+      listen;
+    };
+  }, [provider, access_token, router, loginWithProvider]);
 
   // useEffect(() => {
   //   // Successfully logged with the provider

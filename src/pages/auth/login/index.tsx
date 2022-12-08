@@ -1,8 +1,10 @@
 import Login from 'components/users/Auth/Login';
 import Layout from 'components/Layout';
+import { useIsAuth } from 'src/lib/isAuth';
 // import { withApollo } from "src/utils/withApollo";
 
 function LoginPage() {
+  // useIsAuth();
   const description = "Talentkids - Login";
   const url = 'https://talentkids.io/auth/login';
   return (
