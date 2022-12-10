@@ -1,6 +1,5 @@
-import { FirebaseUserType } from 'src/lib/firebase';
-
-export interface User {
+export interface AuthUser {
+  logo: string | undefined;
   id?: string;
   firebaseUserId?: string;
   username?: string;
@@ -21,12 +20,4 @@ export interface User {
   createdAt?: string;
   updatedAt?: string;
   organisation?: [Object];
-}
-
-export interface AuthState {
-  user: User | null;
-  firebaseUser: FirebaseUserType| null;
-  authenticated: boolean;
-  loading: boolean;
-  // error?: string;
 }

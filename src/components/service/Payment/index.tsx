@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -36,6 +36,7 @@ import {
 } from 'styles/common.styles';
 
 import Button from 'components/widgets/Button';
+import { AuthContext } from 'src/context/AuthContext';
 
 
 
@@ -44,7 +45,8 @@ import Button from 'components/widgets/Button';
 const CreateListing = () => {
 
     // const [formType, setFormType] = useState('activity')
-    const { user: _user } = useAppSelector(isUser);
+    const { state } = useContext(AuthContext);
+    const user = state.user;
 
     return (
         <>

@@ -9,9 +9,9 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   User,
-  updateProfile,
-  updatePassword,
-  reauthenticateWithCredential,
+  // updateProfile,
+  // updatePassword,
+  // reauthenticateWithCredential,
   signOut
 } from 'firebase/auth';
 

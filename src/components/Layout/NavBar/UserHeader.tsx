@@ -1,11 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Link from "next/link";
 import Image from 'next/image';
-import axios from 'axios';
-import { useAppSelector, useAppDispatch } from 'src/app/hooks';
-import { signOutUser } from 'src/features/auth';
-import { isUser } from "src/features/auth/selectors";
+
+
 import {
     InnerContainer,
     NavBarHeader,
@@ -23,17 +20,15 @@ import {
     ProfileDropdown,
     ProfileItem
 } from "./NavBar.styles"
-
-
+import { AuthContext } from 'src/context/AuthContext';
 
 export default function UserHeader() {
-    const router = useRouter();
-    const dispatch = useAppDispatch();
-    const { user: user } = useAppSelector(isUser);
+    const { state, logUserOutFirebase } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
     const dropdownRef = useRef<any>(null);
+    const user = state.user
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
@@ -52,18 +47,9 @@ export default function UserHeader() {
         };
     });
 
-    const handleLogOut = async () => {
+    const handleLogOut = () => {
         try {
-            const res = await axios.post("/api/auth", {
-                data: {
-                    flag: 'LOGOUT'
-                }
-            });
-            // console.log(res);
-            if (res.status === 200 || res?.data?.message) {
-              dispatch(signOutUser());
-                router.push("/auth/login");
-            }
+            logUserOutFirebase();
         } catch (error) {
             console.log(error);
             throw error;
@@ -76,7 +62,7 @@ export default function UserHeader() {
           <InnerContainer>
             <NavBarHeader>
               <Link
-                href={user?.id ? `user-profile/${user?.username}` : '/'}
+                href={user?.id ? `user-profile/${'user?.username'}` : '/'}
                 passHref
               >
                 <Logo>
@@ -127,13 +113,13 @@ export default function UserHeader() {
                                             <Link href={`/user-profile/${user?.username}`}>Setting</Link>
                                         </ProfileItem> */}
                           <ProfileItem>
-                            <Link href={`/user-profile/${user?.username}`}>
+                            <Link href={`/user-profile/${'user?.username'}`}>
                               Profile
                             </Link>
                           </ProfileItem>
                           <ProfileItem>
                             <Link
-                              href={`/user-profile/${user?.username}/edit-profile`}
+                              href={`/user-profile/${'user?.username'}/edit-profile`}
                             >
                               Edit Profile
                             </Link>

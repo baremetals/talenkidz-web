@@ -1,7 +1,5 @@
-import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { Tabs, Tab } from '@mui/material';
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth/selectors";
 import { Organisation, UsersPermissionsUser } from 'generated/graphql';
 import { FormData } from "formdata-node";
 import axios from "axios";
@@ -32,6 +30,7 @@ import { BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
 import { toBase64 } from 'src/utils/base64';
 import Spinner from 'components/utilities/Spinner';
+import { AuthContext } from 'src/context/AuthContext';
 
 type Props = {
   user: UsersPermissionsUser
@@ -54,12 +53,12 @@ type mixProps = Props | orgProps
 const menuItems = ['#profile', '#billing']
 
 const EditProfile = ({ user }: mixProps) => {
-  const { user: usr } = useAppSelector(isUser);
+  const { state } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [profileImg, setProfileImg] = useState<string>('');
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  // console.log(usr)
+  const usr = state?.user;
 
   useEffect(() => {
     if (location.hash && menuItems.indexOf(location.hash) !== -1) {
@@ -69,7 +68,7 @@ const EditProfile = ({ user }: mixProps) => {
 
   useEffect(() => {
     if (usr && (usr.logo || usr.avatar))
-      setProfileImg(usr.userType === 'candidate' ? usr.avatar : usr.logo)
+      setProfileImg(usr?.userType as string  === 'candidate' ? usr?.avatar as string : usr?.logo as string)
   }, [usr])
 
   const onTabChange = (_: SyntheticEvent, tabIndex: number) => {

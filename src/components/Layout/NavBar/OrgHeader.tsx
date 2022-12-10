@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from 'next/image';
 import axios from 'axios';
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth/selectors";
+
 import {
     InnerContainer,
     NavBarHeader,
@@ -22,16 +21,18 @@ import {
     ProfileDropdown,
     ProfileItem
 } from "./NavBar.styles"
+import { AuthContext } from 'src/context/AuthContext';
 
 
 
 export default function OrgHeader() {
     const router = useRouter();
-    const { user: user } = useAppSelector(isUser);
+    const { state } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
     const dropdownRef = useRef<any>(null);
+    const user = state.user;
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {

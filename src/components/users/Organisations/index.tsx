@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { useAppSelector } from 'src/app/hooks';
@@ -70,6 +70,7 @@ import { Delete } from 'public/assets/icons/Delete';
 import { Union } from 'public/assets/icons/Union';
 // import { NavCard } from './NavCard';
 import { Card } from './Card';
+import { AuthContext } from 'src/context/AuthContext';
 // import { useQuery } from '@apollo/client';
 // import { Modal } from 'components/Modal';
 // import EditForm from 'components/Create/EditForm';
@@ -81,7 +82,7 @@ type idProps = {
 };
 
 const Organisations = ({ id, attributes }: idProps) => {
-  const { user: user } = useAppSelector(isUser);
+  const { state } = useContext(AuthContext);
   // const { id, attributes} = props?.props
   const { logo, name, slug, createdAt, bio, organisationType, website } =
     attributes;
@@ -89,6 +90,7 @@ const Organisations = ({ id, attributes }: idProps) => {
   const [events, setEvents] = useState<[EventEntity] | []>([]);
   const [dropdown, setDropdown] = useState(false);
   const [eventDropdown, setEventDropdown] = useState(false);
+  const user = state.user;
 
 
   useEffect(() => {

@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import Image from 'next/image'
 import { UsersPermissionsUser } from 'generated/graphql';
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth/selectors";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -39,6 +37,7 @@ import {
     // PhotoGallery,
     // VideoGallery
 } from './profile.styles';
+import { AuthContext } from 'src/context/AuthContext';
 // import { Card } from './Card'
 // import { ShareCard } from './ShareCard'
 
@@ -48,7 +47,8 @@ import {
 // import { Plus } from '../../../public/assets/icons/Plus'
 
 function Profile(props: { props: UsersPermissionsUser }) {
-    const { user: user } = useAppSelector(isUser);
+    const { state } = useContext(AuthContext);
+    const user = state.user;
 
     // eslint-disable-next-line no-unsafe-optional-chaining
     const { username, fullName, avatar, backgroundImg, createdAt, bio } = props?.props

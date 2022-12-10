@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 // import dynamic from 'next/dynamic';
 import { useForm } from "react-hook-form";
 import { EditorState } from "draft-js";
 import axios from "axios";
 
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from 'components/utilities/Modal'
@@ -35,6 +33,7 @@ import {
     CategoryOptions,
     BodyText
 } from "./styles";
+import { AuthContext } from 'src/context/AuthContext';
 
 type FormInput = {
     mediaLink: string;
@@ -60,7 +59,8 @@ const Post = ({ closeM,
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState("");
-    const { user: user } = useAppSelector(isUser);
+    const { state } = useContext(AuthContext);
+    const user = state.user;
 
     const onSubmit = async (info: FormInput) => {
         await axios.post("/api/posts", {

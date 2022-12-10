@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { createContext, Dispatch, useEffect, useReducer } from 'react';
-import { AuthState, User } from 'src/interfaces';
+import { AuthUser } from 'src/interfaces';
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -10,7 +10,11 @@ import {
   signOut,
 } from 'src/lib/firebase';
 import { addToMailingList } from 'src/lib/helpers';
-import { authReducer, IAuthAction, initialState } from './authReducer';
+import {
+  authReducer,
+  IAuthAction,
+  IAuthState, initialState,
+} from './authReducer';
 import { v4 } from 'uuid';
 
 type formProps = {
@@ -36,9 +40,10 @@ interface IAuthContext {
     _access_token: string,
     _provider: string
   ) => Promise<returnType | null>;
-  state: AuthState;
+  state: IAuthState;
   dispatch: Dispatch<IAuthAction>;
   signOutFirebaseUser: () => void;
+  logUserOutFirebase: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -48,6 +53,7 @@ const AuthContext = createContext<IAuthContext>({
   loginUser: async () => null,
   loginWithProvider: async () => null,
   signOutFirebaseUser: () => null,
+  logUserOutFirebase: async () => null,
 });
 
 const AuthProvider: React.FC = ({ children }) => {
@@ -59,7 +65,16 @@ const AuthProvider: React.FC = ({ children }) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
+        // const uid = user.uid;
+        if (state.firebaseUser === null) {
+          dispatch({
+            type: 'SET_FIREBASE_USER',
+            payload: {
+              ...state,
+              firebaseUser: user,
+            },
+          });
+        }
         // ...
       } else {
         // User is signed out
@@ -70,7 +85,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return () => {
       listen;
     };
-  });
+  }, [dispatch, state]);
 
   const registerNewUser = async ({
     ...user
@@ -120,7 +135,7 @@ const AuthProvider: React.FC = ({ children }) => {
           flag: 'LOGIN',
         },
       })
-      .then(async (res: { data: { user: User } }) => {
+      .then(async (res: { data: { user: AuthUser } }) => {
         // console.log('the response: ', res);
         const userType = res.data.user.userType;
         const username = res.data.user.username;
@@ -187,7 +202,7 @@ const AuthProvider: React.FC = ({ children }) => {
           flag: 'CONNECT',
         },
       })
-      .then(async (res: { data: { user: User } }) => {
+      .then(async (res: { data: { user: AuthUser } }) => {
         // console.log(res);
         const generatedToken = v4();
         const userType = res.data.user.userType;
@@ -273,6 +288,28 @@ const AuthProvider: React.FC = ({ children }) => {
     signOut(auth);
   }
 
+  async function logUserOutFirebase() {
+    await axios.post('/api/auth', {
+      data: {
+        flag: 'LOGOUT',
+      },
+    }).then(() => {
+      // console.log(res)
+      signOutFirebaseUser();
+      dispatch({
+        type: 'SET_USER',
+        payload: {
+          ...state,
+          user: null,
+          authenticated: false,
+        },
+      });
+      router.push('/auth/login');
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -282,6 +319,7 @@ const AuthProvider: React.FC = ({ children }) => {
         signOutFirebaseUser,
         loginUser,
         loginWithProvider,
+        logUserOutFirebase,
       }}
     >
       {children}

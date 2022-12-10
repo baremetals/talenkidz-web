@@ -1,21 +1,14 @@
-import { useRouter } from "next/router";
-import { useContext, useEffect, useReducer } from "react";
-import { useAppDispatch } from "src/app/hooks";
-import { setUser } from "src/features/auth";
-import axios from "axios";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from 'src/context/AuthContext';
-import { authReducer, initialState } from 'src/context/authReducer';
+// import { auth, onAuthStateChanged } from './firebase';
 
 export const useIsAuth = () => {
   const router = useRouter();
-  // const dispatch = useAppDispatch();
-  // const [state, dispatch] = useReducer(authReducer, initialState);
   const { state, dispatch } = useContext(AuthContext);
 
-  console.log('outside useContext state: ', state)
 
-
-  
   useEffect(() => {
     const getUser = async () => {
       // console.log("I am here")
@@ -27,13 +20,16 @@ export const useIsAuth = () => {
           } else {
             const me = res?.data;
             // console.log(me);
-            dispatch(setUser(me));
             dispatch({
               type: 'SET_USER',
-              payload: {...me}
+              payload: {
+                ...state,
+                user: me,
+                authenticated: true,
+              },
             });
-            console.log('inside useContext state: ', state);
-          }         
+            // console.log('inside useContext state: ', state);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -43,8 +39,7 @@ export const useIsAuth = () => {
     const listen = getUser();
 
     return () => {
-      listen
-    }
-  }, [router, dispatch]);
+      listen;
+    };
+  }, [router, dispatch, state]);
 };
-

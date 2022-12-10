@@ -5,15 +5,12 @@ import axios from 'axios';
 import { Formik } from "formik";
 import { getResetPasswordValidationSchema } from "src/utils/formValidation";
 
-// Redux imports
-// import { useAppDispatch } from "app/hooks";
-// import { setUser } from "features/auth";
 
 import { Error, ErrorMsg } from 'components/widgets/Input';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Lock } from "../../../../../public/assets/icons/Lock";
+import { Lock } from "public/assets/icons/Lock";
 
 import {
     PageContainer,
@@ -37,7 +34,7 @@ const initialValues = {
 };
 const ResetPassword = () => {
     const router = useRouter();
-    // const dispatch = useAppDispatch();
+
     const [errorMsg, setErrorMsg] = useState(false);
 
     const handleSubmit = async ({ ...values }: any) => {
