@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth/selectors";
+
 import StripeForm from './stripe-form';
 
 import Footer from 'components/Layout/Footer';

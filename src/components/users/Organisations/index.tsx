@@ -2,8 +2,6 @@
 import React, { SetStateAction, useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { useAppSelector } from 'src/app/hooks';
-import { isUser } from 'src/features/auth/selectors';
 import { client } from 'src/lib/initApollo';
 
 import dayjs from 'dayjs';

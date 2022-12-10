@@ -2,10 +2,6 @@ import React, { useContext, useState } from 'react'
 // import Link from 'next/link';
 // import { useRouter } from 'next/router';
 
-
-import { useAppSelector } from "src/app/hooks";
-import { isUser } from "src/features/auth/selectors";
-
 import Form from './Form';
 import Footer from 'components/Layout/Footer';
 import NavBar from 'components/Layout/NavBar';
