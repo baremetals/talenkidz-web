@@ -22,3 +22,25 @@ export interface AuthUser {
   orgId?: string;
   organisation?: [Object];
 }
+
+
+export interface Comment {
+  id: string;
+  body: string;
+  user: AuthUser;
+  createdOn: Date;
+  post: Post;
+}
+
+export interface Post {
+  id: string;
+  views: number;
+  title: string;
+  body: string;
+  user: AuthUser;
+  points: number;
+  createdOn: Date;
+  lastModifiedOn: Date;
+  threadItems: Array<Comment>;
+}
+
