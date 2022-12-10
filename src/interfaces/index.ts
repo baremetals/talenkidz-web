@@ -19,5 +19,6 @@ export interface AuthUser {
   pronoun?: string;
   createdAt?: string;
   updatedAt?: string;
+  orgId?: string;
   organisation?: [Object];
 }

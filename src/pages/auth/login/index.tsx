@@ -1,6 +1,6 @@
 import Login from 'components/users/Auth/Login';
 import Layout from 'components/Layout';
-import { useIsAuth } from 'src/lib/isAuth';
+// import { useIsAuth } from 'src/lib/isAuth';
 // import { withApollo } from "src/utils/withApollo";
 
 function LoginPage() {

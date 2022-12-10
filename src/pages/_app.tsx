@@ -1,9 +1,7 @@
-import { Provider } from "react-redux";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
-import store from "src/app/store";
 import Head from "next/head";
 import nprogress from "nprogress";
 import Router from "next/router";
@@ -63,7 +61,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:locale" content="en_GB" />
       </Head>
       <GoogleAnalytics />
-      <Provider store={store}>
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={darkTheme}>
             <AuthProvider>
@@ -71,7 +68,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             </AuthProvider>
           </ThemeProvider>
         </ApolloProvider>
-      </Provider>
     </>
   );
 }
