@@ -53,12 +53,11 @@ type mixProps = Props | orgProps
 const menuItems = ['#profile', '#billing']
 
 const EditProfile = ({ user }: mixProps) => {
-  const { state } = useContext(AuthContext);
+  const { user: usr } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [profileImg, setProfileImg] = useState<string>('');
   const [uploadImg, setUploadImg] = useState<FileType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const usr = state?.user;
 
   useEffect(() => {
     if (location.hash && menuItems.indexOf(location.hash) !== -1) {

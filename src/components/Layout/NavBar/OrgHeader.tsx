@@ -27,12 +27,11 @@ import { AuthContext } from 'src/features/auth/AuthContext';
 
 export default function OrgHeader() {
     const router = useRouter();
-    const { state } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
     const dropdownRef = useRef<any>(null);
-    const user = state.user;
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {

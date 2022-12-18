@@ -80,7 +80,7 @@ type idProps = {
 };
 
 const Organisations = ({ id, attributes }: idProps) => {
-  const { state } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   // const { id, attributes} = props?.props
   const { logo, name, slug, createdAt, bio, organisationType, website } =
     attributes;
@@ -88,7 +88,6 @@ const Organisations = ({ id, attributes }: idProps) => {
   const [events, setEvents] = useState<[EventEntity] | []>([]);
   const [dropdown, setDropdown] = useState(false);
   const [eventDropdown, setEventDropdown] = useState(false);
-  const user = state.user;
 
 
   useEffect(() => {

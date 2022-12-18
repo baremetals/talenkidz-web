@@ -44,8 +44,7 @@ import { AuthContext } from 'src/features/auth/AuthContext';
 const CreateListing = () => {
 
     // const [formType, setFormType] = useState('activity')
-    const { state } = useContext(AuthContext);
-    const user = state.user;
+    const { user } = useContext(AuthContext);
 
     return (
         <>
