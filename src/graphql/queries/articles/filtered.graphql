@@ -11,6 +11,8 @@ query FilteredArticles(
         title
         slug
         blurb
+        totalComments
+        totalLikes
         readingTime
         createdAt
         updatedAt
@@ -37,6 +39,10 @@ query FilteredArticles(
               slug
             }
           }
+        }
+        likes {
+          id
+          userId
         }
       }
     }

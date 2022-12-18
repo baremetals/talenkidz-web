@@ -22,7 +22,7 @@ import Provider from '../Provider';
 import { Lock } from 'public/assets/icons/Lock';
 import { Message } from 'public/assets/icons/Message';
 import { Profile } from 'public/assets/icons/Profile';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 

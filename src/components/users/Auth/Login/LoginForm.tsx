@@ -22,7 +22,7 @@ import { getLoginValidationSchema } from 'src/utils/formValidation';
 import Provider from '../Provider';
 import { Lock } from 'public/assets/icons/Lock';
 import { Message } from 'public/assets/icons/Message';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
 
 

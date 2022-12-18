@@ -21,7 +21,7 @@ import {
     ProfileDropdown,
     ProfileItem
 } from "./NavBar.styles"
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 
 

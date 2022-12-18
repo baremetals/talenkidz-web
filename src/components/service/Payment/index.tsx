@@ -35,7 +35,7 @@ import {
 } from 'styles/common.styles';
 
 import Button from 'components/widgets/Button';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 
 

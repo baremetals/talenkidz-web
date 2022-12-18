@@ -12,9 +12,10 @@ import {
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/lib/noAuth';
 import { GetServerSidePropsContext } from 'next';
-import {
-  SearchProvider,
-} from 'components/utilities/search/SearchContext';
+// import {
+//   SearchProvider,
+// } from 'components/utilities/search/SearchContext';
+import { SearchProvider } from 'components/utilities/search/searchReducer';
 
 type pageProps = {
   art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };

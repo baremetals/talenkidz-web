@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import dynamic from 'next/dynamic';
 import Link from 'next/link'
 import axios from 'axios';
-import { addToMailingList } from 'src/lib/helpers'
+import { addToMailingList } from 'src/helpers'
 // import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

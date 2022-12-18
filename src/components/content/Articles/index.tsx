@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useReducer, useState, useContext } from 'react';
-import { upperCase } from 'src/lib/helpers';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
+import { upperCase } from 'src/helpers';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // import { useAppSelector } from "app/hooks";
@@ -41,7 +41,9 @@ import {
 } from './articleReducer';
 import { useFetchEntities } from 'components/utilities/hooks/useFetchEntities';
 import Categories from 'components/utilities/category/Category';
-import { SearchContext } from 'components/utilities/search/SearchContext';
+// import { SearchContext } from 'components/utilities/search/SearchContext';
+import { useSearchState } from 'components/utilities/search/searchReducer';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 //     id: string;
 //     attributes: {
@@ -95,9 +97,13 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [state, dispatch] = useReducer(articleReducer, Article_State);
-  const { state: searchState } = useContext(SearchContext);
+  const { user, firebaseUser } = useContext(AuthContext);
+  // const { state: searchState } = useContext(SearchContext);
 
-  // console.log(total)
+  const searchState = useSearchState();
+
+
+  // console.log('the state', searchState);
   const fetchData = useFetchEntities({
     limit: 4,
     start: state.articlesLength as number,
@@ -196,7 +202,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                 // flexDirection: 'column-reverse',
               }}
             >
-                <InfiniteScroll
+              <InfiniteScroll
                 dataLength={filteredArticles.length} //This is important field to render the next data
                 next={getData}
                 hasMore={hasMore}
@@ -209,88 +215,105 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                 // style={{ display: 'flex', flexDirection: 'column-reverse' }}
               >
                 <Row>
-                  {filteredArticles?.map((art, id) => (
+                  {filteredArticles?.map((art, id) => {
+                    
+                    const likes = art?.attributes?.likes;
+                    const filterLIkes = likes?.filter(
+                      (like) => like?.userId === user?.id
+                    );
+                    const hasLiked = filterLIkes!.length > 0;
+                    // {
+                    //   console.log(art?.attributes?.likes)
+                    //   const filterLIkes = likes?.filter(
+                    //     (like) => like?.userId === user?.id
+                    //   );
+                    //   const hasLiked = filterLIkes!.length > 0;
+                      
+                    // }
+                    return (
                     <Column style={{ minWidth: '50%' }} key={id}>
-                      <Link
-                        href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                        passHref
-                      >
-                        <Post>
-                          <PostThumb>
-                            <Image
-                              src={
-                                art?.attributes?.heroImage?.data?.attributes
-                                  ?.url as string
-                              }
-                              alt="article image"
-                              width={359.3}
-                              height={269.47}
-                            />
-                          </PostThumb>
-                          <PostBody>
-                            <Top>
-                              <PostMedia>
-                                <Link href={'/posts'}>
-                                  <a>
-                                    <ThumbsUp />
-                                  </a>
-                                </Link>
+                        <Link
+                          href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                          passHref
+                        >
+                          <Post>
+                            <PostThumb>
+                              <Image
+                                src={
+                                  art?.attributes?.heroImage?.data?.attributes
+                                    ?.url as string
+                                }
+                                alt="article image"
+                                width={359.3}
+                                height={269.47}
+                              />
+                            </PostThumb>
+                            <PostBody>
+                              <Top>
+                                <PostMedia>
+                                  <Link href={'/posts'}>
+                                    <a>
+                                      <ThumbsUp
+                                        colour={hasLiked ? '#3762e4' : 'none'}
+                                      />
+                                    </a>
+                                  </Link>
 
-                                <Link href={'/posts'}>
-                                  <a>
-                                    <BookMark />
-                                  </a>
-                                </Link>
-                              </PostMedia>
-                              <br />
-                              <PostTitle
-                                style={{
-                                  fontSize: '1rem',
-                                  color: '#2e3032',
-                                  marginBottom: '.3rem',
-                                }}
-                              >
-                                {art?.attributes?.title.slice(0, 40)}...
-                              </PostTitle>
-                              <Text>
-                                {art?.attributes?.blurb?.slice(0, 80)}...
-                              </Text>
-                            </Top>
-                            <Bottom style={{ fontSize: '.75rem' }}>
-                              {
-                                art?.attributes?.author?.data?.attributes
-                                  ?.fullName
-                              }
-                            </Bottom>
-                            <Bottom>
-                              <PostDate>
-                                {dayjs(art?.attributes?.updatedAt).format(
-                                  'DD MMMM YYYY'
-                                )}{' '}
-                              </PostDate>
+                                  <Link href={'/posts'}>
+                                    <a>
+                                      <BookMark />
+                                    </a>
+                                  </Link>
+                                </PostMedia>
+                                <br />
+                                <PostTitle
+                                  style={{
+                                    fontSize: '1rem',
+                                    color: '#2e3032',
+                                    marginBottom: '.3rem',
+                                  }}
+                                >
+                                  {art?.attributes?.title.slice(0, 40)}...
+                                </PostTitle>
+                                <Text>
+                                  {art?.attributes?.blurb?.slice(0, 80)}...
+                                </Text>
+                              </Top>
+                              <Bottom style={{ fontSize: '.75rem' }}>
+                                {
+                                  art?.attributes?.author?.data?.attributes
+                                    ?.fullName
+                                }
+                              </Bottom>
+                              <Bottom>
+                                <PostDate>
+                                  {dayjs(art?.attributes?.updatedAt).format(
+                                    'DD MMMM YYYY'
+                                  )}{' '}
+                                </PostDate>
 
-                              <PostMedia
-                                style={{
-                                  fontSize: '.75rem',
-                                  color: '#74787C',
-                                }}
-                              >
-                                {art?.attributes?.readingTime}
-                              </PostMedia>
-                              {/* <PostMedia>
+                                <PostMedia
+                                  style={{
+                                    fontSize: '.75rem',
+                                    color: '#74787C',
+                                  }}
+                                >
+                                  {art?.attributes?.readingTime}
+                                </PostMedia>
+                                {/* <PostMedia>
                                                             <Link href={'/posts'}><a><ThumbsUp /></a></Link>
                                                             <PostMedia>
                                                                 <Link href={'/posts'}><a><BookMark /></a></Link>
                                                             </PostMedia>
                                                         </PostMedia> */}
-                            </Bottom>
-                          </PostBody>
-                        </Post>
-                      </Link>
-                    </Column>
-                  ))}
+                              </Bottom>
+                            </PostBody>
+                          </Post>
+                        </Link>
+                      </Column>)
+})}
                 </Row>
-                </InfiniteScroll>
+              </InfiniteScroll>
             </Column>
             <Column>
               <EntitySearch

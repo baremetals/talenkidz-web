@@ -1,14 +1,15 @@
 import {
   useSearch,
 } from 'components/utilities/hooks/useSearch';
-import React, { useContext} from 'react';
+import React from 'react';
 import { Entities } from 'src/types';
 import {
   SearchBar,
   SearchInput,
   SearchButton,
 } from 'styles/common.styles';
-import { SearchContext } from './SearchContext';
+// import { SearchContext } from './SearchContext';
+import { useSearchDispatch, useSearchState } from './searchReducer';
 
 export interface ISearch {
   entities: Entities[];
@@ -19,7 +20,10 @@ const EntitySearch: React.FC<ISearch> = ({
   entities,
   setFilteredEntities,
 }) => {
-  const { state, dispatch } = useContext(SearchContext);
+  // const { state,  } = useContext(SearchContext);
+  const state = useSearchState();
+  const dispatch = useSearchDispatch();
+  // console.log('testing this method: ', {...state});
 
   const search = useSearch({
     searchValue: state.searchValue,

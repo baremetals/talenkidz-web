@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 // import Image from 'next/image'
 import { UsersPermissionsUser } from 'generated/graphql';
 
@@ -37,7 +37,8 @@ import {
     // PhotoGallery,
     // VideoGallery
 } from './profile.styles';
-import { AuthContext } from 'src/context/AuthContext';
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth/selectors';
 // import { Card } from './Card'
 // import { ShareCard } from './ShareCard'
 
@@ -47,8 +48,7 @@ import { AuthContext } from 'src/context/AuthContext';
 // import { Plus } from '../../../public/assets/icons/Plus'
 
 function Profile(props: { props: UsersPermissionsUser }) {
-    const { state } = useContext(AuthContext);
-    const user = state.user;
+    const { user: user } = useAppSelector(isUser);
 
     // eslint-disable-next-line no-unsafe-optional-chaining
     const { username, fullName, avatar, backgroundImg, createdAt, bio } = props?.props

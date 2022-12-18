@@ -2,7 +2,7 @@
 import React from 'react';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import * as NextImage from 'next/image';
-import { AuthProvider } from '../src/context/AuthContext';
+import { AuthProvider } from '../src/features/auth/AuthContext';
 
 
 import '../src/styles/globals.css';
@@ -43,13 +43,13 @@ Object.defineProperty(NextImage, 'default', {
 
 
 
-export const decorators = [
-  (Story) => (
-    <AuthProvider>
-      <Story />
-    </AuthProvider>
-  ),
-];
+// export const decorators = [
+//   (Story) => (
+//     <AuthProvider>
+//       <Story />
+//     </AuthProvider>
+//   ),
+// ];
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

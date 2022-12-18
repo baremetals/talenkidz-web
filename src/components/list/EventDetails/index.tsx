@@ -1,7 +1,7 @@
 import { ErrorMsg } from 'components/widgets/Input';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { upperCase } from 'src/lib/helpers';
+import { upperCase } from 'src/helpers';
 import Markdown from 'markdown-to-jsx';
 import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';

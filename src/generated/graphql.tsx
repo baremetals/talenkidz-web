@@ -88,12 +88,23 @@ export type Article = {
   body: Scalars['String'];
   category?: Maybe<CategoryEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  firebaseId?: Maybe<Scalars['String']>;
   heroImage: UploadFileEntityResponse;
+  likes?: Maybe<Array<Maybe<ComponentLikesLikes>>>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   readingTime?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
+  totalComments?: Maybe<Scalars['Int']>;
+  totalLikes?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type ArticleLikesArgs = {
+  filters?: InputMaybe<ComponentLikesLikesFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ArticleEntity = {
@@ -121,13 +132,17 @@ export type ArticleFiltersInput = {
   body?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<CategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  firebaseId?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  likes?: InputMaybe<ComponentLikesLikesFiltersInput>;
   not?: InputMaybe<ArticleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   readingTime?: InputMaybe<StringFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
+  totalComments?: InputMaybe<IntFilterInput>;
+  totalLikes?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -137,11 +152,15 @@ export type ArticleInput = {
   blurb?: InputMaybe<Scalars['String']>;
   body?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['ID']>;
+  firebaseId?: InputMaybe<Scalars['String']>;
   heroImage?: InputMaybe<Scalars['ID']>;
+  likes?: InputMaybe<Array<InputMaybe<ComponentLikesLikesInput>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   readingTime?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  totalComments?: InputMaybe<Scalars['Int']>;
+  totalLikes?: InputMaybe<Scalars['Int']>;
 };
 
 export type Author = {
@@ -392,6 +411,24 @@ export type ComponentAddressLocationInput = {
   postCode?: InputMaybe<Scalars['String']>;
   street?: InputMaybe<Scalars['String']>;
   town?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentLikesLikes = {
+  __typename?: 'ComponentLikesLikes';
+  id: Scalars['ID'];
+  userId: Scalars['Int'];
+};
+
+export type ComponentLikesLikesFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentLikesLikesFiltersInput>>>;
+  not?: InputMaybe<ComponentLikesLikesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentLikesLikesFiltersInput>>>;
+  userId?: InputMaybe<IntFilterInput>;
+};
+
+export type ComponentLikesLikesInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  userId?: InputMaybe<Scalars['Int']>;
 };
 
 export type ComponentSeoSeo = {
@@ -856,7 +893,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutUs | Article | Author | Candidate | Category | Comment | ComponentAddressLocation | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutUs | Article | Author | Candidate | Category | Comment | ComponentAddressLocation | ComponentLikesLikes | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -2492,6 +2529,8 @@ export type UsersPermissionsUser = {
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  firebasePassword?: Maybe<Scalars['String']>;
+  firebaseUserId?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
   mailinglist?: Maybe<Scalars['Boolean']>;
@@ -2533,6 +2572,8 @@ export type UsersPermissionsUserFiltersInput = {
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   email?: InputMaybe<StringFilterInput>;
+  firebasePassword?: InputMaybe<StringFilterInput>;
+  firebaseUserId?: InputMaybe<StringFilterInput>;
   fullName?: InputMaybe<StringFilterInput>;
   gender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -2560,6 +2601,8 @@ export type UsersPermissionsUserInput = {
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
+  firebasePassword?: InputMaybe<Scalars['String']>;
+  firebaseUserId?: InputMaybe<Scalars['String']>;
   fullName?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
   mailinglist?: InputMaybe<Scalars['Boolean']>;
@@ -2584,7 +2627,7 @@ export type ArticleQueryVariables = Exact<{
 }>;
 
 
-export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, totalComments?: number | null, totalLikes?: number | null, firebaseId?: string | null, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredArticlesQueryVariables = Exact<{
   filters?: InputMaybe<ArticleFiltersInput>;
@@ -2593,7 +2636,7 @@ export type FilteredArticlesQueryVariables = Exact<{
 }>;
 
 
-export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, totalComments?: number | null, totalLikes?: number | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ArticlesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2601,7 +2644,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, totalComments?: number | null, totalLikes?: number | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type CategoriesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2701,6 +2744,9 @@ export const ArticleDocument = gql`
         body
         title
         slug
+        totalComments
+        totalLikes
+        firebaseId
         readingTime
         heroImage {
           data {
@@ -2726,6 +2772,10 @@ export const ArticleDocument = gql`
           image
           type
           locale
+        }
+        likes {
+          id
+          userId
         }
         category {
           data {
@@ -2781,6 +2831,8 @@ export const FilteredArticlesDocument = gql`
         title
         slug
         blurb
+        totalComments
+        totalLikes
         readingTime
         createdAt
         updatedAt
@@ -2807,6 +2859,10 @@ export const FilteredArticlesDocument = gql`
               slug
             }
           }
+        }
+        likes {
+          id
+          userId
         }
       }
     }
@@ -2859,6 +2915,8 @@ export const ArticlesDocument = gql`
         slug
         blurb
         readingTime
+        totalComments
+        totalLikes
         heroImage {
           data {
             id
@@ -2884,6 +2942,10 @@ export const ArticlesDocument = gql`
               slug
             }
           }
+        }
+        likes {
+          id
+          userId
         }
       }
     }

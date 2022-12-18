@@ -3,8 +3,10 @@ import React, { useContext } from "react";
 // import Link from "next/link";
 // import axios from 'axios';
 
-import { AuthContext } from 'src/context/AuthContext';
 
+// import { useAppSelector } from 'src/app/hooks';
+import { AuthContext } from 'src/features/auth/AuthContext';
+// import { isUser } from 'src/features/auth/selectors';
 
 // import {
 //     InnerContainer,
@@ -31,11 +33,11 @@ import UserHeader from './UserHeader';
 
 export default function NavBar() {
     // const router = useRouter();
-    const { state } = useContext(AuthContext);
-    const user = state.user;
+    // const { user: user } = useAppSelector(isUser);
+    const { user } = useContext(AuthContext);
     // const [dropdown, setDropdown] = useState(false);
     // const [toggle, setToggle] = useState(false)
-
+    // console.log(user)
 
     return (
         <>

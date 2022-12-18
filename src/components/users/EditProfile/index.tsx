@@ -30,7 +30,7 @@ import { BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
 import { toBase64 } from 'src/utils/base64';
 import Spinner from 'components/utilities/Spinner';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 type Props = {
   user: UsersPermissionsUser

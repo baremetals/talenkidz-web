@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { AuthContext } from 'src/context/AuthContext';
+import { useAppDispatch } from 'src/app/hooks';
+import { setUser } from 'src/features/auth';
 
 export const useNoAuth = () => {
   const router = useRouter();
@@ -26,21 +27,14 @@ export const useNoAuth = () => {
 };
 
 export const useNoAuthPages = () => {
-  const { state, dispatch } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
   const getUser = async () => {
     await axios
       .post("/api/user")
       .then((res) => {
         if (res?.data?.id) {
           const me = res?.data;
-          dispatch({
-            type: 'SET_USER',
-            payload: {
-              ...state,
-              user: me,
-              authenticated: true,
-            },
-          });
+          dispatch(setUser(me));
         }
       })
       .catch((err) => {

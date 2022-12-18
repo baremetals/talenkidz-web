@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { upperCase } from 'src/lib/helpers';
+import { updateStrapiEntity, upperCase } from 'src/helpers';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,6 +15,7 @@ import {
   Post,
   PostBody,
   PostDate,
+  PostMedia,
   PostThumb,
   PostTitle,
   Row,
@@ -26,8 +27,14 @@ import RelatedArticles from '../ArticleDetails/RelatedArticles';
 import { ErrorMsg } from 'components/widgets/Input';
 
 import SocialShare from 'components/utilities/SocialShare';
-import { ArticleEntityResponseCollection } from 'generated/graphql';
+import { ArticleEntityResponseCollection, ComponentLikesLikes } from 'generated/graphql';
 import { ClockSeven } from 'public/assets/icons/ClockSeven';
+import CommentBox from 'components/utilities/comments/CommentBox';
+import { AuthContext } from 'src/features/auth/AuthContext';
+import CommentThread from 'components/utilities/comments/CommentThread';
+import { ThumbsUp } from 'public/assets/icons/ThumbsUp';
+import { BookMark } from 'public/assets/icons/BookMark';
+import { CommentPost } from 'public/assets/icons/CommentPost';
 
 export const ArticleDetails = (props: {
   props: {
@@ -36,15 +43,16 @@ export const ArticleDetails = (props: {
     error: any;
   };
 }) => {
-  // const [socialDropdown, setSocialDropdown] = useState(false);
+  // const [socialDropdown, setSocialDropdown] = useState(false)
+  const { user, firebaseUser } = useContext(AuthContext);
   const { data, loading, error } = props.props;
-  // console.log(data)
+  // console.log(typeof user?.id);
 
-  if (!data || loading) {
-    return <div>loading...</div>;
-  }
+  // if (!data || loading) {
+  //   return <div>loading...</div>;
+  // }
 
-  if (error) return <ErrorMsg>{error}</ErrorMsg>;
+  // if (error) return <ErrorMsg>{error}</ErrorMsg>;
 
   const article = data?.articles?.data[0];
 
@@ -53,20 +61,82 @@ export const ArticleDetails = (props: {
   // const avatar = author?.avatar?.data?.attributes?.url;
   const category = article?.attributes?.category?.data?.attributes
     ?.slug as string;
-
-  // console.log(article)
-  // Article
-
-  const postSlug = article?.attributes?.slug as string;
-
+  
   const categoryArticle = article?.attributes?.category?.data?.attributes
     ?.slug as string;
 
+  const postSlug = article?.attributes?.slug as string;
+  const likes = article?.attributes?.likes; 
+
+  // console.log(article?.attributes?.likes)
+  // Article
+
+  // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
+  // const hasLiked = filterLIkes!.length > 0
+  const [hasLiked, setHasLiked] = useState(false);
+  let [totaleLikes, setTotalLikes] = useState<number>(likes!.length);
+
+  useEffect(() => {
+    const checkLikeArrayForUser = () => {
+
+      const filterLIkes = likes?.filter((like) => like?.userId === user?.id);
+
+      if (filterLIkes!.length > 0)
+      return setHasLiked(true);
+    }
+    
+    return () =>{
+      checkLikeArrayForUser();
+    }
+  })
+  // console.log(user?.id)
+  // console.log(totaleLikes);
+  // console.log(filterLIkes);
+  // console.log(hasLiked);
+
+  const handleClick = async () => {
+    
+    if (!user) {
+      console.log('please sign in first')
+    } 
+    else {     
+      if (hasLiked) {
+        // console.log('before',hasLiked);
+        setHasLiked(false);
+        setTotalLikes(totaleLikes - 1);
+        const filter = likes?.filter((like) => like?.userId !== user?.id);
+        await updateStrapiEntity(
+          'articles',
+          article?.id as string,
+          { likes: filter as ComponentLikesLikes[] }
+        );
+        console.log(totaleLikes);
+      }
+      else {
+        setHasLiked(true);
+        setTotalLikes(totaleLikes + 1);
+        await updateStrapiEntity(
+          'articles',
+          article?.id as string,
+          {
+            likes: [
+              ...(likes as ComponentLikesLikes[]),
+              { userId: user.id },
+            ] as ComponentLikesLikes[],
+          }
+        );
+        // console.log(res);
+      }
+    }
+    
+  }
+
+  
+
   return (
     <>
-      <InnerBanner 
+      <InnerBanner
       // style={{ backgroundImage: 'url(/inner-banner.jpg)' }}
-      
       >
         <InnerContainer>
           <Title>{article?.attributes?.title}</Title>
@@ -114,7 +184,7 @@ export const ArticleDetails = (props: {
                       <PostDate style={{ marginBottom: '1.25rem' }}>
                         <ClockSeven />
                         By : {author?.fullName} |{' '}
-                        {dayjs(article?.attributes?.createdAt).format(
+                        {dayjs(article?.attributes?.updatedAt).format(
                           'DD MMMM YYYY'
                         )}{' '}
                         |{` ${article?.attributes?.readingTime}`}
@@ -130,12 +200,48 @@ export const ArticleDetails = (props: {
                         </Markdown>
                       </div>
                     </PostBody>
+                    <PostMedia style={{ cursor: 'pointer' }}>
+                      {totaleLikes}
+                      <PostMedia onClick={handleClick}>
+                        <ThumbsUp colour={hasLiked ? '#3762e4' : 'none'} />
+                      </PostMedia>
+                      <PostMedia>
+                        <Link href={'/posts'}>
+                          <a>
+                            <BookMark />
+                          </a>
+                        </Link>
+                      </PostMedia>
+                      <PostMedia>
+                        <Link href={'/posts'}>
+                          <a>
+                            <CommentPost />
+                          </a>
+                        </Link>
+                        {article?.attributes?.totalComments}
+                      </PostMedia>
+                    </PostMedia>
                   </Post>
                 </Column>
               </Row>
             </Column>
             <Column>
               <RelatedArticles category={category} />
+              {user && firebaseUser && (
+                <CommentBox
+                  userId={user?.id as number}
+                  username={user?.username as string}
+                  avatar={user?.avatar as string}
+                  entityId={article?.id as string}
+                  entitySlug={postSlug}
+                  totalComments={article?.attributes?.totalComments as number}
+                  entityFirebaseId={article?.attributes?.firebaseId as string}
+                />
+              )}
+              <br />
+              <CommentThread
+                firebaseId={article?.attributes?.firebaseId as string}
+              />
             </Column>
           </Row>
         </InnerContainer>

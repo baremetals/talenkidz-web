@@ -33,7 +33,7 @@ import {
     CategoryOptions,
     BodyText
 } from "./styles";
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 type FormInput = {
     mediaLink: string;

@@ -1,3 +1,5 @@
+import { createCtx } from 'src/context';
+
 export interface ISearchState {
   searchValue: string;
   title: string;
@@ -34,3 +36,9 @@ export const searchReducer = (state: ISearchState, action: ISearchAction) => {
 };
 
 
+const [useSearchState, useSearchDispatch, SearchProvider] = createCtx(
+  INITIAL_STATE,
+  searchReducer
+);
+
+export { useSearchState, useSearchDispatch, SearchProvider };

@@ -20,15 +20,17 @@ import {
     ProfileDropdown,
     ProfileItem
 } from "./NavBar.styles"
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth/selectors';
 
 export default function UserHeader() {
-    const { state, logUserOutFirebase } = useContext(AuthContext);
+    const { logUserOutFirebase } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
     const dropdownRef = useRef<any>(null);
-    const user = state.user
+    const { user: user } = useAppSelector(isUser);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {

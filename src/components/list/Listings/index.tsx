@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
-import { upperCase } from 'src/lib/helpers'
+import { upperCase } from 'src/helpers'
 
 
 import {

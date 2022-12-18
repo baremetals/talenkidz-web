@@ -1,6 +1,6 @@
 export interface AuthUser {
   logo: string | undefined;
-  id?: string;
+  id?: number;
   firebaseUserId?: string;
   username?: string;
   fullName?: string;

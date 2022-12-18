@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dayjs from "dayjs";
-import { upperCase } from 'src/lib/helpers'
+import { upperCase } from 'src/helpers'
 
 // import { ThumbsUp } from 'public/assets/icons/ThumbsUp'
 // import { BookMark } from 'public/assets/icons/BookMark'

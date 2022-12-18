@@ -1,53 +1,31 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { createContext, Dispatch, useEffect, useReducer } from 'react';
+import { createContext, useEffect } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
+import { setFirebaseUser, signOutUser } from 'src/features/auth';
 import { AuthUser } from 'src/interfaces';
 import {
   auth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut,
+  signOut
 } from 'src/lib/firebase';
-import { addToMailingList } from 'src/lib/helpers';
-import {
-  authReducer,
-  IAuthAction,
-  IAuthState, initialState,
-} from './authReducer';
+import { addToMailingList } from 'src/helpers';
 import { v4 } from 'uuid';
+import { formProps, IAuthContext, returnType } from './authSpec';
 
-type formProps = {
-  email?: string;
-  password: string;
-  username?: string;
-  fullName?: string;
-  userType?: string;
-};
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth/selectors';
 
-type returnType = {
-  success?: string;
-  error?: string;
-};
 
-interface IAuthContext {
-  registerNewUser: ({ ..._user }: formProps) => Promise<returnType | null>;
-  loginUser: (
-    _usernameOrEmail: string,
-    _password: string
-  ) => Promise<returnType | null>;
-  loginWithProvider: (
-    _access_token: string,
-    _provider: string
-  ) => Promise<returnType | null>;
-  state: IAuthState;
-  dispatch: Dispatch<IAuthAction>;
-  signOutFirebaseUser: () => void;
-  logUserOutFirebase: () => void;
-}
+
 
 const AuthContext = createContext<IAuthContext>({
-  state: initialState,
+  // state: initialState,
+  // mState: initialState,
+  firebaseUser: null,
+  user: null,
   dispatch: () => null,
   registerNewUser: async () => null,
   loginUser: async () => null,
@@ -57,7 +35,13 @@ const AuthContext = createContext<IAuthContext>({
 });
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  // const [state] = useReducer(authReducer, initialState);
+  // const [mState] = useMemo((state) => ({ mState }));
+  const dispatch = useAppDispatch();
+  const { firebaseUser, user } = useAppSelector(isUser);
+  // const mState = useMemo(() => ({ ...state }), [state]);
+  // console.log(firebaseUser);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -65,15 +49,16 @@ const AuthProvider: React.FC = ({ children }) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        // const uid = user.uid;
-        if (state.firebaseUser === null) {
-          dispatch({
-            type: 'SET_FIREBASE_USER',
-            payload: {
-              ...state,
-              firebaseUser: user,
-            },
-          });
+        // console.log(user);
+        const uid = user.uid;
+        // const accessToken = user.accessToken;
+        if (firebaseUser === null) {
+          dispatch(
+            setFirebaseUser({
+              uid: uid,
+              // accessToken: accessToken,
+            })
+          );
         }
         // ...
       } else {
@@ -85,7 +70,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return () => {
       listen;
     };
-  }, [dispatch, state]);
+  }, [dispatch, firebaseUser]);
 
   const registerNewUser = async ({
     ...user
@@ -294,16 +279,8 @@ const AuthProvider: React.FC = ({ children }) => {
         flag: 'LOGOUT',
       },
     }).then(() => {
-      // console.log(res)
+      dispatch(signOutUser());
       signOutFirebaseUser();
-      dispatch({
-        type: 'SET_USER',
-        payload: {
-          ...state,
-          user: null,
-          authenticated: false,
-        },
-      });
       router.push('/auth/login');
     }).catch((err) => {
       console.log(err)
@@ -313,7 +290,10 @@ const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        state,
+        // mState,
+        // state,
+        firebaseUser,
+        user,
         dispatch,
         registerNewUser,
         signOutFirebaseUser,

@@ -6,6 +6,9 @@ query Article($filters: ArticleFiltersInput) {
         body
         title
         slug
+        totalComments
+        totalLikes
+        firebaseId
         readingTime
         heroImage {
           data {
@@ -31,6 +34,10 @@ query Article($filters: ArticleFiltersInput) {
           image
           type
           locale
+        }
+        likes {
+          id
+          userId
         }
         category {
           data {

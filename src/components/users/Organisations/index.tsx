@@ -68,7 +68,7 @@ import { Delete } from 'public/assets/icons/Delete';
 import { Union } from 'public/assets/icons/Union';
 // import { NavCard } from './NavCard';
 import { Card } from './Card';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 // import { useQuery } from '@apollo/client';
 // import { Modal } from 'components/Modal';
 // import EditForm from 'components/Create/EditForm';

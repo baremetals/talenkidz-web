@@ -11,7 +11,7 @@ import {
   PageContainer,
   Title,
 } from 'styles/common.styles';
-import { AuthContext } from 'src/context/AuthContext';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 // const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {
