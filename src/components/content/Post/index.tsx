@@ -59,8 +59,8 @@ const Post = ({ closeM,
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState("");
-    const { state } = useContext(AuthContext);
-    const user = state.user;
+    const { user } = useContext(AuthContext);
+    // const user = state.user;
 
     const onSubmit = async (info: FormInput) => {
         await axios.post("/api/posts", {
@@ -68,7 +68,7 @@ const Post = ({ closeM,
                 mediaUrl: info.mediaLink,
                 description: info.description,
                 postType: info.postType,
-                user: user?.id as string,
+                user: user?.id as number,
             },
         })
             .then(() => {
