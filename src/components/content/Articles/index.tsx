@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { upperCase } from 'src/helpers';
+import { updateStrapiEntity, upperCase } from 'src/helpers';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // import { useAppSelector } from "app/hooks";
@@ -32,6 +32,7 @@ import {
   ArticleEntity,
   CategoryEntity,
   ArticlesDocument,
+  ComponentLikesLikes,
 } from 'generated/graphql';
 import { BookMark } from 'public/assets/icons/BookMark';
 import { ThumbsUp } from 'public/assets/icons/ThumbsUp';
@@ -99,6 +100,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   const [state, dispatch] = useReducer(articleReducer, Article_State);
   const { user, firebaseUser } = useContext(AuthContext);
   // const { state: searchState } = useContext(SearchContext);
+  const [hasLiked, setHasLiked] = useState(false);
 
   const searchState = useSearchState();
 
@@ -165,6 +167,42 @@ const Articles = ({ articles, categories, total }: pageProps) => {
       ]);
     }
   }
+
+
+  const handleClick = async (
+    hasLiked: boolean,
+    likes: ComponentLikesLikes[],
+    articleId: string,
+    totaleLikes: number
+  ) => {
+    if (!user) {
+      console.log('please sign in first');
+    } else {
+      if (hasLiked) {
+        // console.log('before',hasLiked);
+        // setHasLiked(false);
+        // hasLiked = false;
+        // totaleLikes - 1;
+        const filter = likes?.filter((like) => like?.userId !== user?.id);
+        await updateStrapiEntity('articles', articleId as string, {
+          likes: filter as ComponentLikesLikes[],
+        });
+        console.log(totaleLikes);
+        setFilteredArticles(filteredArticles);
+      } else {
+        hasLiked = true;
+        totaleLikes + 1;
+        await updateStrapiEntity('articles', articleId as string, {
+          likes: [
+            ...(likes as ComponentLikesLikes[]),
+            { userId: user.id },
+          ] as ComponentLikesLikes[],
+        });
+        setFilteredArticles(filteredArticles);
+        // console.log(res);
+      }
+    }
+  };
   return (
     <>
       <InnerBanner>
@@ -217,27 +255,59 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                 <Row>
                   {filteredArticles?.map((art, id) => {
                     
-                    const likes = art?.attributes?.likes;
+                    const likes = art?.attributes
+                      ?.likes as ComponentLikesLikes[];
                     const filterLIkes = likes?.filter(
                       (like) => like?.userId === user?.id
                     );
-                    const hasLiked = filterLIkes!.length > 0;
-                    // {
-                    //   console.log(art?.attributes?.likes)
-                    //   const filterLIkes = likes?.filter(
-                    //     (like) => like?.userId === user?.id
-                    //   );
-                    //   const hasLiked = filterLIkes!.length > 0;
-                      
-                    // }
+                    let hasLiked = filterLIkes!.length > 0;
+                    let totalLikes = likes?.length as number
+
+  //                   const handleClick = async (
+  //   hasLiked: boolean,
+  //   likes: ComponentLikesLikes[],
+  //   articleId: string,
+  //   totaleLikes: number
+  // ) => {
+  //   if (!user) {
+  //     console.log('please sign in first');
+  //   } else {
+  //     if (hasLiked) {
+  //       // console.log('before',hasLiked);
+  //       // setHasLiked(false);
+  //       hasLiked = false;
+  //       totaleLikes - 1;
+  //       const filter = likes?.filter((like) => like?.userId !== user?.id);
+  //       await updateStrapiEntity('articles', articleId as string, {
+  //         likes: filter as ComponentLikesLikes[],
+  //       });
+  //       console.log(totaleLikes);
+  //     } else {
+  //       hasLiked = true;
+  //       totaleLikes + 1;
+  //       await updateStrapiEntity('articles', articleId as string, {
+  //         likes: [
+  //           ...(likes as ComponentLikesLikes[]),
+  //           { userId: user.id },
+  //         ] as ComponentLikesLikes[],
+  //       });
+  //       // console.log(res);
+  //     }
+  //   }
+  // };
+                   
                     return (
-                    <Column style={{ minWidth: '50%' }} key={id}>
-                        <Link
+                      <Column style={{ minWidth: '50%' }} key={id}>
+                        {/* <Link
                           href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
                           passHref
-                        >
-                          <Post>
-                            <PostThumb>
+                        > */}
+                        <Post>
+                          <PostThumb>
+                            <Link
+                              href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                              passHref
+                            >
                               <Image
                                 src={
                                   art?.attributes?.heroImage?.data?.attributes
@@ -247,25 +317,69 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                                 width={359.3}
                                 height={269.47}
                               />
-                            </PostThumb>
-                            <PostBody>
-                              <Top>
-                                <PostMedia>
-                                  <Link href={'/posts'}>
-                                    <a>
-                                      <ThumbsUp
-                                        colour={hasLiked ? '#3762e4' : 'none'}
-                                      />
-                                    </a>
-                                  </Link>
-
-                                  <Link href={'/posts'}>
-                                    <a>
-                                      <BookMark />
-                                    </a>
-                                  </Link>
+                            </Link>
+                          </PostThumb>
+                          <PostBody>
+                            <Top>
+                              <PostMedia style={{ cursor: 'pointer' }}>
+                                <PostMedia
+                                  onClick={async() => {
+                                    if (!user) {
+                                      console.log('please sign in first');
+                                    } else {
+                                      if (hasLiked) {
+                                        // console.log('before',hasLiked);
+                                        // setHasLiked(false);
+                                        // hasLiked = false;
+                                        // totaleLikes - 1;
+                                        const filter = likes?.filter(
+                                          (like) => like?.userId !== user?.id
+                                        );
+                                        await updateStrapiEntity(
+                                          'articles',
+                                          art?.id as string,
+                                          {
+                                            likes:
+                                              filter as ComponentLikesLikes[],
+                                          }
+                                        );
+                                        console.log(totalLikes);
+                                        // setFilteredArticles(filteredArticles);
+                                      } else {
+                                        hasLiked = true;
+                                        totalLikes + 1;
+                                        await updateStrapiEntity(
+                                          'articles',
+                                          art?.id as string,
+                                          {
+                                            likes: [
+                                              ...(likes as ComponentLikesLikes[]),
+                                              { userId: user.id },
+                                            ] as ComponentLikesLikes[],
+                                          }
+                                        );
+                                        // setFilteredArticles(filteredArticles);
+                                        // console.log(res);
+                                      }
+                                    }
+                                  }}
+                                >
+                                  <ThumbsUp
+                                    colour={hasLiked ? '#3762e4' : 'none'}
+                                  />
                                 </PostMedia>
-                                <br />
+
+                                <Link href={'/posts'}>
+                                  <a>
+                                    <BookMark />
+                                  </a>
+                                </Link>
+                              </PostMedia>
+                              <br />
+                              <Link
+                                href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
+                                passHref
+                              >
                                 <PostTitle
                                   style={{
                                     fontSize: '1rem',
@@ -275,42 +389,45 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                                 >
                                   {art?.attributes?.title.slice(0, 40)}...
                                 </PostTitle>
-                                <Text>
-                                  {art?.attributes?.blurb?.slice(0, 80)}...
-                                </Text>
-                              </Top>
-                              <Bottom style={{ fontSize: '.75rem' }}>
-                                {
-                                  art?.attributes?.author?.data?.attributes
-                                    ?.fullName
-                                }
-                              </Bottom>
-                              <Bottom>
-                                <PostDate>
-                                  {dayjs(art?.attributes?.updatedAt).format(
-                                    'DD MMMM YYYY'
-                                  )}{' '}
-                                </PostDate>
+                              </Link>
 
-                                <PostMedia
-                                  style={{
-                                    fontSize: '.75rem',
-                                    color: '#74787C',
-                                  }}
-                                >
-                                  {art?.attributes?.readingTime}
-                                </PostMedia>
-                                {/* <PostMedia>
+                              <Text>
+                                {art?.attributes?.blurb?.slice(0, 80)}...
+                              </Text>
+                            </Top>
+                            <Bottom style={{ fontSize: '.75rem' }}>
+                              {
+                                art?.attributes?.author?.data?.attributes
+                                  ?.fullName
+                              }
+                            </Bottom>
+                            <Bottom>
+                              <PostDate>
+                                {dayjs(art?.attributes?.updatedAt).format(
+                                  'DD MMMM YYYY'
+                                )}{' '}
+                              </PostDate>
+
+                              <PostMedia
+                                style={{
+                                  fontSize: '.75rem',
+                                  color: '#74787C',
+                                }}
+                              >
+                                {art?.attributes?.readingTime}
+                              </PostMedia>
+                              {/* <PostMedia>
                                                             <Link href={'/posts'}><a><ThumbsUp /></a></Link>
                                                             <PostMedia>
                                                                 <Link href={'/posts'}><a><BookMark /></a></Link>
                                                             </PostMedia>
                                                         </PostMedia> */}
-                              </Bottom>
-                            </PostBody>
-                          </Post>
-                        </Link>
-                      </Column>)
+                            </Bottom>
+                          </PostBody>
+                        </Post>
+                        {/* </Link> */}
+                      </Column>
+                    );
 })}
                 </Row>
               </InfiniteScroll>

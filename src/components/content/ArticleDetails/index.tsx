@@ -74,7 +74,7 @@ export const ArticleDetails = (props: {
   // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
   // const hasLiked = filterLIkes!.length > 0
   const [hasLiked, setHasLiked] = useState(false);
-  let [totaleLikes, setTotalLikes] = useState<number>(likes!.length);
+  let [totalLikes, setTotalLikes] = useState<number>(likes!.length);
 
   useEffect(() => {
     const checkLikeArrayForUser = () => {
@@ -103,18 +103,18 @@ export const ArticleDetails = (props: {
       if (hasLiked) {
         // console.log('before',hasLiked);
         setHasLiked(false);
-        setTotalLikes(totaleLikes - 1);
+        setTotalLikes(totalLikes - 1);
         const filter = likes?.filter((like) => like?.userId !== user?.id);
         await updateStrapiEntity(
           'articles',
           article?.id as string,
           { likes: filter as ComponentLikesLikes[] }
         );
-        console.log(totaleLikes);
+        console.log(totalLikes);
       }
       else {
         setHasLiked(true);
-        setTotalLikes(totaleLikes + 1);
+        setTotalLikes(totalLikes + 1);
         await updateStrapiEntity(
           'articles',
           article?.id as string,
@@ -201,7 +201,7 @@ export const ArticleDetails = (props: {
                       </div>
                     </PostBody>
                     <PostMedia style={{ cursor: 'pointer' }}>
-                      {totaleLikes}
+                      {totalLikes}
                       <PostMedia onClick={handleClick}>
                         <ThumbsUp colour={hasLiked ? '#3762e4' : 'none'} />
                       </PostMedia>
