@@ -31,7 +31,7 @@ const AuthContext = createContext<IAuthContext>({
   loginUser: async () => null,
   loginWithProvider: async () => null,
   signOutFirebaseUser: () => null,
-  logUserOutFirebase: async () => null,
+  logUserOut: async () => null,
 });
 
 const AuthProvider: React.FC = ({ children }) => {
@@ -113,7 +113,7 @@ const AuthProvider: React.FC = ({ children }) => {
     password: string
   ): Promise<returnType | null> {
     return await axios
-      .post('/api/auth', {
+      .post('/api/auth/login', {
         data: {
           usernameOrEmail,
           password,
@@ -122,8 +122,8 @@ const AuthProvider: React.FC = ({ children }) => {
       })
       .then(async (res: { data: { user: AuthUser } }) => {
         // console.log('the response: ', res);
-        const userType = res.data.user.userType;
-        const username = res.data.user.username;
+        // const userType = res.data.user.userType;
+        // const username = res.data.user.username;
         const firebaseUserId = res.data.user.firebaseUserId;
         return signInWithEmailAndPassword(
           auth,
@@ -132,7 +132,7 @@ const AuthProvider: React.FC = ({ children }) => {
         )
           .then(async (userCredential) => {
             const firebaseUser = userCredential.user;
-            console.log(firebaseUser);
+            // console.log(firebaseUser);
             if (firebaseUserId && firebaseUserId === ('not set' as string)) {
               await axios.post('/api/user/firebaseId', {
                 data: {
@@ -140,28 +140,32 @@ const AuthProvider: React.FC = ({ children }) => {
                 },
               });
             }
-            if (userType === 'organisation') {
-              router.push(`/account/${username}`);
-            }
-            if (userType === 'candidate') {
-              router.push(`/user-profile/${username}`);
-            }
+
+            router.push('/account')
+            // if (userType === 'organisation') {
+            //   router.push(`/account/${username}`);
+            // }
+            // if (userType === 'candidate') {
+            //   router.push(`/user-profile/${username}`);
+            // }
             return null;
           })
           .catch((error) => {
             const errorMessage = error.message;
             console.log('firebase catchblock', errorMessage);
-            if (userType === 'organisation') {
-              router.push(`/account/${username}`);
-            }
-            if (userType === 'candidate') {
-              router.push(`/user-profile/${username}`);
-            }
+            // if (userType === 'organisation') {
+            //   router.push(`/account/${username}`);
+            // }
+            // if (userType === 'candidate') {
+            //   router.push(`/user-profile/${username}`);
+            // }
+            router.push('/account');
             return null;
           });
       })
       .catch((err) => {
         const error = err.response.data;
+        console.log('strapi catchblock', error);
         let errorMessage = 'something went wrong please try again later';
 
         if (error.name === 'ValidationError') {
@@ -170,7 +174,7 @@ const AuthProvider: React.FC = ({ children }) => {
         if (error.name === 'ApplicationError') {
           errorMessage = error.message;
         }
-        // console.log('strapi catchblock', error);
+       
         return { error: errorMessage };
       });
   }
@@ -273,7 +277,7 @@ const AuthProvider: React.FC = ({ children }) => {
     signOut(auth);
   }
 
-  async function logUserOutFirebase() {
+  async function logUserOut() {
     await axios.post('/api/auth', {
       data: {
         flag: 'LOGOUT',
@@ -299,7 +303,7 @@ const AuthProvider: React.FC = ({ children }) => {
         signOutFirebaseUser,
         loginUser,
         loginWithProvider,
-        logUserOutFirebase,
+        logUserOut,
       }}
     >
       {children}

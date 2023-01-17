@@ -40,7 +40,7 @@ type registerUserProps = {
   userType: string;
   password: string;
   confirmPassword?: string;
-  error?: string
+  error?: string;
 };
 
 const initialValues = {
@@ -59,13 +59,14 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
   const handleSubmit = async ({ ...values }: registerUserProps) => {
-    console.log('wayveyKiD');
+  // console.log(values);
     const user = {
       fullName: values.fullName,
       username: values.username,
       email: values.email,
       userType: values.userType,
       password: values.password,
+      membership: values.userType === 'candidate' ? 'basic' : 'organisation',
     };
     try {
       const res = await registerNewUser({ ...user });
@@ -162,15 +163,6 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
                       </FormGroup>
                     </Column>
                   </Row>
-                  {/* {values.userType === 'organisation' && <FormGroup>
-                                            <Icon><Profile /></Icon>
-                                            <FormInput type='text' placeholder='Organisation Name' name='organisationName' values=""/>
-                                            {errors.organisationName && touched.organisationName && (
-                                                <Error>{errors.organisationName}</Error>
-                                            )}
-                                        </FormGroup>
-                                        } */}
-
                   <FormGroup>
                     <Icon>
                       <Message />

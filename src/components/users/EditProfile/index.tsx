@@ -1,6 +1,6 @@
 import React, { ChangeEvent, SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { Tabs, Tab } from '@mui/material';
-import { Organisation, UsersPermissionsUser } from 'generated/graphql';
+import { UsersPermissionsUser } from 'generated/graphql';
 import { FormData } from "formdata-node";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -28,61 +28,43 @@ import {
 
 import { BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
-import { toBase64 } from 'src/utils/base64';
 import Spinner from 'components/utilities/Spinner';
 import { AuthContext } from 'src/features/auth/AuthContext';
+import { handleImgChange } from 'src/utils';
 
 type Props = {
   user: UsersPermissionsUser
 }
 
-type orgProps = {
-  user: Organisation
-}
-
-type FileType = {
-  lastModified: any;
-  lastModifiedDate: {};
-  name: string;
-  size: number;
-  type: string;
-  webkitRelativePath: string;
-}
-
-type mixProps = Props | orgProps
 const menuItems = ['#profile', '#billing']
 
-const EditProfile = ({ user }: mixProps) => {
+const EditProfile = ({ user }: Props) => {
   const { user: usr } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState<number>(0);
-  const [profileImg, setProfileImg] = useState<string>('');
-  const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+  const [profileImg, setDisplayImg] = useState<string| null>(user?.avatar as string);
+  const [uploadImg, setUploadImg] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  // console.log(user);
   useEffect(() => {
     if (location.hash && menuItems.indexOf(location.hash) !== -1) {
       setActiveTab(menuItems.indexOf(location.hash))
     }
   }, []);
 
-  useEffect(() => {
-    if (usr && (usr.logo || usr.avatar))
-      setProfileImg(usr?.userType as string  === 'candidate' ? usr?.avatar as string : usr?.logo as string)
-  }, [usr])
 
   const onTabChange = (_: SyntheticEvent, tabIndex: number) => {
     setActiveTab(tabIndex);
     location.hash = menuItems[tabIndex];
   };
 
-  const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    const image = event?.target?.files![0]
-    const base64 = await toBase64(event.target.files[0]);
-    setUploadImg(image as any);
-    setProfileImg(base64);
-    // console.log(event.target.files[0])
-  }
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    console.log('we here');
+    const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
+    if (res?.error) {
+      console.log('my - niggerrrrr!', res.error);
+    }
+  };
 
   const a11yProps = (index: number) => {
     return {
@@ -111,7 +93,7 @@ const EditProfile = ({ user }: mixProps) => {
         // console.log('the response from the server: ',res)
 
         if (res?.data?.content?.url) {
-          setProfileImg(res?.data?.content?.url)
+          setDisplayImg(res?.data?.content?.url);
 
           const data = {
             imagefile: res?.data?.content?.url,
@@ -185,12 +167,12 @@ const EditProfile = ({ user }: mixProps) => {
                           id="upload-profile-photo"
                           name="upload-profile-photo"
                           type="file"
-                          onChange={(e) => handleImgChange(e)}
+                          onChange={(e) => handleImageChange(e)}
                         />
                         <Edit />
                       </EditButton>
                     </ActionButton>
-                    <ActionButton onClick={() => setProfileImg('')}>
+                    <ActionButton onClick={() => setDisplayImg('')}>
                       {/* <ActionButton> */}
                       <BsTrash />
                     </ActionButton>
@@ -227,7 +209,7 @@ const EditProfile = ({ user }: mixProps) => {
             <Column className="col" style={{ paddingLeft: '0.6875rem' }}>
               <TabPanel value={activeTab} index={0} {...a11yProps(1)}>
                 {usr?.userType === 'organisation' && (
-                  <OrgProfile user={user as Organisation} />
+                  <OrgProfile user={user as UsersPermissionsUser} />
                 )}
                 {usr?.userType === 'candidate' && (
                   <MyProfile user={user as UsersPermissionsUser} />

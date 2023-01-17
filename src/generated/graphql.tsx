@@ -245,44 +245,6 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type Candidate = {
-  __typename?: 'Candidate';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  profile?: Maybe<UsersPermissionsUserEntityResponse>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type CandidateEntity = {
-  __typename?: 'CandidateEntity';
-  attributes?: Maybe<Candidate>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type CandidateEntityResponse = {
-  __typename?: 'CandidateEntityResponse';
-  data?: Maybe<CandidateEntity>;
-};
-
-export type CandidateEntityResponseCollection = {
-  __typename?: 'CandidateEntityResponseCollection';
-  data: Array<CandidateEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type CandidateFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<CandidateFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<CandidateFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<CandidateFiltersInput>>>;
-  profile?: InputMaybe<UsersPermissionsUserFiltersInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type CandidateInput = {
-  profile?: InputMaybe<Scalars['ID']>;
-};
-
 export type Category = {
   __typename?: 'Category';
   colour?: Maybe<Scalars['String']>;
@@ -429,6 +391,57 @@ export type ComponentLikesLikesFiltersInput = {
 export type ComponentLikesLikesInput = {
   id?: InputMaybe<Scalars['ID']>;
   userId?: InputMaybe<Scalars['Int']>;
+};
+
+export type ComponentOrganisationOrganisation = {
+  __typename?: 'ComponentOrganisationOrganisation';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  organisationType?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+};
+
+export type ComponentOrganisationOrganisationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentOrganisationOrganisationFiltersInput>>>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentOrganisationOrganisationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentOrganisationOrganisationFiltersInput>>>;
+  organisationType?: InputMaybe<StringFilterInput>;
+  website?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentOrganisationOrganisationInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  organisationType?: InputMaybe<Scalars['String']>;
+  website?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentReadingListReadingList = {
+  __typename?: 'ComponentReadingListReadingList';
+  articleId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentReadingListReadingListFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListFiltersInput>>>;
+  articleId?: InputMaybe<StringFilterInput>;
+  image?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListFiltersInput>>>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentReadingListReadingListInput = {
+  articleId?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  image?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentSeoSeo = {
@@ -590,14 +603,15 @@ export enum Enum_Listing_Venue {
 }
 
 export enum Enum_Userspermissionsuser_Membership {
+  Partner = 'Partner',
   Basic = 'basic',
   Organisation = 'organisation',
   Premium = 'premium'
 }
 
 export enum Enum_Userspermissionsuser_Usertype {
-  Candidate = 'candidate',
-  Organisation = 'organisation'
+  Organisation = 'organisation',
+  Standard = 'standard'
 }
 
 export type Enquiry = {
@@ -663,7 +677,7 @@ export type Event = {
   endDate?: Maybe<Scalars['Date']>;
   endTime?: Maybe<Scalars['String']>;
   guests?: Maybe<EventGuestRelationResponseCollection>;
-  host?: Maybe<OrganisationEntityResponse>;
+  host?: Maybe<UsersPermissionsUserEntityResponse>;
   link?: Maybe<Scalars['String']>;
   linkButtonText?: Maybe<Enum_Event_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
@@ -714,7 +728,7 @@ export type EventFiltersInput = {
   endDate?: InputMaybe<DateFilterInput>;
   endTime?: InputMaybe<StringFilterInput>;
   guests?: InputMaybe<EventGuestFiltersInput>;
-  host?: InputMaybe<OrganisationFiltersInput>;
+  host?: InputMaybe<UsersPermissionsUserFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   link?: InputMaybe<StringFilterInput>;
   linkButtonText?: InputMaybe<StringFilterInput>;
@@ -893,7 +907,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutUs | Article | Author | Candidate | Category | Comment | ComponentAddressLocation | ComponentLikesLikes | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutUs | Article | Author | Category | Comment | ComponentAddressLocation | ComponentLikesLikes | ComponentOrganisationOrganisation | ComponentReadingListReadingList | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -1014,7 +1028,7 @@ export type Listing = {
   endDate?: Maybe<Scalars['Date']>;
   endTime?: Maybe<Scalars['String']>;
   guests?: Maybe<ListingGuestRelationResponseCollection>;
-  host?: Maybe<OrganisationEntityResponse>;
+  host?: Maybe<UsersPermissionsUserEntityResponse>;
   link?: Maybe<Scalars['String']>;
   linkButtonText?: Maybe<Enum_Listing_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
@@ -1065,7 +1079,7 @@ export type ListingFiltersInput = {
   endDate?: InputMaybe<DateFilterInput>;
   endTime?: InputMaybe<StringFilterInput>;
   guests?: InputMaybe<ListingGuestFiltersInput>;
-  host?: InputMaybe<OrganisationFiltersInput>;
+  host?: InputMaybe<UsersPermissionsUserFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   link?: InputMaybe<StringFilterInput>;
   linkButtonText?: InputMaybe<StringFilterInput>;
@@ -1188,7 +1202,6 @@ export type Mutation = {
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createArticle?: Maybe<ArticleEntityResponse>;
   createAuthor?: Maybe<AuthorEntityResponse>;
-  createCandidate?: Maybe<CandidateEntityResponse>;
   createCategory?: Maybe<CategoryEntityResponse>;
   createComment?: Maybe<CommentEntityResponse>;
   createEnquiry?: Maybe<EnquiryEntityResponse>;
@@ -1209,7 +1222,6 @@ export type Mutation = {
   deleteAboutUs?: Maybe<AboutUsEntityResponse>;
   deleteArticle?: Maybe<ArticleEntityResponse>;
   deleteAuthor?: Maybe<AuthorEntityResponse>;
-  deleteCandidate?: Maybe<CandidateEntityResponse>;
   deleteCategory?: Maybe<CategoryEntityResponse>;
   deleteComment?: Maybe<CommentEntityResponse>;
   deleteCookiePolicy?: Maybe<CookiePolicyEntityResponse>;
@@ -1244,7 +1256,6 @@ export type Mutation = {
   updateAboutUs?: Maybe<AboutUsEntityResponse>;
   updateArticle?: Maybe<ArticleEntityResponse>;
   updateAuthor?: Maybe<AuthorEntityResponse>;
-  updateCandidate?: Maybe<CandidateEntityResponse>;
   updateCategory?: Maybe<CategoryEntityResponse>;
   updateComment?: Maybe<CommentEntityResponse>;
   updateCookiePolicy?: Maybe<CookiePolicyEntityResponse>;
@@ -1284,11 +1295,6 @@ export type MutationCreateArticleArgs = {
 
 export type MutationCreateAuthorArgs = {
   data: AuthorInput;
-};
-
-
-export type MutationCreateCandidateArgs = {
-  data: CandidateInput;
 };
 
 
@@ -1373,11 +1379,6 @@ export type MutationDeleteArticleArgs = {
 
 
 export type MutationDeleteAuthorArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteCandidateArgs = {
   id: Scalars['ID'];
 };
 
@@ -1510,12 +1511,6 @@ export type MutationUpdateArticleArgs = {
 
 export type MutationUpdateAuthorArgs = {
   data: AuthorInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateCandidateArgs = {
-  data: CandidateInput;
   id: Scalars['ID'];
 };
 
@@ -1766,8 +1761,6 @@ export type Query = {
   articles?: Maybe<ArticleEntityResponseCollection>;
   author?: Maybe<AuthorEntityResponse>;
   authors?: Maybe<AuthorEntityResponseCollection>;
-  candidate?: Maybe<CandidateEntityResponse>;
-  candidates?: Maybe<CandidateEntityResponseCollection>;
   categories?: Maybe<CategoryEntityResponseCollection>;
   category?: Maybe<CategoryEntityResponse>;
   comment?: Maybe<CommentEntityResponse>;
@@ -1834,18 +1827,6 @@ export type QueryAuthorsArgs = {
   filters?: InputMaybe<AuthorFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryCandidateArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryCandidatesArgs = {
-  filters?: InputMaybe<CandidateFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2535,13 +2516,21 @@ export type UsersPermissionsUser = {
   gender?: Maybe<Scalars['String']>;
   mailinglist?: Maybe<Scalars['Boolean']>;
   membership?: Maybe<Enum_Userspermissionsuser_Membership>;
-  organisation?: Maybe<OrganisationEntityResponse>;
+  organisation?: Maybe<ComponentOrganisationOrganisation>;
   pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
+  readinglist?: Maybe<Array<Maybe<ComponentReadingListReadingList>>>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userType: Enum_Userspermissionsuser_Usertype;
   username: Scalars['String'];
+};
+
+
+export type UsersPermissionsUserReadinglistArgs = {
+  filters?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type UsersPermissionsUserEntity = {
@@ -2581,10 +2570,11 @@ export type UsersPermissionsUserFiltersInput = {
   membership?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
-  organisation?: InputMaybe<OrganisationFiltersInput>;
+  organisation?: InputMaybe<ComponentOrganisationOrganisationFiltersInput>;
   password?: InputMaybe<StringFilterInput>;
   pronoun?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
+  readinglist?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -2607,10 +2597,11 @@ export type UsersPermissionsUserInput = {
   gender?: InputMaybe<Scalars['String']>;
   mailinglist?: InputMaybe<Scalars['Boolean']>;
   membership?: InputMaybe<Enum_Userspermissionsuser_Membership>;
-  organisation?: InputMaybe<Scalars['ID']>;
+  organisation?: InputMaybe<ComponentOrganisationOrganisationInput>;
   password?: InputMaybe<Scalars['String']>;
   pronoun?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
+  readinglist?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListInput>>>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
   userType?: InputMaybe<Enum_Userspermissionsuser_Usertype>;
@@ -2627,7 +2618,7 @@ export type ArticleQueryVariables = Exact<{
 }>;
 
 
-export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, totalComments?: number | null, totalLikes?: number | null, firebaseId?: string | null, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, totalComments?: number | null, totalLikes?: number | null, firebaseId?: string | null, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredArticlesQueryVariables = Exact<{
   filters?: InputMaybe<ArticleFiltersInput>;
@@ -2659,7 +2650,7 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, linkButtonText?: Enum_Event_Linkbuttontext | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null } | null }> } | null };
+export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, linkButtonText?: Enum_Event_Linkbuttontext | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null } | null }> } | null };
 
 export type FilteredEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -2668,7 +2659,7 @@ export type FilteredEventsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type EventsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2676,7 +2667,7 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }> } | null };
+export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type FilteredListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
@@ -2685,7 +2676,7 @@ export type FilteredListingsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null } | null }> } | null };
+export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ListingsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -2693,14 +2684,14 @@ export type ListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null } | null }> } | null };
+export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ListQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
 }>;
 
 
-export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, updatedAt?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, linkButtonText?: Enum_Listing_Linkbuttontext | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null } | null, host?: { __typename?: 'OrganisationEntityResponse', data?: { __typename?: 'OrganisationEntity', id?: string | null, attributes?: { __typename?: 'Organisation', name?: string | null, slug?: string | null, logo?: string | null, website?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, updatedAt?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, linkButtonText?: Enum_Listing_Linkbuttontext | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type UserEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -2733,6 +2724,15 @@ export type UserQueryVariables = Exact<{
 
 
 export type UserQuery = { __typename?: 'Query', usersPermissionsUsers?: { __typename?: 'UsersPermissionsUserEntityResponseCollection', data: Array<{ __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', bio?: string | null, username: string, email: string, fullName?: string | null, avatar?: string | null, backgroundImg?: string | null, pronoun?: string | null, gender?: string | null, createdAt?: any | null, userType: Enum_Userspermissionsuser_Usertype } | null }> } | null };
+
+export type MeQueryVariables = Exact<{
+  usersPermissionsUserId?: InputMaybe<Scalars['ID']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
+
+
+export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, readinglist?: Array<{ __typename?: 'ComponentReadingListReadingList', articleId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null } | null> | null } | null } | null } | null };
 
 
 export const ArticleDocument = gql`
@@ -2772,6 +2772,8 @@ export const ArticleDocument = gql`
           image
           type
           locale
+          author
+          keywords
         }
         likes {
           id
@@ -3062,12 +3064,14 @@ export const EventDocument = gql`
         }
         host {
           data {
-            id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -3088,6 +3092,8 @@ export const EventDocument = gql`
           image
           type
           locale
+          author
+          keywords
         }
       }
     }
@@ -3146,10 +3152,13 @@ export const FilteredEventsDocument = gql`
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -3165,6 +3174,11 @@ export const FilteredEventsDocument = gql`
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }
@@ -3224,10 +3238,13 @@ export const EventsDocument = gql`
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -3243,6 +3260,11 @@ export const EventsDocument = gql`
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }
@@ -3312,13 +3334,21 @@ export const FilteredListingsDocument = gql`
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }
@@ -3389,13 +3419,21 @@ export const ListingsDocument = gql`
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }
@@ -3460,15 +3498,19 @@ export const ListDocument = gql`
           image
           type
           locale
+          author
+          keywords
         }
         host {
           data {
-            id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -3753,3 +3795,71 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const MeDocument = gql`
+    query Me($usersPermissionsUserId: ID, $sort: [String], $pagination: PaginationArg) {
+  usersPermissionsUser(id: $usersPermissionsUserId) {
+    data {
+      id
+      attributes {
+        avatar
+        backgroundImg
+        bio
+        createdAt
+        email
+        firebasePassword
+        firebaseUserId
+        fullName
+        gender
+        mailinglist
+        membership
+        pronoun
+        provider
+        userType
+        username
+        organisation {
+          name
+          organisationType
+          website
+        }
+        readinglist(sort: $sort, pagination: $pagination) {
+          articleId
+          id
+          image
+          slug
+          title
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *      usersPermissionsUserId: // value for 'usersPermissionsUserId'
+ *      sort: // value for 'sort'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+      }
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;

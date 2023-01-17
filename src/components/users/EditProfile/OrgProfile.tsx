@@ -31,24 +31,26 @@ import { FileType } from './MyProfile';
 import axios from 'axios';
 
 type Props = {
-    user: Organisation
-}
+  user: UsersPermissionsUser;
+};
 
 const OrgProfile = ({ user }: Props) => {
     const [backgroundImg, setBackgroundImg] = useState<any>(
-      user?.profile?.data?.attributes?.backgroundImg || ''
+      user?.backgroundImg || ''
     );
     const [uploadImg, setUploadImg] = useState<FileType | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     const [profile, setProfile] = useState({
-      orgName: user.name || '',
-      username: user.slug || '',
-      email: user?.profile?.data?.attributes?.email || '',
-      website: user.website || '',
+      orgName: user?.organisation?.name || '',
+      username: user.username || '',
+      email: user?.email || '',
+      website: user?.organisation?.website || '',
       bio: user.bio || '',
-      organisationType: user.organisationType || '',
+      organisationType: user?.organisation?.organisationType || '',
     });
+
+    // console.log(user)
 
     const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files || event.target.files.length === 0) return;

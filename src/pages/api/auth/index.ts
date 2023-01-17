@@ -25,6 +25,7 @@ type user = {
   backgroundImg: string;
   userType: string;
   jwt: string;
+  orgName?: string;
 };
 
 type org = {

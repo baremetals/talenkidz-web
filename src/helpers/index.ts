@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { ComponentLikesLikes, Maybe } from 'generated/graphql';
 
-export const upperCase = (word: string = 'talentkids') => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-};
 
 export const addToMailingList = async (email: string) => {
   return axios.post('/api/sendgrid', {

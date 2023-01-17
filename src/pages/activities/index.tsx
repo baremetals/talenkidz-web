@@ -9,7 +9,7 @@ import {
   ListingsQueryResult,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 
 type pageProps = {

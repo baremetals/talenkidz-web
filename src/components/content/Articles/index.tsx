@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { updateStrapiEntity, upperCase } from 'src/helpers';
+import { updateStrapiEntity } from 'src/helpers';
+import { upperCase } from 'src/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // import { useAppSelector } from "app/hooks";
@@ -40,7 +41,7 @@ import {
   articleReducer,
   INITIAL_STATE as Article_State,
 } from './articleReducer';
-import { useFetchEntities } from 'components/utilities/hooks/useFetchEntities';
+import { useFetchEntities } from 'src/hooks/useFetchEntities';
 import Categories from 'components/utilities/category/Category';
 // import { SearchContext } from 'components/utilities/search/SearchContext';
 import { useSearchState } from 'components/utilities/search/searchReducer';

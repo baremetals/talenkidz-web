@@ -49,7 +49,7 @@ const LoginForm: React.FC<ILoginForm> = () => {
 
 
   const handleSubmit = async ({ ...values }: LoginUserProps) => {
-    console.log('wayveyKiD');
+    // console.log('wayveyKiD');
     try {
       const res = await loginUser(
         values.usernameOrEmail,

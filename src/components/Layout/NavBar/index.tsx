@@ -41,7 +41,7 @@ export default function NavBar() {
 
     return (
         <>
-            {user?.userType === 'candidate' && <UserHeader />}
+            {user?.userType === 'standard' && <UserHeader />}
             {user?.userType === 'organisation' && <OrgHeader />}
             {!user && <UserHeader />}
         </>

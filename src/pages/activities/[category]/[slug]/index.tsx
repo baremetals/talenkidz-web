@@ -8,12 +8,12 @@ import {
   ListingEntityResponseCollection,
   ListQueryResult,
 } from 'generated/graphql';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import {
   bothLocationType,
   locationType,
   onlineLocationType,
-} from 'src/utils/types';
+} from 'src/types';
 
 const ListDetailsPage = (props: {
   data: { listings: ListingEntityResponseCollection };

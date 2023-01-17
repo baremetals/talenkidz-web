@@ -25,10 +25,13 @@ query FilteredEvents(
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -44,6 +47,11 @@ query FilteredEvents(
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

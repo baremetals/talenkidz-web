@@ -10,7 +10,7 @@ import {
   ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 // import {
 //   SearchProvider,
@@ -75,6 +75,16 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: 'updatedAt:desc',
     },
   });
+
+  // if (data.status === 404) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/404',
+  //     },
+  //     props: {},
+  //   };
+  // }
 
   const cats = await client.query<CategoriesQueryResult>({
     query: CategoriesDocument,

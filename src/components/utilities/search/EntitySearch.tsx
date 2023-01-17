@@ -1,6 +1,6 @@
 import {
   useSearch,
-} from 'components/utilities/hooks/useSearch';
+} from 'src/hooks/useSearch';
 import React from 'react';
 import { Entities } from 'src/types';
 import {

@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useReducer, useState } from 'react';
+import { ChangeEvent, useReducer, useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 import { CategoriesDocument } from 'generated/graphql';
@@ -26,7 +26,7 @@ const PostEditor: any = dynamic(
 
 import Button from 'components/users/Auth/Button';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
-import { ErrorMsg } from '../../widgets/Input';
+import { ErrorMsg } from 'components/widgets/Input';
 import {
   EditorTextWrapper,
   FormGroup,
@@ -48,7 +48,7 @@ import {
   NoCoverPictureWrapper,
   SelectCoverPictureButton,
 } from 'components/users/EditProfile/editProfile.styles';
-import { toBase64 } from 'src/utils/base64';
+// import { toBase64 } from 'src/utils/base64';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
 
@@ -57,7 +57,8 @@ import SearchBox from 'components/utilities/Google/SearchBox';
 import { formReducer, INITIAL_STATE } from './formReducer';
 import slugify from 'slugify';
 import axios from 'axios';
-import { FileType, FormProps } from 'src/utils/types';
+import { FormProps } from 'src/types';
+import { handleImgChange } from 'src/utils';
 
 
 
@@ -90,8 +91,8 @@ const Form = ({ formType, id }: form) => {
   );
   const [content, setContent] = useState<string>('');
   const [imgSizeErr, setImgSizeErr] = useState(false);
-  const [uploadImg, setUploadImg] = useState<FileType | Blob | null>(null);
-  const [displayImg, setDisplayImg] = useState<FileType | string | null>(null);
+  const [uploadImg, setUploadImg] = useState<File | null>(null);
+  const [displayImg, setDisplayImg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState(false);
@@ -107,25 +108,19 @@ const Form = ({ formType, id }: form) => {
     formState: { errors },
   } = useForm<FormProps>();
 
-  const handleImageChange =
-    (_name: string) =>
-    async (event: { target: { files: {}[] } } | File | any) => {
-      const img = event.target.files[0] as FileType;
-      const size = img?.size as number;
-      setImgSizeErr(false);
-      if (size > 209715200) {
-        event.target.value = [];
-        setMsg('File size cannot exceed more than 256MB');
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+
+      console.log('we here');
+      const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
+      if (res?.error) {
+        console.log('my - niggerrrrr!', res.error);
+        setMsg(res.error);
         setImgSizeErr(true);
         setTimeout(() => {
           setImgSizeErr(false);
         }, 8000);
       }
-      setValue('listImage', img as FileType);
-      const base64 = await toBase64(event.target.files[0]);
-      setDisplayImg(base64);
-      // console.log('base64', upload)
-      setUploadImg(event.target.files[0] as any);
+      setValue('listImage', uploadImg as File);
     };
 
   const onSubmit = async (info: FormProps) => {
@@ -600,7 +595,8 @@ const Form = ({ formType, id }: form) => {
                               id="upload-listImage-photo"
                               name="listImage"
                               type="file"
-                              onChange={handleImageChange('listImage')}
+                              // onChange={handleImageChange('listImage')}
+                              onChange={(e) => handleImageChange(e)}
                             />
                             <Edit />
                           </EditButton>
@@ -624,7 +620,8 @@ const Form = ({ formType, id }: form) => {
                         id="upload-listImage-photo"
                         type="file"
                         name="listImage"
-                        onChange={handleImageChange('listImage')}
+                        // onChange={handleImageChange('listImage')}
+                        onChange={(e) => handleImageChange(e)}
                       />
                       <SelectCoverPictureButton>
                         <BsCloudArrowUp />

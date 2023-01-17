@@ -39,11 +39,22 @@ export const addToFirebaseArticle = async (
     updatedAt: Timestamp.fromDate(new Date()),
   }).then(async (res) => {
     const article_id = res.id;
-    await addToFirebaseComment(article_id, data);
-    await updateStrapiEntity('articles', articleId, {
+    // await addToFirebaseComment(article_id, data);
+    // await updateStrapiEntity('articles', articleId, {
+    //   firebaseId: article_id,
+    //   totalComments: totalComments + 1,
+    // });
+
+    const commentPromise = addToFirebaseComment(article_id, data);
+    const updateStrapiPromise = updateStrapiEntity('articles', articleId, {
       firebaseId: article_id,
       totalComments: totalComments + 1,
     });
+
+    await Promise.all([
+      commentPromise,
+      updateStrapiPromise,
+    ]);
     // return 'success'
   });
 };

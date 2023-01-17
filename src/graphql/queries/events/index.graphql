@@ -21,10 +21,13 @@ query Events($pagination: PaginationArg, $sort: [String]) {
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -40,6 +43,11 @@ query Events($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

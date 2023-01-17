@@ -20,6 +20,7 @@ export type formProps = {
   username?: string;
   fullName?: string;
   userType?: string;
+  membership: string;
 };
 
 export interface IAuthState {
@@ -54,7 +55,7 @@ export interface IAuthContext {
   // mState: IAuthState;
   dispatch: Dispatch<IAuthAction>;
   signOutFirebaseUser: () => void;
-  logUserOutFirebase: () => void;
+  logUserOut: () => void;
   firebaseUser: IFirebaseUser | null;
   user: AuthUser | null;
 }

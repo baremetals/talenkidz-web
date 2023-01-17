@@ -10,7 +10,7 @@ import {
   ListQueryResult,
   Maybe,
 } from 'generated/graphql';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 
 const ListEditForm = (props: {

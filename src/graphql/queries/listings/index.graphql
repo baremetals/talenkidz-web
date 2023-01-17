@@ -32,13 +32,21 @@ query Listings($pagination: PaginationArg, $sort: [String]) {
         host {
           data {
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

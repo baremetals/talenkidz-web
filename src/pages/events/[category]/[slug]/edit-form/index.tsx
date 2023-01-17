@@ -10,7 +10,7 @@ import {
   EventQueryResult,
   Maybe,
 } from 'generated/graphql';
-import { useIsAuth } from 'src/lib/isAuth';
+import { useIsAuth } from 'src/hooks/isAuth';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 
 const EventEditForm = (props: {

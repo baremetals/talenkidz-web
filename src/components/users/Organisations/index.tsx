@@ -88,7 +88,7 @@ const Organisations = ({ id, attributes }: idProps) => {
   const [events, setEvents] = useState<[EventEntity] | []>([]);
   const [dropdown, setDropdown] = useState(false);
   const [eventDropdown, setEventDropdown] = useState(false);
-
+  console.log(attributes)
 
   useEffect(() => {
     let callListing = false;

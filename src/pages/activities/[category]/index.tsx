@@ -9,7 +9,7 @@ import {
   ListingEntity,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 

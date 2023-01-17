@@ -21,16 +21,13 @@ import {
     ProfileItem
 } from "./NavBar.styles"
 import { AuthContext } from 'src/features/auth/AuthContext';
-import { useAppSelector } from 'src/app/hooks';
-import { isUser } from 'src/features/auth/selectors';
 
 export default function UserHeader() {
-    const { logUserOutFirebase } = useContext(AuthContext);
+    const { logUserOut, user } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
     const dropdownRef = useRef<any>(null);
-    const { user: user } = useAppSelector(isUser);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
@@ -51,7 +48,7 @@ export default function UserHeader() {
 
     const handleLogOut = () => {
         try {
-            logUserOutFirebase();
+            logUserOut();
         } catch (error) {
             console.log(error);
             throw error;
@@ -64,7 +61,7 @@ export default function UserHeader() {
           <InnerContainer>
             <NavBarHeader>
               <Link
-                href={user?.id ? `user-profile/${'user?.username'}` : '/'}
+                href={user?.id ? `${user.userType === 'candidate' ? 'user-profile' : 'account'}/${user?.username}` : '/'}
                 passHref
               >
                 <Logo>

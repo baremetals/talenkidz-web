@@ -9,4 +9,5 @@ module.exports = {
     defaultLocale: 'en',
     // localeDetection: false,
   },
+  // pageExtensions: ['.tsx'],
 };

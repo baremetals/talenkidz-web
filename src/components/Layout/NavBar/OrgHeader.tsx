@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from 'next/image';
-import axios from 'axios';
+// import axios from 'axios';
 
 import {
     InnerContainer,
@@ -26,8 +26,8 @@ import { AuthContext } from 'src/features/auth/AuthContext';
 
 
 export default function OrgHeader() {
-    const router = useRouter();
-    const { user } = useContext(AuthContext);
+    // const router = useRouter();
+    const { logUserOut, user } = useContext(AuthContext);
     const [dropdown, setDropdown] = useState(false);
     const [toggle, setToggle] = useState(false);
     const sidebarRef = useRef<any>(null);
@@ -50,21 +50,13 @@ export default function OrgHeader() {
         };
     });
 
-    const handleLogOut = async () => {
-        try {
-            const res = await axios.post("/api/auth", {
-                data: {
-                    flag: 'LOGOUT'
-                }
-            });
-            // console.log(res);
-            if (res.status === 200 || res?.data?.message) {
-                router.push("/auth/login");
-            }
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+    const handleLogOut = () => {
+      try {
+        logUserOut();
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     };
 
     return (
@@ -122,7 +114,7 @@ export default function OrgHeader() {
                         <ProfileImg
                           onClick={() => setDropdown(!dropdown)}
                           alt="user profile image"
-                          src={user?.logo}
+                          src={user?.avatar}
                         />
                         <ProfileDropdown
                           className={`${dropdown ? 'opened' : ''}`}
@@ -175,3 +167,4 @@ export default function OrgHeader() {
       </>
     );
 }
+

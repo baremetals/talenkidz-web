@@ -8,7 +8,7 @@ import Head from 'next/head';
 import nprogress from 'nprogress';
 import Router from 'next/router';
 
-import { useApollo } from 'src/lib/apolloClient';
+import { useApollo } from 'src/hooks/apolloClient';
 import { darkTheme } from 'styles/theme';
 
 import 'styles/globals.css';
