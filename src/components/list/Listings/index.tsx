@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
-import { upperCase } from 'src/helpers'
+
 
 
 import {
@@ -34,6 +34,7 @@ import {
     PostDate,
     // PostMedia,
 } from 'styles/common.styles';
+import { upperCase } from 'src/utils';
 
 // import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
 // import { BookMark } from '../../../../public/assets/icons/BookMark'

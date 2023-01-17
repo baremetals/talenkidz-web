@@ -1,7 +1,6 @@
 import { ErrorMsg } from 'components/widgets/Input';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { upperCase } from 'src/helpers';
 import Markdown from 'markdown-to-jsx';
 import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';
@@ -32,6 +31,7 @@ import SocialShare from 'components/utilities/SocialShare';
 import { EventEntityResponseCollection } from 'generated/graphql';
 import Link from 'next/link';
 import Map from 'components/utilities/Google/Map';
+import { upperCase } from 'src/utils';
 
 function EventDetails(props: {
   props: {
@@ -84,15 +84,13 @@ function EventDetails(props: {
               <Avatar>
                 <Image
                   // style={{ width: '3rem', height: '3rem' }}
-                  src={
-                    (event?.attributes?.host?.data?.attributes
-                      ?.logo as string) || '/logo-w.svg'
+                  src={'/logo-w.svg'
                   }
                   alt="host logo image"
                   width={48}
                   height={48}
                 />
-                By : {host?.name || 'TalentKids'}
+                By : {'TalentKids'}
               </Avatar>
             </PostDate>
             <PostDate>

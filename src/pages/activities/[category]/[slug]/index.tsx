@@ -78,14 +78,14 @@ const ListDetailsPage = (props: {
     location: place,
     image: meta?.image,
     description: meta?.description,
-    organizer: [
-      {
-        '@type': 'Organization',
-        name: host?.name,
-        logo: host?.logo,
-        url: host?.website,
-      },
-    ],
+    // organizer: [
+    //   {
+    //     '@type': 'Organization',
+    //     name: host?.name,
+    //     logo: host?.logo,
+    //     url: host?.website,
+    //   },
+    // ],
   };
   return (
     <Layout

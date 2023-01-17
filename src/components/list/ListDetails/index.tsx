@@ -1,7 +1,6 @@
 import { ErrorMsg } from 'components/widgets/Input';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { upperCase } from 'src/helpers';
 import Markdown from 'markdown-to-jsx';
 import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';
@@ -33,6 +32,7 @@ import { ListingEntityResponseCollection } from 'generated/graphql';
 import Link from 'next/link';
 // import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
 import GoogleMap from 'components/utilities/Google/GoogleMap';
+import { upperCase } from 'src/utils';
 
 function ListDetails(props: {
   props: {
@@ -88,15 +88,12 @@ function ListDetails(props: {
               <Avatar>
                 <Image
                   // style={{ width: '3rem', height: '3rem' }}
-                  src={
-                    (list?.attributes?.host?.data?.attributes
-                      ?.logo as string) || '/logo-w.svg'
-                  }
+                  src={'/logo-w.svg'}
                   alt="host logo image"
                   width={48}
                   height={48}
                 />
-                By : {host?.name || 'TalentKids'}
+                By : {'TalentKids'}
               </Avatar>
             </PostDate>
             <PostDate>

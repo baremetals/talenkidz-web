@@ -79,12 +79,12 @@ const Event = (props: {
     image: meta?.image,
     description: meta?.description,
     organizer: [
-      {
-        '@type': 'Organization',
-        name: host?.name,
-        logo: host?.logo,
-        url: host?.website,
-      },
+      // {
+      //   '@type': 'Organization',
+      //   name: host?.name,
+      //   logo: host?.logo,
+      //   url: host?.website,
+      // },
     ],
   };
 

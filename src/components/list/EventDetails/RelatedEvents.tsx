@@ -92,7 +92,7 @@ function RelatedEvents({ category }: propType): ReactElement {
                         // marginTop: '0.1rem'
                       }}
                     >
-                      {eve?.attributes?.host?.data?.attributes?.name}{' '}
+                      {' '}
                     </MediaObjectSpan>
                   </MediaObjectThumb>
                   <MediaObjectBody>

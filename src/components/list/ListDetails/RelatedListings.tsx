@@ -117,7 +117,7 @@ function RelatedListings({ category }: propType): ReactElement {
                         // marginTop: '0.1rem'
                       }}
                     >
-                      {art?.attributes?.host?.data?.attributes?.name}{' '}
+                      {' '}
                     </MediaObjectSpan>
                   </MediaObjectThumb>
                   <MediaObjectBody>

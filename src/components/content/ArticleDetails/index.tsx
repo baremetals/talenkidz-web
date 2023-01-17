@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { updateStrapiEntity, upperCase } from 'src/helpers';
+import { updateStrapiEntity} from 'src/helpers';
 import Markdown from 'markdown-to-jsx';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -35,6 +35,7 @@ import CommentThread from 'components/utilities/comments/CommentThread';
 import { ThumbsUp } from 'public/assets/icons/ThumbsUp';
 import { BookMark } from 'public/assets/icons/BookMark';
 import { CommentPost } from 'public/assets/icons/CommentPost';
+import { upperCase } from 'src/utils';
 
 export const ArticleDetails = (props: {
   props: {
