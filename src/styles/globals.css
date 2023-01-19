@@ -68,7 +68,7 @@ h6 {
 }
 
 /* @media (max-width: 991px) {
-    br { 
+    br {
         display: none;
     }
 } */
@@ -98,7 +98,7 @@ input, textarea, select,
     font-family: 'Heebo', sans-serif;
     border-radius: 4px;
     line-height: 1;
-    
+
 }
 input:focus, textarea:focus, select:focus,
 .StripeElement--focus,
