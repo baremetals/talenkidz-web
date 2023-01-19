@@ -1,3 +1,4 @@
+import { ClassNames } from '@emotion/react';
 import Spinner from 'components/utilities/Spinner';
 import styled from 'styled-components';
 
@@ -7,11 +8,13 @@ type buttonProps = {
   disabled: boolean;
   loading: boolean;
   bgColor?: string;
+  BtnNames: string; 
   children?: React.ReactNode;
 };
 
 export default function AuthButton({
   content,
+  BtnNames,
   type,
   disabled,
   loading,
@@ -22,6 +25,7 @@ export default function AuthButton({
     <StyledButton
       style={{ backgroundColor: bgColor, borderColor: bgColor }}
       type={type}
+      className= {BtnNames}
       disabled={disabled || loading}
     >
       {children} {content}
@@ -31,6 +35,16 @@ export default function AuthButton({
 }
 
 const StyledButton = styled.button`
+ &.BtnPrimery{
+        background: #0F021F;
+        border-radius: 20px;
+        font-weight: 600;
+         font-size: 24px;
+         font-family: 'Syne', sans-serif;
+         min-height: 70px;
+         max-width:365px;
+         width:100%;
+ }
   background-color: #bc70ad;
   color: #fff;
   font-size: 1rem;

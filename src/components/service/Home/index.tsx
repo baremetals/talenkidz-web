@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
+import StillDouts from './StillDouts'
 // import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
@@ -87,7 +88,9 @@ const Home = () => {
             </HeroContent>
           </InnerContainer>
         </Hero>
+        
         <OurServices />
+        <StillDouts />
 
         <ActivityCard />
 
