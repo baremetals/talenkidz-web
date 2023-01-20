@@ -1582,3 +1582,6 @@ export const QuestionInfo = styled.p`
     max-width:400px;
     font-family: 'Montserrat', sans-serif;
 `;
+
+export const FaqQuestion = styled.div``;
+
