@@ -9,6 +9,8 @@ import dynamic from 'next/dynamic';
 import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
+import Questions from './Questions'
+
 // import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
@@ -88,7 +90,7 @@ const Home = () => {
           </InnerContainer>
         </Hero>
         <OurServices />
-
+         <Questions />
         <ActivityCard />
 
         {/* <ImageContent>
