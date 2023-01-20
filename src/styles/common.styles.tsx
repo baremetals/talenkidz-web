@@ -195,7 +195,6 @@ export const NavBarItemLink = styled.a`
             }
         }
     }
-
     
 `;
 
@@ -1460,7 +1459,6 @@ export const Accordion = styled.div`
     border-top: 1px solid rgba(0,0,0,.1);
     padding-top: 30px;
     padding-bottom: 30px;
-
     .accordion-title {
         font-size: 1.25rem;
         font-weight: 500;
@@ -1628,7 +1626,6 @@ export const TakingOurService = styled.section`
         }
     }
      @media (max-width: 691px) {
-
         button {
             max-width: 165px !important;
             font-size: 15px !important;
@@ -1687,7 +1684,6 @@ export const OurServicePageHeading = styled.h1`
        transform: rotate(-1.97deg);
     }
     }
-
      @media (max-width: 991px) {
        font-size: 42px;
        text-align:center;
@@ -1699,4 +1695,3 @@ export const OurServicePageHeading = styled.h1`
         }
     }
 `;
-
