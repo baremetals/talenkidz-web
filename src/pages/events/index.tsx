@@ -1,47 +1,62 @@
-import React from 'react'
-import Head from "next/head";
-import { GetServerSidePropsContext } from "next";
-import { client } from 'lib/initApollo';
-import { EventEntity, EventsDocument, EventsQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
-import { useNoAuthPages } from "lib/noAuth";
-import Events from 'components/Events';
-
+import Events from 'components/list/Events';
+import Layout from 'components/Layout';
+import {
+  CategoriesDocument,
+  CategoriesQueryResult,
+  CategoryEntity,
+  EventEntity,
+  EventsDocument,
+  EventsQueryResult,
+} from 'generated/graphql';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/hooks/noAuth';
+import { GetServerSidePropsContext } from 'next';
 
 type pageProps = {
-  eve: { events: { data: EventEntity[] } },
-  cats: { data: { categories: { data: CategoryEntity[] } }, loading: boolean }
-}
+  eve: { events: { data: EventEntity[] } };
+  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+};
 
 const EventsPage = (props: pageProps) => {
-
   const { cats, eve } = props;
+  const description = 'Events';
+  const url = 'https://talentkids.io/events';
+  // console.log(cats?.data?.categories?.data);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Events',
+    // headline: meta?.title,
+    // description: meta?.description,
+    // author: [
+    //     {
+    //         '@type': 'Person',
+    //         name: author?.fullName,
+    //     },
+    // ],
+    // image: meta?.image,
+    // datePublished: article?.attributes?.updatedAt,
+  };
   // console.log(eve)
   useNoAuthPages();
   return (
-    <>
-      <Head>
-        <title>Talentkids | Events</title>
-        <meta
-          property="og:title"
-          content="Talentkids | Events"
-          key="title"
-        />
-        <meta
-          name="description"
-          content="Events"
-        />
-        <meta property="og:url" content="https://talentkids.io/events" />
-        <meta property="og:type" content="events" />
-        <meta property="og:locale" content="en_GB" />
-        <link rel="canonical" href="https://talentkids.io/events" />
-      </Head>
-      <Events events={eve?.events?.data} categories={cats?.data?.categories?.data} />
-    </>
-  )
-}
+    <Layout
+      title={`Talentkids | Events`}
+      metaDescription={description}
+      canonicalUrl={url}
+      data={JSON.stringify(structuredData)}
+      type="events"
+      pageUrl={url}
+    >
+      <Events
+        events={eve?.events?.data}
+        categories={cats?.data?.categories?.data}
+      />
+    </Layout>
+  );
+};
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
-
   const { data } = await client.query<EventsQueryResult>({
     query: EventsDocument,
     variables: {
@@ -49,7 +64,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
         start: 0,
         limit: 6,
       },
-      sort: "createdAt:desc",
+      sort: 'createdAt:desc',
     },
   });
 
@@ -60,7 +75,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
         start: 0,
         limit: 6,
       },
-      sort: "slug:asc",
+      sort: 'slug:asc',
     },
   });
   return {
@@ -68,4 +83,4 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
   };
 }
 
-export default EventsPage
+export default EventsPage;

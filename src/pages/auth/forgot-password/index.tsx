@@ -1,9 +1,21 @@
-import React from 'react'
-import ForgotPassword from 'components/Auth/ForgotPassword';
+import ForgotPassword from 'components/users/Auth/ForgotPassword';
+import Layout from 'components/Layout';
 // import { withApollo } from "utils/withApollo";
 
 function ForgotPasswordPage() {
-    return (<ForgotPassword></ForgotPassword>);
+  const url = 'https://talentkids.io/auth/forgot-password';
+  return (
+    <Layout
+      title={`Talentkids | Forgot Password`}
+      // metaDescription={description}
+      canonicalUrl={url}
+      pageUrl={url}
+      // data={JSON.stringify(structuredData)}
+      type="forgot password"
+    >
+      <ForgotPassword></ForgotPassword>
+    </Layout>
+  );
 }
 
 // export default withApollo({ ssr: false })(ForgotPasswordPage);

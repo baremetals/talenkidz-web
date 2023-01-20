@@ -11,6 +11,9 @@ query FilteredArticles(
         title
         slug
         blurb
+        totalComments
+        totalLikes
+        readingTime
         createdAt
         updatedAt
         heroImage {
@@ -37,6 +40,15 @@ query FilteredArticles(
             }
           }
         }
+        likes {
+          id
+          userId
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

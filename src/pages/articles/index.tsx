@@ -1,71 +1,104 @@
-import React from "react";
-import Head from "next/head";
-import Articles from 'components/Articles';
-import { GetServerSidePropsContext } from "next";
-import { client } from 'lib/initApollo';
-import { ArticleEntity, ArticlesDocument, ArticlesQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
-import { useNoAuthPages } from "lib/noAuth";
-
+import Articles from 'components/content/Articles';
+import Layout from 'components/Layout';
+import {
+  ArticleEntity,
+  ArticlesDocument,
+  ArticlesQueryResult,
+  CategoriesDocument,
+  CategoriesQueryResult,
+  CategoryEntity,
+  ResponseCollectionMeta,
+} from 'generated/graphql';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/hooks/noAuth';
+import { GetServerSidePropsContext } from 'next';
+// import {
+//   SearchProvider,
+// } from 'components/utilities/search/SearchContext';
+import { SearchProvider } from 'components/utilities/search/searchReducer';
 
 type pageProps = {
-    art: { articles: { data: ArticleEntity[] } },
-    cats: { data: { categories: { data: CategoryEntity[] } }, loading: boolean }
-}
+  art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
+  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+};
 
 function ArticlesPage(props: pageProps) {
-    
-    const {cats, art} = props;
-    // console.log(cats?.data?.categories?.data);
-    useNoAuthPages();
-    return (
-        <>
-            <Head>
-                <title>Talentkids | Articles</title>
-                <meta
-                    property="og:title"
-                    content="Talentkids | Articles"
-                    key="title"
-                />
-                <meta
-                    name="description"
-                    content="Articles"
-                />
-                <meta property="og:url" content="https://talentkids.io/articles" />
-                <meta property="og:type" content="articles" />
-                <meta property="og:locale" content="en_GB" />
-                <link rel="canonical" href="https://talentkids.io/articles" />
-            </Head>
-            <Articles articles={art?.articles?.data} categories={cats?.data?.categories?.data}/>
-        </>
-    );
+  const { cats, art } = props;
+  const description = 'Articles';
+  const url = 'https://talentkids.io/articles';
+  // console.log(art);
+
+  
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPostings',
+    //  about: {description},
+    // description: meta?.description,
+    // author: [
+    //     {
+    //         '@type': 'Person',
+    //         name: author?.fullName,
+    //     },
+    // ],
+    // image: meta?.image,
+    // datePublished: article?.attributes?.updatedAt,
+  };
+  useNoAuthPages();
+  return (
+    <Layout
+      title={`Talentkids | Articles`}
+      metaDescription={description}
+      canonicalUrl={url}
+      data={JSON.stringify(structuredData)}
+      type="articles"
+      pageUrl={url}
+    >
+      <SearchProvider>
+        <Articles
+          articles={art?.articles?.data}
+          categories={cats?.data?.categories?.data}
+          total={art?.articles?.meta?.pagination?.total}
+        />
+      </SearchProvider>
+    </Layout>
+  );
 }
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
+  const { data } = await client.query<ArticlesQueryResult>({
+    query: ArticlesDocument,
+    variables: {
+      pagination: {
+        start: 0,
+        limit: 4,
+      },
+      sort: 'updatedAt:desc',
+    },
+  });
 
-    const { data } = await client.query<ArticlesQueryResult>({
-        query: ArticlesDocument,
-        variables: {
-            pagination: {
-                start: 0,
-                limit: 6,
-            },
-            sort: "updatedAt:desc",
-        },
-    });
+  // if (data.status === 404) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/404',
+  //     },
+  //     props: {},
+  //   };
+  // }
 
-    const cats = await client.query<CategoriesQueryResult>({
-        query: CategoriesDocument,
-        variables: {
-            pagination: {
-                start: 0,
-                limit: 6,
-            },
-            sort: "slug:asc",
-        },
-    });
-    return {
-        props: { art: data, cats }, // will be passed to the page component as props
-    };
+  const cats = await client.query<CategoriesQueryResult>({
+    query: CategoriesDocument,
+    variables: {
+      pagination: {
+        start: 0,
+        limit: 6,
+      },
+      sort: 'slug:asc',
+    },
+  });
+  return {
+    props: { art: data, cats }, // will be passed to the page component as props
+  };
 }
 
 export default ArticlesPage;

@@ -1,45 +1,14 @@
-import NavBar from 'components/NavBar';
-import Head from 'next/head';
-import { useRouter } from 'next/router'
+import ErrorPage from 'components/utilities/ErrorPage';
+import { NextPageContext } from "next";
+import { ErrorProps } from "next/error";
 
-import {
-  ErrorPage,
-  ErrorCode,
-  ErrorText,
-  ErrorTextWrapper,
-  ErrorMessage,
-  ErrorMessageWrapper,
-  GoBackButton,
-  ErrorIcon
-} from 'styles/errors.styles'
-
-export default function Custom404() {
-  const router = useRouter();
-
-  const goToHomePage = () => {
-    router.push('/');
-  }
-
-  return <>
-    <Head>
-      <title>500 | Talentkids</title>
-    </Head>
-    <NavBar />
-    <ErrorPage>
-      <ErrorMessageWrapper>
-        <ErrorIcon src={'/error.png'} alt="error icon" />
-        <ErrorMessage>
-          <ErrorCode>
-            500
-          </ErrorCode>
-          <ErrorTextWrapper>
-            <ErrorText>
-              Internal Error
-            </ErrorText>
-          </ErrorTextWrapper>
-        </ErrorMessage>
-      </ErrorMessageWrapper>
-      <GoBackButton onClick={goToHomePage}>Go back home</GoBackButton>
-    </ErrorPage>
-  </>
+function Error({ statusCode }: ErrorProps) {
+  return <ErrorPage statusCode={statusCode} />;
 }
+
+export const getInitialProps = ({ res, err }: NextPageContext) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
+
+export default Error;

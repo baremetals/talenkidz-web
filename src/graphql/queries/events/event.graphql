@@ -11,7 +11,13 @@ query Event($filters: EventFiltersInput) {
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
+        createdAt
         updatedAt
         category {
           data {
@@ -24,20 +30,25 @@ query Event($filters: EventFiltersInput) {
         }
         host {
           data {
-            id
             attributes {
-              name
-              slug
-              logo
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode
+          longtitude
+          latitude
         }
         SEO {
           id
@@ -47,6 +58,8 @@ query Event($filters: EventFiltersInput) {
           image
           type
           locale
+          author
+          keywords
         }
       }
     }

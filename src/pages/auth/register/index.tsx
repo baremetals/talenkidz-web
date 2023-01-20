@@ -1,12 +1,20 @@
-import React from 'react';
-import Register from 'components/Auth/Register';
+import Register from 'components/users/Auth/Register';
+import Layout from 'components/Layout';
 // import { withApollo } from 'utils/withApollo';
 
 function RegisterPage() {
+  const description = `Register - Events and activities for kids`;
+  const url = 'https://talentkids.io/auth/register';
   return (
-    <>
+    <Layout
+      title={`Talentkids | Register`}
+      metaDescription={description}
+      canonicalUrl={url}
+      pageUrl={url}
+      type="register"
+    >
       <Register></Register>
-    </>
+    </Layout>
   );
 }
 export default RegisterPage;

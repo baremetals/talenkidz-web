@@ -8,14 +8,29 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src"
+    "baseUrl": ".",
+    "paths": {
+      "public/*": ["public/*"],
+      "components/*": ["src/components/*"],
+      "styles/*": ["src/styles/*"],
+      "generated/*": ["src/generated/*"],
+      "src/*": ["src/*"]
+    }
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/components/Payment/stripe-form.js", ],
+  "include": [
+    "next-env.d.ts",
+    "index.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/components/Payment/stripe-form.js",
+    "public/"
+, "src/components/Layout/Google/index.tsx", "src/lib/firebase.ts", "src/lib/firebase.ts", "src/pages/auth/login/index.tsx", "src/pages/auth/login/index.tsx"  ],
   "exclude": ["node_modules"]
 }

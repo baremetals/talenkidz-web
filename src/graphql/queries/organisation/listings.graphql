@@ -1,0 +1,32 @@
+query UserListings(
+  $filters: ListingFiltersInput
+  $pagination: PaginationArg
+  $sort: [String]
+) {
+  listings(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        description
+        Location {
+          id
+          town
+        }
+        startDate
+        slug
+        listImage
+        updatedAt
+        category {
+          data {
+            id
+            attributes {
+              slug
+              colour
+            }
+          }
+        }
+      }
+    }
+  }
+}

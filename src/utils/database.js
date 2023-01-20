@@ -1,4 +1,5 @@
 const database = {
+  GTagId: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
   apiKey: process.env.NEXT_PUBLIC_APIKEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECTID,

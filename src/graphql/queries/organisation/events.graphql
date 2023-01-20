@@ -1,0 +1,32 @@
+query UserEvents(
+  $filters: EventFiltersInput
+  $pagination: PaginationArg
+  $sort: [String]
+) {
+  events(filters: $filters, pagination: $pagination, sort: $sort) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        description
+        updatedAt
+        startDate
+        listImage
+        Location {
+          id
+          town
+        }
+        category {
+          data {
+            id
+            attributes {
+              slug
+              colour
+            }
+          }
+        }
+      }
+    }
+  }
+}
