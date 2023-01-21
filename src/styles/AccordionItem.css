@@ -1,5 +1,6 @@
 .accordion-item {
-  border: 1px solid #ccc;
+  border: none;
+  margin-bottom: 24px;
 }
 
 .accordion-item:not(:first-of-type) {
@@ -9,18 +10,25 @@
 .accordion-item-title {
   width: 100%;
   margin: 0;
+  background: #39007E;
+  border-radius: 20px;
 }
 
 .accordion-item-btn {
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #fff;
+  background: #39007E;
   border: 0;
   padding: 15px 20px;
-  font-size: 18px;
-  font-weight: 400;
+font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
   cursor: pointer;
+  color: #fff;
+    border-radius: 20px;
 }
 
 .accordion-item-btn::after {
@@ -29,7 +37,7 @@
   width: 18px;
   height: 18px;
   margin-left: auto;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+ background-image: url(data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyBmaWxsPSIjZmZmZmZmIiBoZWlnaHQ9IjgwMHB4IiB3aWR0aD0iODAwcHgiIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAzMzAgMzMwIiB4bWw6c3BhY2U9InByZXNlcnZlIiBzdHJva2U9IiNmZmZmZmYiPgoNPGcgaWQ9IlNWR1JlcG9fYmdDYXJyaWVyIiBzdHJva2Utd2lkdGg9IjAiLz4KDTxnIGlkPSJTVkdSZXBvX3RyYWNlckNhcnJpZXIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgoNPGcgaWQ9IlNWR1JlcG9faWNvbkNhcnJpZXIiPiA8cGF0aCBpZD0iWE1MSURfMjI1XyIgZD0iTTMyNS42MDcsNzkuMzkzYy01Ljg1Ny01Ljg1Ny0xNS4zNTUtNS44NTgtMjEuMjEzLDAuMDAxbC0xMzkuMzksMTM5LjM5M0wyNS42MDcsNzkuMzkzIGMtNS44NTctNS44NTctMTUuMzU1LTUuODU4LTIxLjIxMywwLjAwMWMtNS44NTgsNS44NTgtNS44NTgsMTUuMzU1LDAsMjEuMjEzbDE1MC4wMDQsMTUwYzIuODEzLDIuODEzLDYuNjI4LDQuMzkzLDEwLjYwNiw0LjM5MyBzNy43OTQtMS41ODEsMTAuNjA2LTQuMzk0bDE0OS45OTYtMTUwQzMzMS40NjUsOTQuNzQ5LDMzMS40NjUsODUuMjUxLDMyNS42MDcsNzkuMzkzeiIvPiA8L2c+Cg08L3N2Zz4=);
   background-repeat: no-repeat;
   background-size: 100%;
   transition: transform 0.2s ease-in-out;
@@ -42,6 +50,16 @@
 .accordion-item-container {
   transition: height 0.2s ease-in-out;
   overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 20px 20px;
+  margin: 0 auto;
+  max-width: 733px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .accordion-item-content {
