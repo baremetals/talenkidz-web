@@ -8,9 +8,12 @@ import dynamic from 'next/dynamic';
 import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
+import Questions from './Questions'
+import FaqQuestion from './FaqQuestion'
+import Accordion from './Accordion/Accordion';
 import TakingOurServices from './TakingOurServices'
 import BestPlace from './BestPlace'
-// import Company from '../About/Company'
+
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
   ssr: false,
@@ -56,6 +59,7 @@ import {
 
 
 const Home = () => {
+
     const router = useRouter()
     return (
       <>
@@ -89,6 +93,9 @@ const Home = () => {
           </InnerContainer>
         </Hero>
         <OurServices />
+        <FaqQuestion/>
+        <Questions />
+   
         <BestPlace/>
         <TakingOurServices/>
         <ActivityCard />
