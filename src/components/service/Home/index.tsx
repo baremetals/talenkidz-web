@@ -27,41 +27,16 @@ import {
 } from 'styles/common.styles';
 import DoubtSection from './DoubtSection';
 import BestPlaceSection from './BestPlaceSection';
+import HeroSection from './HeroSection';
 
 const Home = () => {
   const router = useRouter();
   return (
     <>
-      <Hero>
-        {/* <Image
-            src="/twokids.jpg"
-            alt="education activity card image"
-            width={"0"}
-            height="0"
-            className="banner-bg"
-          /> */}
+      <HeroSection />
 
-        <InnerContainer>
-          <HeroContent>
-            <HeroSubTitle style={{ color: 'white' }}>talentkids</HeroSubTitle>
-            <HeroTitle style={{ color: 'white' }}>
-              Do What You Love For A Lifetime
-            </HeroTitle>
-            <div onClick={() => router.push('/auth/register')}>
-              <Button
-                bgColor="#3762e4"
-                content="Get Started"
-                type="button"
-                disabled={false}
-                loading={false}
-                BtnNames={''}
-              />
-            </div>
-          </HeroContent>
-        </InnerContainer>
-      </Hero>
       <OurServices />
-        <BestPlaceSection />
+      <BestPlaceSection />
       <FaqQuestion />
       <QuestionSection />
       <DoubtSection />

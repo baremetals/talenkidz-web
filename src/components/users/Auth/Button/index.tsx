@@ -8,7 +8,7 @@ type buttonProps = {
   disabled: boolean;
   loading: boolean;
   bgColor?: string;
-  BtnNames: string; 
+  BtnNames?: string; 
   children?: React.ReactNode;
 };
 
