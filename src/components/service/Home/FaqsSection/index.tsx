@@ -74,8 +74,8 @@ const FaqsSection = () => {
           <Accordion items={accordionItems} />
           <ImageBlock>
             <Image
-              src="/question.svg"
-              alt="sports activity card image"
+              src="/assets/svgs/question.svg"
+              alt="question icon"
               width={723}
               height={482}
             />

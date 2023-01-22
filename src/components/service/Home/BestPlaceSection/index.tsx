@@ -33,8 +33,8 @@ const BestPlaceSection: React.FC = () => {
         </BestPlaceHeading>
         <LocationImg>
           <Image
-            src="/assets/images/location.svg"
-            alt="creative activity card image"
+            src="/assets/svgs/location.svg"
+            alt="location icon"
             className="cubeImg"
             width={407}
             height={407}
@@ -48,8 +48,8 @@ const BestPlaceSection: React.FC = () => {
             margin={1}
             nav
             navText={[
-              '<img src="/assets/images/LeftArrow.svg">',
-              '<img src="/assets/images/RightArrow.svg">',
+              '<img src="/assets/svgs/LeftArrow.svg">',
+              '<img src="/assets/svgs/RightArrow.svg">',
             ]}
           >
             <Div className="Takingitem">
@@ -59,7 +59,7 @@ const BestPlaceSection: React.FC = () => {
                     <BestPlaceImg>
                       <Image
                         src="/assets/images/child.png"
-                        alt="location"
+                        alt="slider image"
                         className="location"
                         width={348}
                         height={365}
@@ -88,7 +88,7 @@ const BestPlaceSection: React.FC = () => {
                     <BestPlaceImg>
                       <Image
                         src="/assets/images/child.png"
-                        alt="location"
+                        alt="slider image"
                         className="location"
                         width={348}
                         height={365}
@@ -117,7 +117,7 @@ const BestPlaceSection: React.FC = () => {
                     <BestPlaceImg>
                       <Image
                         src="/assets/images/child.png"
-                        alt="location"
+                        alt="slider image"
                         className="location"
                         width={348}
                         height={365}

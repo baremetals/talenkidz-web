@@ -47,9 +47,9 @@ const HeroSection: React.FC = () => {
       <InnerContainer>
         <LeftImg>
           <Image
-            src="/cube.svg"
+            src="/assets/svgs/cube.svg"
             alt="creative activity card image"
-            className="cubeImg"
+            className="cube icon"
             width={378}
             height={378}
           />
@@ -70,8 +70,8 @@ const HeroSection: React.FC = () => {
             <Div className="Takingitem">
               <HeroItem>
                 <Image
-                  src="/herobanner.png"
-                  alt="creative activity card image"
+                  src="/assets/images/herobanner.png"
+                  alt="slider image"
                   width={1033}
                   height={693}
                 />
@@ -88,8 +88,8 @@ const HeroSection: React.FC = () => {
             <Div className="Takingitem">
               <HeroItem>
                 <Image
-                  src="/herobanner.png"
-                  alt="creative activity card image"
+                  src="/assets/images/herobanner.png"
+                  alt="slider image"
                   width={1033}
                   height={693}
                 />
@@ -106,8 +106,8 @@ const HeroSection: React.FC = () => {
             <Div className="Takingitem">
               <HeroItem>
                 <Image
-                  src="/herobanner.png"
-                  alt="creative activity card image"
+                  src="/assets/images/herobanner.png"
+                  alt="slider image"
                   width={1033}
                   height={693}
                 />
@@ -126,8 +126,8 @@ const HeroSection: React.FC = () => {
 
         <RightImg>
           <Image
-            src="/throfy.svg"
-            alt="creative activity card image"
+            src="/assets/svgs/throfy.svg"
+            alt="trophy icon"
             width={396}
             height={396}
           />

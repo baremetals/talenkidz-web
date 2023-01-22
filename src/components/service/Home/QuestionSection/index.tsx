@@ -16,8 +16,8 @@ const QuestionSection: React.FC = () => {
         <Row className="row">
           <Column>
             <Image
-              src="/questions.png"
-              alt="creative activity card image"
+              src="/assets/images/questions.png"
+              alt="phone in hand image"
               width={468}
               height={482}
             ></Image>

@@ -17,21 +17,21 @@ const DoubtSection: React.FC = () => {
         <DoubtsCard>
           <Question className="leftImg">
             <Image
-              src="/Question.svg"
-              alt="question"
+              src="/assets/svgs/Question.svg"
+              alt="question icon"
               width={650}
               height={450}
             />
           </Question>
           <Question className="RightImg">
             <Image
-              src="/Question.svg"
-              alt="question"
+              src="/assets/svgs/Question.svg"
+              alt="question icon"
               width={650}
               height={450}
             />
           </Question>
-          <Heading className="WhiteBg">Still have douts?</Heading>
+          <Heading className="WhiteBg">Still have doubts?</Heading>
           <SubHeading>
             Click here and get a free personal consultation{' '}
           </SubHeading>
