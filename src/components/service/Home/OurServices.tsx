@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Button from 'components/users/Auth/Button';
@@ -50,8 +50,7 @@ const OurServices = () => {
                     content="Register"
                     type="button"
                     disabled={false}
-                    loading={false}
-                  />
+                    loading={false} BtnNames={''}                  />
                 </div>
               </CardBody>
             </Card>
@@ -74,8 +73,7 @@ const OurServices = () => {
                     content="Register"
                     type={undefined}
                     disabled={false}
-                    loading={false}
-                  />
+                    loading={false} BtnNames={''}                  />
                 </div>
               </CardBody>
             </Card>
@@ -100,8 +98,7 @@ const OurServices = () => {
                     content="Register"
                     type="button"
                     disabled={false}
-                    loading={false}
-                  />
+                    loading={false} BtnNames={''}                  />
                 </div>
               </CardBody>
             </Card>
@@ -110,6 +107,6 @@ const OurServices = () => {
       </InnerContainer>
     </OurService>
   );
-}
+};
 
-export default OurServices
+export default OurServices;
