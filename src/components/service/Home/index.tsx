@@ -9,6 +9,9 @@ import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
 import TakingOurServices from './TakingOurServices'
+import Teacher from './Teacher'
+
+
 // import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
@@ -88,6 +91,7 @@ const Home = () => {
           </InnerContainer>
         </Hero>
         <OurServices />
+         <Teacher/>
          <TakingOurServices/>
         <ActivityCard />
 
