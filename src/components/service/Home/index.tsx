@@ -16,6 +16,8 @@ import Teacher from './Teacher'
 
 import BestPlace from './BestPlace'
 
+import HeroSections from './Hero'
+
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
   ssr: false,
 });
@@ -64,8 +66,7 @@ const Home = () => {
     const router = useRouter()
     return (
       <>
-
-      
+        <HeroSections/>
         <Hero>
           {/* <Image
             src="/twokids.jpg"
@@ -93,6 +94,7 @@ const Home = () => {
             </HeroContent>
           </InnerContainer>
         </Hero>
+        
         <OurServices />
          <Teacher/>
          <TakingOurServices/>
@@ -102,7 +104,7 @@ const Home = () => {
         <BestPlace/>
         <TakingOurServices/>
         <ActivityCard />
-
+       
         {/* <ImageContent>
             <InnerContainer>
                 <Heading>
