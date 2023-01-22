@@ -1583,3 +1583,34 @@ export const Question = styled.div`
         width: 340px;
     }
 `;
+
+
+export const ChildServices = styled.section`
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    @media (max-width: 991px) {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+`;
+
+export const ChildServiceItem = styled.div`
+    text-align: right;
+  h3 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align:right;
+    margin:30px 0;
+  }
+  button {
+    background: #39007E !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 24px;
+    max-width: 279px!important;
+  }
+`;
+
+
