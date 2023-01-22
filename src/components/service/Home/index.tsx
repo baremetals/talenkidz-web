@@ -10,6 +10,7 @@ import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
 import StillDouts from './StillDouts'
+import ChildService from './ChildService'
 // import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
@@ -90,6 +91,7 @@ const Home = () => {
         </Hero>
         
         <OurServices />
+        <ChildService />
         <StillDouts />
 
         <ActivityCard />
