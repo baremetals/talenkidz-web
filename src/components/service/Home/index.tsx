@@ -11,8 +11,9 @@ import OurServices from './OurServices'
 import Questions from './Questions'
 import FaqQuestion from './FaqQuestion'
 import Accordion from './Accordion/Accordion';
+import TakingOurServices from './TakingOurServices'
+import BestPlace from './BestPlace'
 
-// import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
   ssr: false,
@@ -92,10 +93,11 @@ const Home = () => {
           </InnerContainer>
         </Hero>
         <OurServices />
-       
         <FaqQuestion/>
         <Questions />
-         
+   
+        <BestPlace/>
+        <TakingOurServices/>
         <ActivityCard />
 
         {/* <ImageContent>
