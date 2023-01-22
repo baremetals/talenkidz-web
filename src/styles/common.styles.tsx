@@ -2011,6 +2011,7 @@ export const HeroHeading = styled.h1`
 `;
 
 export const HeroInfo = styled.p`
+   font-family: 'Montserrat', sans-serif !important;
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
