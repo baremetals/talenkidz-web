@@ -56,8 +56,8 @@ const TeachersSection = () => {
     <TeachersService>
       <ChessImageBlock>
         <Image
-          src="/Chess.svg"
-          alt="creative activity card image"
+          src="/assets/svgs/Chess.svg"
+          alt="chess icon"
           width={485}
           height={485}
         />
@@ -75,16 +75,17 @@ const TeachersSection = () => {
             items={2}
             margin={40}
             nav
+            alt="arrow icon"
             navText={[
-              '<img src="/LeftArrow.svg">',
-              '<img src="/RightArrow.svg">',
+              '<img src="/assets/svgs/LeftArrow.svg">',
+              '<img src="/assets/svgs/RightArrow.svg">',
             ]}
           >
             <Div className="Takingitem">
               <TeacherItem>
                 <Image
-                  src="/teacher.png"
-                  alt="creative activity card image"
+                  src="/assets/images/teacher.png"
+                  alt="teacher image"
                   width={417}
                   height={458}
                 />
@@ -104,47 +105,52 @@ const TeachersSection = () => {
                 </TeacherExperience>
                 <StarBlock>
                   <div className="star">
-                    <Image src="/Star.svg" alt="Star" width={44} height={44} />
+                    <Image
+                      src="/assets/svgs/Star.svg"
+                      alt="star icon"
+                      width={44}
+                      height={44}
+                    />
                     <span>5,0</span>
                   </div>
                   <div className="userImg">
                     <ul>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user2.png"
-                          alt="use"
+                          src="/assets/images/user2.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user3.png"
-                          alt="use"
+                          src="/assets/images/user3.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user1.png"
-                          alt="use"
+                          src="/assets/images/user1.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
@@ -153,8 +159,8 @@ const TeachersSection = () => {
                     <a href="#">
                       see more
                       <Image
-                        src="/seemore.svg"
-                        alt="use"
+                        src="/assets/svgs/seemore.svg"
+                        alt="user image"
                         width={77}
                         height={4}
                       />
@@ -172,8 +178,8 @@ const TeachersSection = () => {
             <Div className="Takingitem">
               <TeacherItem>
                 <Image
-                  src="/teacher.png"
-                  alt="creative activity card image"
+                  src="/assets/images/teacher.png"
+                  alt="teacher image"
                   width={417}
                   height={458}
                 />
@@ -193,47 +199,52 @@ const TeachersSection = () => {
                 </TeacherExperience>
                 <StarBlock>
                   <div className="star">
-                    <Image src="/Star.svg" alt="Star" width={44} height={44} />
+                    <Image
+                      src="/assets/svgs/Star.svg"
+                      alt="star icon"
+                      width={44}
+                      height={44}
+                    />
                     <span>5,0</span>
                   </div>
                   <div className="userImg">
                     <ul>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user2.png"
-                          alt="use"
+                          src="/assets/images/user2.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user3.png"
-                          alt="use"
+                          src="/assets/images/user3.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user1.png"
-                          alt="use"
+                          src="/assets/images/user1.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
@@ -242,8 +253,8 @@ const TeachersSection = () => {
                     <a href="#">
                       see more
                       <Image
-                        src="/seemore.svg"
-                        alt="use"
+                        src="/assets/svgs/seemore.svg"
+                        alt="underline icon"
                         width={77}
                         height={4}
                       />
@@ -261,8 +272,8 @@ const TeachersSection = () => {
             <Div className="Takingitem">
               <TeacherItem>
                 <Image
-                  src="/teacher.png"
-                  alt="creative activity card image"
+                  src="/assets/images/teacher.png"
+                  alt="teacher image"
                   width={417}
                   height={458}
                 />
@@ -282,47 +293,52 @@ const TeachersSection = () => {
                 </TeacherExperience>
                 <StarBlock>
                   <div className="star">
-                    <Image src="/Star.svg" alt="Star" width={44} height={44} />
+                    <Image
+                      src="/assets/svgs/Star.svg"
+                      alt="star icon"
+                      width={44}
+                      height={44}
+                    />
                     <span>5,0</span>
                   </div>
                   <div className="userImg">
                     <ul>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user2.png"
-                          alt="use"
+                          src="/assets/images/user2.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user3.png"
-                          alt="use"
+                          src="/assets/images/user3.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user4.png"
-                          alt="use"
+                          src="/assets/images/user4.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
                       </li>
                       <li>
                         <Image
-                          src="/user1.png"
-                          alt="use"
+                          src="/assets/images/user1.png"
+                          alt="user image"
                           width={50}
                           height={50}
                         />
@@ -331,8 +347,8 @@ const TeachersSection = () => {
                     <a href="#">
                       see more
                       <Image
-                        src="/seemore.svg"
-                        alt="use"
+                        src="/assets/svgs/seemore.svg"
+                        alt="underline icon"
                         width={77}
                         height={4}
                       />
