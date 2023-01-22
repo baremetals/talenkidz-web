@@ -73,8 +73,8 @@ const  HeroSections = () => {
                                 <Image
                                     src="/herobanner.png"
                                     alt="creative activity card image"
-                                    width={814}
-                                    height={548}
+                                    width={1033}
+                                    height={693}
                                 />
                                 <HeroButtonBlock>
                                     <Button
@@ -89,8 +89,8 @@ const  HeroSections = () => {
                             <Image
                                 src="/herobanner.png"
                                 alt="creative activity card image"
-                                width={814}
-                                height={548}
+                                width={1033}
+                                height={693}
                                 />
                                 <HeroButtonBlock>
                                     <Button
@@ -105,8 +105,8 @@ const  HeroSections = () => {
                             <Image
                                 src="/herobanner.png"
                                 alt="creative activity card image"
-                                width={814}
-                                height={548}
+                                width={1033}
+                                height={693}
                                 />
                             <HeroButtonBlock>
                                     <Button
