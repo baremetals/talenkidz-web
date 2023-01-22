@@ -11,12 +11,39 @@ const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
   ssr: false,
 });
 
-import { InnerContainer,Div, TakingOurService, OurServiceItem,ButtonBlock,OwlCarouselBlock,OurServicePageHeading,LeftImg,RightImg } from 'styles/common.styles';
+const options = {
+    responsiveClass: true,
+    nav: false,
+    dots: true,
+    autoplay: true,
+    smartSpeed: 1000,
+    responsive: {
+        0: {
+            items: 1,
+        },
+        400: {
+            items: 1,
+        },
+        600: {
+            items: 1,
+        },
+        700: {
+            items: 1,
+        },
+        1000: {
+            items: 1,
 
-const TakingOurServices = () => {
+        }
+    },
+};
+
+
+import { InnerContainer, Div, HeroInfo, HeroSection, HeroItem, HeroButtonBlock, OwlCarouselsBlock, HeroHeading, LeftImg, RightImg } from 'styles/common.styles';
+
+const  HeroSections = () => {
   const router = useRouter();
     return (
-        <TakingOurService>
+        <HeroSection>
             <InnerContainer>
                 <LeftImg>
                         <Image
@@ -27,69 +54,71 @@ const TakingOurServices = () => {
                         height={378}
                     />
                 </LeftImg>
-           
-                <OurServicePageHeading>
-                    expand your child’s circle <span className='WhiteBg'> taking our service </span>
-                </OurServicePageHeading>
-                <OwlCarouselBlock>
+                <HeroHeading>
+                   find your child’s future <span className='WhiteBg'>career prospects</span>
+                </HeroHeading>
+                <HeroInfo>
+                    stay responsible for shaping their path
+                </HeroInfo>
+                <OwlCarouselsBlock>
                     <OwlCarousel
                         className="owl-theme"
-                                loop
-                                items={ 1}
+                        loop
+                        items={ 1}
                         margin={1}
-                        nav
-                        navText={['<img src="/LeftArrow.svg">','<img src="/RightArrow.svg">']}
+                        {...options}
                     > 
                     <Div className="Takingitem">
-                        <OurServiceItem>
+                        <HeroItem>
                                 <Image
-                                    src="/nsplash.jpg"
+                                    src="/herobanner.png"
                                     alt="creative activity card image"
                                     width={814}
                                     height={548}
                                 />
-                                <ButtonBlock>
+                                <HeroButtonBlock>
                                     <Button
-                                        content="Take a service"
+                                        content="Start now"
                                         type="submit" disabled={false} loading={false}>
                                     </Button>
-                                </ButtonBlock>
-                        </OurServiceItem>    
+                                </HeroButtonBlock>
+                        </HeroItem>    
                     </Div>
                     <Div className="Takingitem">
-                        <OurServiceItem>
+                        <HeroItem>
                             <Image
-                                src="/nsplash.jpg"
+                                src="/herobanner.png"
                                 alt="creative activity card image"
                                 width={814}
                                 height={548}
                                 />
-                                <ButtonBlock>
+                                <HeroButtonBlock>
                                     <Button
-                                        content="Take a service"
+                                        content="Start now"
                                         type="submit" disabled={false} loading={false}>
                                     </Button>
-                                </ButtonBlock>
-                        </OurServiceItem>
+                                </HeroButtonBlock>
+                        </HeroItem>
                     </Div>
                     <Div className="Takingitem">
-                        <OurServiceItem>
+                        <HeroItem>
                             <Image
-                                src="/nsplash.jpg"
+                                src="/herobanner.png"
                                 alt="creative activity card image"
                                 width={814}
                                 height={548}
                                 />
-                            <ButtonBlock>
+                            <HeroButtonBlock>
                                     <Button
-                                        content="Take a service"
+                                        content="Start now"
                                         type="submit" disabled={false} loading={false}>
                                     </Button>
-                                </ButtonBlock>
-                        </OurServiceItem>
+                                </HeroButtonBlock>
+                        </HeroItem>
                     </Div>
                     </OwlCarousel>
-                </OwlCarouselBlock>
+                </OwlCarouselsBlock>
+                   
                  <RightImg>
                     <Image
                         src="/throfy.svg"
@@ -99,8 +128,8 @@ const TakingOurServices = () => {
                     />
                 </RightImg>
              </InnerContainer>
-       </TakingOurService>
+       </HeroSection>
           );
 }
 
-export default TakingOurServices
+export default HeroSections

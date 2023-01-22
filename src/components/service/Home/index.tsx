@@ -10,6 +10,10 @@ import Button from 'components/users/Auth/Button';
 import OurServices from './OurServices'
 import TakingOurServices from './TakingOurServices'
 import BestPlace from './BestPlace'
+
+import HeroSections from './Hero'
+
+
 // import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
@@ -59,8 +63,7 @@ const Home = () => {
     const router = useRouter()
     return (
       <>
-
-      
+        <HeroSections/>
         <Hero>
           {/* <Image
             src="/twokids.jpg"
@@ -88,11 +91,12 @@ const Home = () => {
             </HeroContent>
           </InnerContainer>
         </Hero>
+        
         <OurServices />
         <BestPlace/>
         <TakingOurServices/>
         <ActivityCard />
-
+       
         {/* <ImageContent>
             <InnerContainer>
                 <Heading>
