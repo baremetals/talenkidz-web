@@ -8,13 +8,15 @@ import dynamic from 'next/dynamic';
 import Button from 'components/users/Auth/Button';
 
 import OurServices from './OurServices'
+import Questions from './Questions'
+import FaqQuestion from './FaqQuestion'
+import Accordion from './Accordion/Accordion';
 import TakingOurServices from './TakingOurServices'
+import Teacher from './Teacher'
+
 import BestPlace from './BestPlace'
 
 import HeroSections from './Hero'
-
-
-// import Company from '../About/Company'
 
 const ActivityCard = dynamic(() => import('./ActivityCard'), {
   ssr: false,
@@ -60,6 +62,7 @@ import {
 
 
 const Home = () => {
+
     const router = useRouter()
     return (
       <>
@@ -93,6 +96,11 @@ const Home = () => {
         </Hero>
         
         <OurServices />
+         <Teacher/>
+         <TakingOurServices/>
+        <FaqQuestion/>
+        <Questions />
+   
         <BestPlace/>
         <TakingOurServices/>
         <ActivityCard />

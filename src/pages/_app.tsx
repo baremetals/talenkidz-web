@@ -12,6 +12,8 @@ import { useApollo } from 'src/hooks/apolloClient';
 import { darkTheme } from 'styles/theme';
 
 import 'styles/globals.css';
+import 'styles/Accordion.css';
+import 'styles/AccordionItem.css';
 import GoogleAnalytics from 'components/Layout/Google';
 import { pageview } from 'src/lib/ga';
 import { AuthProvider } from 'src/features/auth/AuthContext';
