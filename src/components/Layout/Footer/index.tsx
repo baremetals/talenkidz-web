@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import dynamic from 'next/dynamic';
 import Link from 'next/link'
 import axios from 'axios';
+import Image from 'next/image';
 import { addToMailingList } from 'src/helpers'
 // import PolicyPopUp from "components/Policy"
 import { ToastContainer, toast } from "react-toastify";
@@ -20,7 +21,7 @@ const NewsCard = dynamic(() => import('./NewsCard'), {
 import {
   Column,
   InnerContainer,
-  // Logo,
+  Logo,
   Row,
   // Image,
   SiteFooter,
@@ -34,6 +35,7 @@ import {
   // SwitchBox,
   // Switch,
   NewsletterBox,
+  Copyright,
 } from 'styles/common.styles';
 
 // import { NewsCard } from './NewsCard'
@@ -44,6 +46,8 @@ import { FaceBook } from "public/assets/icons/FaceBook";
 import { Tiktok } from "public/assets/icons/Tiktok";
 import { LinkedIn } from "public/assets/icons/LinkedIn";
 import { Twitter } from "public/assets/icons/Twitter";
+import { Instagram } from "public/assets/icons/Instagram";
+
 import PolicyPopUp from 'components/service/Policy';
 
 // import { WhatsApp } from "public/assets/icons/WhatsApp";
@@ -89,15 +93,20 @@ function Footer(): ReactElement {
           <InnerContainer>
             <Row>
               <Column className="column-6">
-                {/* <Link href={'/'} passHref>
-                                <Logo style={{marginBottom: '20px'}}>
-                                    <Image src={'/logo-white.png'} alt='' />
-                                </Logo>
-                            </Link> */}
+                <Link href={'/'} passHref>
+                   <Logo style={{marginBottom: '50px'}}>
+                            <Image
+                            src={'/talentkids.svg'}
+                            alt="talentkids logo"
+                            width={200}
+                            height={45.69}
+                          />
+                      </Logo>
+                  </Link>
                 <H2Title
                   style={{ color: '#fff', fontSize: '1.75rem', marginTop: '0' }}
                 >
-                  Get The Newsletter
+                  NEWSLETTER
                 </H2Title>
                 <Text style={{}}>
                   Keep the kids happy with entertaining and educational ideas
@@ -106,7 +115,7 @@ function Footer(): ReactElement {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Write your email"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   ></Input>
@@ -124,7 +133,23 @@ function Footer(): ReactElement {
                   </Button>
                 </NewsletterBox>
                 {/* <Text>Eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum ultrice gravida isus commodo viverra.</Text> */}
+               
+              </Column>
+
+              <Column>
                 <div className="footer_social">
+                  <a
+                    href={'https://www.linkedin.com/company/join-talentkids'}
+                    aria-label="LinkedIn"
+                  >
+                    <LinkedIn />
+                  </a>
+                   <a
+                    href={'https://www.instagram.com/join__talentkids'}
+                    aria-label="Instagram"
+                  >
+                    <Instagram />
+                  </a>
                   <a
                     href={'https://www.facebook.com/jointalentkids'}
                     aria-label="FaceBook"
@@ -137,21 +162,11 @@ function Footer(): ReactElement {
                   >
                     <Twitter />
                   </a>
-                  <a
-                    href={'https://www.linkedin.com/company/join-talentkids'}
-                    aria-label="LinkedIn"
-                  >
-                    <LinkedIn />
-                  </a>
+                  
                   {/* <a href={'https://web.whatsapp.com/'} aria-label="WhatsApp">
                     <WhatsApp />
                   </a> */}
-                  <a
-                    href={'https://www.instagram.com/join__talentkids'}
-                    aria-label="Instagram"
-                  >
-                    <FaInstagram />
-                  </a>
+                 
                   <a
                     href={'https://www.tiktok.com/@join_talentkids'}
                     aria-label="Tiktok"
@@ -159,29 +174,14 @@ function Footer(): ReactElement {
                     <Tiktok />
                   </a>
                 </div>
-              </Column>
-
-              <Column>
-                <FooterTitle>Talent Kids</FooterTitle>
                 <FooterLinks>
-                  <Link href={'/about'}>About Us</Link>
-                  <Link href={'/contact'}>Contact us</Link>
-                  {/* <Link href={'/newsletter'}>Newsletter</Link> */}
-                  <Link href={'/faqs'}>FAQs</Link>
-                  {/* <Link href={'/cookie-policy'}>Cookie Policy</Link>
-                  <Link href={'/privacy'}>Privacy Policy</Link>
-                  <Link href={'/terms'}>Terms and conditions</Link> */}
-                  {/* <Link href={'/'}>Appointment</Link> */}
+                  <Link href={'#'}>Cookie Policy</Link>
+                  <Link href={'#'}>Privacy Policy</Link>
+                  <Link href={'#'}>Teams and conditions </Link>
+                  <Copyright>Talentkids Ltd © 2022</Copyright>
                 </FooterLinks>
               </Column>
-              <Column>
-                <FooterTitle>News Feed</FooterTitle>
-                <MediaObject>
-                  <NewsCard />
-                </MediaObject>
-              </Column>
             </Row>
-            <Text style={{textAlign: 'center', color: '#fff', marginTop: '1rem'}}>Talentkids Ltd © 2022 &nbsp; &nbsp; <Link href={'/cookie-policy'}>Cookie Policy</Link> &nbsp; | &nbsp; <Link href={'/privacy'}>Privacy Policy</Link> &nbsp; | &nbsp; <Link href={'/terms'}>Terms and conditions</Link></Text>
           </InnerContainer>
         </SiteFooter>
         <ToastContainer />
