@@ -13,7 +13,7 @@ const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
 
 
 
-import { InnerContainer, Div, TeachersService, TeacherItem, OwlCarouselBlock, TeacherHeading, TeacherInfo,TeacherExperience,StarBlock,ChessImageBlock } from 'styles/common.styles';
+import { InnerContainer,TeacherBorder, TeacherImgBlock, Div, TeachersService, TeacherItem, OwlCarouselBlock, TeacherHeading, TeacherInfo,TeacherExperience,StarBlock,ChessImageBlock } from 'styles/common.styles';
 
 const TeachersSection = () => {
     const router = useRouter();
@@ -69,13 +69,17 @@ const TeachersSection = () => {
                         navText={['<img src="/LeftArrow.svg">','<img src="/RightArrow.svg">']}
                     > 
                     <Div className="Takingitem">
-                        <TeacherItem>
-                                <Image
-                                    src="/teacher.png"
-                                    alt="creative activity card image"
-                                    width={417}
-                                    height={458}
-                                />
+                            <TeacherItem>
+                                <TeacherImgBlock>
+                                    <TeacherBorder>
+                                        <Image
+                                            src="/teacher-block.png"
+                                            alt="creative activity card image"
+                                            width={483}
+                                            height={483}
+                                        />
+                                    </TeacherBorder>
+                                </TeacherImgBlock>
                                 <TeacherInfo>
                                     <h2>Kate Smith</h2>
                                     <p>bases on developing minors creative skills </p>
@@ -162,12 +166,16 @@ const TeachersSection = () => {
                     </Div>
                     <Div className="Takingitem">
                         <TeacherItem>
-                            <Image
-                                src="/teacher.png"
-                                alt="creative activity card image"
-                                width={417}
-                                height={458}
-                                />
+                                <TeacherImgBlock>
+                                    <TeacherBorder>
+                                        <Image
+                                            src="/teacher-block.png"
+                                            alt="creative activity card image"
+                                            width={483}
+                                            height={483}
+                                        />
+                                    </TeacherBorder>
+                                </TeacherImgBlock>
                                 <TeacherInfo>
                                     <h2>Jaims Scott</h2>
                                     <p>sport teacher with professional education</p>
@@ -254,12 +262,16 @@ const TeachersSection = () => {
                     </Div>
                     <Div className="Takingitem">
                         <TeacherItem>
-                            <Image
-                                src="/teacher.png"
-                                alt="creative activity card image"
-                                width={417}
-                                height={458}
-                                />
+                                <TeacherImgBlock>
+                                    <TeacherBorder>
+                                        <Image
+                                            src="/teacher-block.png"
+                                            alt="creative activity card image"
+                                            width={483}
+                                            height={483}
+                                        />
+                                    </TeacherBorder>
+                                </TeacherImgBlock>
                                 <TeacherInfo>
                                     <h2>Kate Smith</h2>
                                     <p>bases on developing minors creative skills </p>
