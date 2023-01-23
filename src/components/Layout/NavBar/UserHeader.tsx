@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {
     InnerContainer,
     NavBarHeader,
+    LogoBlock,
     Logo,
     ToggleBar,
     NavbarCollapse,
@@ -60,19 +61,21 @@ export default function UserHeader() {
         <SiteHeader>
           <InnerContainer>
             <NavBarHeader>
-              <Link
-                href={user?.id ? `${user.userType === 'candidate' ? 'user-profile' : 'account'}/${user?.username}` : '/'}
-                passHref
-              >
-                <Logo>
-                  <Image
-                    src={'/logo.png'}
-                    alt="talentkids logo"
-                    width={200}
-                    height={45.69}
-                  />
-                </Logo>
-              </Link>
+              <LogoBlock>
+                <Link
+                  href={user?.id ? `${user.userType === 'candidate' ? 'user-profile' : 'account'}/${user?.username}` : '/'}
+                  passHref
+                >
+                  <Logo>
+                    <Image
+                      src={'/logo.png'}
+                      alt="talentkids logo"
+                      width={200}
+                      height={45.69}
+                    />
+                  </Logo>
+                  </Link>
+              </LogoBlock>
               <ToggleBar
                 onMouseDown={() => setToggle(!toggle)}
                 aria-label="toggle button"
@@ -96,6 +99,9 @@ export default function UserHeader() {
                   <NavBarItem onClick={() => setToggle(!toggle)}>
                     <Link href={'/articles'}>Articles</Link>
                   </NavBarItem>
+                   <NavBarItem className="Mobilesignup">
+                    <Link href={'/auth/register'}>Connect</Link>
+                   </NavBarItem>
                   {user?.id && (
                     <>
                       <ProfileSetting ref={dropdownRef}>
@@ -136,19 +142,15 @@ export default function UserHeader() {
                       </ProfileSetting>
                     </>
                   )}
-                  {!user?.id && (
-                    <>
-                      {/* <NavBarItem><Link href={'/'}>Contact Us</Link></NavBarItem> */}
-                      {/* <NavBarItem><Link href={'/auth/login'}>Sign In</Link></NavBarItem> */}
-                      <NavBarItem className="signup">
-                        <Link href={'/auth/register'}>Get Started</Link>
-                      </NavBarItem>
-                      {/* <NavBarItem><Link href={'/newsletter'}>Newsletter</Link></NavBarItem>
-                                    <NavBarItem className="signup"><Link href={'/auth/login'}>Get Started</Link></NavBarItem> */}
-                    </>
-                  )}
                 </NavBarNav>
               </NavbarCollapse>
+               {!user?.id && (
+                     <>
+                      <NavBarItem className="signup">
+                        <Link href={'/auth/register'}>Connect</Link>
+                      </NavBarItem>
+                    </>
+                  )}
             </NavBarHeader>
           </InnerContainer>
         </SiteHeader>

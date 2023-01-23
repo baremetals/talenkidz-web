@@ -5,7 +5,6 @@ import { Field, Form } from "formik";
 
 
 export const PageContainer = styled.section`
-
     padding-top: 3.75rem;
     padding-bottom: 3.75rem;
     position: relative;
@@ -36,8 +35,12 @@ export const SiteHeader = styled.header`
     position: relative;
     z-index: 100;
     @media (max-width: 991px) {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+           padding-top: 1rem;
+            padding-bottom: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #fff;
     }
 `;
 
@@ -78,6 +81,7 @@ export const ToggleBar = styled.button`
 export const NavBarHeader = styled.nav`
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `;
 
 export const Logo = styled.div`
@@ -96,6 +100,10 @@ export const Logo = styled.div`
 `;
 
 export const NavbarCollapse = styled.div`
+        max-width:50%;
+        width:100%;
+        display: flex;
+        justify-content: center;
     @media (max-width: 991px) {
         margin-top: 60px;
         position: fixed;
@@ -131,10 +139,13 @@ export const NavBarNav = styled.ul`
     }
 `;
 
-export const NavBarItem = styled.li`
+export const NavBarItem = styled.div`
     margin-right: 2rem;
     a {
         display: block;
+        font-weight: 600;
+        font-size: 18px;
+        color: #0F021F;
         @media (max-width: 991px) {
             padding: 0.75rem 1.375rem;
         }
@@ -142,14 +153,48 @@ export const NavBarItem = styled.li`
     &:last-child {
         margin-right: 0;
     }
-    &.signup {
+    &.Mobilesignup {
         a {
-            background-color: #3762e4;
+            background: #0F021F;
             color: #fff;
-            padding: 0.5rem 1.375rem;
-            border-radius: 0.375rem;
+            padding: 19px 1.375rem;
+            min-width: 210px;
+            width: 100%;
+            border-radius: 20px;
+            text-align: center;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
             &:hover {
-                background-color: #333;
+                background: #0F021F;
+                color: #fff;
+            }
+             @media (max-width: 990px) {
+                padding: 19px 10px;
+                min-width: max-content;
+             }
+            @media (min-width: 991px) {
+               display:none;
+            }
+        }
+    }
+    &.signup {
+        list-style: none;
+        a {
+            background: #0F021F;
+            color: #fff;
+            padding: 19px 1.375rem;
+            min-width: 210px;
+            width: 100%;
+            border-radius: 20px;
+            text-align: center;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+            &:hover {
+                background: #0F021F;
                 color: #fff;
             }
             @media (max-width: 991px) {
@@ -158,8 +203,7 @@ export const NavBarItem = styled.li`
             }
         }
         @media (max-width: 991px) {
-            margin-top: auto;
-            border-bottom: none;
+          display:none;
         }
     }
     @media (max-width: 991px) {
@@ -1658,4 +1702,6 @@ export const ChildHeader = styled.h2`
     }
 `;
 
-
+export const LogoBlock = styled.div`
+  max-width:25%
+`;
