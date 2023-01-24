@@ -61,8 +61,8 @@ function Footer(): ReactElement {
 
     return (
       <>
-        {privacyPolicy && <PolicyPopUp privacyPolicy={privacyPolicy} />}
-        <SiteFooter>
+         {privacyPolicy && <PolicyPopUp privacyPolicy={privacyPolicy} />}
+         <SiteFooter>
           <InnerContainer>
             <Row className='footerFirstRow'>
               <Column>
@@ -133,49 +133,13 @@ function Footer(): ReactElement {
                 </FooterLinks>
               </Column>
               <Column>
-              <NewLetterBox>
-                  <NewsLetterTitle
-                    className='title'
-                    style={{ color: '#fff', fontSize: '1.75rem', marginTop: '0'}}
-                >
-                  NEWSLETTER
-                </NewsLetterTitle>
-                 <NewsLetterText style={{}}>
-                  Keep the kids happy with entertaining and educational ideas
-                </NewsLetterText>
-               <NewsletterBox style={{ maxWidth: '100%' }}>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Write your email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  ></Input>
-                  <Button
-                    content=""
-                    type="submit"
-                    style={{
-                      borderRadius: '.375rem',
-                      marginLeft: '1rem',
-                      borderColor: '#a40a52',
-                    }}
-                    onClick={() => handleSubmit()}
-                  >
-                    Subscribe
-                  </Button>
-                </NewsletterBox>
-                </NewLetterBox>
-              </Column>
-            </Row>
-            <Row className='copyrightBlock'>
-              <Column className='column-4'>
                 <Copyright className='copy'>Talentkids Ltd © 2022</Copyright>
               </Column>
-              <Column className='column-8'>
-                <FooterLinks className='legleLink'>
+              <Column>
+                <FooterLinks className='footerLinks'>
                   <Link href={'#'}>Cookie Policy</Link>
                   <Link href={'#'}>Privacy Policy</Link>
-                  <Link href={'#'}>Teams and conditions </Link>
+                  <Link href={'#'}>Teams and conditions</Link>
                 </FooterLinks>
               </Column>
             </Row>
