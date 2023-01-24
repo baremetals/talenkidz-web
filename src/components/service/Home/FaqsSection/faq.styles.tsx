@@ -18,9 +18,9 @@ export const FaqQuestionsInner = styled.div`
 
 export const ImageBlock = styled.div`
   position: absolute;
-  top: 38px;
-  left: -244px;
-  max-width: 500px;
+  top: -14px;
+  left: -332px;
+  max-width: 602px;
   @media (max-width: 991px) {
     display: none;
   }

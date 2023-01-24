@@ -18,8 +18,13 @@ export const SiteFooter = styled.footer`
     a {
       opacity: 1;
       svg {
+        &.youtube {
+           height: 30px;
+           width:auto !important;
+        }
         width: 27px;
         height: 27px;
+        display: inline-block;
       }
     }
   }
@@ -63,7 +68,7 @@ export const NewsletterBox = styled.div`
   }
   input {
     height: 52px;
-    border-radius: 50px;
+    border-radius: 20px;
   }
   Button {
     border-radius: 20px !important;

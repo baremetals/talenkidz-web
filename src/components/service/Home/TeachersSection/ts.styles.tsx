@@ -5,6 +5,9 @@ export const TeachersService = styled.section`
   padding-bottom: 6.25rem;
   position: relative;
   overflow: hidden;
+  .TeacherCarouselBlock {
+     max-width: 960px;
+  }
   @media (max-width: 991px) {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -301,20 +304,38 @@ export const ChessImageBlock = styled.div`
 `;
 
 export const TeacherImgBlock = styled.div`
-  border-radius: 80% 80% 0% 80% / 80% 80% 80% 80%;
+  border-radius: 50% 50% 0% 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding:8px 8px 0px;
   padding-bottom: 0;
   border: solid 3px #39007e;
   border-bottom: 0;
   border-left: 0;
+  width:408px;
+  height:408px;
+   position: relative;
+ @media (max-width: 991px) {
+      width:328px;
+      height:328px;
+    }
 `;
 
 export const TeacherBorder = styled.div`
-  border-radius: 80% 80% 0% 80% / 80% 80% 80% 80%;
+  border-radius: 50% 50% 0% 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
+  width:400px;
+  height:400px;
+  @media (max-width: 991px) {
+      width:320px;
+      height:320px;
+    }
+`;
+
+export const OwlCarouselBlock = styled.div`
+  max-width: 914px;
+  margin: 0 auto;
 `;

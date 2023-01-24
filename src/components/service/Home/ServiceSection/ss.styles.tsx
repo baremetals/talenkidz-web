@@ -95,6 +95,9 @@ export const OurServiceItem = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  border: 5px solid rgba(0, 0, 0, 0.09);
+  border-radius: 50px;
+  overflow: hidden;
   span {
     width: 100% !important;
     img {

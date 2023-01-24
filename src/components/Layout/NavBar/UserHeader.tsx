@@ -146,7 +146,9 @@ export default function UserHeader() {
                     </ProfileSetting>
                   </>
                 )}
-                {!user?.id && (
+              </NavBarNav>
+            </NavbarCollapse>
+             {!user?.id && (
                   <>
                     {/* <NavBarItem><Link href={'/'}>Contact Us</Link></NavBarItem> */}
                     {/* <NavBarItem><Link href={'/auth/login'}>Sign In</Link></NavBarItem> */}
@@ -157,8 +159,6 @@ export default function UserHeader() {
                                     <NavBarItem className="signup"><Link href={'/auth/login'}>Get Started</Link></NavBarItem> */}
                   </>
                 )}
-              </NavBarNav>
-            </NavbarCollapse>
           </NavBarHeader>
         </InnerContainer>
       </SiteHeader>

@@ -70,7 +70,7 @@ const TeachersSection = () => {
           Take classes with the teacher you{' '}
           <span className="blueBg">prefer</span>
         </TeacherHeading>
-        <OwlCarouselBlock>
+        <OwlCarouselBlock className='TeacherCarouselBlock'>
           <OwlCarousel
             {...options}
             className="owl-theme"

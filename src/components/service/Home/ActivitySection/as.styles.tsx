@@ -4,6 +4,9 @@ import styled from 'styled-components';
 export const ChildServices = styled.section`
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+  .container {
+    max-width:1260px;
+  }
   @media (max-width: 991px) {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -11,6 +14,12 @@ export const ChildServices = styled.section`
   @media (max-width: 891px) {
     .ChildSectionRow {
       flex-direction: column;
+    }
+  }
+  .col-4 {
+    max-width:33.33%;
+    @media (max-width: 891px) {
+      max-width:100%;
     }
   }
 `;
@@ -79,4 +88,37 @@ export const ChildHeader = styled.h2`
       top: 0;
     }
   }
+`;
+
+export const ShapeImageBlock = styled.div`
+  border-radius: 50% 50% 0% 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding:8px 8px 0px;
+  padding-bottom: 0;
+  border: solid 3px #39007e;
+  border-bottom: 0;
+  border-left: 0;
+  width:388px;
+  height:388px;
+  position: relative;
+  margin:0 auto;
+    @media (max-width: 991px) {
+      width:328px;
+      height:328px;
+    }
+`;
+
+export const ShapeImage = styled.div`
+  border-radius: 50% 50% 0% 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width:370px;
+  height:370px;
+   @media (max-width: 991px) { 
+     width:320px;
+      height:320px;
+   }
 `;
