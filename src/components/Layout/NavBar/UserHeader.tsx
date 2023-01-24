@@ -20,7 +20,6 @@ import {
   NavBarItem,
   ToggleBar,
   LogoBlock,
-  NavBarItemLink,
 } from './NavBar.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
 

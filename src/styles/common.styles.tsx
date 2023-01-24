@@ -508,18 +508,7 @@ export const FooterTitle = styled.h4`
   margin-bottom: 2rem;
 `;
 
-export const FooterLinks = styled.div`
-  a {
-    color: rgb(255 255 255 / 80%);
-    text-decoration: none;
-    display: table;
-    line-height: 1;
-    margin-bottom: 1.25rem;
-    &:hover {
-      color: #fff;
-    }
-  }
-`;
+
 
 export const MediaObject = styled.div``;
 
