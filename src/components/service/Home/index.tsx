@@ -7,6 +7,7 @@ import BestPlaceSection from './BestPlaceSection';
 import HeroSection from './HeroSection';
 import ServiceSection from './ServiceSection';
 import ActivitySection from './ActivitySection';
+import TeachersSection from './TeachersSection';
 
 const Home = () => {
 
@@ -14,6 +15,7 @@ const Home = () => {
     <>
       <HeroSection />
       <ActivitySection />
+      <TeachersSection />
       <BestPlaceSection />
       <FaqQuestion />
       <QuestionSection />

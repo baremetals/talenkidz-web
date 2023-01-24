@@ -19,3 +19,8 @@ export const RightImg = styled.div`
     display: none;
   }
 `;
+
+export const OwlCarouselBlock = styled.div`
+  max-width: 814px;
+  margin: 0 auto;
+`;

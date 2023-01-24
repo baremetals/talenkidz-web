@@ -13,16 +13,19 @@ const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
 
 import {
   InnerContainer,
-  TeachersService,
-  TeacherItem,
-  OwlCarouselBlock,
+} from 'styles/common.styles';
+import { Div, OwlCarouselBlock } from '../home.styles';
+import {
+  TeacherExperience,
   TeacherHeading,
   TeacherInfo,
-  TeacherExperience,
-  StarBlock,
+  TeacherItem,
+  TeachersService,
   ChessImageBlock,
-} from 'styles/common.styles';
-import { Div } from '../home.styles';
+  StarBlock,
+  TeacherImgBlock,
+  TeacherBorder,
+} from './ts.styles';
 
 const TeachersSection = () => {
   const router = useRouter();
@@ -81,101 +84,108 @@ const TeachersSection = () => {
               '<img src="/assets/svgs/RightArrow.svg">',
             ]}
           >
-            <Div className="Takingitem">
-              <TeacherItem>
-                <Image
-                  src="/assets/images/teacher.png"
-                  alt="teacher image"
-                  width={417}
-                  height={458}
-                />
-                <TeacherInfo>
-                  <h2>Kate Smith</h2>
-                  <p>bases on developing minors creative skills </p>
-                </TeacherInfo>
-                <TeacherExperience>
-                  <div className="jobExprince">
-                    <h3>10 years </h3>
-                    <p>job experience </p>
-                  </div>
-                  <div className="ContentParent">
-                    <h3>150 more</h3>
-                    <p>content parents </p>
-                  </div>
-                </TeacherExperience>
-                <StarBlock>
-                  <div className="star">
-                    <Image
-                      src="/assets/svgs/Star.svg"
-                      alt="star icon"
-                      width={44}
-                      height={44}
-                    />
-                    <span>5,0</span>
-                  </div>
-                  <div className="userImg">
-                    <ul>
-                      <li>
-                        <Image
-                          src="/assets/images/user4.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user2.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user3.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user4.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user1.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                    </ul>
-                    <a href="#">
-                      see more
+            {[1, 2, 3].map((t, i) => (
+              <Div className="Takingitem" key={i}>
+                <TeacherItem>
+                  <TeacherImgBlock>
+                    <TeacherBorder>
                       <Image
-                        src="/assets/svgs/seemore.svg"
-                        alt="user image"
-                        width={77}
-                        height={4}
+                        src="/assets/images/creative.jpg"
+                        alt="teacher image"
+                        width={417}
+                        height={458}
                       />
-                    </a>
-                  </div>
-                </StarBlock>
-                <Button
-                  content="Take a class"
-                  type="submit"
-                  disabled={false}
-                  loading={false}
-                ></Button>
-              </TeacherItem>
-            </Div>
-            <Div className="Takingitem">
+                    </TeacherBorder>
+                  </TeacherImgBlock>
+                  <TeacherInfo>
+                    <h2>Kate Smith</h2>
+                    <p>bases on developing minors creative skills </p>
+                  </TeacherInfo>
+                  <TeacherExperience>
+                    <div className="jobExprince">
+                      <h3>10 years </h3>
+                      <p>job experience </p>
+                    </div>
+                    <div className="ContentParent">
+                      <h3>150 more</h3>
+                      <p>content parents </p>
+                    </div>
+                  </TeacherExperience>
+                  <StarBlock>
+                    <div className="star">
+                      <Image
+                        src="/assets/svgs/Star.svg"
+                        alt="star icon"
+                        width={44}
+                        height={44}
+                      />
+                      <span>5,0</span>
+                    </div>
+                    <div className="userImg">
+                      <ul>
+                        <li>
+                          <Image
+                            src="/assets/images/user4.png"
+                            alt="user image"
+                            width={50}
+                            height={50}
+                          />
+                        </li>
+                        <li>
+                          <Image
+                            src="/assets/images/user2.png"
+                            alt="user image"
+                            width={50}
+                            height={50}
+                          />
+                        </li>
+                        <li>
+                          <Image
+                            src="/assets/images/user3.png"
+                            alt="user image"
+                            width={50}
+                            height={50}
+                          />
+                        </li>
+                        <li>
+                          <Image
+                            src="/assets/images/user4.png"
+                            alt="user image"
+                            width={50}
+                            height={50}
+                          />
+                        </li>
+                        <li>
+                          <Image
+                            src="/assets/images/user1.png"
+                            alt="user image"
+                            width={50}
+                            height={50}
+                          />
+                        </li>
+                      </ul>
+                      <a href="#">
+                        see more
+                        <Image
+                          src="/assets/svgs/seemore.svg"
+                          alt="user image"
+                          width={77}
+                          height={4}
+                        />
+                      </a>
+                    </div>
+                  </StarBlock>
+                  <Button
+                    content="Take a class"
+                    type="submit"
+                    disabled={false}
+                    loading={false}
+                  ></Button>
+                </TeacherItem>
+              </Div>
+            ))}
+
+            {/* <Div className="Takingitem">
               <TeacherItem>
                 <Image
                   src="/assets/images/teacher.png"
@@ -268,101 +278,7 @@ const TeachersSection = () => {
                   loading={false}
                 ></Button>
               </TeacherItem>
-            </Div>
-            <Div className="Takingitem">
-              <TeacherItem>
-                <Image
-                  src="/assets/images/teacher.png"
-                  alt="teacher image"
-                  width={417}
-                  height={458}
-                />
-                <TeacherInfo>
-                  <h2>Kate Smith</h2>
-                  <p>bases on developing minors creative skills </p>
-                </TeacherInfo>
-                <TeacherExperience>
-                  <div className="jobExprince">
-                    <h3>10 years </h3>
-                    <p>job experience </p>
-                  </div>
-                  <div className="ContentParent">
-                    <h3>150 more</h3>
-                    <p>content parents </p>
-                  </div>
-                </TeacherExperience>
-                <StarBlock>
-                  <div className="star">
-                    <Image
-                      src="/assets/svgs/Star.svg"
-                      alt="star icon"
-                      width={44}
-                      height={44}
-                    />
-                    <span>5,0</span>
-                  </div>
-                  <div className="userImg">
-                    <ul>
-                      <li>
-                        <Image
-                          src="/assets/images/user4.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user2.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user3.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user4.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                      <li>
-                        <Image
-                          src="/assets/images/user1.png"
-                          alt="user image"
-                          width={50}
-                          height={50}
-                        />
-                      </li>
-                    </ul>
-                    <a href="#">
-                      see more
-                      <Image
-                        src="/assets/svgs/seemore.svg"
-                        alt="underline icon"
-                        width={77}
-                        height={4}
-                      />
-                    </a>
-                  </div>
-                </StarBlock>
-                <Button
-                  content="Take a class"
-                  type="submit"
-                  disabled={false}
-                  loading={false}
-                ></Button>
-              </TeacherItem>
-            </Div>
+            </Div>             */}
           </OwlCarousel>
         </OwlCarouselBlock>
       </InnerContainer>

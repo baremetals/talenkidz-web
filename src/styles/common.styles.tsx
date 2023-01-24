@@ -49,34 +49,8 @@ export const Content = styled.div`
 
 export const PageHeading = styled.h1``;
 
-export const ToggleBar = styled.button`
-  @media (min-width: 992px) {
-    display: none;
-  }
-  width: 1.75rem;
-  max-width: 1.75rem;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  display: block;
-  cursor: pointer;
-  z-index: 1;
-  &:hover {
-    background-color: transparent;
-  }
-  span {
-    display: block;
-    border-radius: 0.25rem;
-    height: 4px;
-    background-color: #bc70ad;
-    margin: 0.25rem 0;
-  }
-`;
 
-export const NavBarHeader = styled.nav`
-  display: flex;
-  align-items: center;
-`;
+
 
 export const Logo = styled.div`
   margin-right: auto;
@@ -93,78 +67,6 @@ export const Logo = styled.div`
   }
 `;
 
-export const NavbarCollapse = styled.div`
-  @media (max-width: 991px) {
-    margin-top: 60px;
-    position: fixed;
-    background-color: #fff;
-    top: 0;
-    bottom: 0;
-    width: 20rem;
-    right: 0;
-    box-shadow: 0 0.25rem 0.625rem rgb(0 0 0 / 8%);
-    transition: transform 0.25s ease;
-    transform: translateX(100%);
-  }
-  &.opened {
-    @media (max-width: 991px) {
-      transform: none;
-    }
-  }
-`;
-
-export const NavBarNav = styled.ul`
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  @media (min-width: 992px) {
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  @media (max-width: 991px) {
-    flex-direction: column;
-    height: 100%;
-    overflow: auto;
-  }
-`;
-
-export const NavBarItem = styled.li`
-  margin-right: 2rem;
-  a {
-    display: block;
-    @media (max-width: 991px) {
-      padding: 0.75rem 1.375rem;
-    }
-  }
-  &:last-child {
-    margin-right: 0;
-  }
-  &.signup {
-    a {
-      background-color: #3762e4;
-      color: #fff;
-      padding: 0.5rem 1.375rem;
-      border-radius: 0.375rem;
-      &:hover {
-        background-color: #333;
-        color: #fff;
-      }
-      @media (max-width: 991px) {
-        border-radius: 0;
-        padding: 0.75rem 1.375rem;
-      }
-    }
-    @media (max-width: 991px) {
-      margin-top: auto;
-      border-bottom: none;
-    }
-  }
-  @media (max-width: 991px) {
-    margin-right: 0;
-    width: 100%;
-  }
-`;
 
 export const NavBarItemLink = styled.a`
   cursor: pointer;

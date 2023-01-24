@@ -75,6 +75,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: 'updatedAt:desc',
     },
   });
+  console.log('the fucking data', data);
 
   // if (data.status === 404) {
   //   return {
@@ -96,6 +97,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: 'slug:asc',
     },
   });
+ 
   return {
     props: { art: data, cats }, // will be passed to the page component as props
   };
