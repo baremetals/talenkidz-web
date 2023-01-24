@@ -61,7 +61,7 @@ const BestPlaceSection: React.FC = () => {
                         src="/assets/images/child.png"
                         alt="slider image"
                         className="location"
-                        width={348}
+                        width={365}
                         height={365}
                       />
                     </BestPlaceImg>
@@ -90,7 +90,7 @@ const BestPlaceSection: React.FC = () => {
                         src="/assets/images/child.png"
                         alt="slider image"
                         className="location"
-                        width={348}
+                        width={365}
                         height={365}
                       />
                     </BestPlaceImg>
@@ -119,7 +119,7 @@ const BestPlaceSection: React.FC = () => {
                         src="/assets/images/child.png"
                         alt="slider image"
                         className="location"
-                        width={348}
+                        width={365}
                         height={365}
                       />
                     </BestPlaceImg>

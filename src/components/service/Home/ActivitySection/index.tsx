@@ -7,7 +7,7 @@ import {
   Row,
   Column,
 } from 'styles/common.styles';
-import { ChildHeader, ChildServiceItem, ChildServices } from './as.styles';
+import {ShapeImageBlock, ShapeImage, ChildHeader, ChildServiceItem, ChildServices } from './as.styles';
 
 
 
@@ -15,22 +15,25 @@ const ActivitySection: React.FC = () => {
     
     return (
       <ChildServices>
-        <InnerContainer>
+        <InnerContainer className='container'>
           <ChildHeader>
             Choose the most appropriate service for your child{' '}
           </ChildHeader>
           <Row className="ChildSectionRow">
-            <Column>
+            <Column className='col-4'>
               <ChildServiceItem>
-                <Image
-                  src="/assets/images/child1.png"
-                  alt="question"
-                  width={807}
-                  height={853}
-                />
-                <h3>
-                  Put more into kid’s{' '}
-                  <span className="undeline">creativity</span>
+                 <ShapeImageBlock>
+                    <ShapeImage>
+                    <Image
+                      src="/assets/images/child1.png"
+                      alt="question"
+                      width={400}
+                      height={400}
+                        />
+                  </ShapeImage>
+                </ShapeImageBlock>
+                <h3 className='label'>
+                  Put more into kid’s <span className="undeline">creativity</span>
                 </h3>
                 <Button
                   content="Choose an activity"
@@ -41,17 +44,20 @@ const ActivitySection: React.FC = () => {
                 />
               </ChildServiceItem>
             </Column>
-            <Column>
+            <Column className='col-4'>
               <ChildServiceItem>
-                <Image
-                  src="/assets/images/child2.png"
-                  alt="question"
-                  width={807}
-                  height={853}
-                />
-                <h3>
-                  Advance their sport{' '}
-                  <span className="undelineSecond">skills</span>
+                <ShapeImageBlock>
+                    <ShapeImage>
+                    <Image
+                      src="/assets/images/child2.png"
+                      alt="question"
+                      width={370}
+                      height={370}
+                        />
+                  </ShapeImage>
+                </ShapeImageBlock>
+                <h3 className='label'>
+                  Advance their sport <span className="undelineSecond">skills</span>
                 </h3>
                 <Button
                   content="Choose an activity"
@@ -62,15 +68,19 @@ const ActivitySection: React.FC = () => {
                 />
               </ChildServiceItem>
             </Column>
-            <Column>
+            <Column className='col-4'>
               <ChildServiceItem>
-                <Image
-                  src="/assets/images/child3.png"
-                  alt="question"
-                  width={807}
-                  height={853}
-                />
-                <h3>
+               <ShapeImageBlock>
+                    <ShapeImage>
+                    <Image
+                      src="/assets/images/child3.png"
+                      alt="question"
+                      width={370}
+                      height={370}
+                        />
+                  </ShapeImage>
+                </ShapeImageBlock>
+                <h3 className='label'>
                   Put more into <span className="undeline">education</span>
                 </h3>
                 <Button

@@ -15,8 +15,13 @@ export const LocationImg = styled.div`
 
 export const BestPlaceImg = styled.div`
   text-align: center;
+  border-radius: 80% 0% 80% 80% / 80% 80% 80% 80%;
+  overflow: hidden;
   max-width: 320px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const BestPlaceInfo = styled.div`
