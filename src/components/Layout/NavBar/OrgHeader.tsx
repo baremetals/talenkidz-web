@@ -6,20 +6,23 @@ import Image from 'next/image';
 
 import {
     InnerContainer,
-    NavBarHeader,
+
     Logo,
-    ToggleBar,
-    NavbarCollapse,
-    NavBarNav,
+
     SiteHeader,
-    NavBarItem,
+
 } from "styles/common.styles";
 
 import {
     ProfileImg,
     ProfileSetting,
     ProfileDropdown,
-    ProfileItem
+    ProfileItem,
+    ToggleBar,
+    NavbarCollapse,
+    NavBarNav,
+    NavBarItem,
+    NavBarHeader
 } from "./NavBar.styles"
 import { AuthContext } from 'src/features/auth/AuthContext';
 

@@ -13,11 +13,7 @@ import {
     MediaObjectTitle,
 } from "styles/common.styles";
 
-// type cardProps = {
-//     image: string;
-//     date: string;
-//     title: string;
-// }
+
 function NewsCard(): ReactElement {
   const router = useRouter();
     const { data, loading, error } = useArticlesQuery({

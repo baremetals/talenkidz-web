@@ -1,37 +1,19 @@
 import React, { ReactElement, useState } from 'react'
-import dynamic from 'next/dynamic';
 import Link from 'next/link'
 import Image from 'next/image';
 import axios from 'axios';
 import { addToMailingList } from 'src/helpers'
-// import PolicyPopUp from "components/Policy"
+import PolicyPopUp from 'components/service/Policy';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-
-
-
-
-
-import {
-  Column,
-  InnerContainer,
-  Logo,
-  Row,
-  Input,
-} from 'styles/common.styles';
-
-// import { NewsCard } from './NewsCard'
 import Button from 'components/widgets/Button';
-// import AdComponent from 'components/AdComponent';
-
 import { FaceBook } from "public/assets/icons/FaceBook";
 import { Tiktok } from "public/assets/icons/Tiktok";
 import { LinkedIn } from "public/assets/icons/LinkedIn";
 import { Twitter } from "public/assets/icons/Twitter";
 import { Instagram } from 'public/assets/icons/Instagram';
 import { YouTube } from 'public/assets/icons/YouTube';
-import PolicyPopUp from 'components/service/Policy';
+import { Column, InnerContainer, Logo, Row, Input } from 'styles/common.styles';
 import {
   SiteFooter,
   FooterLinks,
