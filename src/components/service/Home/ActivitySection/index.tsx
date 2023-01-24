@@ -32,9 +32,8 @@ const ActivitySection: React.FC = () => {
                         />
                   </ShapeImage>
                 </ShapeImageBlock>
-                <h3>
-                  Put more into kid’s{' '}
-                  <span className="undeline">creativity</span>
+                <h3 className='label'>
+                  Put more into kid’s <span className="undeline">creativity</span>
                 </h3>
                 <Button
                   content="Choose an activity"
@@ -57,9 +56,8 @@ const ActivitySection: React.FC = () => {
                         />
                   </ShapeImage>
                 </ShapeImageBlock>
-                <h3>
-                  Advance their sport{' '}
-                  <span className="undelineSecond">skills</span>
+                <h3 className='label'>
+                  Advance their sport <span className="undelineSecond">skills</span>
                 </h3>
                 <Button
                   content="Choose an activity"
@@ -82,7 +80,7 @@ const ActivitySection: React.FC = () => {
                         />
                   </ShapeImage>
                 </ShapeImageBlock>
-                <h3>
+                <h3 className='label'>
                   Put more into <span className="undeline">education</span>
                 </h3>
                 <Button

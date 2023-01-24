@@ -26,6 +26,28 @@ export const ChildServices = styled.section`
 
 export const ChildServiceItem = styled.div`
   text-align: right;
+  .label {
+    .undeline {
+          background: url(../underline.svg);
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 400;
+          background-repeat: no-repeat;
+          background-position: 0 30px;
+          background-size: contain;
+          min-height: 42px;
+          display: inline-block;
+        }
+    .undelineSecond {
+      background: url(..//underlineSecond.svg);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      background-repeat: no-repeat;
+      background-position: 0 30px;
+      background-size: contain;
+      min-height: 42px;
+      display: inline-block;
+    }
+    }
   h3 {
     font-style: normal;
     font-weight: 500;
@@ -34,26 +56,7 @@ export const ChildServiceItem = styled.div`
     text-align: right;
     margin: 30px 0;
     font-family: 'Montserrat', sans-serif;
-    .undeline {
-      background: url(/underline.svg);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      background-repeat: no-repeat;
-      background-position: 0 30px;
-      background-size: contain;
-      min-height: 42px;
-      display: inline-block;
-    }
-    .undelineSecond {
-      background: url(/underlineSecond.svg);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      background-repeat: no-repeat;
-      background-position: 0 30px;
-      background-size: contain;
-      min-height: 42px;
-      display: inline-block;
-    }
+    postion:relative:
     @media (max-width: 1024px) {
       min-height: 72px;
     }
