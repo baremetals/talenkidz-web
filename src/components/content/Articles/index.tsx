@@ -6,14 +6,15 @@ import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { updateStrapiEntity } from 'src/helpers';
 import { upperCase } from 'src/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import TalentedKids from 'components/content/Articles/TalentedKids';
+import {TalentedKidBlock,  ArticleTitle } from './styles';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
 import {
   Bottom,
   Column,
-  InnerBanner,
   InnerContainer,
   PageContainer,
   Post,
@@ -206,27 +207,45 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   };
   return (
     <>
-      <InnerBanner>
-        <InnerContainer>
-          <Title>
-            {`${
+    <InnerContainer>
+      <Breadcrumb />
+        <ArticleTitle>
+          <Title className='title'>
+            {/* {`${
               router.query.category === undefined
                 ? 'Latest'
                 : upperCase(router.query.category as string)
-            }`}{' '}
-            Articles
+            }`}{' '} */}
+              <span>TRENDING</span> ON TALENTKIDS
           </Title>
-          <Text style={{ marginBottom: '0', color: '#000000' }}>
-            <Link href={'/'}>Home </Link> /{' '}
-            <Link href={'/articles'}>Articles </Link>{' '}
-            {`${
-              router.query.category === undefined
-                ? ''
-                : '/ ' + upperCase(router.query.category as string)
-            }`}
-          </Text>
-        </InnerContainer>
-      </InnerBanner>
+        </ArticleTitle>
+       
+        <TalentedKidBlock>
+          <Row className='rowblock'>
+            <Column>
+              <TalentedKids />
+            </Column>
+              <Column>
+              <TalentedKids />
+            </Column>
+              <Column>
+              <TalentedKids />
+            </Column>
+          </Row>
+          <Row >
+            <Column>
+              <TalentedKids />
+            </Column>
+              <Column>
+              <TalentedKids />
+            </Column>
+              <Column>
+              <TalentedKids />
+            </Column>
+          </Row>
+      </TalentedKidBlock>
+
+      </InnerContainer>
 
       <PageContainer>
         <InnerContainer>
