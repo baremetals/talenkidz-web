@@ -6,14 +6,14 @@ import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { updateStrapiEntity } from 'src/helpers';
 import { upperCase } from 'src/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import { ArticleTitle } from './styles';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
 import {
   Bottom,
   Column,
-  InnerBanner,
   InnerContainer,
   PageContainer,
   Post,
@@ -206,27 +206,19 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   };
   return (
     <>
-      <InnerBanner>
-        <InnerContainer>
-          <Title>
-            {`${
-              router.query.category === undefined
-                ? 'Latest'
-                : upperCase(router.query.category as string)
-            }`}{' '}
-            Articles
-          </Title>
-          <Text style={{ marginBottom: '0', color: '#000000' }}>
-            <Link href={'/'}>Home </Link> /{' '}
-            <Link href={'/articles'}>Articles </Link>{' '}
-            {`${
-              router.query.category === undefined
-                ? ''
-                : '/ ' + upperCase(router.query.category as string)
-            }`}
-          </Text>
+      <InnerContainer>
+        <Breadcrumb />
+          <ArticleTitle>
+            <Title className='title'>
+              {/* {`${
+                router.query.category === undefined
+                  ? 'Latest'
+                  : upperCase(router.query.category as string)
+              }`}{' '} */}
+               <span>TRENDING</span> ON TALENTKIDS
+            </Title>
+          </ArticleTitle>
         </InnerContainer>
-      </InnerBanner>
 
       <PageContainer>
         <InnerContainer>
