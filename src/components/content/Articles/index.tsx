@@ -7,7 +7,8 @@ import { updateStrapiEntity } from 'src/helpers';
 import { upperCase } from 'src/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Breadcrumb from 'components/widgets/Breadcrumb';
-import { ArticleTitle } from './styles';
+import TalentedKids from 'components/content/Articles/TalentedKids';
+import {TalentedKidBlock,  ArticleTitle } from './styles';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
@@ -206,19 +207,45 @@ const Articles = ({ articles, categories, total }: pageProps) => {
   };
   return (
     <>
-      <InnerContainer>
-        <Breadcrumb />
-          <ArticleTitle>
-            <Title className='title'>
-              {/* {`${
-                router.query.category === undefined
-                  ? 'Latest'
-                  : upperCase(router.query.category as string)
-              }`}{' '} */}
-               <span>TRENDING</span> ON TALENTKIDS
-            </Title>
-          </ArticleTitle>
-        </InnerContainer>
+    <InnerContainer>
+      <Breadcrumb />
+        <ArticleTitle>
+          <Title className='title'>
+            {/* {`${
+              router.query.category === undefined
+                ? 'Latest'
+                : upperCase(router.query.category as string)
+            }`}{' '} */}
+              <span>TRENDING</span> ON TALENTKIDS
+          </Title>
+        </ArticleTitle>
+       
+        <TalentedKidBlock>
+        <Row className='Row'>
+          <Column>
+             <TalentedKids />
+          </Column>
+            <Column>
+             <TalentedKids />
+          </Column>
+            <Column>
+             <TalentedKids />
+          </Column>
+        </Row>
+        <Row className='Row'>
+          <Column>
+             <TalentedKids />
+          </Column>
+            <Column>
+             <TalentedKids />
+          </Column>
+            <Column>
+             <TalentedKids />
+          </Column>
+        </Row>
+      </TalentedKidBlock>
+
+      </InnerContainer>
 
       <PageContainer>
         <InnerContainer>

@@ -25,3 +25,10 @@ export const ArticleTitle = styled.div`
      }
   }
 `;
+
+export const TalentedKidBlock = styled.div`
+ .Row {
+  margin-bottom:15px
+ }
+`;
+
