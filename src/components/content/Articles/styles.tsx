@@ -27,8 +27,9 @@ export const ArticleTitle = styled.div`
 `;
 
 export const TalentedKidBlock = styled.div`
- .Row {
-  margin-bottom:15px
- }
+ margin-bottom:160px;
+  .rowblock {
+    margin-bottom:15px;
+  }
 `;
 
