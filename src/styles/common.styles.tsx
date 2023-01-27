@@ -1380,6 +1380,8 @@ export const AdBlock = styled.div`
   top: 0;
 `;
 
+
+
 export const Question = styled.section`
   padding-top: 6.25rem;
   padding-bottom: 6.25rem;
@@ -1408,6 +1410,84 @@ export const Question = styled.section`
     width: 100%;
   }
 `;
+
+export const SerchBlocks = styled.div`
+    margin-bottom: 50px;
+`;
+
+
+export const ArticleInfo = styled.div`
+    margin-bottom: 50px;
+`;
+
+export const ArticleBody = styled.div`
+    margin-bottom: 50px;
+    h1 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 52px;
+      line-height: 123.1%;
+      color: #39007E;
+      margin-bottom:20px;
+    }
+    p {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 130%;
+      color: #000000;
+      margin-bottom:25px;
+    }
+`;
+
+export const ArticleImg = styled.div`
+   border-radius: 50% 50% 0% 50%;
+   overflow: hidden;
+   width: 407px;
+   height: 407px;
+   display: flex;
+     margin-bottom: 50px;
+`;
+
+export const ArticleDescription = styled.div`
+  margin-bottom: 90px;
+  p {
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 138%;
+    margin-bottom: 20px;
+  }
+`;
+
+export const ArticleAuthor = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom:35px;
+`;
+
+export const ArticleAuthorImg = styled.div`
+    width: 45px;
+    height: 45px;
+    background: #7495A5;
+    border: 1px solid #FFFFFF;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-right:20px;
+`;
+
+export const ArticleAuthorSpe = styled.div`
+  h2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #0F021F;
+    margin-bottom: 10px;
+  }
+`;
+
+
+
 
 
 

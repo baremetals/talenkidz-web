@@ -13,15 +13,22 @@ export const ImgBlock = styled.div`
 
 export const KidsInfo = styled.div`
   margin-right:20px;
+  max-width:60%;
   h2 {
     color: #39007E;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 30px;
     line-height: 123.1%;
     margin-bottom:20px;
   }
 `;
+export const KidImgColumn = styled.div`
+    display: flex;
+    width: 40%;
+    align-items: center;
+`;
+
 
 export const Datetime = styled.div`
  display:flex;
@@ -38,7 +45,7 @@ export const Date = styled.div`
   display:flex;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
   color: rgba(15, 2, 31, 0.7);
   margin-right:14px;
@@ -48,7 +55,7 @@ export const Time = styled.div`
   display:flex;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
   color: rgba(15, 2, 31, 0.7);
    margin-left:14px;
@@ -58,7 +65,7 @@ export const KidUserBlock = styled.div`
   display:flex;
   align-items:center;
   margin-bottom: 20px;
-  max-width:360px;
+  max-width:260px;
   justify-content: space-between;
 `;
 
@@ -98,10 +105,30 @@ justify-content: center;
 
 export const KidSpe = styled.p`
 font-weight: 500;
-font-size: 14px;
-line-height: 17px;
+font-size: 18px;
+line-height: normal;
 color: #574E62;
 `;
+
+
+export const BooksBtn = styled.div`
+  button {
+    background: rgba(57, 0, 126, 0.2) !important;
+    border-radius: 50px !important;
+    padding:6px 15px;
+    color: rgba(57, 0, 126, 0.59);
+    font-weight: 500;
+    font-size: 14px;
+    min-width: 80.91px;
+    margin-left:50px;
+    &:hover {
+      background: rgba(57, 0, 126, 0.2) !important;
+      color: rgba(57, 0, 126, 0.59);
+      border-color: rgba(57, 0, 126, 0.59);
+    }
+  }
+`;
+
 
 
 
