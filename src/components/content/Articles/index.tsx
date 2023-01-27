@@ -7,8 +7,13 @@ import { updateStrapiEntity } from 'src/helpers';
 import { upperCase } from 'src/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Breadcrumb from 'components/widgets/Breadcrumb';
+import Fields from 'components/widgets/Fields';
 import TalentedKids from 'components/content/Articles/TalentedKids';
-import {TalentedKidBlock,  ArticleTitle } from './styles';
+import TalentedKidsWithPic from 'components/content/Articles/TalentedKidsWithPic';
+
+import { SerchBlock, LinkBlock, PageTitle, TalentedKidBlock, TalentedKidsBlock, ArticleTitle } from './styles';
+
+import Search from 'components/widgets/Search';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
@@ -249,6 +254,31 @@ const Articles = ({ articles, categories, total }: pageProps) => {
 
       <PageContainer>
         <InnerContainer>
+          <Row>
+            <Column>
+                <PageTitle>Find more useful tips from our <span>articles</span></PageTitle>  
+            </Column>
+          </Row>
+          <Row>
+            <Column className='column-7'>
+                <TalentedKidsBlock>
+                  <TalentedKidsWithPic className="kidsRow" />
+                  <TalentedKidsWithPic className="kidsRow" />
+                  <TalentedKidsWithPic className="kidsRow" />
+                  <TalentedKidsWithPic className="kidsRow" />
+                  <TalentedKidsWithPic className="kidsRow" />
+                  <LinkBlock >
+                    <Link href={'#'}>Discover more</Link> 
+                  </LinkBlock>
+                </TalentedKidsBlock>
+            </Column>
+            <Column className='column-5'>
+              <SerchBlock>
+                <Search placeholder={'Search particular information'} />
+              </SerchBlock>
+              <Fields/>
+            </Column>
+          </Row>
           <Row>
             <Column
               className="column-7"
