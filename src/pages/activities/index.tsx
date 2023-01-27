@@ -20,7 +20,7 @@ type pageProps = {
 function ListingsPage(props: pageProps) {
   const { cats, lists } = props;
   const description = 'Activities';
-  const url = 'https://talentkids.io/activities';
+  const url = 'https://www.talentkids.io/activities';
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {

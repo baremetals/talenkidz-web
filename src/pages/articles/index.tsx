@@ -25,7 +25,7 @@ type pageProps = {
 function ArticlesPage(props: pageProps) {
   const { cats, art } = props;
   const description = 'Articles';
-  const url = 'https://talentkids.io/articles';
+  const url = 'https://www.talentkids.io/articles';
   // console.log(art);
 
   

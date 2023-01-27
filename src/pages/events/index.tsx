@@ -20,7 +20,7 @@ type pageProps = {
 const EventsPage = (props: pageProps) => {
   const { cats, eve } = props;
   const description = 'Events';
-  const url = 'https://talentkids.io/events';
+  const url = 'https://www.talentkids.io/events';
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {

@@ -25,14 +25,14 @@ const EditProfilePage = (data: ProfileProps) => {
         <meta
           property="og:url"
           content={
-            `https://telentkids.io/user-profile/${user?.username}/edit-profile` ||
+            `https://www.talentkids.io/user-profile/${user?.username}/edit-profile` ||
             ''
           }
         />
         <link
           rel="canonical"
           href={
-            `https://telentkids.io/user-profile/${user?.username}/edit-profile` ||
+            `https://www.talentkids.io/user-profile/${user?.username}/edit-profile` ||
             ''
           }
         />

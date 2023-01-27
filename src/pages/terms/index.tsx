@@ -16,7 +16,7 @@ const TermsPage = () => {
     getTermsData();
   }, []);
   const description = "Talentkids terms and conditions";
-  const url = 'https://talentkids.io/terms';
+  const url = 'https://www.talentkids.io/terms';
   return (
     <>
       <Layout

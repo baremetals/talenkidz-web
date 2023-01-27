@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const ConnectWithProvider = () => {
   const router = useRouter();
   const { provider } = router.query;
-  const url = `https://talentkids.io/auth/connect/${provider}`;
+  const url = `https://www.talentkids.io/auth/connect/${provider}`;
   return (
     <Layout
       title={`Talentkids | ${provider} Login`}

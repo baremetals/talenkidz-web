@@ -24,7 +24,7 @@ function FilteredListingsPage(props: pageProps) {
   const { category } = router.query;
 
   const description = 'Activities';
-  const url = `https://talentkids.io/listings/${category}`;
+  const url = `https://www.talentkids.io/listings/${category}`;
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {

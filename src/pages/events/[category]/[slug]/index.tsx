@@ -23,7 +23,7 @@ const Event = (props: {
   const event = props?.data?.events?.data[0];
   const location = event?.attributes?.Location;
   const meta = event?.attributes?.SEO;
-  const host = event?.attributes?.host?.data?.attributes;
+  // const host = event?.attributes?.host?.data?.attributes;
   // console.log(host)
 
   let place: locationType | onlineLocationType | bothLocationType;

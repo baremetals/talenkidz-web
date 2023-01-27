@@ -30,11 +30,11 @@ const UserProfile = (data: ProfileProps) => {
         <meta property="og:type" content="account page" />
         <meta
           property="og:url"
-          content={`https://telentkids.io/account/${user?.username}/` || ''}
+          content={`https://www.talentkids.io/account/${user?.username}/` || ''}
         />
         <link
           rel="canonical"
-          href={`https://telentkids.io/user-profile/${user?.username}/` || ''}
+          href={`https://www.talentkids.io/user-profile/${user?.username}/` || ''}
         />
       </Head>
       <ProfilePage props={user} />

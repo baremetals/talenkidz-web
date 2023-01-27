@@ -41,12 +41,14 @@ function OrganisationPage(props: PropsType) {
         <meta
           property="og:url"
           content={
-            `https://telentkids.io/account/${attributes?.username}/` || ''
+            `https://www.talentkids.io//account/${attributes?.username}/` || ''
           }
         />
         <link
           rel="canonical"
-          href={`https://telentkids.io/account/${attributes?.username}/` || ''}
+          href={
+            `https://www.talentkids.io//account/${attributes?.username}/` || ''
+          }
         />
       </Head>
       {attributes?.userType === 'standard' && (

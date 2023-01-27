@@ -24,7 +24,7 @@ const ListDetailsPage = (props: {
   const list = props?.data?.listings?.data[0];
   const meta = list?.attributes?.SEO;
   const location = list?.attributes?.Location;
-  const host = list?.attributes?.host?.data?.attributes;
+  // const host = list?.attributes?.host?.data?.attributes;
 
   let place: locationType | onlineLocationType | bothLocationType;
 

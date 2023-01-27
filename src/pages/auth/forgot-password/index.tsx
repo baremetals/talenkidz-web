@@ -3,7 +3,7 @@ import Layout from 'components/Layout';
 // import { withApollo } from "utils/withApollo";
 
 function ForgotPasswordPage() {
-  const url = 'https://talentkids.io/auth/forgot-password';
+  const url = 'https://www.talentkids.io/auth/forgot-password';
   return (
     <Layout
       title={`Talentkids | Forgot Password`}

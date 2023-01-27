@@ -7,7 +7,7 @@ function HomePage() {
   const description = `Talentkids provides ideas on activity-based learning and technology games for kids.
   Discover events and activities for kids. Find career building activities and learn how to build and use technology. 
   It's the platform that prepare your kids for the future`;
-  const url = 'https://talentkids.io/';
+  const url = 'https://www.talentkids.io/';
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {

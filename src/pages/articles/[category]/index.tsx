@@ -25,7 +25,7 @@ function FilteredArticlesPage(props: pageProps) {
   const { cats, art } = props;
   const { category } = router.query;
   const description = 'Articles';
-  const url = `https://talentkids.io/articles/${category}`;
+  const url = `https://www.talentkids.io/articles/${category}`;
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {

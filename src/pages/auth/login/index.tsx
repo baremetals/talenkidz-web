@@ -6,7 +6,7 @@ import Layout from 'components/Layout';
 function LoginPage() {
   // useIsAuth();
   const description = "Talentkids - Login";
-  const url = 'https://talentkids.io/auth/login';
+  const url = 'https://www.talentkids.io/auth/login';
   return (
     <Layout
       title={`Welcome to Talentkids | Login`}

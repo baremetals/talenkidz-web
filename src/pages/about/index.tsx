@@ -21,7 +21,7 @@ const AboutUs = ({ ...attributes }) => {
     current generation’s mindset, responsible for shaping children’s future, 
     and ultimately contributing to a better tomorrow.
   `;
-  const url = 'https://talentkids.io/about';
+  const url = 'https://www.talentkids.io/about';
   // console.log(cats?.data?.categories?.data);
 
   // const structuredData = {

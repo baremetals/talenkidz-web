@@ -4,7 +4,7 @@ import Layout from 'components/Layout';
 
 function RegisterPage() {
   const description = `Register - Events and activities for kids`;
-  const url = 'https://talentkids.io/auth/register';
+  const url = 'https://www.talentkids.io/auth/register';
   return (
     <Layout
       title={`Talentkids | Register`}
