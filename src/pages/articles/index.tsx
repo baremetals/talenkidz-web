@@ -12,6 +12,10 @@ import {
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
+
+import {
+  InnerContainer,
+} from 'styles/common.styles';
 // import {
 //   SearchProvider,
 // } from 'components/utilities/search/SearchContext';
@@ -53,7 +57,10 @@ function ArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
+      
       <SearchProvider>
+        <InnerContainer>
+       </InnerContainer>
         <Articles
           articles={art?.articles?.data}
           categories={cats?.data?.categories?.data}
