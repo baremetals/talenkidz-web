@@ -8,7 +8,7 @@ import {
   EventsDocument,
   EventsQueryResult,
 } from 'generated/graphql';
-import { client } from 'src/lib/initApollo';
+//import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 
@@ -57,29 +57,30 @@ const EventsPage = (props: pageProps) => {
 };
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
-  const { data } = await client.query<EventsQueryResult>({
-    query: EventsDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'createdAt:desc',
-    },
-  });
+  //const { data } = await client.query<EventsQueryResult>({
+    // query: EventsDocument,
+    // variables: {
+    //   pagination: {
+    //     start: 0,
+    //     limit: 6,
+    //   },
+    //   sort: 'createdAt:desc',
+    // },
+  //});
 
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
+  // const cats = await client.query<CategoriesQueryResult>({
+  //   query: CategoriesDocument,
+  //   variables: {
+  //     pagination: {
+  //       start: 0,
+  //       limit: 6,
+  //     },
+  //     sort: 'slug:asc',
+  //   },
+  // });
   return {
-    props: { eve: data, cats }, // will be passed to the page component as props
+    //props: { eve: data, cats }, // will be passed to the page component as props
+     props: { eve: ''}, 
   };
 }
 

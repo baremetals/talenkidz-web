@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Breadcrumbs = styled.ul`
   list-style: none;
   padding: 0;
+  margin-left:60px;
   & > li:after {
     content: "";
     width: 10px;
