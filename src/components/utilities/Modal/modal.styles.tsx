@@ -2,18 +2,22 @@ import styled from "styled-components";
 
 
 export const Background = styled.div`
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgb(0 0 0 / 50%);
-    z-index: 99999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(0 0 0 / 50%);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  > div {
+    width: 100%;
+  }
+  .closeModal {
     display: flex;
-    align-items: center;
-    > div {
-        width: 100%
-    }
+    cursor: pointer;
+  }
 `;
 
 

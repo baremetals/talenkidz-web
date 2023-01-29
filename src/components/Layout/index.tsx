@@ -2,6 +2,11 @@ import React, { ReactNode } from 'react';
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import NavBar from './NavBar';
+import AuthModal from 'components/utilities/Modal/AuthModal';
+import {
+  openSelector,
+} from 'src/features/modal/selectors';
+import { useAppSelector } from 'src/app/hooks';
 
 
 const DynamicFooter = dynamic(() => import('./Footer'), {
@@ -38,6 +43,8 @@ const Layout = ({
   keywords,
   author,
 }: LayoutProps) => {
+
+  const isOpen = useAppSelector(openSelector);
 
   //  const structuredData = {
   //    '@context': 'https://schema.org',
@@ -94,6 +101,9 @@ const Layout = ({
       <NavBar />
       {children}
       <DynamicFooter />
+      {isOpen && (
+          <AuthModal />
+        )}
     </div>
   );
 };

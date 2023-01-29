@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Formik } from 'formik';
+import { useRouter } from 'next/router';
 
 import {
   InnerContainer,
   Title,
   Text,
-  LoginWrapper,
-  LoginInner,
-  FormWrap,
-  FormGroup,
-  Icon,
-  FormInput,
+  
   FlexGroup,
   Checkbox,
   FormLabel,
@@ -24,6 +20,9 @@ import { Lock } from 'public/assets/icons/Lock';
 import { Message } from 'public/assets/icons/Message';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
+import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper } from '../auth-styles';
 
 
 export interface ILoginForm {
@@ -44,8 +43,10 @@ const initialValues = {
   error: '',
 };
 const LoginForm: React.FC<ILoginForm> = () => {
+  const router = useRouter();
   const { loginUser } = useContext(AuthContext);
   const [errorMsg, setErrorMsg] = useState(false);
+  const dispatch = useAppDispatch();
 
 
   const handleSubmit = async ({ ...values }: LoginUserProps) => {
@@ -66,6 +67,16 @@ const LoginForm: React.FC<ILoginForm> = () => {
       console.log('error: ', err);
     }
   };
+
+  const handleModal = useCallback((type: string) => {
+    if (type === 'pass') {
+      dispatch(openModal('FORGOTPASSWORD_FORM'));
+    } else {
+      dispatch(openModal('REGISTER_FORM'));
+    }
+    
+  }, [dispatch]);
+
   return (
       <Formik
         initialValues={initialValues}
@@ -124,9 +135,11 @@ const LoginForm: React.FC<ILoginForm> = () => {
                         />
                         <FormLabel htmlFor="RememberMe">Remember Me</FormLabel>
                       </Checkbox>
-                      <Link href={'/auth/forgot-password'}>
-                        Forgot Password?
-                      </Link>
+                      <div onClick={() => handleModal('pass')}>
+                        <Link href={`${router.pathname}?modal=true`}>
+                          Forgot Password?
+                        </Link>
+                      </div>
                     </FlexGroup>
                   </FormGroup>
                   <FormGroup className="submit-button">
@@ -146,9 +159,10 @@ const LoginForm: React.FC<ILoginForm> = () => {
                         color: '#120D26',
                         fontSize: '.875rem',
                       }}
+                      onClick={() => handleModal('reg')}
                     >
                       Don’t have an account?{' '}
-                      <Link href={'/auth/register'}>
+                      <Link href={`${router.pathname}?modal=true`}>
                         <a style={{ color: '#A35193' }}>Sign up</a>
                       </Link>
                     </Text>

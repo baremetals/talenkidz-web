@@ -6,12 +6,11 @@ import styled from 'styled-components';
 import Spinner from 'components/utilities/Spinner';
 import {
   InnerContainer,
-  LoginInner,
-  LoginWrapper,
   PageContainer,
   Title,
 } from 'styles/common.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
+import { LoginInner, LoginWrapper } from '../auth-styles';
 
 // const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {

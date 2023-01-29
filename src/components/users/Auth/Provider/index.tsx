@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 
 import { GoogleLogin } from "public/assets/icons/GoogleLogin";
 import { FacebookLogin } from "public/assets/icons/FacebookLogin";
+import { FormGroup } from '../auth-styles';
 
-import { FormGroup } from 'styles/common.styles';
+
 
 const backendUrl = process.env.NEXT_PUBLIC_API_URL
 const Provider = () => {

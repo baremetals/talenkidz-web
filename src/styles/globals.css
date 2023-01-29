@@ -134,7 +134,7 @@ button,
     border: none;
     font-size: 14px;
     cursor: pointer;
-    border: 2px solid #bc70ad;
+    /* border: 2px solid #bc70ad; */
 }
 
 button:hover,
@@ -309,7 +309,7 @@ textarea:hover,
 }
 
 .modal-style .modal-style .modal-style {
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
 }
 
 .toggle-button {

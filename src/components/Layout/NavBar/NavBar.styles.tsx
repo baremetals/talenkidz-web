@@ -148,7 +148,7 @@ export const NavBarItem = styled.div`
     margin-right: 0;
   }
   &.Mobilesignup {
-    a {
+    button {
       background: #0f021f;
       color: #fff;
       padding: 19px 1.375rem;
@@ -174,8 +174,8 @@ export const NavBarItem = styled.div`
     }
   }
   &.signup {
-    list-style: none;
-    a {
+    /* list-style: none; */
+    button {
       background: #0f021f;
       color: #fff;
       padding: 19px 1.375rem;

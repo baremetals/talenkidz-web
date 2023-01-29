@@ -1,20 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Formik } from 'formik';
 
 import {
   Column,
-  FormGroup,
-  FormInput,
-  FormWrap,
-  Icon,
   InnerContainer,
-  LoginInner,
-  LoginWrapper,
   Row,
   Text,
   Title,
 } from 'styles/common.styles';
-import { RadioFormGroup, RadioFormInput } from '../auth-styles';
+import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper, RadioFormGroup, RadioFormInput } from '../auth-styles';
 import Button from 'components/users/Auth/Button';
 import { Error, ErrorMsg } from 'components/widgets/Input';
 import { getRegisterValidationSchema } from 'src/utils/formValidation';
@@ -25,6 +19,8 @@ import { Profile } from 'public/assets/icons/Profile';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
 
 
 export interface IRegisterForm {
@@ -57,6 +53,9 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
   const { signOutFirebaseUser, registerNewUser } = useContext(AuthContext);
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
+  // const [openModal, setOpenModal] = useState(false);
+  // const [openLoginModal, setOpenLoginModal] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async ({ ...values }: registerUserProps) => {
   // console.log(values);
@@ -85,6 +84,13 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
       console.log('error: ', err);
     }
   };
+
+  const handleModal = useCallback(
+    () => {
+      dispatch(openModal('LOGIN_FORM'));
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -220,9 +226,10 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
                         color: '#120D26',
                         fontSize: '.875rem',
                       }}
+                      onClick={() => handleModal()}
                     >
                       Already have an account?{' '}
-                      <Link href={'/auth/login'}>
+                      <Link href={`${router.pathname}?modal=true`}>
                         <a style={{ color: '#A35193' }}>Sign In</a>
                       </Link>
                     </Text>
