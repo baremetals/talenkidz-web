@@ -1,46 +1,63 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useRouter } from 'next/router';
-import { useSpring, animated } from "react-spring";
-import {
-    PageContainer,
-    Background,
-} from "./modal.styles";
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useSpring, animated } from 'react-spring';
+import { Background } from './modal.styles';
+import Register from 'components/users/Auth/Register'
+import Login from 'components/users/Auth/Login';
+import ForgotPassword from 'components/users/Auth/ForgotPassword';
+import PasswordReset from 'components/users/Auth/PasswordReset/ResetPasswordForm';
+import TermsModal from 'components/users/Auth/TermsModal'
 
-export const Modal = ({
-  showModal,
-  setShowModal,
-  modalType,
-  route,
-  children,
+import { useAppSelector, useAppDispatch } from 'src/app/hooks';
+import {
+  openSelector,
+  componentSelector,
+} from 'src/features/modal/selectors';
+import { closeModal } from 'src/features/modal/reducers';
+import PolicyConsent from 'components/service/Policy/PolicyConsent';
+import PolicySettings from 'components/service/Policy/PolicySettings';
+
+
+/** Components Name Constants */
+const MODAL_COMPONENTS = {
+  REGISTER_FORM: Register,
+  LOGIN_FORM: Login,
+  FORGOTPASSWORD_FORM: ForgotPassword,
+  RESETPASSWORD_FORM: PasswordReset,
+  TERMS_MODAL: TermsModal,
+  POLICY_CONSENT: PolicyConsent,
+  POLICY_SETTINGS: PolicySettings
+};
+
+export default function AuthModal({
   ...props
-}: any) => {
+}: any) {
+  const isOpen  = useAppSelector(openSelector);
+  const modalComponent = useAppSelector(componentSelector);
+  const dispatch = useAppDispatch();
   const modalRef = useRef();
-  const router = useRouter();
+  // const router = useRouter();
+
   const animation = useSpring({
     config: {
       duration: 250,
     },
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? `translateY(0%)` : `translateY(-100%)`,
   });
 
-  const closeModal = (e: { target: undefined }) => {
+  const dropModal = (e: { target: {key: string} }) => {
     if (modalRef.current === e.target) {
-      setShowModal(false);
+      dispatch(closeModal());
     }
   };
 
   const keyPress = useCallback(
-    (e) => {
-      if (e.key === 'Escape' && showModal) {
-        setShowModal(false);
-        // console.log("I pressed");
-        if (modalType === 'auth') {
-          router.push(route);
-        }
+    (e: {key: string}) => {
+      if (e.key === 'Escape' && isOpen) {
+        dispatch(closeModal());
       }
     },
-    [modalType, route, router, setShowModal, showModal]
+    [dispatch, isOpen]
   );
 
   useEffect(() => {
@@ -48,19 +65,18 @@ export const Modal = ({
     return () => document.removeEventListener('keydown', keyPress);
   }, [keyPress]);
 
-  return (
-    <>
-      {showModal && (
-        <Background onClick={closeModal} ref={modalRef} {...props}>
-          <animated.div styled={animation} {...props}>
-            <PageContainer showModal={showModal} {...props}>
-              {children}
-            </PageContainer>
-          </animated.div>
-        </Background>
-      )}
-    </>
-  );
-};
+  if (!modalComponent) {
+    return null;
+  }
 
-export default Modal;
+  console.log(modalComponent);
+  const AuthContent: any = MODAL_COMPONENTS[modalComponent];
+  return (
+    <Background onClick={dropModal} ref={modalRef} {...props}>
+      <animated.div styled={animation} {...props}>
+        {/* <div className="closeModal" onClick={() => dispatch(closeModal())}>x</div> */}
+        <AuthContent />
+      </animated.div>
+    </Background>
+  );
+}

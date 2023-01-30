@@ -1,8 +1,11 @@
 import React, { ReactNode } from 'react';
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import axios from 'axios';
 import NavBar from './NavBar';
-import AuthModal from 'components/utilities/Modal/AuthModal';
+import AuthModal from 'components/utilities/Modal';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
 import {
   openSelector,
 } from 'src/features/modal/selectors';
@@ -43,8 +46,37 @@ const Layout = ({
   keywords,
   author,
 }: LayoutProps) => {
-
+  const dispatch = useAppDispatch();
   const isOpen = useAppSelector(openSelector);
+
+  if (typeof window !== 'undefined') {
+    // eslint-disable-next-line no-unused-vars, no-async-promise-executor
+    const _promise = new Promise(async function (resolve, reject) {
+      const r = await axios.post('/api/policy', {
+        data: { flag: 'getCookie' },
+      });
+
+      if (r.data.name === 'no cookie') {
+        dispatch(openModal('POLICY_CONSENT'));
+        
+      } else {
+        // console.log(r.data.policyOptions);
+        resolve('Stuff worked!');
+        // reject(Error("It broke"));
+      }
+    });
+  }
+
+  // const handleModal = useCallback(
+  //   (type: string) => {
+  //     if (type == 'terms') {
+  //       dispatch(openModal('TERMS_MODAL'));
+  //     } else {
+  //       dispatch(openModal('LOGIN_FORM'));
+  //     }
+  //   },
+  //   [dispatch]
+  // );
 
   //  const structuredData = {
   //    '@context': 'https://schema.org',

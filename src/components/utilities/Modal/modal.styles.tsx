@@ -20,14 +20,13 @@ export const Background = styled.div`
   }
 `;
 
-
-export const PageContainer = styled.div`
-    margin: 2rem auto;
-    background-color: rgb(0 0 0 / 50%);
-    border-radius: 1rem;
-    max-width: 45rem;
-    padding: 3rem;
-    backdrop-filter: blur(.25rem);
+export const ModalContainer = styled.div`
+  margin: 2rem auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1rem;
+  max-width: 45rem;
+  padding: 3rem;
+  backdrop-filter: blur(0.25rem);
 `;
 
 export const LoginWith = styled.h5`
@@ -44,4 +43,5 @@ export const HorizontalRule = styled.hr`
     margin: 4rem 0 0;
     backdrop-filter: blur(25px);
 `;
+
 

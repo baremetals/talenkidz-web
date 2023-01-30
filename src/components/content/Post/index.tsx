@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 import { AiFillCloseCircle } from "react-icons/ai";
-import Modal from 'components/utilities/Modal'
+import Modal from 'components/utilities/Modal/Modal'
 // import ModalEditor from '../Modal/ModalEditor'
 // const ModalEditor = dynamic(() => import('../Modal/ModalEditor'), {
 //     ssr: false,

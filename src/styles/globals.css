@@ -308,10 +308,6 @@ textarea:hover,
     margin-bottom: .25rem;
 }
 
-.modal-style .modal-style .modal-style {
-    background-color: rgb(255, 255, 255);
-}
-
 .toggle-button {
     padding: 0px;
     transform: rotate(90deg);

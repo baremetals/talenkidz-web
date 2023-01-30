@@ -1,13 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { Formik } from 'formik';
 
-import {
-  Column,
-  InnerContainer,
-  Row,
-  Text,
-  Title,
-} from 'styles/common.styles';
 import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper, RadioFormGroup, RadioFormInput } from '../auth-styles';
 import Button from 'components/users/Auth/Button';
 import { Error, ErrorMsg } from 'components/widgets/Input';
@@ -17,14 +10,13 @@ import { Lock } from 'public/assets/icons/Lock';
 import { Message } from 'public/assets/icons/Message';
 import { Profile } from 'public/assets/icons/Profile';
 import { AuthContext } from 'src/features/auth/AuthContext';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModal } from 'src/features/modal/reducers';
+import { Column, InnerContainer, Row, Text, Title } from 'styles/common.styles';
 
 
 export interface IRegisterForm {
-  handleterms?: () => void;
   formProps?: registerUserProps;
   errorMsg?: boolean;
 }
@@ -49,12 +41,10 @@ const initialValues = {
   error: '',
 };
 
-const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
+const RegisterForm: React.FC<IRegisterForm> = () => {
   const { signOutFirebaseUser, registerNewUser } = useContext(AuthContext);
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
-  // const [openModal, setOpenModal] = useState(false);
-  // const [openLoginModal, setOpenLoginModal] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleSubmit = async ({ ...values }: registerUserProps) => {
@@ -86,8 +76,12 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
   };
 
   const handleModal = useCallback(
-    () => {
-      dispatch(openModal('LOGIN_FORM'));
+    (type: string) => {
+      if (type == 'terms') {
+        dispatch(openModal('TERMS_MODAL'));
+      } else {
+        dispatch(openModal('LOGIN_FORM'));
+      }
     },
     [dispatch]
   );
@@ -225,15 +219,18 @@ const RegisterForm: React.FC<IRegisterForm> = ({ handleterms }) => {
                         marginBottom: '0',
                         color: '#120D26',
                         fontSize: '.875rem',
+                        cursor: 'pointer',
                       }}
-                      onClick={() => handleModal()}
+                      onClick={() => handleModal('log')}
                     >
                       Already have an account?{' '}
-                      <Link href={`${router.pathname}?modal=true`}>
-                        <a style={{ color: '#A35193' }}>Sign In</a>
-                      </Link>
+                      {/* <Link href={`${router.pathname}?modal=true`}> */}
+                      <a style={{ color: '#A35193' }}>Sign In</a>
+                      {/* </Link> */}
                     </Text>
-                    <div onClick={handleterms}>
+                  </FormGroup>
+                  <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
+                    <div onClick={() => handleModal('terms')}>
                       <Text
                         style={{
                           marginBottom: '0',
