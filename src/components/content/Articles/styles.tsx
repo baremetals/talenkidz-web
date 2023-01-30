@@ -9,6 +9,9 @@ export const ArticleTitle = styled.div`
       font-family: 'Syne', sans-serif !important;
       position: relative;
       margin-right:10px;
+       @media (max-width: 991px) {  
+         color: #39007E;
+        }
         &::after {
            content: '';
             background: #39007e;
@@ -21,6 +24,9 @@ export const ArticleTitle = styled.div`
             z-index: -1;
             border-radius: 20px;
            transform: matrix(1, -0.02, 0.01, 1, 0, 0);
+            @media (max-width: 991px) {  
+               display: none;
+            }
         }
      }
   }
@@ -70,6 +76,7 @@ export const PageTitle = styled.h1`
      font-family: 'Syne', sans-serif !important;
      color:#fff;
      margin-left:6px;
+       @media (max-width: 991px) {   color: #39007E; }
      &::after { 
        content: '';
         background: #39007e;
@@ -81,6 +88,9 @@ export const PageTitle = styled.h1`
         top: -1px;
         left: -8px;
         z-index: -1;
+          @media (max-width: 991px) { 
+            display:none;
+          }
      }
   }
 `;

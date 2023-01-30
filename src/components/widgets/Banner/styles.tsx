@@ -7,7 +7,7 @@ export const BannerBlock = styled.div`
   border-radius: 20px;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: center;  
   input {
    background: #fff;
   }
@@ -23,7 +23,6 @@ export const BannerImg = styled.div`
 `;
 export const BannerInfo = styled.div`
  position: absolute;
- width: 100%;
  padding: 0 40px;
  h2 {
     font-weight: 800;

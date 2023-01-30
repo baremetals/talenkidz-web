@@ -13,6 +13,12 @@ span {
   padding:2px 10px;
   margin-left:10px;
   margin-right:10px;
+  @media (max-width: 991px) {  
+    color: #39007E;
+        margin-left: 0;
+        margin-right: 10px;
+        padding: 0;
+  }
     &::after {
         content: '';
         background: #39007e;
@@ -29,6 +35,9 @@ span {
         -ms-transform: rotate(-1.97deg);
         transform: rotate(-1.97deg);
         display: flex;
+        @media (max-width: 991px) { 
+          display: none;
+        }
     }  
 }
 `

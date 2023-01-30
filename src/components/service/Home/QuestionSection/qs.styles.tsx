@@ -48,6 +48,9 @@ export const QuestionHeader = styled.h2`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
+     @media (max-width: 991px) {  
+         color: #0f021f;
+       }
     &::after {
       content: '';
       background: #39007e;
@@ -60,6 +63,9 @@ export const QuestionHeader = styled.h2`
       z-index: -1;
       border-radius: 20px;
       transform: rotate(-1.97deg);
+        @media (max-width: 991px) { 
+          display:none;
+        }
     }
   }
   @media (max-width: 991px) {
