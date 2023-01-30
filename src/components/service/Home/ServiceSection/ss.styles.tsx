@@ -121,6 +121,9 @@ export const OurServicePageHeading = styled.h1`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
+      @media (max-width: 991px) { 
+         color: #0f021f;
+      }
     &::after {
       content: '';
       background: #39007e;
@@ -143,6 +146,7 @@ export const OurServicePageHeading = styled.h1`
       height: 100%;
       top: 0;
       left: 0;
+      display:none;
     }
   }
 `;

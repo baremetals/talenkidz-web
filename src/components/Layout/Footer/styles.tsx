@@ -16,6 +16,9 @@ export const SiteFooter = styled.footer`
   }
   .footerSecondRow {
      align-items: flex-end;
+      @media (max-width: 991px) { 
+         align-items: center;
+      }
   }
   .footerFirstRow {
      align-items: center;
@@ -148,6 +151,8 @@ export const NewsLetterTitle = styled.h2`
   margin-bottom: 25px;
   @media (max-width: 991px) {
     font-size: 2rem;
+    align-items: center;
+    text-align: center !important;
   }
 `;
 

@@ -17,6 +17,9 @@ export const EventItemImg = styled.div`
     justify-content: center;
     margin-bottom:30px;
     img {
+      height: auto !important;
+      min-height: fit-content !important;
+      max-height: inherit !important;
     }
 `;
 

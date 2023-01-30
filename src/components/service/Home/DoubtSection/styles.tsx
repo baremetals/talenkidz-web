@@ -26,7 +26,9 @@ export const Heading = styled.h1`
   font-family: 'Syne', sans-serif;
   position: relative;
   z-index: 0;
-
+  @media (max-width: 991px) { 
+   color: #0f021f;
+  }
   &.WhiteBg::after {
     content: '';
     background-color: #ffff;
@@ -49,6 +51,7 @@ export const Heading = styled.h1`
       width: 100%;
       left: 0px;
       top: 0;
+      display:none;
     }
   }
 `;

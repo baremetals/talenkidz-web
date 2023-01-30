@@ -38,7 +38,7 @@ import {
     PostTitle,
     Bottom,
     PostDate,
-    // PostMedia,
+    PostMedia,
 } from 'styles/common.styles';
 import { upperCase } from 'src/utils';
 
@@ -148,7 +148,7 @@ const Events = ({ events, categories }: pageProps) => {
           <InnerContainer>
           
             {/* banner */}
-            <Banner />
+            <Banner src={'/assets/images/banner.png'} text={'DIVE INTO THE ATMOSPHERE OF OUR EVENTS'} />
              {/* event */}
             <EventTime>
               <LinkBlock className='active' href={'#'}>All</LinkBlock>
@@ -167,7 +167,6 @@ const Events = ({ events, categories }: pageProps) => {
             </CategoriesBlock>
             
             {/*event*/}
-            
             <EventList>
             <Row >
               <Column><PageTitle className="pageTitle" text={'Events on TALENTKIDS'} /></Column>
@@ -218,10 +217,10 @@ const Events = ({ events, categories }: pageProps) => {
                             )
                           }
                         >
-                          {/* <Link
+                          <Link
                             href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
                             passHref
-                          > */}
+                          >
                           <Image
                             src={
                               event?.attributes?.listImage ||
@@ -231,7 +230,7 @@ const Events = ({ events, categories }: pageProps) => {
                             width={359.32}
                             height={269.49}
                           />
-                          {/* </Link> */}
+                          </Link>
                         </PostThumb>
                         <PostBody>
                           <Link
