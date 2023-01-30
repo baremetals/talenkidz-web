@@ -1,4 +1,3 @@
-import Events from 'components/list/Events';
 import Layout from 'components/Layout';
 import {
   CategoriesDocument,
@@ -20,32 +19,13 @@ import PageTitle from 'components/widgets/PageTitle';
 import Button from 'components/users/Auth/Button';
 
 import {
-    InnerBanner,
     InnerContainer,
-    Title,
-    Text,
     PageContainer,
     Row,
     Column,
-    Image as Img,
-    SearchBar,
-    SearchInput,
-    SearchButton,
-
-    WidgetPanel,
-    WidgetPanelTitle,
-
-    WidgetPanelListing,
-    WidgetPanelLink,
-    Post,
-    PostThumb,
-    PostBody,
-    PostTitle,
-    Bottom,
-    PostDate,
-    PostMedia,
+   
 } from 'styles/common.styles';
-import { EventTime, LinkBlock, CategoriesBlock, EventList } from './styles';
+import { EventTime, LinkBlock, CategoriesBlock, EventList } from 'components/widgets/EventItem/styles';
 type pageProps = {
   eve: { articles: { data: EventEntity[] } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };

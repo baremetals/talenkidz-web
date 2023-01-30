@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useRouter } from 'next/router';
 import { useSpring, animated } from "react-spring";
 import {
-    PageContainer,
+    ModalContainer,
     Background,
 } from "./modal.styles";
 
@@ -53,9 +53,9 @@ export const Modal = ({
       {showModal && (
         <Background onClick={closeModal} ref={modalRef} {...props}>
           <animated.div styled={animation} {...props}>
-            <PageContainer showModal={showModal} {...props}>
+            <ModalContainer showModal={showModal} {...props}>
               {children}
-            </PageContainer>
+            </ModalContainer>
           </animated.div>
         </Background>
       )}
