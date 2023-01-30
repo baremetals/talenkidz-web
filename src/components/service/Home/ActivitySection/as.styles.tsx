@@ -89,6 +89,7 @@ export const ChildHeader = styled.h2`
       width: 100%;
       left: 0px;
       top: 0;
+      display:none;
     }
   }
 `;

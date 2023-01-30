@@ -255,7 +255,7 @@ export const ToggleBar = styled.button`
     display: block;
     border-radius: 0.25rem;
     height: 4px;
-    background-color: #bc70ad;
+    background-color: #39007e;
     margin: 0.25rem 0;
   }
 `;
