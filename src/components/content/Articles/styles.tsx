@@ -32,20 +32,21 @@ export const ArticleTitle = styled.div`
   }
 `;
 
-export const TalentedKidBlock = styled.div`
+export const TrendingBlock = styled.div`
  margin-bottom:160px;
   .rowblock {
     margin-bottom:15px;
   }
 `;
 
-export const TalentedKidsBlock = styled.div`
+export const MoreArticlesBlock = styled.div`
 max-width:650px;
-  a {
+  p {
     color: #39007E;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
+    cursor: pointer;
   }
  .kidsRow {
   margin-bottom:40px;
@@ -56,13 +57,11 @@ export const LinkBlock = styled.div`
      margin-bottom:20px;
      text-align: right;
 `;
-export const SerchBlock = styled.div`
-     margin-bottom:50px;
-`;
 
 
 
-export const PageTitle = styled.h1`
+
+export const PageTitle = styled.h2`
   font-weight: 700;
   font-size: 52px;
   color: #39007E;

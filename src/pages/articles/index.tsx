@@ -59,8 +59,7 @@ function ArticlesPage(props: pageProps) {
     >
       
       <SearchProvider>
-        <InnerContainer>
-       </InnerContainer>
+        <InnerContainer></InnerContainer>
         <Articles
           articles={art?.articles?.data}
           categories={cats?.data?.categories?.data}
@@ -77,9 +76,9 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
     variables: {
       pagination: {
         start: 0,
-        limit: 4,
+        limit: 6,
       },
-      sort: 'updatedAt:desc',
+      sort: 'createdAt:desc',
     },
   });
   console.log('the fucking data', data);

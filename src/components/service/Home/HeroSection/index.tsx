@@ -67,60 +67,26 @@ const HeroSection: React.FC = () => {
             margin={1}
             {...options}
           >
-            <Div className="Takingitem">
-              <HeroItem>
-                <Image
-                  src="/assets/images/herobanner.png"
-                  alt="slider image"
-                  width={1033}
-                  height={693}
-                />
-                <HeroButtonBlock>
-                  <Button
-                    content="Start now"
-                    type="submit"
-                    disabled={false}
-                    loading={false}
-                  ></Button>
-                </HeroButtonBlock>
-              </HeroItem>
-            </Div>
-            <Div className="Takingitem">
-              <HeroItem>
-                <Image
-                  src="/assets/images/herobanner.png"
-                  alt="slider image"
-                  width={1033}
-                  height={693}
-                />
-                <HeroButtonBlock>
-                  <Button
-                    content="Start now"
-                    type="submit"
-                    disabled={false}
-                    loading={false}
-                  ></Button>
-                </HeroButtonBlock>
-              </HeroItem>
-            </Div>
-            <Div className="Takingitem">
-              <HeroItem>
-                <Image
-                  src="/assets/images/herobanner.png"
-                  alt="slider image"
-                  width={1033}
-                  height={693}
-                />
-                <HeroButtonBlock>
-                  <Button
-                    content="Start now"
-                    type="submit"
-                    disabled={false}
-                    loading={false}
-                  ></Button>
-                </HeroButtonBlock>
-              </HeroItem>
-            </Div>
+            {[1, 2, 3].map((item, i) => (
+              <Div className="Takingitem" key={i}>
+                <HeroItem>
+                  <Image
+                    src="/assets/images/herobanner.png"
+                    alt="slider image"
+                    width={1033}
+                    height={693}
+                  />
+                  <HeroButtonBlock>
+                    <Button
+                      content="Start now"
+                      type="submit"
+                      disabled={false}
+                      loading={false}
+                    ></Button>
+                  </HeroButtonBlock>
+                </HeroItem>
+              </Div>
+            ))}
           </OwlCarousel>
         </OwlCarouselsBlock>
 

@@ -173,12 +173,12 @@ function Listings({ listings, categories }: pageProps) {
                         >
                           <ListCard>
                             <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
-                              <Image
+                              {/* <Image
                                 src={list?.attributes?.host?.data?.attributes?.logo as string}
                                 alt="host logo image"
                                 width={73.99}
                                 height={73.99}
-                              />
+                              /> */}
                             </ListIcon>
                             <ListBody>
                               <PostThumb>
@@ -267,12 +267,12 @@ function Listings({ listings, categories }: pageProps) {
                         key={id}
                         style={{ fontSize: '14px', color: '#39364F' }}
                       >
-                        <Image
-                          src={require("public/checkbox.svg")}
+                        {/* <Image
+                          src={"/public/checkbox.svg"}
                           alt="checkboxes"
                           width={20}
                           height={20}
-                        />
+                        /> */}
                         <Link href={`/activities/${cat?.attributes?.slug}`}>
                           {cat?.attributes?.slug}
                         </Link>

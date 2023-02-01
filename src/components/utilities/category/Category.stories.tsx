@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Category, { ICategory } from './Category';
+import Category, { ICategory } from '.';
 import { mockCategoryProps } from './Category.mock';
 
 export default {

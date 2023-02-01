@@ -27,7 +27,7 @@ export default async function handler(
           start,
           limit,
         },
-        sort: 'updatedAt:desc',
+        sort: 'createdAt:desc',
       },
     });
 

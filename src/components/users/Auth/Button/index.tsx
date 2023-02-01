@@ -1,6 +1,5 @@
-import { ClassNames } from '@emotion/react';
-import Spinner from 'components/utilities/Spinner';
 import styled from 'styled-components';
+import Spinner from 'components/utilities/Spinner';
 
 type buttonProps = {
   content: string;
@@ -10,6 +9,7 @@ type buttonProps = {
   bgColor?: string;
   BtnNames?: string; 
   children?: React.ReactNode;
+  onChange?: (_event: any) => void;
 };
 
 export default function AuthButton({

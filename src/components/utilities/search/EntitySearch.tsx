@@ -3,22 +3,23 @@ import {
 } from 'src/hooks/useSearch';
 import React from 'react';
 import { Entities } from 'src/types';
-import {
-  SearchBar,
-  SearchInput,
-  SearchButton,
-} from 'styles/common.styles';
+
+import Button from 'components/users/Auth/Button';
+import Image from 'next/image';
 // import { SearchContext } from './SearchContext';
 import { useSearchDispatch, useSearchState } from './searchReducer';
+import { SearchWrapper, StyledInput } from './search.styles';
 
 export interface ISearch {
   entities: Entities[];
   setFilteredEntities: React.Dispatch<React.SetStateAction<Entities[]>>;
+  // placeholder?: string;
 }
 
 const EntitySearch: React.FC<ISearch> = ({
   entities,
   setFilteredEntities,
+  // placeholder,
 }) => {
   // const { state,  } = useContext(SearchContext);
   const state = useSearchState();
@@ -33,21 +34,50 @@ const EntitySearch: React.FC<ISearch> = ({
 
 
   return (
-    <SearchBar>
-      <SearchInput
-        placeholder={state.title}
-        type="text"
-        name="search"
-        onChange={async (e) => {
-          dispatch({
-            type: 'GET_VALUE',
-            payload: { ...state, searchValue: e.target.value, searching: true },
-          });
-          await search()
-        }}
-      />
-      <SearchButton aria-label="search icon button"></SearchButton>
-    </SearchBar>
+      <SearchWrapper>
+        <StyledInput
+          placeholder={state.title}
+          name="search"
+          type="text"
+          onChange={async (e) => {
+            dispatch({
+              type: 'GET_VALUE',
+              payload: {
+                ...state,
+                searchValue: e.target.value,
+                searching: true,
+              },
+            });
+            await search();
+          }}
+        />
+        <Button
+          content=""
+          type="submit"
+          disabled={false}
+          loading={false}
+          aria-label="Search icon"
+          onChange={async (e) => {
+            dispatch({
+              type: 'GET_VALUE',
+              payload: {
+                ...state,
+                searchValue: e.target.value,
+                searching: true,
+              },
+            });
+            await search();
+          }}
+        >
+          <Image
+            src="/assets/svgs/search.svg"
+            alt="location icon"
+            className="bookmar"
+            width={20}
+            height={20}
+          />
+        </Button>
+      </SearchWrapper>
   );
 };
 

@@ -3,15 +3,6 @@ import Button from 'components/users/Auth/Button';
 import Link from 'next/link';
 import { FieldBlock,Title,FieldGroup,FieldAction  } from './styles';
 
-// const Field = ({ type, children, loading, disabled, ...props }: any) => {
-//   return (
-//     <NativeButton {...props} type={type} disabled={disabled || loading}>
-//       {!loading && children}
-//       {loading && <Spinner style={{ position: 'relative' }} />}
-//     </NativeButton>
-//   );
-// };
-
 const Field = ({ ...props }: any) => {
   return (
     <FieldBlock>

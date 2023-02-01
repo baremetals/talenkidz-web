@@ -1,14 +1,21 @@
+import Link from 'next/link';
 import { Breadcrumbs, Crumb } from './styles';
 
-const Breadcrumb = ({ type, loading, disabled, ...props }: any) => {
+type Props = {
+  route: {
+    name: string
+    url: string
+  }[]
+}
+
+const Breadcrumb = ({ route = [] }: Props) => {
   return (
-    <Breadcrumbs {...props} type={type} disabled={disabled || loading}>
-         <Crumb>
-          <a href="#">Home</a>
-          </Crumb>
-          <Crumb>
-          <a href="#">Articles</a>
+    <Breadcrumbs >
+      {route.map((item, i) => (
+        <Crumb key={i}>
+          <Link href={item.url}>{item.name}</Link>
         </Crumb>
+      ))}
     </Breadcrumbs>
   );
 };

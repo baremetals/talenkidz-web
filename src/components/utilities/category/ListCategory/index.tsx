@@ -1,7 +1,7 @@
 import Spinner from 'components/utilities/Spinner';
 import Link from 'next/link';
 import PageTitle from 'components/widgets/PageTitle';
-import { Categorie , PageTitleBlock, CategorieList,CategorieRow,Categoriecolumn,LinkBlock } from './styles';
+import { Categorie , PageTitleBlock, CategorieList,CategorieRow,Categoriecolumn,LinkBlock } from '../cat.styles';
 
 const Categories = ({ ...props }: any) => {
   return (

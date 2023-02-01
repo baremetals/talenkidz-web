@@ -1,4 +1,4 @@
-import { ICategory } from './Category';
+import { ICategory } from '.';
 
 const base: ICategory = {
   categories: [

@@ -1,104 +1,59 @@
-import dayjs from 'dayjs';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { updateStrapiEntity } from 'src/helpers';
-import { upperCase } from 'src/utils';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import ArticleCard from 'components/content/Articles/ArticleCard';
+import SmallACards from 'components/content/Articles/SmallACards';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import Fields from 'components/widgets/Fields';
-import TalentedKids from 'components/content/Articles/TalentedKids';
-import TalentedKidsWithPic from 'components/content/Articles/TalentedKidsWithPic';
+import dayjs from 'dayjs';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useReducer, useState } from 'react';
+import { updateStrapiEntity } from 'src/helpers';
 
-import { SerchBlock, LinkBlock, PageTitle, TalentedKidBlock, TalentedKidsBlock, ArticleTitle } from './styles';
+import {
+  ArticleTitle,
+  LinkBlock,
+  PageTitle,
+  MoreArticlesBlock,
+  TrendingBlock,
+} from './styles';
 
 import Search from 'components/widgets/Search';
 // import { useAppSelector } from "app/hooks";
 // import { isUser } from "features/auth/selectors";
 
+import EntitySearch from 'components/utilities/search/EntitySearch';
 import {
-  Bottom,
+
   Column,
   InnerContainer,
   PageContainer,
-  Post,
-  PostBody,
-  PostDate,
-  PostMedia,
-  PostThumb,
-  PostTitle,
   Row,
-  Text,
   Title,
-  Top,
 } from 'styles/common.styles';
-import EntitySearch from 'components/utilities/search/EntitySearch';
 
+import Categories from 'components/utilities/Category';
 import {
   ArticleEntity,
-  CategoryEntity,
   ArticlesDocument,
+  CategoryEntity,
   ComponentLikesLikes,
 } from 'generated/graphql';
-import { BookMark } from 'public/assets/icons/BookMark';
-import { ThumbsUp } from 'public/assets/icons/ThumbsUp';
-import {
-  articleReducer,
-  INITIAL_STATE as Article_State,
-} from './articleReducer';
+
 import { useFetchEntities } from 'src/hooks/useFetchEntities';
-import Categories from 'components/utilities/category/Category';
+import {
+  INITIAL_STATE as Article_State,
+  articleReducer,
+} from './articleReducer';
 // import { SearchContext } from 'components/utilities/search/SearchContext';
 import { useSearchState } from 'components/utilities/search/searchReducer';
 import { AuthContext } from 'src/features/auth/AuthContext';
-
-//     id: string;
-//     attributes: {
-//         readingTime: string;
-//         body: string;
-//         category: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     // name: string;
-//                     slug: string;
-//                 };
-//             };
-//         };
-//         updatedAt: Date;
-//         slug: string;
-//         title: string;
-//         blurb: string;
-//         author: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     fullName: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//         heroImage: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     url: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//     };
-// };
+import { SearchBlock } from 'components/utilities/search/search.styles';
+import { cutTextToLength } from 'src/utils';
 
 type pageProps = {
   articles: ArticleEntity[];
   categories: CategoryEntity[];
   total: number;
 };
-
 
 const Articles = ({ articles, categories, total }: pageProps) => {
   const router = useRouter();
@@ -111,10 +66,11 @@ const Articles = ({ articles, categories, total }: pageProps) => {
 
   const searchState = useSearchState();
 
-
   // console.log('the state', searchState);
+  const limit = 4
+  const remaining = total % filteredArticles.length;
   const fetchData = useFetchEntities({
-    limit: 4,
+    limit: remaining > 4 ? 4 : remaining,
     start: state.articlesLength as number,
     gQDocument: ArticlesDocument,
   });
@@ -141,30 +97,9 @@ const Articles = ({ articles, categories, total }: pageProps) => {
     );
   }, [filteredArticles.length, total, searchState.searching]);
 
-  //   const data = {
-  //     limit: 4,
-  //     start: state.articlesLength as number,
-  //     gQDocument: ArticlesDocument,
-  //     // stopLoading: searchState.stopLoading,
-  //   };
-  //   // console.log(
-  //   //   searchState.searching,
-  //   //   'losers'
-  //   // );
-  //   if (!searchState.searching && filteredArticles.length <= total) {
-  //     const newArticles = await fetchData({ ...data });
-  //     // console.log(newArticles);
-  //     setFilteredArticles((filteredArticles) => [
-  //       ...filteredArticles,
-  //       // eslint-disable-next-line no-unsafe-optional-chaining
-  //       ...newArticles?.articles?.data,
-  //     ]);
-  //   }
-  // };
-  
+
   const getData = async () => {
-    
-    if (!searchState.searching && filteredArticles.length <= total) {
+    if (!searchState.searching && filteredArticles.length < total) {
       const res = await fetchData;
       // console.log(res);
       setFilteredArticles((filteredArticles) => [
@@ -173,8 +108,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
         ...res?.articles?.data,
       ]);
     }
-  }
-
+  };
 
   const handleClick = async (
     hasLiked: boolean,
@@ -210,283 +144,101 @@ const Articles = ({ articles, categories, total }: pageProps) => {
       }
     }
   };
+
+  console.log(filteredArticles);
+  console.log(remaining);
+
+  const route = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'articles',
+      url: '/articles',
+    },
+  ];
+
   return (
     <>
-    <InnerContainer>
-      <Breadcrumb />
+      <InnerContainer>
+        <Breadcrumb route={route} />
         <ArticleTitle>
-          <Title className='title'>
-            {/* {`${
-              router.query.category === undefined
-                ? 'Latest'
-                : upperCase(router.query.category as string)
-            }`}{' '} */}
-              <span>TRENDING</span> ON TALENTKIDS
+          <Title className="title">
+            <span>TRENDING</span> ON TALENTKIDS
           </Title>
         </ArticleTitle>
-       
-        <TalentedKidBlock>
-          <Row className='rowblock'>
-            <Column>
-              <TalentedKids />
-            </Column>
-              <Column>
-              <TalentedKids />
-            </Column>
-              <Column>
-              <TalentedKids />
-            </Column>
-          </Row>
-          <Row >
-            <Column>
-              <TalentedKids />
-            </Column>
-              <Column>
-              <TalentedKids />
-            </Column>
-              <Column>
-              <TalentedKids />
-            </Column>
-          </Row>
-      </TalentedKidBlock>
 
+        <TrendingBlock>
+          <Row className="rowblock">
+            {[1, 2, 3, 4, 5, 6].map((item, i) => (
+              <Column key={i}>
+                <SmallACards />
+              </Column>
+            ))}
+          </Row>
+        </TrendingBlock>
       </InnerContainer>
 
       <PageContainer>
         <InnerContainer>
           <Row>
             <Column>
-                <PageTitle>Find more useful tips from our <span>articles</span></PageTitle>  
+              <PageTitle>
+                Find more useful tips from our <span>articles</span>
+              </PageTitle>
             </Column>
           </Row>
           <Row>
-            <Column className='column-7'>
-                <TalentedKidsBlock>
-                  <TalentedKidsWithPic className="kidsRow" />
-                  <TalentedKidsWithPic className="kidsRow" />
-                  <TalentedKidsWithPic className="kidsRow" />
-                  <TalentedKidsWithPic className="kidsRow" />
-                  <TalentedKidsWithPic className="kidsRow" />
-                  <LinkBlock >
-                    <Link href={'#'}>Discover more</Link> 
-                  </LinkBlock>
-                </TalentedKidsBlock>
+            <Column className="column-7">
+              <MoreArticlesBlock>
+                {filteredArticles?.map((item, i) => (
+                  <ArticleCard
+                    className="kidsRow"
+                    key={item?.id as string}
+                    authorImg={
+                      item?.attributes?.author?.data?.attributes?.avatar?.data
+                        ?.attributes?.url as string
+                    }
+                    authorName={
+                      item?.attributes?.author?.data?.attributes
+                        ?.fullName as string
+                    }
+                    articleTitle={cutTextToLength(
+                      item?.attributes?.title as string,
+                      18
+                    )}
+                    ArticleIntro={cutTextToLength(
+                      item?.attributes?.blurb as string,
+                      80
+                    )}
+                    ArticleImage={
+                      item?.attributes?.heroImage?.data?.attributes?.url
+                    }
+                    readingTime={item?.attributes?.readingTime as string}
+                    createdAt={dayjs(item?.attributes?.createdAt).format(
+                      'MMM D'
+                    )}
+                    category={
+                      item?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
+                  />
+                ))}
+                <LinkBlock onClick={getData}>
+                  <p>Discover more</p>
+                </LinkBlock>
+              </MoreArticlesBlock>
             </Column>
-            <Column className='column-5'>
-              <SerchBlock>
-                <Search placeholder={'Search particular information'} />
-              </SerchBlock>
-              <Fields/>
-            </Column>
-          </Row>
-          <Row>
-            <Column
-              className="column-7"
-              id="scrollableDiv"
-              style={{
-                height: 300,
-                overflow: 'auto',
-                display: 'flex',
-                // flexDirection: 'column-reverse',
-              }}
-            >
-              <InfiniteScroll
-                dataLength={filteredArticles.length} //This is important field to render the next data
-                next={getData}
-                hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
-                endMessage={
-                  <p style={{ textAlign: 'center' }}>
-                    <b>Yay! You have seen it all</b>
-                  </p>
-                }
-                // style={{ display: 'flex', flexDirection: 'column-reverse' }}
-              >
-                <Row>
-                  {filteredArticles?.map((art, id) => {
-                    
-                    const likes = art?.attributes
-                      ?.likes as ComponentLikesLikes[];
-                    const filterLIkes = likes?.filter(
-                      (like) => like?.userId === user?.id
-                    );
-                    let hasLiked = filterLIkes!.length > 0;
-                    let totalLikes = likes?.length as number
-
-  //                   const handleClick = async (
-  //   hasLiked: boolean,
-  //   likes: ComponentLikesLikes[],
-  //   articleId: string,
-  //   totaleLikes: number
-  // ) => {
-  //   if (!user) {
-  //     console.log('please sign in first');
-  //   } else {
-  //     if (hasLiked) {
-  //       // console.log('before',hasLiked);
-  //       // setHasLiked(false);
-  //       hasLiked = false;
-  //       totaleLikes - 1;
-  //       const filter = likes?.filter((like) => like?.userId !== user?.id);
-  //       await updateStrapiEntity('articles', articleId as string, {
-  //         likes: filter as ComponentLikesLikes[],
-  //       });
-  //       console.log(totaleLikes);
-  //     } else {
-  //       hasLiked = true;
-  //       totaleLikes + 1;
-  //       await updateStrapiEntity('articles', articleId as string, {
-  //         likes: [
-  //           ...(likes as ComponentLikesLikes[]),
-  //           { userId: user.id },
-  //         ] as ComponentLikesLikes[],
-  //       });
-  //       // console.log(res);
-  //     }
-  //   }
-  // };
-                   
-                    return (
-                      <Column style={{ minWidth: '50%' }} key={id}>
-                        {/* <Link
-                          href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                          passHref
-                        > */}
-                        <Post>
-                          <PostThumb>
-                            <Link
-                              href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                              passHref
-                            >
-                              <Image
-                                src={
-                                  art?.attributes?.heroImage?.data?.attributes
-                                    ?.url as string
-                                }
-                                alt="article image"
-                                width={359.3}
-                                height={269.47}
-                              />
-                            </Link>
-                          </PostThumb>
-                          <PostBody>
-                            <Top>
-                              <PostMedia style={{ cursor: 'pointer' }}>
-                                <PostMedia
-                                  onClick={async() => {
-                                    if (!user) {
-                                      console.log('please sign in first');
-                                    } else {
-                                      if (hasLiked) {
-                                        // console.log('before',hasLiked);
-                                        // setHasLiked(false);
-                                        // hasLiked = false;
-                                        // totaleLikes - 1;
-                                        const filter = likes?.filter(
-                                          (like) => like?.userId !== user?.id
-                                        );
-                                        await updateStrapiEntity(
-                                          'articles',
-                                          art?.id as string,
-                                          {
-                                            likes:
-                                              filter as ComponentLikesLikes[],
-                                          }
-                                        );
-                                        console.log(totalLikes);
-                                        // setFilteredArticles(filteredArticles);
-                                      } else {
-                                        hasLiked = true;
-                                        totalLikes + 1;
-                                        await updateStrapiEntity(
-                                          'articles',
-                                          art?.id as string,
-                                          {
-                                            likes: [
-                                              ...(likes as ComponentLikesLikes[]),
-                                              { userId: user.id },
-                                            ] as ComponentLikesLikes[],
-                                          }
-                                        );
-                                        // setFilteredArticles(filteredArticles);
-                                        // console.log(res);
-                                      }
-                                    }
-                                  }}
-                                >
-                                  <ThumbsUp
-                                    colour={hasLiked ? '#3762e4' : 'none'}
-                                  />
-                                </PostMedia>
-
-                                <Link href={'/posts'}>
-                                  <a>
-                                    <BookMark />
-                                  </a>
-                                </Link>
-                              </PostMedia>
-                              <br />
-                              <Link
-                                href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                                passHref
-                              >
-                                <PostTitle
-                                  style={{
-                                    fontSize: '1rem',
-                                    color: '#2e3032',
-                                    marginBottom: '.3rem',
-                                  }}
-                                >
-                                  {art?.attributes?.title.slice(0, 40)}...
-                                </PostTitle>
-                              </Link>
-
-                              <Text>
-                                {art?.attributes?.blurb?.slice(0, 80)}...
-                              </Text>
-                            </Top>
-                            <Bottom style={{ fontSize: '.75rem' }}>
-                              {
-                                art?.attributes?.author?.data?.attributes
-                                  ?.fullName
-                              }
-                            </Bottom>
-                            <Bottom>
-                              <PostDate>
-                                {dayjs(art?.attributes?.updatedAt).format(
-                                  'DD MMMM YYYY'
-                                )}{' '}
-                              </PostDate>
-
-                              <PostMedia
-                                style={{
-                                  fontSize: '.75rem',
-                                  color: '#74787C',
-                                }}
-                              >
-                                {art?.attributes?.readingTime}
-                              </PostMedia>
-                              {/* <PostMedia>
-                                                            <Link href={'/posts'}><a><ThumbsUp /></a></Link>
-                                                            <PostMedia>
-                                                                <Link href={'/posts'}><a><BookMark /></a></Link>
-                                                            </PostMedia>
-                                                        </PostMedia> */}
-                            </Bottom>
-                          </PostBody>
-                        </Post>
-                        {/* </Link> */}
-                      </Column>
-                    );
-})}
-                </Row>
-              </InfiniteScroll>
-            </Column>
-            <Column>
-              <EntitySearch
-                entities={articles}
-                setFilteredEntities={setFilteredArticles as any}
-              />
+            <Column className="column-5">
+              <SearchBlock>
+                {/* <Search placeholder={'Search particular information'} /> */}
+                <EntitySearch
+                  entities={articles}
+                  setFilteredEntities={setFilteredArticles as any}
+                />
+              </SearchBlock>
+              {/* <Fields /> */}
               <Categories categories={categories} />
             </Column>
           </Row>

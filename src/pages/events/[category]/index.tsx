@@ -1,4 +1,10 @@
 import Layout from 'components/Layout';
+import Button from 'components/users/Auth/Button';
+import Categories from 'components/utilities/Category/ListCategory';
+import Banner from 'components/widgets/Banner';
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import EventItem from 'components/widgets/EventItem';
+import PageTitle from 'components/widgets/PageTitle';
 import {
   CategoriesDocument,
   CategoriesQueryResult,
@@ -7,25 +13,23 @@ import {
   FilteredEventsDocument,
   FilteredEventsQueryResult,
 } from 'generated/graphql';
-import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import Breadcrumb from 'components/widgets/Breadcrumb';
-import Banner from 'components/widgets/Banner';
-import Categories from 'components/widgets/Categories';
-import EventItem from 'components/widgets/EventItem';
-import PageTitle from 'components/widgets/PageTitle';
-import Button from 'components/users/Auth/Button';
+import { useNoAuthPages } from 'src/hooks/noAuth';
+import { client } from 'src/lib/initApollo';
 
 import {
-    InnerContainer,
-    PageContainer,
-    Row,
-    Column,
-   
+  CategoriesBlock,
+  EventList,
+  EventTime,
+  LinkBlock,
+} from 'components/widgets/EventItem/styles';
+import {
+  Column,
+  InnerContainer,
+  PageContainer,
+  Row,
 } from 'styles/common.styles';
-import { EventTime, LinkBlock, CategoriesBlock, EventList } from 'components/widgets/EventItem/styles';
 type pageProps = {
   eve: { articles: { data: EventEntity[] } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
@@ -67,89 +71,113 @@ function FilteredArticlesPage(props: pageProps) {
       pageUrl={url}
     >
       <InnerContainer>
-          <Breadcrumb />
+        <Breadcrumb />
       </InnerContainer>
       <PageContainer>
         <InnerContainer>
           {/* banner */}
-          <Banner src={'/assets/images/banner2.png'} text={'Games are not only the way to relax, that’s the way to educate'} />
-           {/* event */}
-            <EventTime>
-              <LinkBlock className='active' href={'#'}>All</LinkBlock>
-              <LinkBlock href={'#'}>Today</LinkBlock>
-              <LinkBlock href={'#'}>This week</LinkBlock>
-              <LinkBlock href={'#'}>This month</LinkBlock>
-              <LinkBlock href={'#'}>Online</LinkBlock>
-              <LinkBlock href={'#'}>Freee</LinkBlock>
-              <LinkBlock href={'#'}>For parents </LinkBlock>
-              <LinkBlock className='underline' href={'#'}>Affiliate events</LinkBlock>
+          <Banner
+            src={'/assets/images/banner2.png'}
+            text={
+              'Games are not only the way to relax, that’s the way to educate'
+            }
+          />
+          {/* event */}
+          <EventTime>
+            <LinkBlock className="active" href={'#'}>
+              All
+            </LinkBlock>
+            <LinkBlock href={'#'}>Today</LinkBlock>
+            <LinkBlock href={'#'}>This week</LinkBlock>
+            <LinkBlock href={'#'}>This month</LinkBlock>
+            <LinkBlock href={'#'}>Online</LinkBlock>
+            <LinkBlock href={'#'}>Freee</LinkBlock>
+            <LinkBlock href={'#'}>For parents </LinkBlock>
+            <LinkBlock className="underline" href={'#'}>
+              Affiliate events
+            </LinkBlock>
           </EventTime>
-          
-          {/*event*/}
-            <EventList>
-            <Row >
-              <Column><PageTitle className="pageTitle" text={["Most",<span key={"popular"}>popular</span>, "events",]} /></Column>
-            </Row>
-            <Row>
-              <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-            </Row>
-          </EventList>
-          
-          {/*event*/}
-            <EventList className='thisWeek'>
-            <Row >
-              <Column><PageTitle className="pageTitle" text={["Actual ones for ",<span key={"popular"}>this week </span>,]} /></Column>
-            </Row>
-            <Row>
-              <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-            </Row>
-             <Row>
-              <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-               <Column>
-                <EventItem />
-              </Column>
-            </Row>
-              <Row className='buttonRow'>
-                <Column>
-                  <Button
-                    content="See more events "
-                    type="submit"
-                    disabled={false}
-                    loading={false}
-                  ></Button>
-                </Column>
-              </Row>
-          </EventList>
-          
-             
-          {/* Categories*/}
-            <CategoriesBlock>
-                <Categories />
-          </CategoriesBlock>
 
+          {/*event*/}
+          <EventList>
+            <Row>
+              <Column>
+                <PageTitle
+                  className="pageTitle"
+                  text={[
+                    'Most',
+                    <span key={'popular'}>popular</span>,
+                    'events',
+                  ]}
+                />
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+            </Row>
+          </EventList>
+
+          {/*event*/}
+          <EventList className="thisWeek">
+            <Row>
+              <Column>
+                <PageTitle
+                  className="pageTitle"
+                  text={[
+                    'Actual ones for ',
+                    <span key={'popular'}>this week </span>,
+                  ]}
+                />
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+              <Column>
+                <EventItem />
+              </Column>
+            </Row>
+            <Row className="buttonRow">
+              <Column>
+                <Button
+                  content="See more events "
+                  type="submit"
+                  disabled={false}
+                  loading={false}
+                ></Button>
+              </Column>
+            </Row>
+          </EventList>
+
+          {/* Categories*/}
+          <CategoriesBlock>
+            <Categories />
+          </CategoriesBlock>
         </InnerContainer>
-       </PageContainer>
+      </PageContainer>
       {/* <Events
         events={eve?.articles?.data}
         categories={cats?.data?.categories?.data}
