@@ -116,8 +116,11 @@ export default function UserHeader() {
                   <NavBarItem onClick={() => setToggle(!toggle)}>
                     <Link href={'/activities'}>Activities</Link>
                   </NavBarItem>
-                  <NavBarItem onClick={() => setToggle(!toggle)}>
+                  <NavBarItem className="active" onClick={() => setToggle(!toggle)}>
                     <Link href={'/articles'}>Articles</Link>
+                  </NavBarItem>
+                   <NavBarItem className="signup mobileButton" onClick={() => handleModal()}>
+                    <button >Connect</button>
                   </NavBarItem>
                   {user?.id && (
                     <>
@@ -164,7 +167,7 @@ export default function UserHeader() {
               {!user?.id && (
                 <>
                   <NavBarItem className="signup" onClick={() => handleModal()}>
-                    <button >Get Started</button>
+                    <button >Connect</button>
                   </NavBarItem>
                 </>
               )}

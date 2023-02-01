@@ -135,6 +135,11 @@ export const NavBarNav = styled.ul`
 
 export const NavBarItem = styled.div`
   margin-right: 2rem;
+  &.active {
+    background: rgba(57, 0, 126, 0.2);
+    border-radius: 10px;
+    padding:3px 18px;
+  }
   a {
     display: block;
     font-weight: 600;
@@ -170,6 +175,17 @@ export const NavBarItem = styled.div`
       }
       @media (min-width: 991px) {
         display: none;
+      }
+    }
+  }
+  &.mobileButton {
+     display: none;
+      @media (max-width: 991px) {
+      display: block !important;
+      border-radius: 20px;
+      button {
+        margin-top:20px;
+         border-radius: 15px !important;
       }
     }
   }

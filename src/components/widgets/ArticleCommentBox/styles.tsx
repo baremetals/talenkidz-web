@@ -12,6 +12,18 @@ export const ArticlesComment = styled.div`
     color: #39007E;
     margin-bottom:50px;
   }
+  .star {
+     display: flex;
+     align-items: center;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 132.9%;
+      text-align: center;
+      color: #000000;
+     span {
+      margin-right:10px !important;
+     }
+   }
 `;
 
 export const CommentBox = styled.div`
@@ -19,7 +31,7 @@ export const CommentBox = styled.div`
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
     padding:20px;
-    max-width: 611px;
+    max-width: 90%;
     margin-bottom:60px;
     width:100%;
      p {
@@ -61,7 +73,7 @@ export const DayBlock = styled.div`
 export const CommentUser = styled.div` 
     display:flex;
     align-items: center;
-   margin-bottom:20px;
+   margin-bottom:0;
     h3 {
         margin-left:10px;
         font-style: normal;
@@ -109,7 +121,7 @@ export const StyledInput = styled.input`
 
 export const LeaveComment = styled.div`
  position:relative;
- max-width: 611px;
+ max-width: 90%;
  button {
    background: #39007E;
    border-radius: 0px 20px 20px 20px;
@@ -123,6 +135,27 @@ export const LeaveComment = styled.div`
 `;
 
 
+export const CommentUserBox = styled.div`
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+    display: flex;
+`;
+export const ShowMore = styled.div`
+    margin-top: -125px;
+    height: 138px;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 79%, rgba(77,183,157,0) 100%);
+    position: relative;
+    z-index: 111;
+    text-align: right;
+    max-width: 90%;
+    margin-bottom: 40px;
+`;
+
+export const LinkBlock = styled.a`
+   top: 31px;
+    position: relative;
+`;
 
 
 
