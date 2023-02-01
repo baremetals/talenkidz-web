@@ -4,8 +4,13 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { Listing, ListingEntity, CategoryEntity } from 'generated/graphql';
-
-
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import Banner from 'components/widgets/Banner';
+import ActivitiesCategories from 'components/widgets/ActivitiesCategories';
+import PageTitle from 'components/widgets/PageTitle';
+import ActivitiesItem from 'components/widgets/ActivitiesItem';
+import { EventTime, LinkBlock, CategoriesBlock, ActivitiesList, BreadcrumbBlock } from './styles';
+import Button from 'components/users/Auth/Button';
 
 import {
     InnerBanner,
@@ -128,6 +133,69 @@ function Listings({ listings, categories }: pageProps) {
 
     return (
       <>
+        <InnerContainer>
+          <BreadcrumbBlock>
+            <Breadcrumb />
+          </BreadcrumbBlock>
+        </InnerContainer>
+        <PageContainer>
+          <InnerContainer>
+            
+              {/* banner */}
+              <Banner src={'/assets/images/activities.jpg'} text={'Choose surroundings according your interests'} />
+            
+              {/* event */}
+              <EventTime>
+                <LinkBlock href={'#'}>Creativity </LinkBlock>
+                <LinkBlock className='active'  href={'#'}>Sport </LinkBlock>
+                <LinkBlock href={'#'}>Education </LinkBlock>
+              </EventTime>
+
+              {/* Categories*/}
+              <CategoriesBlock>
+                 <ActivitiesCategories />
+            </CategoriesBlock>
+            
+              {/* <Activitie*/}
+              <ActivitiesList>
+                   <Row >
+                      <Column><PageTitle className="pageTitle" text={'Most popular sport activities'} /></Column>
+                  </Row>
+                  <Row>
+                    <Column className='Column-3'>
+                      <ActivitiesItem />
+                    </Column>
+                    <Column className='Column-3'>
+                      <ActivitiesItem />
+                    </Column>
+                    <Column className='Column-3'>
+                      <ActivitiesItem />
+                   </Column>
+                    <Column className='Column-3'>
+                      <ActivitiesItem />
+                   </Column>
+                   <Column className='Column-3'>
+                     <ActivitiesItem />
+                   </Column>
+                   <Column className='Column-3'>
+                    <ActivitiesItem />
+                  </Column>
+                  </Row>
+                  <Row className='buttonRow'>
+                    <Column>
+                      <Button
+                        content="See more events "
+                        type="submit"
+                        disabled={false}
+                        loading={false}
+                      ></Button>
+                  </Column>
+              </Row>
+              </ActivitiesList>
+
+            </InnerContainer>
+        </PageContainer>
+
         <InnerBanner
         // style={{ backgroundImage: 'url(/inner-banner.jpg)' }}
         >
@@ -173,12 +241,12 @@ function Listings({ listings, categories }: pageProps) {
                         >
                           <ListCard>
                             <ListIcon style={{ backgroundColor: '#f1f0f1' }}>
-                              <Image
-                                src={list?.attributes?.host?.data?.attributes?.logo as string}
+                              {/* <Image
+                                src={list?.attributes?.host?.data?.attributes?.logo as string  }
                                 alt="host logo image"
                                 width={73.99}
                                 height={73.99}
-                              />
+                              /> */}
                             </ListIcon>
                             <ListBody>
                               <PostThumb>
