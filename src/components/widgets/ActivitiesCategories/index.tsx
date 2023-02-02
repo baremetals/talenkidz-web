@@ -11,7 +11,7 @@ const Categories = ({ ...props }: any) => {
       </PageTitleBlock>
       <CategorieList>
          <CategorieRow>
-            <Categoriecolumn>Football</Categoriecolumn>
+            <Categoriecolumn className='active'>Football</Categoriecolumn>
             <Categoriecolumn>Winter games  </Categoriecolumn>
             <Categoriecolumn>Board gaming </Categoriecolumn>
             <Categoriecolumn>Basketball</Categoriecolumn>

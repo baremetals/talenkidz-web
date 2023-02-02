@@ -227,24 +227,22 @@ const Articles = ({ articles, categories, total }: pageProps) => {
        
         <TalentedKidBlock>
           <Row className='rowblock'>
-            <Column>
+            <Column className='column-4'>
               <TalentedKids />
             </Column>
-              <Column>
+              <Column className='column-4'>
               <TalentedKids />
             </Column>
-              <Column>
+              <Column className='column-4'>
               <TalentedKids />
             </Column>
-          </Row>
-          <Row >
-            <Column>
+            <Column className='column-4'>
               <TalentedKids />
             </Column>
-              <Column>
+              <Column className='column-4'>
               <TalentedKids />
             </Column>
-              <Column>
+              <Column className='column-4'>
               <TalentedKids />
             </Column>
           </Row>
