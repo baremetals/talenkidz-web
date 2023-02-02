@@ -88,9 +88,7 @@ const AboutUs = ({data}: Attributes) => {
             <PageContainer>
                 <AboutPage>
                     <InnerContainer style={{ maxWidth: '1130px' }}>
-                        
                         <PageTitle className="pageTitle" text={[<span key={"TALENTKIDS"}>What is the TALENTKIDS?</span>,]} />
-
                         <Row className='gametypeBlock'>
                             <Column>
                                 <GameType>
