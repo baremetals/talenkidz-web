@@ -65,14 +65,23 @@ type saveFuncProps = {
   slug: string;
   image: string;
 };
-
+const route = [
+  {
+    name: 'Home',
+    url: '/',
+  },
+  {
+    name: 'articles',
+    url: '/articles',
+  },
+];
 const Articles = ({ articles, total }: pageProps) => {
 
   const dispatcher = useAppDispatch();
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
   
   const [state, dispatch] = useReducer(articleReducer, Article_State);
-  const { user, firebaseUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [myBookMarks, setMyBookMarks] = useState<TBookMark[]>([]);
@@ -162,16 +171,7 @@ const Articles = ({ articles, total }: pageProps) => {
     // console.log('saving articles');
   }, [bookmarks, dispatcher, getMe, myBookMarks, user]);
 
-  const route = [
-    {
-      name: 'Home',
-      url: '/',
-    },
-    {
-      name: 'articles',
-      url: '/articles',
-    }
-  ];
+  
 
   return (
     <>
@@ -286,7 +286,7 @@ const Articles = ({ articles, total }: pageProps) => {
                   />
                 ))}
                 <LinkBlock onClick={getData}>
-                  <p>Discover more</p>
+                  {filteredArticles.length < total && <p>Discover more</p>}
                 </LinkBlock>
               </MoreArticlesBlock>
             </Column>

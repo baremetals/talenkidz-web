@@ -1,10 +1,9 @@
-import Articles from 'components/content/Articles';
+
 import Layout from 'components/Layout';
 import {
   ArticleEntity,
   CategoriesDocument,
   CategoriesQueryResult,
-  CategoryEntity,
   FilteredArticlesDocument,
   FilteredArticlesQueryResult,
   ResponseCollectionMeta,
@@ -13,16 +12,17 @@ import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { SearchProvider } from 'components/utilities/search/SearchContext';
+
+
+import CategoryArticles from 'components/content/CategoryArticles';
 
 type pageProps = {
   art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
 };
 
 function FilteredArticlesPage(props: pageProps) {
   const router = useRouter();
-  const { cats, art } = props;
+  const { art } = props;
   const { category } = router.query;
   const description = 'Articles';
   const url = `https://www.talentkids.io/articles/${category}`;
@@ -53,13 +53,12 @@ function FilteredArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-      <SearchProvider>
-        <Articles
+
+        <CategoryArticles
           articles={art?.articles?.data}
-          categories={cats?.data?.categories?.data}
           total={art?.articles?.meta?.pagination?.total}
         />
-      </SearchProvider>
+
     </Layout>
   );
 }
