@@ -3,7 +3,7 @@ import { BannerBlock, BannerImg,BannerInfo,SerchBlock } from './styles';
 import Search from 'components/widgets/Search';
 import Image from 'next/image';
 
-const Banner = ({ src,text, ...props }: any) => {
+const Banner = ({ src,text, author, ...props }: any) => {
   return (
     <BannerBlock {...props}>
         <BannerImg>
@@ -15,7 +15,10 @@ const Banner = ({ src,text, ...props }: any) => {
             />
       </BannerImg>
       <BannerInfo>
-        <h2>{text}</h2>
+        <div>
+          <h2>{text}</h2>
+          <h3>{author}</h3>
+        </div>
         <SerchBlock>
           <Search placeholder={'Search events that may be interesting for you and your child '} />
         </SerchBlock>

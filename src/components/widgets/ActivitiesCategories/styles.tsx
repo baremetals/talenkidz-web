@@ -46,11 +46,20 @@ export const Categoriecolumn = styled.div`
   margin: 10px 0;
   max-width: fit-content;
   min-width: 236px;
+  cursor: pointer;
   &:first-child {
     margin-left:0;
   }
    &:last-child {
     margin-right:0;
+  }
+  &:hover {
+    background-color:#39007E;
+     color: #fff; 
+  }
+  &.active {
+    background-color:#39007E;
+     color: #fff;
   }
   @media (max-width: 992px) {
     margin-right:15px;

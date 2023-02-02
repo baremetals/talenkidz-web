@@ -5,9 +5,10 @@ import Image from 'next/image';
 // import { isUser } from "features/auth/selectors";
 
 // import Button from 'components/Auth/Button';
-
+import PageTitle from 'components/widgets/PageTitle';
 import { QuoteIcon } from '../../../../public/assets/icons/QuoteIcon';
 
+import { AboutPage, GameType, ImgBox } from './styles';
 
 import {
   Column,
@@ -51,7 +52,7 @@ const AboutUs = ({data}: Attributes) => {
     // console.log(data.sectionOne)
     return (
         <>
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+            {/* <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
                 <InnerContainer>
                     <Title style={{ marginBottom: '3rem' }}>{data.firstHeader}</Title>
                     <Row style={{ textAlign: 'left', alignItems: 'center', marginBottom: '3rem' }}>
@@ -72,7 +73,7 @@ const AboutUs = ({data}: Attributes) => {
                         </Column>
                     </Row>
                 </InnerContainer>
-            </InnerBanner>
+            </InnerBanner> */}
 
             {/* <PageContainer style={{ paddingTop: '10rem', paddingBottom: '10rem' }}>
       <video className='video-wrapper' width='260' height='260' autoPlay loop>
@@ -83,9 +84,45 @@ const AboutUs = ({data}: Attributes) => {
         <H2Title style={{ textAlign: 'center', marginBottom: '0', color: '#fff' }}>Our mission is helping parents unlock a world of possibilities to fulfil their children s potential</H2Title>
       </InnerContainer>
     </PageContainer> */}
+            
+            <PageContainer>
+                <AboutPage>
+                    <InnerContainer style={{ maxWidth: '1130px' }}>
+                        
+                        <PageTitle className="pageTitle" text={[<span key={"TALENTKIDS"}>What is the TALENTKIDS?</span>,]} />
+
+                        <Row className='gametypeBlock'>
+                            <Column>
+                                <GameType>
+                                    <ImgBox>
+                                       <Image height={248} width={440} src='/assets/svgs/game-one.svg' alt="" />
+                                    </ImgBox>
+                                    <p>TALENTKIDS is a game-changing solution for the future generation </p>
+                               </GameType>
+                            </Column>
+                            <Column>
+                                  <GameType>
+                                    <Image  height={248} width={440} src='/assets/svgs/game-two.svg' alt="" />
+                                    <p>TALENTKIDS is a game-changing solution for the future generation </p>
+                               </GameType>
+                            </Column>
+                            <Column>
+                                  <GameType>
+                                    <Image  height={198} width={224} src='/assets/images/game-three.png' alt="" />
+                                    <p>TALENTKIDS is a game-changing solution for the future generation </p>
+                               </GameType>
+                            </Column>
+                        </Row>
+                        
+                    </InnerContainer>
+                </AboutPage>
+            </PageContainer>
 
             <PageContainer>
-                <InnerContainer style={{ maxWidth: '1000px' }}>
+                <InnerContainer style={{ maxWidth: '1130px' }}>
+
+                    
+
                     <H2Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{data.secondHeader}</H2Title>
                     <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
                         <Column>
