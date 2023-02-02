@@ -63,8 +63,6 @@ export default async function login(
     };
     setTheCookie(user);
 
-    // console.log(response);
-
     // res.send(response.data.user);
     res.status(200).json({ user: response.data.user });
   } catch (err: any) {

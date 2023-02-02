@@ -49,6 +49,7 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
 
     const token = `Bearer ${jwt}`;
     const apolloClient = initializeApollo(null, token);
+    // console.log('printing the token', process.env.NEXT_PUBLIC_GRAPHQL_URL);
     const {data} = await apolloClient.query<MeQueryResult>({
       query: MeDocument,
       variables: {

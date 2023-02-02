@@ -4,30 +4,26 @@ import {
   ArticleEntity,
   ArticlesDocument,
   ArticlesQueryResult,
-  CategoriesDocument,
-  CategoriesQueryResult,
-  CategoryEntity,
   ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 
-import {
-  InnerContainer,
-} from 'styles/common.styles';
+// import {
+//   InnerContainer,
+// } from 'styles/common.styles';
 // import {
 //   SearchProvider,
 // } from 'components/utilities/search/SearchContext';
-import { SearchProvider } from 'components/utilities/search/searchReducer';
+// import { SearchProvider } from 'components/utilities/search/searchReducer';
 
 type pageProps = {
   art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
 };
 
 function ArticlesPage(props: pageProps) {
-  const { cats, art } = props;
+  const { art } = props;
   const description = 'Articles';
   const url = 'https://www.talentkids.io/articles';
   // console.log(art);
@@ -57,15 +53,10 @@ function ArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-      
-      <SearchProvider>
-        <InnerContainer></InnerContainer>
         <Articles
           articles={art?.articles?.data}
-          categories={cats?.data?.categories?.data}
           total={art?.articles?.meta?.pagination?.total}
         />
-      </SearchProvider>
     </Layout>
   );
 }
@@ -81,7 +72,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: 'createdAt:desc',
     },
   });
-  console.log('the fucking data', data);
+  // console.log('the fucking data', data);
 
   // if (data.status === 404) {
   //   return {
@@ -93,19 +84,9 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
   //   };
   // }
 
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
  
   return {
-    props: { art: data, cats }, // will be passed to the page component as props
+    props: { art: data }, // will be passed to the page component as props
   };
 }
 

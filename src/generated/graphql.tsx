@@ -375,6 +375,36 @@ export type ComponentAddressLocationInput = {
   town?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentBookMarksReadingList = {
+  __typename?: 'ComponentBookMarksReadingList';
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  itemId?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ComponentBookMarksReadingListFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
+  image?: InputMaybe<StringFilterInput>;
+  itemId?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBookMarksReadingListInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  image?: InputMaybe<Scalars['String']>;
+  itemId?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentLikesLikes = {
   __typename?: 'ComponentLikesLikes';
   id: Scalars['ID'];
@@ -415,33 +445,6 @@ export type ComponentOrganisationOrganisationInput = {
   name?: InputMaybe<Scalars['String']>;
   organisationType?: InputMaybe<Scalars['String']>;
   website?: InputMaybe<Scalars['String']>;
-};
-
-export type ComponentReadingListReadingList = {
-  __typename?: 'ComponentReadingListReadingList';
-  articleId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  image?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type ComponentReadingListReadingListFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListFiltersInput>>>;
-  articleId?: InputMaybe<StringFilterInput>;
-  image?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListFiltersInput>>>;
-  slug?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentReadingListReadingListInput = {
-  articleId?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  image?: InputMaybe<Scalars['String']>;
-  slug?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentSeoSeo = {
@@ -907,7 +910,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutUs | Article | Author | Category | Comment | ComponentAddressLocation | ComponentLikesLikes | ComponentOrganisationOrganisation | ComponentReadingListReadingList | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutUs | Article | Author | Category | Comment | ComponentAddressLocation | ComponentBookMarksReadingList | ComponentLikesLikes | ComponentOrganisationOrganisation | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -2507,6 +2510,7 @@ export type UsersPermissionsUser = {
   backgroundImg?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   blocked?: Maybe<Scalars['Boolean']>;
+  bookmarklist?: Maybe<Array<Maybe<ComponentBookMarksReadingList>>>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
@@ -2519,7 +2523,6 @@ export type UsersPermissionsUser = {
   organisation?: Maybe<ComponentOrganisationOrganisation>;
   pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
-  readinglist?: Maybe<Array<Maybe<ComponentReadingListReadingList>>>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userType: Enum_Userspermissionsuser_Usertype;
@@ -2527,8 +2530,8 @@ export type UsersPermissionsUser = {
 };
 
 
-export type UsersPermissionsUserReadinglistArgs = {
-  filters?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
+export type UsersPermissionsUserBookmarklistArgs = {
+  filters?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -2557,6 +2560,7 @@ export type UsersPermissionsUserFiltersInput = {
   backgroundImg?: InputMaybe<StringFilterInput>;
   bio?: InputMaybe<StringFilterInput>;
   blocked?: InputMaybe<BooleanFilterInput>;
+  bookmarklist?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
   confirmationToken?: InputMaybe<StringFilterInput>;
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -2574,7 +2578,6 @@ export type UsersPermissionsUserFiltersInput = {
   password?: InputMaybe<StringFilterInput>;
   pronoun?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
-  readinglist?: InputMaybe<ComponentReadingListReadingListFiltersInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -2588,6 +2591,7 @@ export type UsersPermissionsUserInput = {
   backgroundImg?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
   blocked?: InputMaybe<Scalars['Boolean']>;
+  bookmarklist?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListInput>>>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   email?: InputMaybe<Scalars['String']>;
@@ -2601,7 +2605,6 @@ export type UsersPermissionsUserInput = {
   password?: InputMaybe<Scalars['String']>;
   pronoun?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
-  readinglist?: InputMaybe<Array<InputMaybe<ComponentReadingListReadingListInput>>>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
   userType?: InputMaybe<Enum_Userspermissionsuser_Usertype>;
@@ -2732,7 +2735,7 @@ export type MeQueryVariables = Exact<{
 }>;
 
 
-export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, readinglist?: Array<{ __typename?: 'ComponentReadingListReadingList', articleId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null } | null> | null } | null } | null } | null };
+export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', itemId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null, type?: string | null } | null> | null } | null } | null } | null };
 
 
 export const ArticleDocument = gql`
@@ -3829,12 +3832,13 @@ export const MeDocument = gql`
           organisationType
           website
         }
-        readinglist(sort: $sort, pagination: $pagination) {
-          articleId
+        bookmarklist(sort: $sort, pagination: $pagination) {
+          itemId
           id
           image
           slug
           title
+          type
         }
       }
     }

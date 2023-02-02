@@ -19,7 +19,7 @@ export default async function handler(
 //   console.log(start, limit);
 
   try {
-    console.log("getting entities");
+    // console.log("getting entities");
     const { data } = await client.query<entityQueryResult>({
       query: gQDocument,
       variables: {

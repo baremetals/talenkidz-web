@@ -57,3 +57,24 @@ export type uploadProps = {
   setUploadImg: React.Dispatch<React.SetStateAction<File | null>>;
   setDisplayImg: React.Dispatch<React.SetStateAction<string| null>>;
 };
+
+export type TBookMark = {
+  title: string;
+  itemId: string;
+  slug: string;
+  image: string;
+  type: string;
+};
+
+export type TCategory = {
+  id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    colour: string;
+  };
+};

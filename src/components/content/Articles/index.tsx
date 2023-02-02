@@ -1,12 +1,24 @@
+import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import dayjs from 'dayjs';
+
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
+
+
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import SmallACards from 'components/content/Articles/SmallACards';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import Fields from 'components/widgets/Fields';
-import dayjs from 'dayjs';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useContext, useEffect, useReducer, useState } from 'react';
-import { updateStrapiEntity } from 'src/helpers';
+
+
+
+import {
+  updateStrapiEntity,
+  fetchStrapiUser,
+  updateStrapiUserBookMarks,
+} from 'src/helpers';
 
 import {
   ArticleTitle,
@@ -33,6 +45,7 @@ import {
 import Categories from 'components/utilities/Category';
 import {
   ArticleEntity,
+  ArticleEntityResponseCollection,
   ArticlesDocument,
   CategoryEntity,
   ComponentLikesLikes,
@@ -48,30 +61,38 @@ import { useSearchState } from 'components/utilities/search/searchReducer';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { SearchBlock } from 'components/utilities/search/search.styles';
 import { cutTextToLength } from 'src/utils';
+import { TBookMark } from 'src/types';
 
 type pageProps = {
   articles: ArticleEntity[];
-  categories: CategoryEntity[];
   total: number;
 };
 
-const Articles = ({ articles, categories, total }: pageProps) => {
+type saveFuncProps = {
+  id: string;
+  title: string;
+  slug: string;
+  image: string;
+};
+
+const Articles = ({ articles, total }: pageProps) => {
   const router = useRouter();
+  const dispatcher = useAppDispatch();
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  // const [hasMore, setHasMore] = useState(true);
   const [state, dispatch] = useReducer(articleReducer, Article_State);
   const { user, firebaseUser } = useContext(AuthContext);
   // const { state: searchState } = useContext(SearchContext);
-  const [hasLiked, setHasLiked] = useState(false);
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [myBookMarks, setMyBookMarks] = useState<TBookMark[]>([]);
 
   const searchState = useSearchState();
 
-  // console.log('the state', searchState);
-  const limit = 4
+  // console.log(user)
   const remaining = total % filteredArticles.length;
   const fetchData = useFetchEntities({
     limit: remaining > 4 ? 4 : remaining,
-    start: state.articlesLength as number,
+    start: filteredArticles.length as number,
     gQDocument: ArticlesDocument,
   });
 
@@ -91,24 +112,64 @@ const Articles = ({ articles, categories, total }: pageProps) => {
     });
   }, [articles, total]);
 
+  const getMe = useCallback(async () => {
+    const marks: string[] = []
+    const {data} = await fetchStrapiUser();
+    setMyBookMarks(data?.data);
+    data?.data.forEach((item: { itemId: string; }) => marks.push(item.itemId))
+    setBookmarks(marks);
+    // console.log('the response', data);
+    return data
+  }, [])
+
+  // const handleModal = useCallback(() => {
+  //   dispatch(openModal('REGISTER_FORM'));
+  // }, [dispatch]);
+
   useEffect(() => {
-    setHasMore(
-      filteredArticles.length >= total || searchState.searching ? false : true
-    );
-  }, [filteredArticles.length, total, searchState.searching]);
+    if (user) {
+      const unsubscribe = getMe();
+      return () => {
+        unsubscribe;
+      };
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
-
-  const getData = async () => {
+  const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
-      const res = await fetchData;
-      // console.log(res);
+      const res = fetchData;
+      console.log(res?.data.articles.data);
+      const articles = res?.data?.articles;
       setFilteredArticles((filteredArticles) => [
         ...filteredArticles,
         // eslint-disable-next-line no-unsafe-optional-chaining
-        ...res?.articles?.data,
+        ...articles?.data,
       ]);
     }
-  };
+  }, [fetchData, filteredArticles.length, searchState.searching, total]);
+
+  const saveArticle = useCallback(async ({ id, title, slug, image }: saveFuncProps) => {
+    // console.log(id, title, slug, image)
+    // console.log(bookmarks);
+    if (user === null) {
+      // console.log(id, title, slug, image);
+      dispatcher(openModal('LOGIN_FORM'));
+    }
+    if (bookmarks.includes(id)) {
+      const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
+      await updateStrapiUserBookMarks(filteredMarks);
+      await getMe();
+    } else {
+      // console.log('summer house');
+      await updateStrapiUserBookMarks([
+        ...myBookMarks,
+        { itemId: id, title, slug, image, type: 'article' },
+      ]);
+      await getMe();
+    }
+    // console.log('saving articles');
+  }, [bookmarks, dispatcher, getMe, myBookMarks, user]);
 
   const handleClick = async (
     hasLiked: boolean,
@@ -145,8 +206,8 @@ const Articles = ({ articles, categories, total }: pageProps) => {
     }
   };
 
-  console.log(filteredArticles);
-  console.log(remaining);
+  // console.log(filteredArticles.length);
+  // console.log(remaining);
 
   const route = [
     {
@@ -156,7 +217,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
     {
       name: 'articles',
       url: '/articles',
-    },
+    }
   ];
 
   return (
@@ -171,9 +232,41 @@ const Articles = ({ articles, categories, total }: pageProps) => {
 
         <TrendingBlock>
           <Row className="rowblock">
-            {[1, 2, 3, 4, 5, 6].map((item, i) => (
-              <Column key={i}>
-                <SmallACards />
+            {filteredArticles?.map((item) => (
+              <Column key={item?.id}>
+                <SmallACards
+                  authorImg={
+                    item?.attributes?.author?.data?.attributes?.avatar?.data
+                      ?.attributes?.url as string
+                  }
+                  authorName={
+                    item?.attributes?.author?.data?.attributes
+                      ?.fullName as string
+                  }
+                  articleTitle={cutTextToLength(
+                    item?.attributes?.title as string,
+                    10
+                  )}
+                  slug={item?.attributes?.slug}
+                  readingTime={item?.attributes?.readingTime as string}
+                  createdAt={dayjs(item?.attributes?.createdAt).format('MMM D')}
+                  saveArticle={() => {
+                    const data = {
+                      id: item?.id as string,
+                      title: item?.attributes?.title as string,
+                      slug: item?.attributes?.slug as string,
+                      image: item?.attributes?.heroImage?.data?.attributes
+                        ?.url as string,
+                    };
+                    saveArticle({ ...data });
+                  }}
+                  bookedMarked={
+                    bookmarks.includes(item?.id as string) ? true : false
+                  }
+                  category={
+                    item?.attributes?.category?.data?.attributes?.slug as string
+                  }
+                />
               </Column>
             ))}
           </Row>
@@ -192,7 +285,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
           <Row>
             <Column className="column-7">
               <MoreArticlesBlock>
-                {filteredArticles?.map((item, i) => (
+                {filteredArticles?.map((item) => (
                   <ArticleCard
                     className="kidsRow"
                     key={item?.id as string}
@@ -223,6 +316,20 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                       item?.attributes?.category?.data?.attributes
                         ?.slug as string
                     }
+                    saveArticle={() => {
+                      const data = {
+                        id: item?.id as string,
+                        title: item?.attributes?.title as string,
+                        slug: item?.attributes?.slug as string,
+                        image: item?.attributes?.heroImage?.data?.attributes
+                          ?.url as string,
+                      };
+                      saveArticle({ ...data });
+                    }}
+                    bookedMarked={
+                      bookmarks.includes(item?.id as string) ? true : false
+                    }
+                    slug={item?.attributes?.slug}
                   />
                 ))}
                 <LinkBlock onClick={getData}>
@@ -239,7 +346,7 @@ const Articles = ({ articles, categories, total }: pageProps) => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Categories categories={categories} />
+              <Categories/>
             </Column>
           </Row>
         </InnerContainer>

@@ -7,7 +7,10 @@ import { Entities } from 'src/types';
 import Button from 'components/users/Auth/Button';
 import Image from 'next/image';
 // import { SearchContext } from './SearchContext';
-import { useSearchDispatch, useSearchState } from './searchReducer';
+// import { useSearchDispatch, useSearchState } from './searchReducer';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { searchValueSelector,  } from 'src/features/search/selectors';
+import { getValue } from 'src/features/search/reducers';
 import { SearchWrapper, StyledInput } from './search.styles';
 
 export interface ISearch {
@@ -21,63 +24,73 @@ const EntitySearch: React.FC<ISearch> = ({
   setFilteredEntities,
   // placeholder,
 }) => {
-  // const { state,  } = useContext(SearchContext);
-  const state = useSearchState();
-  const dispatch = useSearchDispatch();
-  // console.log('testing this method: ', {...state});
+  const value = useAppSelector(searchValueSelector);
+  const dispatch = useAppDispatch();
 
   const search = useSearch({
-    searchValue: state.searchValue,
+    searchValue: value,
     entities,
     setFilteredEntities,
   });
 
 
   return (
-      <SearchWrapper>
-        <StyledInput
-          placeholder={state.title}
-          name="search"
-          type="text"
-          onChange={async (e) => {
-            dispatch({
-              type: 'GET_VALUE',
-              payload: {
-                ...state,
-                searchValue: e.target.value,
-                searching: true,
-              },
-            });
-            await search();
-          }}
+    <SearchWrapper>
+      <StyledInput
+        placeholder={'Search'}
+        name="search"
+        type="text"
+        onChange={async (e) => {
+          dispatch(
+            getValue({
+              searchValue: e.target.value,
+              searching: true,
+            })
+          );
+          // dispatch({
+          //   type: 'GET_VALUE',
+          //   payload: {
+          //     ...state,
+          //     searchValue: e.target.value,
+          //     searching: true,
+          //   },
+          // });
+          await search();
+        }}
+      />
+      <Button
+        content=""
+        type="submit"
+        disabled={false}
+        loading={false}
+        aria-label="Search icon"
+        onChange={async (e) => {
+          dispatch(
+            getValue({
+              searchValue: e.target.value,
+              searching: true,
+            })
+          );
+          // dispatch({
+          //   type: 'GET_VALUE',
+          //   payload: {
+          //     ...state,
+          //     searchValue: e.target.value,
+          //     searching: true,
+          //   },
+          // });
+          await search();
+        }}
+      >
+        <Image
+          src="/assets/svgs/search.svg"
+          alt="location icon"
+          className="bookmar"
+          width={20}
+          height={20}
         />
-        <Button
-          content=""
-          type="submit"
-          disabled={false}
-          loading={false}
-          aria-label="Search icon"
-          onChange={async (e) => {
-            dispatch({
-              type: 'GET_VALUE',
-              payload: {
-                ...state,
-                searchValue: e.target.value,
-                searching: true,
-              },
-            });
-            await search();
-          }}
-        >
-          <Image
-            src="/assets/svgs/search.svg"
-            alt="location icon"
-            className="bookmar"
-            width={20}
-            height={20}
-          />
-        </Button>
-      </SearchWrapper>
+      </Button>
+    </SearchWrapper>
   );
 };
 

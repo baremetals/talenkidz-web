@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { ComponentLikesLikes, Maybe } from 'generated/graphql';
+import { ComponentLikesLikes } from 'generated/graphql';
+import { TBookMark } from 'src/types';
 
 
 export const addToMailingList = async (email: string) => {
@@ -30,3 +31,13 @@ export const updateStrapiEntity = async (entityName: string, entityId: string, c
   });
 };
 
+export const fetchStrapiUser = async () => {
+  return axios.get('/api/user/me');
+};
+
+
+export const updateStrapiUserBookMarks = async (bookmarklist: TBookMark[]) => {
+  return axios.post('/api/user/bookmark', {
+    data: bookmarklist,
+  });
+};

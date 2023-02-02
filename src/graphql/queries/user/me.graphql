@@ -27,12 +27,13 @@ query Me(
           organisationType
           website
         }
-        readinglist(sort: $sort, pagination: $pagination) {
-          articleId
+        bookmarklist(sort: $sort, pagination: $pagination) {
+          itemId
           id
           image
           slug
           title
+          type
         }
       }
     }

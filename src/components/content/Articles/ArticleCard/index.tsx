@@ -1,33 +1,25 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   CategoryBtn,
   ArticleImageColumn,
   ArticleBlurb,
-  ArticleImageBlock,
-  CardWrapper,
-  IconBlock,
   ArticleInfo,
-  Datetime,
   Date,
   Time,
   AuthorBlock,
-  AuthorWrap,
-  AuthorImg,
+  ArticleImageBlock,
 } from './styles';
-import Image from 'next/image';
+
 import Button from 'components/users/Auth/Button';
-
-
-interface IArticleCard {
-  authorImg: string | undefined;
-  authorName: string | undefined;
-  articleTitle: string | undefined;
-  ArticleIntro: string | undefined;
-  ArticleImage: string | undefined;
-  readingTime: string | undefined;
-  createdAt: string | undefined;
-  category: string;
-  className?: string | undefined;
-}
+import {
+  CardWrapper,
+  IconBlock,
+  Datetime,
+  AuthorImg,
+  AuthorWrap,
+} from '../styles';
+import { IArticleCard } from 'src/interfaces';
 
 const ArticleCard = ({
   authorImg,
@@ -38,8 +30,13 @@ const ArticleCard = ({
   readingTime,
   createdAt,
   category,
+  saveArticle,
+  bookedMarked,
+  slug,
   ...props
 }: IArticleCard) => {
+  
+
   return (
     <CardWrapper {...props}>
       <IconBlock>
@@ -65,39 +62,49 @@ const ArticleCard = ({
             </AuthorImg>
             <p>{authorName}</p>
           </AuthorWrap>
-          <Image
-            src="/assets/svgs/bookmar.svg"
-            alt="location icon"
-            className="bookmar"
-            width={25}
-            height={25}
-          />
+          {!bookedMarked && (
+            <Image
+              src="/assets/svgs/bookmar.svg"
+              alt="bookmark icon"
+              className="bookmar"
+              width={25}
+              height={25}
+              onClick={saveArticle}
+            />
+          )}
         </AuthorBlock>
-        <h3>{articleTitle}</h3>
+        <Link passHref href={`/articles/${category}/${slug}`}>
+          <h3>{articleTitle}</h3>
+        </Link>
+
         <ArticleBlurb>{ArticleIntro}</ArticleBlurb>
         <Datetime>
           <Date>{createdAt}</Date>
           <span></span>
           <Time>{readingTime} read</Time>
-          <CategoryBtn>
-            <Button
-              content={category}
-              type="submit"
-              disabled={false}
-              loading={false}
-            ></Button>
-          </CategoryBtn>
+          <Link passHref href={`/articles/${category}`}>
+            <CategoryBtn>
+              <Button
+                content={category as string}
+                type="button"
+                disabled={false}
+                loading={false}
+              />
+            </CategoryBtn>
+          </Link>
         </Datetime>
       </ArticleInfo>
       <ArticleImageColumn>
         <ArticleImageBlock>
-          <Image
-            src={ArticleImage || '/assets/images/kid.png'}
-            alt="article image"
-            className="bookmar"
-            width={166}
-            height={166}
-          />
+          <Link passHref href={`/articles/${category}/${slug}`}>
+            <Image
+              src={ArticleImage || '/assets/images/kid.png'}
+              alt="article image"
+              className="bookmar"
+              width={166}
+              height={166}
+            />
+          </Link>
         </ArticleImageBlock>
       </ArticleImageColumn>
     </CardWrapper>

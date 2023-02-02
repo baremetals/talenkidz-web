@@ -58,9 +58,6 @@ export const LinkBlock = styled.div`
      text-align: right;
 `;
 
-
-
-
 export const PageTitle = styled.h2`
   font-weight: 700;
   font-size: 52px;
@@ -94,6 +91,50 @@ export const PageTitle = styled.h2`
   }
 `;
 
+//  Article Cards
+export const CardWrapper = styled.div`
+  padding: 18px;
+  background: #f1faff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  display: flex;
+`;
+
+export const IconBlock = styled.div`
+  margin-right: 20px;
+`;
+
+export const Datetime = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    background: rgba(57, 0, 126, 0.2);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+`;
+
+export const AuthorImg = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const AuthorWrap = styled.div`
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #0f021f;
+    margin-left: 20px;
+  }
+`;
 
 
 

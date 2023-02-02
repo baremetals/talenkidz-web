@@ -1,7 +1,14 @@
+import { useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import {
-  ArticleEntity,
+  // ArticleEntity,
+  ArticleEntityResponseCollection,
   ArticlesDocument,
+  // EventEntity,
+  EventEntityResponseCollection,
   EventsDocument,
+  // ListingEntity,
+  ListingEntityResponseCollection,
   ListingsDocument,
 } from 'generated/graphql';
 
@@ -17,70 +24,69 @@ type GQDocument =
   | typeof EventsDocument
   | typeof ListingsDocument;
 
-type ArtEntity = {
-  articles: {
-    data: ArticleEntity[];
+// type ArtEntity = {
+//   articles: {
+//     data: ArticleEntity[];
+//   };
+// };
+// type EveEntity = {
+//   articles: {
+//     data: EventEntity[];
+//   };
+// };
+
+// type ListEntity = {
+//   articles: {
+//     data: ListingEntity[];
+//   };
+// };
+
+// type TEntity = ListEntity | EveEntity | ArtEntity;
+
+type AllEntitities =
+  | ArticleEntityResponseCollection
+  | EventEntityResponseCollection
+  | ListingEntityResponseCollection;
+  
+type ReturnedEntity = {
+  data: {
+    articles: ArticleEntityResponseCollection;
+    data: AllEntitities;
   };
 };
-type EveEntity = {
-  articles: {
-    data: ArticleEntity[];
-  };
-};
 
-type ListEntity = {
-  articles: {
-    data: ArticleEntity[];
-  };
-};
+export const useFetchEntities = ({ limit, start, gQDocument }: IfetchEntity): ReturnedEntity => {
+  const [entity, setEntity] = useState<ReturnedEntity>();
 
-type ReturnedEntity = ListEntity | EveEntity | ArtEntity;
-
-export const useFetchEntities = ({
-  limit,
-  start,
-  gQDocument,
-}:
-IfetchEntity) => {
-
-  const fetchDataOne = async ({
-    start,
-    limit,
-    gQDocument,
-  }: IfetchEntity): Promise<ReturnedEntity> => {
-
-    console.log('Fetching really');
+  const fetchData = useCallback(async()  => {
+    // console.log('Fetching really');
     const body = JSON.stringify({
       start,
       limit,
       gQDocument,
     });
-    const res = await fetch('/api/entity', {
+    await fetch('/api/entity', {
       method: 'POST',
       body: body,
-    });
-    const entities = await res.json();
-    return entities?.data;
-  };
-  return fetchDataOne({start, limit, gQDocument});
-};
+    })
+      .then((res) => res.json())
+      .then((data: ReturnedEntity) => {
+        // console.log(data);
+        setEntity(data);
+      })
+      .finally()
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [gQDocument, limit, start]);
 
-export const fetchData = async ({
-  start,
-  limit,
-  gQDocument,
-}: IfetchEntity): Promise<ReturnedEntity> => {
-  // console.log('Fetching really');
-  const body = JSON.stringify({
-    start,
-    limit,
-    gQDocument,
-  });
-  const res = await fetch('/api/entity', {
-    method: 'POST',
-    body: body,
-  });
-  const entities = await res.json();
-  // console.log(entities);
-  return entities?.data;
+  useEffect(() => {
+    const unsubscribe = fetchData();
+    return () => {
+      unsubscribe;
+    };
+  }, [fetchData, gQDocument, limit, start]);
+
+  // console.log(entity)
+  return entity as ReturnedEntity;
 };

@@ -44,3 +44,17 @@ export interface Post {
   threadItems: Array<Comment>;
 }
 
+export interface IArticleCard {
+  authorImg: string | undefined;
+  authorName: string | undefined;
+  articleTitle: string | undefined;
+  slug: string | undefined;
+  readingTime: string | undefined;
+  createdAt: string | undefined;
+  bookedMarked: boolean;
+  saveArticle: () => void;
+  category?: string;
+  ArticleImage?: string | undefined;
+  ArticleIntro?: string | undefined;
+  className?: string | undefined;
+}
