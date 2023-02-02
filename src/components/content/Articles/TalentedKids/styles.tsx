@@ -21,6 +21,16 @@ export const KidsInfo = styled.div`
     line-height: 123.1%;
     margin-bottom:20px;
   }
+  .active {
+    .bookmark {
+      display:none;
+    }
+  }
+  .inactive {
+    .bookmarActive {
+       display:none;
+    }
+  }
 `;
 
 export const Datetime = styled.div`

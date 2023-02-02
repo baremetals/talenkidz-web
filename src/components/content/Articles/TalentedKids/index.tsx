@@ -1,7 +1,14 @@
 import { TalentedKid , ImgBlock,KidsInfo,Datetime ,Date ,Time,KidUserBlock,KidUser,KidImg } from './styles';
 import Image from 'next/image';
+import { useState } from "react";
 
 const TalentedKids = ({ ...props }: any) => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handleClick = () => {
+    // ️ toggle isActive state on click
+    setIsActive((current) => !current);
+  };
   return (
       <TalentedKid {...props}>
           <ImgBlock>
@@ -14,7 +21,7 @@ const TalentedKids = ({ ...props }: any) => {
                 />
           </ImgBlock>
       <KidsInfo>
-              <KidUserBlock>
+           <KidUserBlock>
                   <KidUser>
                       <KidImg>
                        <Image
@@ -26,14 +33,25 @@ const TalentedKids = ({ ...props }: any) => {
                           />
                        </KidImg>
                      <h3>Kenny Jonathan</h3>
-                </KidUser>
-                  <Image
-                    src="/assets/svgs/bookmar.svg"
-                    alt="location icon"
-                    className="bookmar"
-                    width={25}
-                    height={25}
-                />
+          </KidUser>
+          <div className={isActive ? "active" : "inactive"} onClick={handleClick}>
+                     <div className="bookmark">
+                            <Image
+                              src="/assets/svgs/bookmar.svg"
+                              alt="location icon"
+                              width={25}
+                              height={25}
+                        />
+                    </div>
+                    <div className="bookmarActive">
+                          <Image
+                              src="/assets/svgs/bookmark-active.svg"
+                              alt="location icon"
+                              width={25}
+                              height={25}
+                      />
+                    </div>
+              </div>
               </KidUserBlock>
                <h2 >23 Little Things You Only Learn As A Parent</h2>
               <Datetime>
