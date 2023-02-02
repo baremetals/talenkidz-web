@@ -36,6 +36,12 @@ export const TrendingBlock = styled.div`
  margin-bottom:160px;
   .rowblock {
     margin-bottom:15px;
+    .column-4 {
+      min-width:33.33%;
+    @media (max-width: 991px) { 
+         min-width:100%;
+      }
+    }
   }
 `;
 

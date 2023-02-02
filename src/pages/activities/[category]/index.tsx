@@ -1,5 +1,5 @@
 import Layout from 'components/Layout';
-import Listings from 'components/list/Listings';
+import ListingsCategories from 'components/list/ListingsCategories';
 import {
   CategoriesDocument,
   CategoriesQueryResult,
@@ -51,7 +51,8 @@ function FilteredListingsPage(props: pageProps) {
       type="activities"
       pageUrl={url}
     >
-      <Listings
+      
+      <ListingsCategories
         listings={lists?.listings?.data}
         categories={cats?.data?.categories?.data}
       />

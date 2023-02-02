@@ -1,6 +1,4 @@
 import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import dayjs from 'dayjs';
 
 import { useAppDispatch } from 'src/app/hooks';
@@ -10,12 +8,11 @@ import { openModal } from 'src/features/modal/reducers';
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import SmallACards from 'components/content/Articles/SmallACards';
 import Breadcrumb from 'components/widgets/Breadcrumb';
-import Fields from 'components/widgets/Fields';
+
 
 
 
 import {
-  updateStrapiEntity,
   fetchStrapiUser,
   updateStrapiUserBookMarks,
 } from 'src/helpers';
@@ -28,9 +25,6 @@ import {
   TrendingBlock,
 } from './styles';
 
-import Search from 'components/widgets/Search';
-// import { useAppSelector } from "app/hooks";
-// import { isUser } from "features/auth/selectors";
 
 import EntitySearch from 'components/utilities/search/EntitySearch';
 import {
@@ -45,10 +39,7 @@ import {
 import Categories from 'components/utilities/Category';
 import {
   ArticleEntity,
-  ArticleEntityResponseCollection,
   ArticlesDocument,
-  CategoryEntity,
-  ComponentLikesLikes,
 } from 'generated/graphql';
 
 import { useFetchEntities } from 'src/hooks/useFetchEntities';
@@ -56,7 +47,7 @@ import {
   INITIAL_STATE as Article_State,
   articleReducer,
 } from './articleReducer';
-// import { SearchContext } from 'components/utilities/search/SearchContext';
+
 import { useSearchState } from 'components/utilities/search/searchReducer';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { SearchBlock } from 'components/utilities/search/search.styles';
@@ -76,13 +67,13 @@ type saveFuncProps = {
 };
 
 const Articles = ({ articles, total }: pageProps) => {
-  const router = useRouter();
+
   const dispatcher = useAppDispatch();
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
-  // const [hasMore, setHasMore] = useState(true);
+  
   const [state, dispatch] = useReducer(articleReducer, Article_State);
   const { user, firebaseUser } = useContext(AuthContext);
-  // const { state: searchState } = useContext(SearchContext);
+  
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [myBookMarks, setMyBookMarks] = useState<TBookMark[]>([]);
 
@@ -139,7 +130,7 @@ const Articles = ({ articles, total }: pageProps) => {
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
       const res = fetchData;
-      console.log(res?.data.articles.data);
+      // console.log(res?.data.articles.data);
       const articles = res?.data?.articles;
       setFilteredArticles((filteredArticles) => [
         ...filteredArticles,
@@ -171,44 +162,6 @@ const Articles = ({ articles, total }: pageProps) => {
     // console.log('saving articles');
   }, [bookmarks, dispatcher, getMe, myBookMarks, user]);
 
-  const handleClick = async (
-    hasLiked: boolean,
-    likes: ComponentLikesLikes[],
-    articleId: string,
-    totaleLikes: number
-  ) => {
-    if (!user) {
-      console.log('please sign in first');
-    } else {
-      if (hasLiked) {
-        // console.log('before',hasLiked);
-        // setHasLiked(false);
-        // hasLiked = false;
-        // totaleLikes - 1;
-        const filter = likes?.filter((like) => like?.userId !== user?.id);
-        await updateStrapiEntity('articles', articleId as string, {
-          likes: filter as ComponentLikesLikes[],
-        });
-        console.log(totaleLikes);
-        setFilteredArticles(filteredArticles);
-      } else {
-        hasLiked = true;
-        totaleLikes + 1;
-        await updateStrapiEntity('articles', articleId as string, {
-          likes: [
-            ...(likes as ComponentLikesLikes[]),
-            { userId: user.id },
-          ] as ComponentLikesLikes[],
-        });
-        setFilteredArticles(filteredArticles);
-        // console.log(res);
-      }
-    }
-  };
-
-  // console.log(filteredArticles.length);
-  // console.log(remaining);
-
   const route = [
     {
       name: 'Home',
@@ -233,7 +186,7 @@ const Articles = ({ articles, total }: pageProps) => {
         <TrendingBlock>
           <Row className="rowblock">
             {filteredArticles?.map((item) => (
-              <Column key={item?.id}>
+              <Column className="column-4" key={item?.id}>
                 <SmallACards
                   authorImg={
                     item?.attributes?.author?.data?.attributes?.avatar?.data
@@ -245,7 +198,7 @@ const Articles = ({ articles, total }: pageProps) => {
                   }
                   articleTitle={cutTextToLength(
                     item?.attributes?.title as string,
-                    10
+                    40
                   )}
                   slug={item?.attributes?.slug}
                   readingTime={item?.attributes?.readingTime as string}
@@ -346,7 +299,7 @@ const Articles = ({ articles, total }: pageProps) => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Categories/>
+              <Categories />
             </Column>
           </Row>
         </InnerContainer>
