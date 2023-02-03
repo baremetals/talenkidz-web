@@ -45,16 +45,17 @@ export interface Post {
 }
 
 export interface IArticleCard {
+  id: string;
   authorImg: string | undefined;
   authorName: string | undefined;
   articleTitle: string | undefined;
   slug: string | undefined;
   readingTime: string | undefined;
   createdAt: string | undefined;
-  bookedMarked: boolean;
-  saveArticle: () => void;
+  bookedMarked?: boolean;
+  saveArticle?: () => void;
   category?: string;
-  ArticleImage?: string | undefined;
-  ArticleIntro?: string | undefined;
+  articleImage?: string | undefined;
+  articleIntro?: string | undefined;
   className?: string | undefined;
 }

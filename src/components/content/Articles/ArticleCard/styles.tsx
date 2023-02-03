@@ -11,6 +11,16 @@ export const ArticleInfo = styled.div`
     line-height: 123.1%;
     margin-bottom: 20px;
   }
+  .active {
+    .bookmark {
+      display:none;
+    }
+  }
+  .inactive {
+    .bookmarkActive {
+       display:none;
+    }
+  }
 `;
 
 export const ArticleImageColumn = styled.div`

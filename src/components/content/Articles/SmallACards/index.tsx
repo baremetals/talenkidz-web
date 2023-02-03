@@ -10,16 +10,17 @@ import {
   AuthorWrap,
 } from '../styles';
 import { CardInfoWrap, Date, Time, CardAuthorBlock } from './styles';
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
 
 
 const SmallACard = ({
+  id,
   authorImg,
   authorName,
   articleTitle,
+  articleImage,
   readingTime,
   createdAt,
-  bookedMarked,
-  saveArticle,
   slug,
   category
 }: IArticleCard) => {
@@ -49,16 +50,12 @@ const SmallACard = ({
             </AuthorImg>
             <p>{authorName}</p>
           </AuthorWrap>
-          {!bookedMarked && (
-            <Image
-              src="/assets/svgs/bookmar.svg"
-              alt="bookmark icon"
-              className="bookmar"
-              width={25}
-              height={25}
-              onClick={saveArticle}
-            />
-          )}
+          <BookMarkIcon
+            id={id as string}
+            title={articleTitle as string}
+            slug={slug as string}
+            image={articleImage as string}
+          /> 
         </CardAuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
           <h3>{articleTitle}</h3>

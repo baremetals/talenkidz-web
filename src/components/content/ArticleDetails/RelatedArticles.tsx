@@ -1,73 +1,26 @@
 import React, { ReactElement } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
-import Image from 'next/image';
 import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
-import { useRouter } from 'next/router';
+import { cutTextToLength } from 'src/utils';
 
+import ArticleCard from 'components/content/Articles/ArticleCard';
 import {
-    MediaObject,
-    MediaObjectItem,
-    MediaObjectThumb,
-    MediaObjectBody,
-    MediaObjectDate,
-    MediaObjectTitle,
+  Row,
+  Column,
+} from 'styles/common.styles';
+import { CardWrapper, LinkWrapper, SearchWrapper } from './details.styles';
 
-    WidgetPanel,
-    WidgetPanelTitle,
-
-    WidgetPanelListing,
-    MediaObjectSpan,
-    // WidgetPanelLink
-} from "styles/common.styles";
+import Fields from 'components/widgets/Fields';
+import Search from 'components/widgets/Search';
 
 
-// type articleProps = {
-//     id: string;
-//     attributes: {
-//         body: string;
-//         category: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     // name: string;
-//                     slug: string;
-//                 };
-//             };
-//         };
-//         createdAt: Date;
-//         slug: string;
-//         title: string;
-//         blurb: string;
-//         author: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     fullName: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//         heroImage: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     url: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//     };
-// };
 
 type propType = {
     category: string
 };
 
 function RelatedArticles({ category }: propType): ReactElement {
-  const router = useRouter();
     const { data } = useFilteredArticlesQuery({
         variables: {
             filters: {
@@ -86,59 +39,51 @@ function RelatedArticles({ category }: propType): ReactElement {
 
 
     return (
-      <>
-        <WidgetPanel>
-          <WidgetPanelTitle>Related Articles</WidgetPanelTitle>
-          <WidgetPanelListing>
-            <MediaObject>
-              {arty?.map((art, id) => (
-                <MediaObjectItem key={id}>
-                  <MediaObjectThumb
-                    onClick={() =>
-                      router.push(
-                        `/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`
-                      )
-                    }
-                  >
-                    {/* <Link
-                      href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                      passHref
-                    > */}
-                    <Image
-                      src={
-                        art?.attributes?.heroImage?.data?.attributes?.url ||
-                        '/default-list-img.jpg'
-                      }
-                      alt="article image"
-                      width={80}
-                      height={80}
-                    />
-                    {/* </Link> */}
-                  </MediaObjectThumb>
-                  <MediaObjectBody>
-                    <Link
-                      passHref
-                      href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                    >
-                      <MediaObjectTitle>
-                        {art?.attributes?.title?.slice(0, 50)}
-                      </MediaObjectTitle>
-                    </Link>
-                    <MediaObjectDate>
-                      {dayjs(art?.attributes?.createdAt).format('DD MMMM YYYY')}
-                    </MediaObjectDate>
-                    <MediaObjectSpan>
-                      {`${art?.attributes?.author?.data?.attributes?.fullName}` +
-                        ' • ' +
-                        `${art?.attributes?.readingTime}`}
-                    </MediaObjectSpan>
-                  </MediaObjectBody>
-                </MediaObjectItem>
-              ))}
-            </MediaObject>
-          </WidgetPanelListing>
-        </WidgetPanel>
-      </>
+      <Row>
+        <Column className="column-7">
+          <CardWrapper>
+            {arty?.map((item) => (
+              <ArticleCard
+                className="kidsRow"
+                key={item.id}
+                id={item.id as string}
+                authorImg={
+                  item?.attributes?.author?.data?.attributes?.avatar?.data
+                    ?.attributes?.url as string
+                }
+                authorName={
+                  item?.attributes?.author?.data?.attributes?.fullName as string
+                }
+                articleTitle={cutTextToLength(
+                  item?.attributes?.title as string,
+                  18
+                )}
+                articleImage={
+                  item?.attributes?.heroImage?.data?.attributes?.url ||
+                  '/default-list-img.jpg'
+                }
+                articleIntro={cutTextToLength(
+                  item?.attributes?.blurb as string,
+                  80
+                )}
+                slug={item?.attributes?.slug}
+                readingTime={item?.attributes?.readingTime as string}
+                createdAt={dayjs(item?.attributes?.createdAt).format('MMM D')}
+                category={category}
+              />
+            ))}
+            <LinkWrapper>
+              <Link href={'/articles'}>Discover more</Link>
+            </LinkWrapper>
+          </CardWrapper>
+        </Column>
+        <Column className="column-5">
+          <SearchWrapper>
+            <Search placeholder={'Search particular information'} />
+          </SearchWrapper>
+          <Fields />
+        </Column>
+      </Row>
     );
 }
 

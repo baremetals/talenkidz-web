@@ -20,18 +20,18 @@ import {
   AuthorWrap,
 } from '../styles';
 import { IArticleCard } from 'src/interfaces';
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
 
 const ArticleCard = ({
+  id,
   authorImg,
   authorName,
   articleTitle,
-  ArticleIntro,
-  ArticleImage,
+  articleIntro,
+  articleImage,
   readingTime,
   createdAt,
   category,
-  saveArticle,
-  bookedMarked,
   slug,
   ...props
 }: IArticleCard) => {
@@ -62,22 +62,44 @@ const ArticleCard = ({
             </AuthorImg>
             <p>{authorName}</p>
           </AuthorWrap>
-          {!bookedMarked && (
-            <Image
-              src="/assets/svgs/bookmar.svg"
-              alt="bookmark icon"
-              className="bookmar"
-              width={25}
-              height={25}
-              onClick={saveArticle}
-            />
-          )}
+          <BookMarkIcon
+            id={id}
+            title={articleTitle as string}
+            slug={slug as string}
+            image={articleImage as string}
+          />
+          {/* <div
+            className={bookedMarked ? 'active' : 'inactive'}
+            // onClick={handleClick}
+          >
+            {bookedMarked ? (
+              <div className="bookmarkActive">
+                <Image
+                  src="/assets/svgs/bookmark-active.svg"
+                  alt="bookmark icon"
+                  width={25}
+                  height={25}
+                  onClick={saveArticle}
+                />
+              </div>
+            ) : (
+              <div className="bookmark">
+                <Image
+                  src="/assets/svgs/bookmar.svg"
+                  alt="bookmark icon"
+                  width={25}
+                  height={25}
+                  onClick={saveArticle}
+                />
+              </div>
+            )}
+          </div> */}
         </AuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
           <h3>{articleTitle}</h3>
         </Link>
 
-        <ArticleBlurb>{ArticleIntro}</ArticleBlurb>
+        <ArticleBlurb>{articleIntro}</ArticleBlurb>
         <Datetime>
           <Date>{createdAt}</Date>
           <span></span>
@@ -95,17 +117,17 @@ const ArticleCard = ({
         </Datetime>
       </ArticleInfo>
       <ArticleImageColumn>
-        <ArticleImageBlock>
-          <Link passHref href={`/articles/${category}/${slug}`}>
+        <Link passHref href={`/articles/${category}/${slug}`}>
+          <ArticleImageBlock>
             <Image
-              src={ArticleImage || '/assets/images/kid.png'}
+              src={articleImage || '/assets/images/kid.png'}
               alt="article image"
               className="bookmar"
               width={166}
               height={166}
             />
-          </Link>
-        </ArticleImageBlock>
+          </ArticleImageBlock>
+        </Link>
       </ArticleImageColumn>
     </CardWrapper>
   );

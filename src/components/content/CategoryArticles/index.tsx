@@ -235,6 +235,7 @@ const CategoryArticles = ({ articles, total }: pageProps) => {
                   <ArticleCard
                     className="kidsRow"
                     key={item?.id as string}
+                    id={item?.id as string}
                     authorImg={
                       item?.attributes?.author?.data?.attributes?.avatar?.data
                         ?.attributes?.url as string
