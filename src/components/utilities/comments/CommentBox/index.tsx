@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { updateStrapiEntity } from 'src/helpers';
 import {
   addToFirebaseArticle,
   addToFirebaseComment,
 } from 'src/helpers/firebase';
+import { LeaveComment, StyledInput } from '../styles';
+import Button from 'components/users/Auth/Button';
 
 export interface ICommentBox {
   userId: number;
@@ -58,22 +61,49 @@ const CommentBox: React.FC<ICommentBox> = ({
     }
   };
   return (
-    <div>
-      <label htmlFor="review">Review of Article:</label>
-      <textarea
-        id="review"
-        rows={4}
-        cols={50}
-        aria-multiline="true"
-        placeholder="leave a comment"
-        name="body"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-      ></textarea>
-      <button type="button" onClick={(e) => handleSubmit(e)}>
-        send
-      </button>
-    </div>
+    <>
+      {/* <div>
+        <label htmlFor="review">Review of Article:</label>
+        <textarea
+          id="review"
+          rows={4}
+          cols={50}
+          aria-multiline="true"
+          placeholder="leave a comment"
+          name="body"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        ></textarea>
+        <button type="button">send</button>
+      </div> */}
+      <LeaveComment>
+        <StyledInput
+          id="review"
+          placeholder={'Leave a comment'}
+          aria-multiline="true"
+          rows={4}
+          cols={50}
+          name="body"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        />
+        <Button
+          content=""
+          type="submit"
+          disabled={false}
+          loading={false}
+          onClick={(e) => handleSubmit(e)}
+        >
+          <Image
+            src="/assets/svgs/send.svg"
+            alt="location icon"
+            className="bookmar"
+            width={20}
+            height={20}
+          />
+        </Button>
+      </LeaveComment>
+    </>
   );
 };
 

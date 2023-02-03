@@ -142,7 +142,7 @@ export const CommentUserBox = styled.div`
     display: flex;
 `;
 export const ShowMore = styled.div`
-    margin-top: -125px;
+    margin-top: -70px;
     height: 138px;
     background: linear-gradient(0deg, rgba(255,255,255,1) 79%, rgba(77,183,157,0) 100%);
     position: relative;

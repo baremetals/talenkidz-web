@@ -48,3 +48,12 @@ margin:0;
 padding:0;
 display:flex;
 `;
+
+export const SocialShareWrap = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 90px;
+  margin-bottom: 50px;
+  color: #39007e;
+`;
