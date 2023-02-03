@@ -135,7 +135,7 @@ function Listings({ listings, categories }: pageProps) {
       <>
         <InnerContainer>
           <BreadcrumbBlock>
-            <Breadcrumb />
+            <Breadcrumb route={[]} />
           </BreadcrumbBlock>
         </InnerContainer>
         <PageContainer>

@@ -71,7 +71,7 @@ function FilteredArticlesPage(props: pageProps) {
       pageUrl={url}
     >
       <InnerContainer>
-        <Breadcrumb />
+        <Breadcrumb route={[]} />
       </InnerContainer>
       <PageContainer>
         <InnerContainer>

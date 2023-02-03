@@ -107,6 +107,16 @@ const Events = ({ events, categories }: pageProps) => {
         setFilteredEvents(filteredData as SetStateAction<never[]>);
       } else setFilteredEvents(events as SetStateAction<never[]>);
     };
+    const route = [
+      {
+        name: 'Home',
+        url: '/',
+      },
+      {
+        name: 'articles',
+        url: '/articles',
+      },
+    ];
   return (
     <>
       {/* <InnerBanner>
@@ -131,7 +141,7 @@ const Events = ({ events, categories }: pageProps) => {
           </InnerContainer>
         </InnerBanner> */}
       <InnerContainer>
-        <Breadcrumb />
+        <Breadcrumb route={route} />
       </InnerContainer>
 
       <PageContainer>

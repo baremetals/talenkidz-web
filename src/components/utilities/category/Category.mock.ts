@@ -8,6 +8,7 @@ const base: ICategory = {
         colour: '#A0E4CB',
         name: 'drama',
         slug: 'drama',
+        description: 'Drama'
       },
     },
     {
@@ -16,6 +17,7 @@ const base: ICategory = {
         colour: '#C060A1',
         name: 'education',
         slug: 'education',
+        description: 'education'
       },
     },
     {
@@ -24,6 +26,7 @@ const base: ICategory = {
         colour: '#F49D1A',
         name: 'music',
         slug: 'music',
+        description: 'music',
       },
     },
     {
@@ -32,6 +35,7 @@ const base: ICategory = {
         colour: '#0008C1',
         name: 'sports',
         slug: 'sports',
+        description: 'sports',
       },
     },
   ],

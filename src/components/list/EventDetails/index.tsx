@@ -10,7 +10,7 @@ import Breadcrumb from 'components/widgets/Breadcrumb';
 import PageTitle from 'components/widgets/PageTitle';
 import EventBanner from 'components/widgets/EventBanner';
 import Button from 'components/users/Auth/Button';
-import Categories from 'components/widgets/Categories';
+import Categories from 'components/utilities/Category';
 import EventItem from 'components/widgets/EventItem';
 
 import Image from 'next/image';
@@ -78,10 +78,21 @@ function EventDetails(props: {
   //     setSocialDropdown(!socialDropdown)
   // }
 
+  const route = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'articles',
+      url: '/articles',
+    },
+  ];
+
   return (
     <>  
       <InnerContainer style={{ maxWidth: '1024px' }}>
-           <Breadcrumb />
+           <Breadcrumb route={route} />
            <EventBanner src={'/assets/images/image 92.png'} />
             <EventDetailsBlock>
               <Row className='eventTime'>

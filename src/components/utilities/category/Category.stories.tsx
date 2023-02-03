@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Category, { ICategory } from '.';
-import { mockCategoryProps } from './Category.mock';
+// import { mockCategoryProps } from './Category.mock';
 
 export default {
   title: 'category/Category',
@@ -11,12 +11,12 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Category> = (args) => (
-  <Category {...args} />
+  <Category  />
 );
 
 export const Categories = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
-Categories.args = {
-  ...mockCategoryProps.base,
-} as ICategory;
+// Categories.args = {
+//   ...mockCategoryProps.base,
+// } as ICategory;
