@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import PageTitle from 'components/widgets/PageTitle';
 import Button from 'components/widgets/Button';
 import NavBar from 'components/Layout/NavBar';
 import Footer from 'components/Layout/Footer';
-
+import { Contactblock, Header, FormInput, FormTextarea, FlexGroup, Checkbox, InputRadio, } from './styles';
 // import AdvertiseSection from 'components/AdvertiseSection';
-import { Column, InnerBanner, InnerContainer, Row, Text, Title, ContactSection, FlexGroup, Checkbox, InputRadio, FormLabel } from 'styles/common.styles';
+import { Column, InnerBanner, InnerContainer, Row, Text, Title, ContactSection, FormLabel } from 'styles/common.styles';
 
 
 
@@ -69,7 +69,7 @@ const ContactUsPage = () => {
 
   return <>
     <NavBar />
-    <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
+    {/* <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
       <InnerContainer>
 
         <Row style={{ textAlign: 'left', alignItems: 'center' }}>
@@ -84,15 +84,68 @@ const ContactUsPage = () => {
         </Row>
 
       </InnerContainer>
-    </InnerBanner>
-
-    <ContactSection>
+    </InnerBanner> */}
+    <Contactblock>
       <InnerContainer>
         <Row>
           <Column>
-            <Title style={{ fontSize: '2.125rem', marginBottom: '.5rem' }}>Send Us A Message</Title>
-            <Text>What do you want to contact us about?</Text>
-            <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '2rem' }}>
+            <PageTitle className="pageTitle" text={[<span key={"TALENTKIDS"}>Contact Us</span>,]} />
+          </Column>
+        </Row>
+        <Row className=''>
+          <Column>
+            <Header>Willing to leave feedback or need some help?</Header>
+             <Row >
+              <Column>
+                <FlexGroup>
+                    <Checkbox>
+                      <InputRadio id='Generalfeedback' className="radio" name='reason' type="radio" checked defaultValue="leave feedback " />
+                      <FormLabel htmlFor="Generalfeedback">leave feedback </FormLabel>
+                    </Checkbox>
+                    <Checkbox>
+                      <InputRadio id='need' className="radio" name='reason' type="radio" />
+                      <FormLabel htmlFor="need">need help</FormLabel>
+                  </Checkbox>
+                  </FlexGroup>
+              </Column>
+             </Row>
+            <Row className='mb30 '>
+              <Column className='column-5'>
+                <FormInput
+                      type="text"
+                      placeholder="Full name "
+                      name="fname"
+                />
+              </Column>
+              <Column className='column-7'>
+               <FormInput
+                      type="text"
+                      placeholder="Email address"
+                      name="Email"
+                />
+              </Column>
+            </Row>
+            <Row className='mb30'>
+              <Column>
+                <FormInput
+                      type="text"
+                      placeholder="Massage subject "
+                      name="subject"
+                />
+              </Column>
+            </Row>
+             <Row className='mb30'>
+              <Column>
+                <FormTextarea placeholder="Massage"
+                />
+              </Column>
+            </Row>
+             <Row className='submit'>
+              <Column>
+                <Button style={{ width: '12rem' }} content="Submit" type="submit">Send</Button>
+              </Column>
+            </Row>
+            {/* <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '2rem' }}>
               <Row className='g-20'>
                 <Column className='col column-full'>
                   <FlexGroup>
@@ -100,10 +153,10 @@ const ContactUsPage = () => {
                       <InputRadio {...register("reason", { required: true })} id='GeneralEnquiry' className="radio" name='reason' type="radio" checked defaultValue="general enquiry" />
                       <FormLabel htmlFor="GeneralEnquiry">General Enquiry</FormLabel>
                     </Checkbox>
-                    {/* <Checkbox>
+                    <Checkbox>
                       <InputRadio id='Editorial' className="radio" name='reason' type="radio" />
                       <FormLabel htmlFor="Editorial">Editorial</FormLabel>
-                  </Checkbox> */}
+                  </Checkbox>
                     <Checkbox>
                       <InputRadio {...register("reason", { required: true })} id='ContentFeedback' className="radio" name='reason' type="radio" defaultValue="feedback" />
                       <FormLabel htmlFor="ContentFeedback">Feedback</FormLabel>
@@ -130,11 +183,11 @@ const ContactUsPage = () => {
                   <Button style={{ width: '12rem' }} content="Submit" type="submit">Submit</Button>
                 </Column>
               </Row>
-            </form>
+            </form> */}
           </Column>
         </Row>
       </InnerContainer>
-    </ContactSection>
+    </Contactblock>
     <ToastContainer />
     {/* <AdvertiseSection  /> */}
     <Footer />

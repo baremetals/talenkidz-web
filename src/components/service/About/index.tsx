@@ -122,7 +122,7 @@ const AboutUs = ({data}: Attributes) => {
                             <Row className='pageHeader'>
                                 <PageTitle className="pageTitle" text={["TALENTKIDS is what", <span key={"TALENTKIDS"}>you are looking for,</span>, "if"]} />
                             </Row>  
-                            <Row>
+                            <Row className='row'>
                                 <Column>
                                     <div className='TalentedKidInfo'>
                                         <p style={{ maxWidth: '400px' }}>You are a parent looking for your child’s future career prospects</p>
@@ -193,7 +193,7 @@ Instead, they get the job first and prove
 
 
                         <SectionBlock className='TestimonialBlock'>
-                            <Row>
+                            <Row className='row'>
                                 <Column className='column-7'>
                                     <div className='TestimonialInfo'>
                                         <Image width={82} height={73} src='/assets/svgs/quotes.svg' alt="" />
@@ -244,7 +244,7 @@ Instead, they get the job first and prove
                                 </Column>
                             </Row>
 
-                              <Row>
+                              <Row className='row'>
                                 <Column className='column-7'>
                                     <div className='TestimonialInfo'>
                                         <Image width={82} height={73} src='/assets/svgs/quotes.svg' alt="" />

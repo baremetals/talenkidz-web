@@ -96,8 +96,8 @@ const ForgotPassword: React.FC<any> = () => {
                       <Message />
                     </Icon>
                     <FormInput
-                      type="email"
-                      placeholder="email address"
+                      type="text"
+                      placeholder="Full name"
                       name="email"
                     />
                     {errors.email && touched.email && (
