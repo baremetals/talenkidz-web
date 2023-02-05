@@ -1,8 +1,15 @@
 
 import { BannerBlock, BannerImg,Icon } from './styles';
 import Image from 'next/image';
+import {  useState } from 'react';
+const Banner = ({ src, text, ...props }: any) => {
+  
 
-const Banner = ({ src,text, ...props }: any) => {
+ const [bookedMarked, setActives] = useState(false);
+ const toggleClass = () => {
+    setActives(!bookedMarked);
+  };
+
   return (
     <BannerBlock {...props}>
         <BannerImg>
@@ -13,12 +20,30 @@ const Banner = ({ src,text, ...props }: any) => {
               height={601}
         />
         <Icon>
-           <Image
-              src={'/assets/svgs/plusIcon.svg'}
-              alt="article image"
-              width={27}
-              height={29}
-            />
+           <div
+            className={bookedMarked ? 'active' : 'inactive'}
+              onClick={toggleClass}
+          >
+            {bookedMarked ? (
+              <div className="bookmarkActive">
+                <Image
+                  src="/assets/svgs/bookmark-active.svg"
+                  alt="bookmark icon"
+                  width={35}
+                  height={35}
+                />
+              </div>
+            ) : (
+              <div className="bookmark">
+                <Image
+                  src="/assets/svgs/bookmar.svg"
+                  alt="bookmark icon"
+                  width={35}
+                  height={35}
+                />
+              </div>
+            )}
+          </div>
         </Icon>
       </BannerImg>
     </BannerBlock>

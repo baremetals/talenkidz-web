@@ -2,8 +2,15 @@ import styled from "styled-components";
 
 export const AboutPage = styled.div`
   .gametypeBlock {
-    margin-top:129px;
-    maring-botto:110px;
+     margin-top:129px;
+     margin-bottom: 110px;
+     @media (max-width: 991px) {
+      div {
+        flex: auto;
+      }
+         margin-top:70px;
+        margin-bottom: 60px;
+    }
   }
   .pageTitle {
     text-align:center;
@@ -11,6 +18,9 @@ export const AboutPage = styled.div`
     &.aboutpage {
        span {
         font-size:64px;
+         @media (max-width: 991px) {
+           font-size:40px;
+         }
       }
     }
    
@@ -43,6 +53,9 @@ export const SectionBlock = styled.div`
   &.TalentKidsApproach {
     margin:200px auto 200px;
     max-width:1012px; 
+     @media (max-width: 991px) {
+         margin:80px auto 200px;
+      }
     .pageHeader {
        margin-bottom:60px; 
        justify-content: flex-end;
@@ -52,6 +65,9 @@ export const SectionBlock = styled.div`
           margin: 0 0 90px;
             span {
               display: inline-block;
+               @media (max-width: 991px) {
+                   display: initial;
+               }
               &::after {
                 width:100%;
               }
@@ -69,7 +85,10 @@ export const SectionBlock = styled.div`
         letter-spacing: -0.01em;
         color: rgba(57, 0, 126, 0.5);
          font-family: 'Syne', sans-serif !important;
-       }
+         @media (max-width: 991px) {
+             font-size: 68px;
+        }
+        }
         p {
           font-style: normal;
           font-weight: 700;
@@ -84,20 +103,30 @@ export const SectionBlock = styled.div`
      }
      .LastStep {
         margin-top:99px;
+        @media (max-width: 991px) {
+              margin-top:20px;
+        }
      }
   }
 
   &.CapacityBlock {
     background: #F1FAFF;
     border-radius: 20px;
-     margin:200px auto 0;
-      max-width:1012px; 
+    margin:200px auto 0;
+    max-width:1012px; 
     padding:50px 90px;
-     position: relative;
+    position: relative;
+     @media (max-width: 991px) {
+        margin:80px auto 0;
+        padding:50px 30px;
+      }
      .CapacityIcon {
-      position: absolute;
-     top: -162px;
-     left: -143px;
+        position: absolute;
+        top: -162px;
+        left: -143px;
+         @media (max-width: 991px) {
+          display:none;
+         }
      }
     h2 {
       font-style: normal;
@@ -108,6 +137,9 @@ export const SectionBlock = styled.div`
       color: #39007E;
       margin-bottom:40px;
       margin-left:70px;
+      @media (max-width: 991px) {
+        margin-left:0;
+      }
     }
     p {
       font-style: normal;
@@ -126,6 +158,12 @@ export const SectionBlock = styled.div`
   &.TestimonialBlock {
       margin:200px auto 0;
       max-width:1012px; 
+      @media (max-width: 991px) {
+          margin:80px auto 0;
+          .row {
+            flex-direction: column-reverse;
+          }
+      }
      .TestimonialInfo {
        margin:0 auto;
           p {
@@ -163,6 +201,14 @@ export const SectionBlock = styled.div`
 
   &.TalentedKidBlock{
      margin-top:200px; 
+      @media (max-width: 991px) {
+          margin-top:80px; 
+        .row {
+           div {
+            flex:auto;
+           }
+        }
+        }
     .pageHeader {
        margin-bottom:60px; 
         justify-content: flex-end;
@@ -171,6 +217,9 @@ export const SectionBlock = styled.div`
           text-align: right;
             span {
               display: inline-block;
+               @media (max-width: 991px) {
+                   display: initial;
+               }
               &::after {
                 width:100%;
               }
@@ -179,6 +228,9 @@ export const SectionBlock = styled.div`
      }
      .TalentedKidInfo {
        position: relative;
+        @media (max-width: 991px) {
+          margin-bottom:20px;
+        }
        p  {
            font-weight: 500;
             font-size: 24px;
@@ -196,6 +248,9 @@ export const SectionBlock = styled.div`
               position: absolute;
               border-radius: 50px;
               z-index: -1;
+                @media (max-width: 991px) { 
+                  left: -12px;
+                }
            }
        }
     }
@@ -208,10 +263,19 @@ export const SectionBlock = styled.div`
      padding:50px;
      border-radius: 20px;
      position: relative;
+      @media (max-width: 991px) { 
+         margin:80px auto 0;
+      }
     .WhyCreativeCareerIcon {
       position: absolute;
       top: -120px;
       left: -120px;
+       @media (max-width: 991px) { 
+        display:none;
+       }
+        @media (max-width:1200px) { 
+          left: -80px;
+       }
      }
      .pageTitle {
         margin: 50px 0;
@@ -233,13 +297,19 @@ export const SectionBlock = styled.div`
 
   &.AllStart {
      max-width:1012px;
-    margin:200px auto 0;
+      margin:200px auto 0;
+      @media (max-width: 991px) { 
+        margin:80px auto 0;
+      }
     .pageHeader {
       display: flex;
       text-align: center;
       align-items: center;
       justify-content: center;
        margin-bottom:90px;
+         @media (max-width: 991px) { 
+          margin-bottom:0;
+        }
        .pageTitle {
            text-transform: uppercase;
        }
@@ -264,6 +334,9 @@ export const SectionBlock = styled.div`
     .AllStarInfo {
        position: relative;
         margin-bottom:60px;
+       @media (max-width: 991px) { 
+          margin-top:60px;
+        }
        p  {
            font-weight: 500;
             font-size: 20px;
