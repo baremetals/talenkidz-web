@@ -157,6 +157,16 @@ export const ArticleDetails = (props: {
     // },
   ];
 
+  const [bookedMarked, setActives] = useState(false);
+  const toggleClass = () => {
+    setActives(!bookedMarked);
+  };
+
+   const [LikeMarked, setActive] = useState(false);
+  const LiketoggleClass = () => {
+    setActive(!LikeMarked);
+  };
+
   return (
     <>
       <InnerContainer>
@@ -191,6 +201,13 @@ export const ArticleDetails = (props: {
                 </ArticleAuthorSpe>
                 <ArticleMediaIcons>
                   <ArticleLikeIcon>
+
+                    <div
+                    className={LikeMarked ? 'active' : 'inactive'}
+                     onClick={LiketoggleClass}
+                    >
+                      
+                        {LikeMarked ? (
                     <Image
                       src={'/assets/svgs/like.svg'}
                       alt="like Icon"
@@ -198,6 +215,13 @@ export const ArticleDetails = (props: {
                       height={24}
                       onClick={handleClick}
                     />
+                     ) : (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0C5.364 0 0 5.4 0 12C0 15.1826 1.26428 18.2348 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C15.1826 24 18.2348 22.7357 20.4853 20.4853C22.7357 18.2348 24 15.1826 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0ZM9.3 6.984C10.344 6.984 11.34 7.476 12 8.244C12.66 7.476 13.656 6.984 14.7 6.984C16.548 6.984 18 8.436 18 10.284C18 12.552 15.96 14.4 12.864 17.208L12 18L11.136 17.208C8.04 14.4 6 12.552 6 10.284C6 8.436 7.452 6.984 9.3 6.984Z" fill="#39007E"/>
+                    <path d="M11.3928 17.6932L11.3921 17.6925C9.5581 16.0294 8.0764 14.6847 7.04718 13.4264C6.02371 12.1751 5.5 11.0703 5.5 9.89583C5.5 7.99031 6.99031 6.5 8.89583 6.5C9.97694 6.5 11.0224 7.00572 11.7027 7.80459L12.0833 8.25162L12.464 7.80459C13.1443 7.00572 14.1897 6.5 15.2708 6.5C17.1764 6.5 18.6667 7.99031 18.6667 9.89583C18.6667 11.0703 18.143 12.1751 17.1194 13.4274C16.0902 14.6865 14.6088 16.0328 12.7751 17.6991L12.7742 17.7L12.0846 18.3229L11.3928 17.6932Z" fill="#39007E" stroke="#FFF8F8"/>
+                        </svg>
+                      )}
+                    </div>
                     <h3>{totalLikes} likes</h3>
                   </ArticleLikeIcon>
                   <ArticleCommentIcon>
@@ -211,12 +235,30 @@ export const ArticleDetails = (props: {
                   </ArticleCommentIcon>
                 </ArticleMediaIcons>
                 <BookMarkIconWrap>
-                  <Image
-                    src={'/assets/svgs/comment-plus.svg'}
-                    alt="bookmark icon"
-                    width={34}
-                    height={34}
-                  />
+                <div
+                    className={bookedMarked ? 'active' : 'inactive'}
+                     onClick={toggleClass}
+                  >
+                    {bookedMarked ? (
+                      <div className="bookmarkActive">
+                        <Image
+                          src="/assets/svgs/bookmark-active.svg"
+                          alt="bookmark icon"
+                          width={35}
+                          height={35}
+                        />
+                      </div>
+                    ) : (
+                      <div className="bookmark">
+                        <Image
+                          src="/assets/svgs/bookmar.svg"
+                          alt="bookmark icon"
+                          width={35}
+                          height={35}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </BookMarkIconWrap>
               </ArticleAuthor>
             </Column>

@@ -1,8 +1,14 @@
 
-import { ActivitiestemBlock, ActivitiesItemImg, ActivitiesInfo,TimeBlock,SportCoach,Visitor,VisitorInner,Visitors, SeeMore } from './styles';
+import { ActivitiestemBlock, ActivitiesItemImg, ActivitiesInfo,TimeBlock,SportCoach,Visitor,VisitorInner,Visitors, SeeMore, IconBlock } from './styles';
 import Image from 'next/image';
-
+import {  useState } from 'react';
 const ActivitiesItem = () => {
+
+const [bookedMarked, setActives] = useState(false);
+ const toggleClass = () => {
+    setActives(!bookedMarked);
+  };
+
   return (
     <ActivitiestemBlock>
       <ActivitiesItemImg>
@@ -11,7 +17,33 @@ const ActivitiesItem = () => {
             alt="article image"
             width={340}
             height={195}
-          />
+        />
+        <IconBlock>
+           <div
+            className={bookedMarked ? 'active' : 'inactive'}
+              onClick={toggleClass}
+          >
+            {bookedMarked ? (
+              <div className="bookmarkActive">
+                <Image
+                  src="/assets/svgs/bookmark-active.svg"
+                  alt="bookmark icon"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            ) : (
+              <div className="bookmark">
+                <Image
+                  src="/assets/svgs/bookmar.svg"
+                  alt="bookmark icon"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            )}
+          </div>
+        </IconBlock>
       </ActivitiesItemImg>
       <ActivitiesInfo>
         <h2>ValleyBall team games </h2>
