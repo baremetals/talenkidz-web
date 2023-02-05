@@ -137,6 +137,7 @@ export const ArticleCommentIcon = styled.div`
 
 export const BookMarkIconWrap = styled.div`
   margin-left: 70px;
+  cursor: pointer;
 `;
 
 export const Readmore = styled.div`

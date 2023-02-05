@@ -48,6 +48,7 @@ import {
   ArticleImg,
 } from './details.styles';
 import { Comments } from '../Comments';
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
 
 export const ArticleDetails = (props: {
   props: {
@@ -76,7 +77,7 @@ export const ArticleDetails = (props: {
   const postSlug = article?.attributes?.slug as string;
   const likes = article?.attributes?.likes;
 
-  // console.log(article?.attributes?.likes)
+  // console.log(article)
   // Article
 
   // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
@@ -162,7 +163,7 @@ export const ArticleDetails = (props: {
               <ArticleAuthor>
                 <ArticleAuthorImg>
                   <Image
-                    src={'/assets/images/kid.png'}
+                    src={author?.avatar?.data?.attributes?.url as string}
                     alt="author image"
                     width={600}
                     height={600}
@@ -200,12 +201,19 @@ export const ArticleDetails = (props: {
                   </ArticleCommentIcon>
                 </ArticleMediaIcons>
                 <BookMarkIconWrap>
-                  <Image
+                  <BookMarkIcon
+                    id={article?.id as string}
+                    title={article?.attributes?.title as string}
+                    slug={article?.attributes?.slug as string}
+                    image={imageurl as string}
+                    detailsPage={true}
+                  />
+                  {/* <Image
                     src={'/assets/svgs/comment-plus.svg'}
                     alt="bookmark icon"
                     width={34}
                     height={34}
-                  />
+                  /> */}
                 </BookMarkIconWrap>
               </ArticleAuthor>
             </Column>

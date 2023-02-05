@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { ArticleEntity, EventEntity, ListingEntity } from 'generated/graphql';
+import { ArticleEntity, ArticlesDocument, EventEntity, EventsDocument, ListingEntity, ListingsDocument } from 'generated/graphql';
 
 export type Entities = ArticleEntity | EventEntity | ListingEntity;
 
@@ -78,3 +78,8 @@ export type TCategory = {
     colour: string;
   };
 };
+
+export type GQDocument =
+  | typeof ArticlesDocument
+  | typeof EventsDocument
+  | typeof ListingsDocument;

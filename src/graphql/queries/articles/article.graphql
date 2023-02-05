@@ -23,6 +23,14 @@ query Article($filters: ArticleFiltersInput) {
             id
             attributes {
               fullName
+              avatar {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
             }
           }
         }

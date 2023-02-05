@@ -1,9 +1,12 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useReducer, useState } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
 import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
 import { cutTextToLength } from 'src/utils';
-
+import {
+  INITIAL_STATE as Article_State,
+  articleReducer,
+} from '../Articles/articleReducer';
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import {
   Row,
@@ -12,7 +15,7 @@ import {
 import { CardWrapper, LinkWrapper, SearchWrapper } from './details.styles';
 
 import Fields from 'components/widgets/Fields';
-import Search from 'components/widgets/Search';
+import EntitySearch from 'components/utilities/search/EntitySearch';
 
 
 
@@ -32,17 +35,35 @@ function RelatedArticles({ category }: propType): ReactElement {
             },
         },
     });
-
+    const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>(
+      []
+    );
+    const [state, dispatch] = useReducer(articleReducer, Article_State);
     // console.log(data?.articles?.data)
     // console.log(category)
     const arty = data?.articles?.data as ArticleEntity[]
 
+    useEffect(() => {
+      setFilteredArticles(state.articles);
+    }, [state.articles]);
+
+    useEffect(() => {
+      dispatch({
+        type: 'SET_ARTICLES',
+        payload: {
+          // ...state,
+          articles: arty,
+          total: arty?.length,
+          articlesLength: arty?.length,
+        },
+      });
+    }, [arty]);
 
     return (
       <Row>
         <Column className="column-7">
           <CardWrapper>
-            {arty?.map((item) => (
+            {filteredArticles?.map((item) => (
               <ArticleCard
                 className="kidsRow"
                 key={item.id}
@@ -79,7 +100,10 @@ function RelatedArticles({ category }: propType): ReactElement {
         </Column>
         <Column className="column-5">
           <SearchWrapper>
-            <Search placeholder={'Search particular information'} />
+            <EntitySearch
+              entities={arty}
+              setFilteredEntities={setFilteredArticles as any}
+            />
           </SearchWrapper>
           <Fields />
         </Column>

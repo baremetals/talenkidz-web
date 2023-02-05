@@ -37,6 +37,7 @@ import Categories from 'components/utilities/Category';
 import {
   ArticleEntity,
   ArticlesDocument,
+  FilteredArticlesDocument,
 } from 'generated/graphql';
 
 import { useFetchEntities } from 'src/hooks/useFetchEntities';
@@ -85,7 +86,7 @@ const Articles = ({ articles, total }: pageProps) => {
 
   const searchState = useSearchState();
 
-  // console.log(user)
+  console.log('from the articles page', state)
   const remaining = total % filteredArticles.length;
   const fetchData = useFetchEntities({
     limit: remaining > 4 ? 4 : remaining,
@@ -226,7 +227,7 @@ const Articles = ({ articles, total }: pageProps) => {
           <Row>
             <Column className="column-7">
               <MoreArticlesBlock>
-                {filteredArticles?.map((item) => (
+                {state.articles?.map((item) => (
                   <ArticleCard
                     className="kidsRow"
                     key={item?.id as string}
@@ -288,7 +289,7 @@ const Articles = ({ articles, total }: pageProps) => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Categories />
+              <Categories entityDocument={FilteredArticlesDocument} />
             </Column>
           </Row>
         </InnerContainer>

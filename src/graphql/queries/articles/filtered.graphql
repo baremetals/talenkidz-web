@@ -29,6 +29,14 @@ query FilteredArticles(
             id
             attributes {
               fullName
+              avatar {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
             }
           }
         }

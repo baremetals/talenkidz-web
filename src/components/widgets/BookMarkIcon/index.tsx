@@ -7,13 +7,13 @@ import { AuthContext } from 'src/features/auth/AuthContext';
 import { TBookMark } from 'src/types';
 
 type Props = {
-  // bookedMarked: boolean;
+  detailsPage?: boolean;
   id: string,
   title: string,
   slug: string,
   image: string,
 };
-const BookMarkIcon = ({ id, title, slug, image }: Props) => {
+const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) => {
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
 
@@ -53,30 +53,27 @@ const BookMarkIcon = ({ id, title, slug, image }: Props) => {
   }, [bookmarks, id]);
 
   // Bookmark and item
-  const saveArticle = useCallback(
-    async () => {
-      // console.log(bookedMarked);
-      // console.log(bookmarks);
-      if (user === null) {
-        // console.log(id, title, slug, image);
-        dispatch(openModal('LOGIN_FORM'));
-      }
-      if (bookmarks.includes(id)) {
-        const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
-        await updateStrapiUserBookMarks(filteredMarks);
-        await getMe();
-      } else {
-        // console.log('summer house');
-        await updateStrapiUserBookMarks([
-          ...myBookMarks,
-          { itemId: id, title, slug, image, type: 'article' },
-        ]);
-        await getMe();
-      }
-      // console.log('saving articles');
-    },
-    [bookmarks, dispatch, getMe, id, image, myBookMarks, slug, title, user]
-  );
+  const saveArticle = useCallback(async () => {
+    // console.log(bookedMarked);
+    // console.log(bookmarks);
+    if (user === null) {
+      // console.log(id, title, slug, image);
+      dispatch(openModal('LOGIN_FORM'));
+    }
+    if (bookmarks.includes(id)) {
+      const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
+      await updateStrapiUserBookMarks(filteredMarks);
+      await getMe();
+    } else {
+      // console.log('summer house');
+      await updateStrapiUserBookMarks([
+        ...myBookMarks,
+        { itemId: id, title, slug, image, type: 'article' },
+      ]);
+      await getMe();
+    }
+    // console.log('saving articles');
+  }, [bookmarks, dispatch, getMe, id, image, myBookMarks, slug, title, user]);
   return (
     <div
       className={bookedMarked ? 'active' : 'inactive'}
@@ -85,20 +82,28 @@ const BookMarkIcon = ({ id, title, slug, image }: Props) => {
       {bookedMarked ? (
         <div className="bookmarkActive">
           <Image
-            src="/assets/svgs/bookmark-active.svg"
+            src={
+              detailsPage
+                ? '/assets/svgs/comment-plus.svg'
+                : '/assets/svgs/bookmark-active.svg'
+            }
             alt="bookmark icon"
-            width={25}
-            height={25}
+            width={detailsPage? 34: 25}
+            height={detailsPage? 34: 25}
             onClick={saveArticle}
           />
         </div>
       ) : (
         <div className="bookmark">
           <Image
-            src="/assets/svgs/bookmar.svg"
+            src={
+              detailsPage
+                ? '/assets/svgs/comment-plus.svg'
+                : '/assets/svgs/bookmark-active.svg'
+            }
             alt="bookmark icon"
-            width={25}
-            height={25}
+            width={detailsPage? 34: 25}
+            height={detailsPage? 34: 25}
             onClick={saveArticle}
           />
         </div>
