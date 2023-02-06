@@ -20,6 +20,17 @@ const articleSlice = createSlice({
         total: action.payload.total,
       };
     },
+    addArticles: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        articles: action.payload.articles,
+        articlesLength: state.articles.length,
+        hasMore:
+          (state.articlesLength as number) >= (state.total as number)
+            ? false
+            : true,
+      };
+    },
     setFilteredArticles: (state) => {
       return {
         ...state,

@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Category, { ICategory } from '.';
+import { FilteredArticlesDocument } from 'generated/graphql';
 // import { mockCategoryProps } from './Category.mock';
 
 export default {
@@ -11,7 +12,7 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Category> = (args) => (
-  <Category  />
+  <Category entityDocument={FilteredArticlesDocument} />
 );
 
 export const Categories = Template.bind({});

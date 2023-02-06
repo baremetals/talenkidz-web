@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
+import { setArticles } from 'src/features/articles/reducers';
+
 import Articles from 'components/content/Articles';
 import Layout from 'components/Layout';
 import {
@@ -10,40 +14,32 @@ import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 
-// import {
-//   InnerContainer,
-// } from 'styles/common.styles';
-// import {
-//   SearchProvider,
-// } from 'components/utilities/search/SearchContext';
-// import { SearchProvider } from 'components/utilities/search/searchReducer';
-
 type pageProps = {
   art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
 };
 
 function ArticlesPage(props: pageProps) {
   const { art } = props;
+  const dispatch = useAppDispatch();
   const description = 'Articles';
   const url = 'https://www.talentkids.io/articles';
-  // console.log(art);
+  // console.log(props);
 
-  
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPostings',
-    //  about: {description},
-    // description: meta?.description,
-    // author: [
-    //     {
-    //         '@type': 'Person',
-    //         name: author?.fullName,
-    //     },
-    // ],
-    // image: meta?.image,
-    // datePublished: article?.attributes?.updatedAt,
   };
   useNoAuthPages();
+
+  useEffect(() => {
+    dispatch(
+      setArticles({
+        articles: art?.articles?.data,
+        total: art?.articles?.meta?.pagination?.total,
+        articlesLength: art?.articles?.data?.length,
+      })
+    );
+  }, [art?.articles?.data, art?.articles?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Articles`}
@@ -53,16 +49,13 @@ function ArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-        <Articles
-          articles={art?.articles?.data}
-          total={art?.articles?.meta?.pagination?.total}
-        />
+      <Articles />
     </Layout>
   );
 }
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
-  const { data } = await client.query<ArticlesQueryResult>({
+  const data  = await client.query<ArticlesQueryResult>({
     query: ArticlesDocument,
     variables: {
       pagination: {
@@ -74,7 +67,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
   });
   // console.log('the fucking data', data);
 
-  // if (data.status === 404) {
+  // if (data?.error?.name) {
   //   return {
   //     redirect: {
   //       permanent: false,
@@ -84,9 +77,8 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
   //   };
   // }
 
- 
   return {
-    props: { art: data }, // will be passed to the page component as props
+    props: { art: data.data }, // will be passed to the page component as props
   };
 }
 

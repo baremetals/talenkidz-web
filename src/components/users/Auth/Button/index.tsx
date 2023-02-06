@@ -7,9 +7,10 @@ type buttonProps = {
   disabled: boolean;
   loading: boolean;
   bgColor?: string;
-  BtnNames?: string; 
+  BtnNames?: string;
   children?: React.ReactNode;
   onChange?: (_event: any) => void;
+  onClick?: (_event: any) => void;
 };
 
 export default function AuthButton({

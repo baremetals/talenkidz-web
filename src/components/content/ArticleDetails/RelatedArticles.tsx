@@ -1,12 +1,9 @@
-import React, { ReactElement, useEffect, useReducer, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import dayjs from "dayjs";
 import Link from 'next/link'
-import { useFilteredArticlesQuery, ArticleEntity } from "generated/graphql";
+import { useFilteredArticlesQuery, ArticleEntity, FilteredArticlesDocument } from "generated/graphql";
 import { cutTextToLength } from 'src/utils';
-import {
-  INITIAL_STATE as Article_State,
-  articleReducer,
-} from '../Articles/articleReducer';
+
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import {
   Row,
@@ -16,6 +13,9 @@ import { CardWrapper, LinkWrapper, SearchWrapper } from './details.styles';
 
 import Fields from 'components/widgets/Fields';
 import EntitySearch from 'components/utilities/search/EntitySearch';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { articlesSelector, setArticles } from 'src/features/articles';
+import Categories from 'components/utilities/Category';
 
 
 
@@ -23,7 +23,7 @@ type propType = {
     category: string
 };
 
-function RelatedArticles({ category }: propType): ReactElement {
+export function RelatedArticles({ category }: propType): ReactElement {
     const { data } = useFilteredArticlesQuery({
         variables: {
             filters: {
@@ -35,29 +35,29 @@ function RelatedArticles({ category }: propType): ReactElement {
             },
         },
     });
+    const dispatch = useAppDispatch();
+    const articleEntities = useAppSelector(articlesSelector);
     const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>(
       []
     );
-    const [state, dispatch] = useReducer(articleReducer, Article_State);
     // console.log(data?.articles?.data)
-    // console.log(category)
+    // console.log(arty)
     const arty = data?.articles?.data as ArticleEntity[]
+    // console.log(data);
 
     useEffect(() => {
-      setFilteredArticles(state.articles);
-    }, [state.articles]);
+      setFilteredArticles(articleEntities);
+    }, [articleEntities]);
 
     useEffect(() => {
-      dispatch({
-        type: 'SET_ARTICLES',
-        payload: {
-          // ...state,
+      dispatch(
+        setArticles({
           articles: arty,
-          total: arty?.length,
+          total: data?.articles?.meta?.pagination?.total,
           articlesLength: arty?.length,
-        },
-      });
-    }, [arty]);
+        })
+      );
+    }, [arty, data?.articles?.meta?.pagination?.total, dispatch]);
 
     return (
       <Row>
@@ -105,7 +105,8 @@ function RelatedArticles({ category }: propType): ReactElement {
               setFilteredEntities={setFilteredArticles as any}
             />
           </SearchWrapper>
-          <Fields />
+          {/* <Fields /> */}
+          <Categories entityDocument={FilteredArticlesDocument} />
         </Column>
       </Row>
     );

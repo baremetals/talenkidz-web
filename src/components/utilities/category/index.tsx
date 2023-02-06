@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import Link from 'next/link';
 
 import Button from 'components/users/Auth/Button';
@@ -6,10 +6,15 @@ import { FieldAction, FieldBlock, FieldGroup, Title } from './cat.styles';
 
 import { GQDocument, TCategory } from 'src/types';
 
-import {
-  articleReducer,
-  INITIAL_STATE as Article_State,
-} from 'components/content/Articles/articleReducer';
+// import {
+//   articleReducer,
+//   INITIAL_STATE as Article_State,
+// } from 'components/content/Articles/articleReducer';
+import { useAppDispatch } from 'src/app/hooks';
+// import { articlesSelector } from 'src/features/articles/selectors';
+import { setArticles } from 'src/features/articles/reducers';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export interface ICategory {
   entityDocument: GQDocument;
@@ -22,8 +27,11 @@ export interface ICategory {
 // };
 
 const Categories: React.FC<ICategory> = ({ entityDocument }) => {
+  const router = useRouter()
+  const dispatch = useAppDispatch();
+  // const articleEntities = useAppSelector(articlesSelector);
   const [cats, setCats] = useState<TCategory[]>([]);
-  const [state, dispatch] = useReducer(articleReducer, Article_State);
+  // const [state] = useReducer(articleReducer, Article_State);
   const [categoryArray, setCategoryArray] = useState<string[]>([]);
 
   const categories = () => {
@@ -43,7 +51,17 @@ const Categories: React.FC<ICategory> = ({ entityDocument }) => {
     };
   }, []);
 
-  console.log(state);
+  // const resetEntities = () => {
+  //   dispatch(
+  //     setArticles({
+  //       articles: data?.data?.articles?.data,
+  //       total: 12,
+  //       articlesLength: data?.data?.articles?.meta?.pagination?.total,
+  //     })
+  //   );
+  // }
+  // console.log(state);
+  // console.log('from the cats page', router.asPath);
 
   const handleFetchData = useCallback(async () => {
     if (categoryArray.length > 0) {
@@ -64,16 +82,12 @@ const Categories: React.FC<ICategory> = ({ entityDocument }) => {
           // console.log(
           //   'the array',
           //   data?.data?.articles?.meta?.pagination?.total
-          // );
-          dispatch({
-            type: 'SET_ARTICLES',
-            payload: {
-              ...state,
-              articles: data?.data?.articles?.data,
+          // ); 
+          dispatch(setArticles({
+            articles: data?.data?.articles?.data,
               total: 12,
               articlesLength: data?.data?.articles?.meta?.pagination?.total,
-            },
-          });
+          }));
         })
         .finally()
         .catch((error) => {
@@ -82,7 +96,7 @@ const Categories: React.FC<ICategory> = ({ entityDocument }) => {
     } else {
       console.log('make a selection');
     }
-  }, [categoryArray, entityDocument]);
+  }, [categoryArray, dispatch, entityDocument]);
 
   const handleClick = useCallback(
     async (catId: string) => {
@@ -104,7 +118,10 @@ const Categories: React.FC<ICategory> = ({ entityDocument }) => {
       <Title>Choose the most inspiring fields for you</Title>
       <FieldGroup>
         <ul>
-          <li className="">Reset</li>
+          <Link passHref href={router.asPath}>
+            <li style={{ backgroundColor: '#000000', color: '#fff' }}>Reset</li>
+          </Link>
+
           {cats.map((item, i) => (
             <li
               key={i}

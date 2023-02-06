@@ -1,8 +1,15 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-// import { useAppDispatch } from 'src/app/hooks';
 // import { openModal } from 'src/features/modal/reducers';
+
+//articles Redux
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import {
+  articlesSelector,
+  totalSelector,
+} from 'src/features/articles/selectors';
+import { setArticles } from 'src/features/articles/reducers';
 
 
 import ArticleCard from 'components/content/Articles/ArticleCard';
@@ -41,21 +48,16 @@ import {
 } from 'generated/graphql';
 
 import { useFetchEntities } from 'src/hooks/useFetchEntities';
-import {
-  INITIAL_STATE as Article_State,
-  articleReducer,
-} from './articleReducer';
+// import {
+//   INITIAL_STATE as Article_State,
+//   articleReducer,
+// } from './articleReducer';
 
 import { useSearchState } from 'components/utilities/search/searchReducer';
 // import { AuthContext } from 'src/features/auth/AuthContext';
 import { SearchBlock } from 'components/utilities/search/search.styles';
 import { cutTextToLength } from 'src/utils';
 // import { TBookMark } from 'src/types';
-
-type pageProps = {
-  articles: ArticleEntity[];
-  total: number;
-};
 
 // type saveFuncProps = {
 //   id: string;
@@ -73,42 +75,27 @@ const route = [
     url: '/articles',
   },
 ];
-const Articles = ({ articles, total }: pageProps) => {
-
-  // const dispatcher = useAppDispatch();
+const Articles = () => {
+  const dispatch = useAppDispatch();
+  const articleEntities = useAppSelector(articlesSelector);
+  const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
-  
-  const [state, dispatch] = useReducer(articleReducer, Article_State);
-  // const { user } = useContext(AuthContext);
-  
-  // const [bookmarks, setBookmarks] = useState<string[]>([]);
-  // const [myBookMarks, setMyBookMarks] = useState<TBookMark[]>([]);
+
 
   const searchState = useSearchState();
 
-  console.log('from the articles page', state)
-  const remaining = total % filteredArticles.length;
+  // console.log('from the articles page', articleEntities);
+  const remaining = total % articleEntities?.length;
   const fetchData = useFetchEntities({
     limit: remaining > 4 ? 4 : remaining,
-    start: filteredArticles.length as number,
+    start: articleEntities?.length as number,
     gQDocument: ArticlesDocument,
   });
 
   useEffect(() => {
-    setFilteredArticles(state.articles);
-  }, [state]);
+    setFilteredArticles(articleEntities);
+  }, [articleEntities]);
 
-  useEffect(() => {
-    dispatch({
-      type: 'SET_ARTICLES',
-      payload: {
-        // ...state,
-        articles: articles,
-        total,
-        articlesLength: articles?.length,
-      },
-    });
-  }, [articles, total]);
 
   // const getMe = useCallback(async () => {
   //   const marks: string[] = []
@@ -139,13 +126,21 @@ const Articles = ({ articles, total }: pageProps) => {
       const res = fetchData;
       // console.log(res?.data.articles.data);
       const articles = res?.data?.articles;
-      setFilteredArticles((filteredArticles) => [
-        ...filteredArticles,
-        // eslint-disable-next-line no-unsafe-optional-chaining
-        ...articles?.data,
-      ]);
+      // setFilteredArticles((filteredArticles) => [
+      //   ...filteredArticles,
+      //   // eslint-disable-next-line no-unsafe-optional-chaining
+      //   ...articles?.data,
+      // ]);
+
+      dispatch(
+        setArticles({
+          // ...state,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          articles: [...articleEntities, ...articles?.data],
+        })
+      );
     }
-  }, [fetchData, filteredArticles.length, searchState.searching, total]);
+  }, [articleEntities, dispatch, fetchData, filteredArticles?.length, searchState.searching, total]);
 
   // const saveArticle = useCallback(async ({ id, title, slug, image }: saveFuncProps) => {
   //   // console.log(id, title, slug, image)
@@ -169,8 +164,6 @@ const Articles = ({ articles, total }: pageProps) => {
   //   // console.log('saving articles');
   // }, [bookmarks, dispatcher, getMe, myBookMarks, user]);
 
-  
-
   return (
     <>
       <InnerContainer>
@@ -183,7 +176,7 @@ const Articles = ({ articles, total }: pageProps) => {
 
         <TrendingBlock>
           <Row className="rowblock">
-            {filteredArticles?.map((item) => (
+            {articleEntities?.slice(0, 6)?.map((item) => (
               <Column className="column-4" key={item?.id}>
                 <SmallACards
                   id={item.id as string}
@@ -227,7 +220,7 @@ const Articles = ({ articles, total }: pageProps) => {
           <Row>
             <Column className="column-7">
               <MoreArticlesBlock>
-                {state.articles?.map((item) => (
+                {filteredArticles?.map((item) => (
                   <ArticleCard
                     className="kidsRow"
                     key={item?.id as string}
@@ -276,7 +269,7 @@ const Articles = ({ articles, total }: pageProps) => {
                   />
                 ))}
                 <LinkBlock onClick={getData}>
-                  {filteredArticles.length < total && <p>Discover more</p>}
+                  {articleEntities?.length < total && <p>Discover more</p>}
                 </LinkBlock>
               </MoreArticlesBlock>
             </Column>
@@ -284,7 +277,7 @@ const Articles = ({ articles, total }: pageProps) => {
               <SearchBlock>
                 {/* <Search placeholder={'Search particular information'} /> */}
                 <EntitySearch
-                  entities={articles}
+                  entities={articleEntities}
                   setFilteredEntities={setFilteredArticles as any}
                 />
               </SearchBlock>

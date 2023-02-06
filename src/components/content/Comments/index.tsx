@@ -18,7 +18,7 @@ export const Comments = ({ children, firebaseId }: Props) => {
       <h2>Comments </h2>
       <CommentThread firebaseId={firebaseId} />
       <ShowMoreWrap>
-        <LinkBlock href={'#'}>See more comments</LinkBlock>
+        {/* <LinkBlock href={'#'}>See more comments</LinkBlock> */}
       </ShowMoreWrap>
       {children}
       {/* <CommentBox userId={0} username={''} avatar={''} entityId={''} entitySlug={''} totalComments={0} entityFirebaseId={''} /> */}

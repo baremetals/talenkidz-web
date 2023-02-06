@@ -15,6 +15,9 @@ import { useRouter } from 'next/router';
 
 
 import CategoryArticles from 'components/content/CategoryArticles';
+import { useAppDispatch } from 'src/app/hooks';
+import { useEffect } from 'react';
+import { setArticles } from 'src/features/articles';
 
 type pageProps = {
   art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
@@ -22,6 +25,7 @@ type pageProps = {
 
 function FilteredArticlesPage(props: pageProps) {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { art } = props;
   const { category } = router.query;
   const description = 'Articles';
@@ -44,6 +48,15 @@ function FilteredArticlesPage(props: pageProps) {
   };
   // console.log(art);
   useNoAuthPages();
+  useEffect(() => {
+    dispatch(
+      setArticles({
+        articles: art?.articles?.data,
+        total: art?.articles?.meta?.pagination?.total,
+        articlesLength: art?.articles?.data?.length,
+      })
+    );
+  }, [art?.articles?.data, art?.articles?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Articles`}
@@ -54,10 +67,7 @@ function FilteredArticlesPage(props: pageProps) {
       pageUrl={url}
     >
 
-        <CategoryArticles
-          articles={art?.articles?.data}
-          total={art?.articles?.meta?.pagination?.total}
-        />
+        <CategoryArticles />
 
     </Layout>
   );

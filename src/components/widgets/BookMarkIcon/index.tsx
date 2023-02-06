@@ -6,6 +6,7 @@ import { useAppDispatch } from 'src/app/hooks';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { TBookMark } from 'src/types';
 
+
 type Props = {
   detailsPage?: boolean;
   id: string,
@@ -84,12 +85,12 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
           <Image
             src={
               detailsPage
-                ? '/assets/svgs/comment-plus.svg'
+                ? '/assets/svgs/bookmark-plus.svg'
                 : '/assets/svgs/bookmark-active.svg'
             }
             alt="bookmark icon"
-            width={detailsPage? 34: 25}
-            height={detailsPage? 34: 25}
+            width={detailsPage ? 34 : 25}
+            height={detailsPage ? 34 : 25}
             onClick={saveArticle}
           />
         </div>
@@ -98,12 +99,12 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
           <Image
             src={
               detailsPage
-                ? '/assets/svgs/comment-plus.svg'
+                ? '/assets/svgs/bookmark-plus.svg'
                 : '/assets/svgs/bookmark-active.svg'
             }
             alt="bookmark icon"
-            width={detailsPage? 34: 25}
-            height={detailsPage? 34: 25}
+            width={detailsPage ? 34 : 25}
+            height={detailsPage ? 34 : 25}
             onClick={saveArticle}
           />
         </div>

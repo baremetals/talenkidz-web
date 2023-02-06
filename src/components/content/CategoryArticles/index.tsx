@@ -2,7 +2,6 @@ import React from 'react';
 import {
   useCallback,
   useEffect,
-  useReducer,
   useState,
 } from 'react';
 import dayjs from 'dayjs';
@@ -25,39 +24,40 @@ import {
 } from 'styles/common.styles';
 
 import Categories from 'components/utilities/Category';
-import { ArticleEntity, ArticlesDocument } from 'generated/graphql';
+import {
+  ArticleEntity,
+  ArticlesDocument,
+  FilteredArticlesDocument,
+} from 'generated/graphql';
 
 import { useFetchEntities } from 'src/hooks/useFetchEntities';
-import {
-  INITIAL_STATE as Article_State,
-  articleReducer,
-} from '../Articles/articleReducer';
 
 import { useSearchState } from 'components/utilities/search/searchReducer';
 import { SearchBlock } from 'components/utilities/search/search.styles';
 import { cutTextToLength } from 'src/utils';
 import { useRouter } from 'next/router';
-
-type pageProps = {
-  articles: ArticleEntity[];
-  total: number;
-};
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { articlesSelector, setArticles, totalSelector } from 'src/features/articles';
 
 
-const CategoryArticles = ({ articles, total }: pageProps) => {
+const CategoryArticles = () => {
   const router = useRouter()
+  const dispatch = useAppDispatch();
+  const articleEntities = useAppSelector(articlesSelector);
+  const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
 
-  const [state, dispatch] = useReducer(articleReducer, Article_State);
+  
   const searchState = useSearchState();
 
 //   console.log(total);
-  const remaining = total % filteredArticles.length;
+  const remaining = total % articleEntities?.length;
   const fetchData = useFetchEntities({
     limit: remaining > 4 ? 4 : remaining,
-    start: filteredArticles.length as number,
+    start: articleEntities?.length as number,
     gQDocument: ArticlesDocument,
   });
+
   const route = [
     {
       name: 'Home',
@@ -74,33 +74,22 @@ const CategoryArticles = ({ articles, total }: pageProps) => {
   ];
 
   useEffect(() => {
-    setFilteredArticles(state.articles);
-  }, [state]);
-
-  useEffect(() => {
-    dispatch({
-      type: 'SET_ARTICLES',
-      payload: {
-        // ...state,
-        articles: articles,
-        total,
-        articlesLength: articles?.length,
-      },
-    });
-  }, [articles, total]);
+    setFilteredArticles(articleEntities);
+  }, [articleEntities]);
 
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
       const res = fetchData;
       // console.log(res?.data.articles.data);
       const articles = res?.data?.articles;
-      setFilteredArticles((filteredArticles) => [
-        ...filteredArticles,
-        // eslint-disable-next-line no-unsafe-optional-chaining
-        ...articles?.data,
-      ]);
+      dispatch(
+        setArticles({
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          articles: [...articleEntities, ...articles?.data],
+        })
+      );
     }
-  }, [fetchData, filteredArticles.length, searchState.searching, total]);
+  }, [articleEntities, dispatch, fetchData, filteredArticles?.length, searchState.searching, total]);
 
   return (
     <>
@@ -152,7 +141,7 @@ const CategoryArticles = ({ articles, total }: pageProps) => {
                     category={
                       item?.attributes?.category?.data?.attributes
                         ?.slug as string
-                    }                    
+                    }
                     slug={item?.attributes?.slug}
                   />
                 ))}
@@ -165,12 +154,12 @@ const CategoryArticles = ({ articles, total }: pageProps) => {
               <SearchBlock>
                 {/* <Search placeholder={'Search particular information'} /> */}
                 <EntitySearch
-                  entities={articles}
+                  entities={articleEntities}
                   setFilteredEntities={setFilteredArticles as any}
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Categories />
+              <Categories entityDocument={FilteredArticlesDocument} />
             </Column>
           </Row>
         </InnerContainer>

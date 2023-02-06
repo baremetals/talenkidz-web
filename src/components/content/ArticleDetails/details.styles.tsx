@@ -143,7 +143,7 @@ export const BookMarkIconWrap = styled.div`
 export const Readmore = styled.div`
   margin-top: 90px;
   margin-bottom: 50px;
-  a {
+  p {
     font-style: normal;
     font-weight: 700;
     font-size: 32px;
