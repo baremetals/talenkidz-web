@@ -1,64 +1,66 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
 import TermsButton from 'components/widgets/Button';
 import Markdown from 'markdown-to-jsx';
 import { useAppDispatch } from 'src/app/hooks';
-import { openModal } from 'src/features/modal/reducers';
-import {
-    Title,
-} from "styles/common.styles";
+import { closeModal, openModal } from 'src/features/modal/reducers';
 import { ModalContainer } from 'components/utilities/Modal/modal.styles';
-
+import { DismissIcon, Headline, SubHeadline, TermsFooter } from './auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 export default function TermsModal() {
   const dispatch = useAppDispatch();
-    const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>('');
 
-    const getTermsData = async function() {
-        // const baseUrl = process.env.NEXT_PUBLIC_API_URL
-        const response = await fetch(`/api/kids/terms`)
-        const res = await response.json()
-        // console.log(res.content)
-        return setContent(res?.content)
-    }
+  const getTermsData = async function () {
+    // const baseUrl = process.env.NEXT_PUBLIC_API_URL
+    const response = await fetch(`/api/kids/terms`);
+    const res = await response.json();
+    // console.log(res.content)
+    return setContent(res?.content);
+  };
 
-    useEffect(() => {
-        getTermsData()
-    }, [])
+  useEffect(() => {
+    getTermsData();
+  }, []);
 
-    const handleModal = useCallback(
-      () => {
-        dispatch(openModal('REGISTER_FORM'));
-      },
-      [dispatch]
-    );
+  const handleModal = useCallback(() => {
+    dispatch(openModal('REGISTER_FORM'));
+  }, [dispatch]);
 
-    return (
-      <>
-        <ModalContainer
-          style={{ textAlign: 'center' }}
-          // className="modal-style"
-          // id="terms-modal"
-        >
-          <Title style={{ fontSize: '2rem' }}>Terms and conditions</Title>
-          <div className="minh">
-            <Markdown>{content}</Markdown>
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
+  return (
+    <>
+      <ModalContainer
+        style={{ textAlign: 'center' }}
+        // className="modal-style"
+        // id="terms-modal"
+      >
+        <DismissIcon>
+          <CrossRounded onClick={handleModalClose} />
+        </DismissIcon>
+        <Headline>
+          <span className="title primary">
+            COOKIE <span>and</span> PRIVACY
+          </span>
+        </Headline>
+        <SubHeadline className="consent">consent</SubHeadline>
+        <div className="minh minh-styled">
+          <Markdown>{content}</Markdown>
+        </div>
+        <TermsFooter>
+          <TermsButton onClick={() => handleModal()}>Accept all</TermsButton>
+
+          <div className="private-policy">
+            By pushing the button you agree to use of your <br />
+            personal information as set out in <a href='#' className='link'>private policy</a>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '2rem',
-            }}
-          >
-            <TermsButton
-              style={{ width: '12rem', marginLeft: 'auto' }}
-              onClick={() => handleModal()}
-            >
-              Accept
-            </TermsButton>
-          </div>
-        </ModalContainer>
-      </>
-    );
+
+          <a href="#" className='cookie-policy'>Read the Cookie Policy</a>
+        </TermsFooter>
+      </ModalContainer>
+    </>
+  );
 }
-

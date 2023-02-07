@@ -104,13 +104,27 @@ const ResetPasswordForm = () => {
                 {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                 <Title
                   style={{
-                    lineHeight: '1.6',
-                    fontSize: '1.5rem',
+                    color: '#39007E',
+                    fontWeight: '700',
+                    fontSize: '24px',
+                    lineHeight: '29px',
                     textAlign: 'center',
                     marginBottom: '1.5rem',
                   }}
                 >
-                  Reset Password
+                  Reset the password
+                </Title>
+                <Title
+                  style={{
+                    fontWeight: '600',
+                    fontSize: '14px',
+                    lineHeight: '17px',
+                    textAlign: 'center',
+                    marginBottom: '27px',
+                    color: 'rgba(15, 2, 31, 0.7)',
+                  }}
+                >
+                  Make up a new password
                 </Title>
                 <FormWrap>
                   <FormGroup>
@@ -119,29 +133,16 @@ const ResetPasswordForm = () => {
                     </Icon>
                     <FormInput
                       type="password"
-                      placeholder="New Password"
+                      placeholder="New password"
                       name="newPassword"
                     />
                     {errors.newPassword && touched.newPassword && (
                       <Error>{errors.newPassword}</Error>
                     )}
                   </FormGroup>
-                  <FormGroup>
-                    <Icon>
-                      <Lock />
-                    </Icon>
-                    <FormInput
-                      type="password"
-                      placeholder="Confirm Password"
-                      name="confirmPassword"
-                    />
-                    {errors.confirmPassword && touched.confirmPassword && (
-                      <Error>{errors.confirmPassword}</Error>
-                    )}
-                  </FormGroup>
                   <FormGroup className="submit-button">
                     <Button
-                      content="Submit"
+                      content="Confirm"
                       type="submit"
                       disabled={isSubmitting}
                       loading={isSubmitting}
@@ -152,13 +153,17 @@ const ResetPasswordForm = () => {
                       onClick={() => handleModal()}
                       style={{
                         marginBottom: '0',
-                        color: '#120D26',
-                        fontSize: '.875rem',
                       }}
                     >
-                      Back to login?{' '}
                       <Link href={`${router.pathname}?modal=true`}>
-                        <a style={{ color: '#A35193' }}>Sign in</a>
+                        <a style={{
+                          fontFamily: 'Syne',
+                          fontWeight: '600',
+                          fontSize: '14px',
+                          lineHeight: '17px',
+                          color: '#39007E',
+                          textDecoration: 'underline',
+                        }}>Sign in</a>
                       </Link>
                     </Text>
                   </FormGroup>

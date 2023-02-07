@@ -1,30 +1,36 @@
-import React, { useCallback, useState } from 'react'
-import Link from "next/link";
+import React, { useCallback, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Formik } from "formik";
+import { Formik } from 'formik';
 import axios from 'axios';
-import { getForgotPasswordValidationSchema } from "src/utils/formValidation";
+import { getForgotPasswordValidationSchema } from 'src/utils/formValidation';
 
+import { Error, ErrorMsg } from 'components/widgets/Input';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { Error, ErrorMsg } from "components/widgets/Input";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import {
-    InnerContainer,
-    Title,
-    Text,
-} from 'styles/common.styles';
+import { InnerContainer, Title, Text } from 'styles/common.styles';
 import Button from 'components/users/Auth/Button';
 
-import { Message } from "public/assets/icons/Message";
+import { Message } from 'public/assets/icons/Message';
 import { useAppDispatch } from 'src/app/hooks';
-import { openModal } from 'src/features/modal/reducers';
-import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper } from '../auth-styles';
+import { closeModal, openModal } from 'src/features/modal/reducers';
+import {
+  DismissIcon,
+  FormGroup,
+  FormInput,
+  FormWrap,
+  Icon,
+  LoginInner,
+  LoginWrapper,
+  SubHeadline,
+} from '../auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import LinkWrapper from '../LinkWrapper';
 
 const initialValues = {
-    email: "",
-    error: "",
+  email: '',
+  error: '',
 };
 const ForgotPassword: React.FC<any> = () => {
   const router = useRouter();
@@ -68,6 +74,10 @@ const ForgotPassword: React.FC<any> = () => {
     [dispatch]
   );
 
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   return (
     <>
       <Formik
@@ -79,17 +89,25 @@ const ForgotPassword: React.FC<any> = () => {
           <InnerContainer>
             <LoginWrapper>
               <LoginInner>
+                <DismissIcon>
+                  <CrossRounded onClick={handleModalClose} />
+                </DismissIcon>
                 {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                 <Title
                   style={{
-                    lineHeight: '1.6',
-                    fontSize: '1.5rem',
+                    lineHeight: '29px',
+                    fontSize: '24px',
+                    fontWeight: '700',
                     textAlign: 'center',
                     marginBottom: '1.5rem',
+                    color: '#39007E',
                   }}
                 >
-                  Forgot Password
+                  Forgot the password?
                 </Title>
+                <SubHeadline className="sm">
+                  We’ll send the instruction to your email
+                </SubHeadline>
                 <FormWrap>
                   <FormGroup>
                     <Icon>
@@ -97,7 +115,7 @@ const ForgotPassword: React.FC<any> = () => {
                     </Icon>
                     <FormInput
                       type="text"
-                      placeholder="Full name"
+                      placeholder="abc@email.com"
                       name="email"
                     />
                     {errors.email && touched.email && (
@@ -112,28 +130,16 @@ const ForgotPassword: React.FC<any> = () => {
                       loading={isSubmitting}
                     />
                   </FormGroup>
-                  <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
-                    <Text
-                      style={{
-                        marginBottom: '0',
-                        color: '#120D26',
-                        fontSize: '.875rem',
-                      }}
-                    >
-                      Return to{' '}
-                      <span onClick={() => handleModal('log')}>
-                        <Link href={`${router.pathname}?modal=true`}>
-                          <a style={{ color: '#A35193' }}>Sign In</a>
-                        </Link>{' '}
-                        &nbsp; | &nbsp;{' '}
-                      </span>
-                      <span onClick={() => handleModal('reg')}>
-                        <Link href={`${router.pathname}?modal=true`}>
-                          <a style={{ color: '#A35193' }}>Sign up</a>
-                        </Link>
-                      </span>
-                    </Text>
-                  </FormGroup>
+                  <LinkWrapper>
+                    <Link href={`${router.pathname}?modal=true`}>
+                      <a
+                        style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }}
+                        onClick={() => handleModal('log')}
+                      >
+                        Sign in
+                      </a>
+                    </Link>
+                  </LinkWrapper>
                 </FormWrap>
               </LoginInner>
             </LoginWrapper>
