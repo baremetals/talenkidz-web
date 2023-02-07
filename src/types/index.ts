@@ -1,5 +1,14 @@
 import { ChangeEvent } from 'react';
-import { ArticleEntity, ArticlesDocument, EventEntity, EventsDocument, ListingEntity, ListingsDocument } from 'generated/graphql';
+import {
+  ArticleEntity,
+  ArticlesDocument,
+  EventEntity,
+  EventsDocument,
+  ListingEntity,
+  ListingsDocument,
+  FilteredArticlesDocument,
+  ResponseCollectionMeta,
+} from 'generated/graphql';
 
 export type Entities = ArticleEntity | EventEntity | ListingEntity;
 
@@ -82,4 +91,14 @@ export type TCategory = {
 export type GQDocument =
   | typeof ArticlesDocument
   | typeof EventsDocument
-  | typeof ListingsDocument;
+  | typeof ListingsDocument
+  | typeof FilteredArticlesDocument;
+
+export type TGetArticles = {
+  data: {
+    articles: {
+      data: ArticleEntity[];
+      meta: ResponseCollectionMeta;
+    };
+  };
+};

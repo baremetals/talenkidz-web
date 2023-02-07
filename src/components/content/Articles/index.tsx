@@ -120,7 +120,7 @@ const Articles = () => {
   //   }
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [user])
-
+  // console.log(remaining, total);
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
       const res = fetchData;
@@ -131,10 +131,11 @@ const Articles = () => {
       //   // eslint-disable-next-line no-unsafe-optional-chaining
       //   ...articles?.data,
       // ]);
-
+      // console.log(meta);
       dispatch(
         setArticles({
           // ...state,
+          total: articles.meta.pagination.total,
           // eslint-disable-next-line no-unsafe-optional-chaining
           articles: [...articleEntities, ...articles?.data],
         })

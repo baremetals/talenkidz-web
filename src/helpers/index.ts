@@ -35,9 +35,22 @@ export const fetchStrapiUser = async () => {
   return axios.get('/api/user/me');
 };
 
+export const fetchApiGet = async <T>(url: string): Promise<T> => {
+  const api = await fetch(url);
+  return api.json();
+};
+
 
 export const updateStrapiUserBookMarks = async (bookmarklist: TBookMark[]) => {
   return axios.post('/api/user/bookmark', {
     data: bookmarklist,
   });
+};
+
+export const fetchApi = async <T>(url: string, body: string): Promise<T> => {
+  const api = await fetch(url, {
+    method: 'Post',
+    body
+  })
+  return api.json()
 };

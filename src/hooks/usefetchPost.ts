@@ -1,36 +1,22 @@
 import { useState, useCallback, useEffect } from 'react';
-
-import {
-  ArticleEntityResponseCollection,
-  EventEntityResponseCollection,
-  ListingEntityResponseCollection,
-} from 'generated/graphql';
 import { GQDocument } from 'src/types';
 
 type IfetchEntity = {
   limit: number;
   start: number;
   gQDocument: GQDocument;
-}
-
-type AllEntitities =
-  | ArticleEntityResponseCollection
-  | EventEntityResponseCollection
-  | ListingEntityResponseCollection;
-  
-type ReturnedEntity = {
-  data: {
-    articles: ArticleEntityResponseCollection;
-    data: AllEntitities;
-  };
 };
-
-export const useFetchEntities = ({
-  limit,
-  start,
-  gQDocument,
-}: IfetchEntity): ReturnedEntity => {
-  const [entity, setEntity] = useState<ReturnedEntity>();
+export const useFetchPost = <T>(
+  url: string,
+  initialState: T,
+  {
+    limit,
+    start,
+    gQDocument,
+  }: // props: IfetchEntity
+  IfetchEntity
+): T => {
+  const [entity, setEntity] = useState<T>(initialState);
 
   const fetchData = useCallback(async () => {
     // console.log('Fetching really');
@@ -40,12 +26,12 @@ export const useFetchEntities = ({
       gQDocument,
     });
 
-    await fetch('/api/entity', {
+    await fetch(url, {
       method: 'POST',
       body: body,
     })
       .then((res) => res.json())
-      .then((data: ReturnedEntity) => {
+      .then((data: T) => {
         // console.log(data);
         setEntity(data);
       })
@@ -53,8 +39,7 @@ export const useFetchEntities = ({
       .catch((error) => {
         console.log(error);
       });
-      
-  }, [gQDocument, limit, start]);
+  }, [gQDocument, limit, start, url]);
 
   useEffect(() => {
     const unsubscribe = fetchData();
@@ -64,7 +49,5 @@ export const useFetchEntities = ({
   }, [fetchData, gQDocument, limit, start]);
 
   // console.log(entity)
-  return entity as ReturnedEntity;
+  return entity;
 };
-
-

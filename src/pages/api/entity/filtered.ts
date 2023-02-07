@@ -1,24 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { client } from 'src/lib/initApollo';
-import {
-  ListingsQueryResult,
-  ArticlesQueryResult,
-  EventsQueryResult,
-} from 'generated/graphql';
+import { EntityData, ReqBody, entityQueryResult } from './entitySpec';
 
-type Data = {
-  data?: entityQueryResult;
-  err?: any;
-};
-type entityQueryResult =
-  | ArticlesQueryResult
-  | EventsQueryResult
-  | ListingsQueryResult;
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  const { start, limit, gQDocument, categories } = JSON.parse(req.body);
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<EntityData>) {
+  const {
+    start,
+    limit,
+    gQDocument,
+    filterBy,
+    sort = 'createdAt:desc',
+  }: ReqBody = JSON.parse(req.body);
 
   // console.log(categories, gQDocument);
 
@@ -27,18 +19,12 @@ export default async function handler(
     const { data } = await client.query<entityQueryResult>({
       query: gQDocument,
       variables: {
-        filters: {
-          category: {
-            id: {
-              in: categories,
-            },
-          },
-        },
+        filters: filterBy,
         pagination: {
           start,
           limit,
         },
-        sort: 'createdAt:desc',
+        sort,
       },
     });
 

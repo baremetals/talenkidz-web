@@ -26,11 +26,11 @@ import {
 import Categories from 'components/utilities/Category';
 import {
   ArticleEntity,
-  ArticlesDocument,
+  // ArticlesDocument,
   FilteredArticlesDocument,
 } from 'generated/graphql';
 
-import { useFetchEntities } from 'src/hooks/useFetchEntities';
+// import { useFetchEntities } from 'src/hooks/useFetchEntities';
 
 import { useSearchState } from 'components/utilities/search/searchReducer';
 import { SearchBlock } from 'components/utilities/search/search.styles';
@@ -38,25 +38,26 @@ import { cutTextToLength } from 'src/utils';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { articlesSelector, setArticles, totalSelector } from 'src/features/articles';
+import { fetchApi } from 'src/helpers';
+import { TGetArticles } from 'src/types';
 
 
 const CategoryArticles = () => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const articleEntities = useAppSelector(articlesSelector);
   const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
 
-  
   const searchState = useSearchState();
 
-//   console.log(total);
+    // console.log(router.query.category);
   const remaining = total % articleEntities?.length;
-  const fetchData = useFetchEntities({
-    limit: remaining > 4 ? 4 : remaining,
-    start: articleEntities?.length as number,
-    gQDocument: ArticlesDocument,
-  });
+  // const fetchData = useFetchEntities({
+  //   limit: remaining > 4 ? 4 : remaining,
+  //   start: articleEntities?.length as number,
+  //   gQDocument: ArticlesDocument,
+  // });
 
   const route = [
     {
@@ -78,18 +79,38 @@ const CategoryArticles = () => {
   }, [articleEntities]);
 
   const getData = useCallback(async () => {
+    const body = JSON.stringify({
+      limit: remaining > 4 ? 4 : remaining,
+      start: articleEntities?.length as number,
+      sort: 'createdAt:desc',
+      gQDocument: FilteredArticlesDocument,
+      filterBy: {
+        category: {
+          slug: {
+            eq: router.query.category,
+          },
+        },
+      },
+    });
     if (!searchState.searching && filteredArticles.length < total) {
-      const res = fetchData;
-      // console.log(res?.data.articles.data);
-      const articles = res?.data?.articles;
-      dispatch(
-        setArticles({
-          // eslint-disable-next-line no-unsafe-optional-chaining
-          articles: [...articleEntities, ...articles?.data],
-        })
-      );
+      try {
+        const res: TGetArticles = await fetchApi('/api/entity/filtered', body);
+        // console.log(res?.data);
+        const articles = res?.data?.articles;
+        dispatch(
+          setArticles({
+            // eslint-disable-next-line no-unsafe-optional-chaining
+            articles: [...articleEntities, ...articles?.data],
+            total: articles?.meta?.pagination?.total,
+            articlesLength: articles?.data?.length,
+          })
+        );
+        
+      } catch (err: any) {
+        console.log(err);
+      }      
     }
-  }, [articleEntities, dispatch, fetchData, filteredArticles?.length, searchState.searching, total]);
+  }, [articleEntities, dispatch, filteredArticles.length, remaining, router.query.category, searchState.searching, total]);
 
   return (
     <>

@@ -39,6 +39,7 @@ const articleSlice = createSlice({
   },
 });
 
-export const { setFilteredArticles, setArticles } = articleSlice.actions;
+export const { setFilteredArticles, setArticles, addArticles } =
+  articleSlice.actions;
 
 export default articleSlice.reducer;

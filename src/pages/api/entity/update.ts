@@ -13,7 +13,7 @@ export default async function updateEntity(req: NextApiRequest, res: NextApiResp
     const url = `${baseUrl}/${data.entity}/${data.id}`;
 
     try {
-      console.log('Firebase Id update');
+      // console.log('Firebase Id update');
       await axios({
         method: 'PUT',
         url,

@@ -141,10 +141,10 @@ export const ArticleDetails = (props: {
       name: categoryArticle as string,
       url: `/articles/${categoryArticle as string}`,
     },
-    // {
-    //   name: router.query.category as string,
-    //   url: `/articles/${router?.query?.category as string}`,
-    // },
+    {
+      name: article?.attributes?.title as string,
+      url: `#`,
+    },
   ];
 
   // const [bookedMarked, setActives] = useState(false);

@@ -48,7 +48,7 @@ const CommentThread: React.FC<ICommentThread> = ({firebaseId}) => {
     // setEditContent(body);
     // console.log(editContent);
   };
-  // console.log(comments)
+  console.log(comments.length)
 
 
   // useEffect(() => {
@@ -106,7 +106,7 @@ const CommentThread: React.FC<ICommentThread> = ({firebaseId}) => {
   };
   return (
     <>
-      {comments.map(
+      {comments.length > 0 ? comments.map(
         (
           com: {
             entityStrapiId: string;
@@ -184,7 +184,8 @@ const CommentThread: React.FC<ICommentThread> = ({firebaseId}) => {
             </CommentActionWrap>
           </CommentWrapper>
         )
-      )}
+      ): (<CommentWrapper>Leave a comment</CommentWrapper>)}
+      
 
       {/* <CommentBox>
         <CommentUserBox>

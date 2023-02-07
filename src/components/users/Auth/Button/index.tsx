@@ -21,13 +21,15 @@ export default function AuthButton({
   loading,
   bgColor,
   children,
+  onClick,
 }: buttonProps) {
   return (
     <StyledButton
       style={{ backgroundColor: bgColor, borderColor: bgColor }}
       type={type}
-      className= {BtnNames}
+      className={BtnNames}
       disabled={disabled || loading}
+      onClick={onClick}
     >
       {children} {content}
       {loading && <Spinner />}

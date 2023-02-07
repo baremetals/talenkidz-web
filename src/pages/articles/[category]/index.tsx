@@ -2,8 +2,6 @@
 import Layout from 'components/Layout';
 import {
   ArticleEntity,
-  CategoriesDocument,
-  CategoriesQueryResult,
   FilteredArticlesDocument,
   FilteredArticlesQueryResult,
   ResponseCollectionMeta,
@@ -66,9 +64,7 @@ function FilteredArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-
         <CategoryArticles />
-
     </Layout>
   );
 }
@@ -92,19 +88,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       sort: 'updatedAt:desc',
     },
   });
-
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
   return {
-    props: { art: data, cats }, // will be passed to the page component as props
+    props: { art: data }, // will be passed to the page component as props
   };
 }
 
