@@ -780,8 +780,8 @@ export const FormLabel = styled.label`
   &:after {
     content: '';
     position: absolute;
-    border-bottom: 1px solid #fff;
-    border-left: 1px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
     width: 0.625rem;
     height: 0.375rem;
     transform: rotate(-45deg);

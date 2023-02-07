@@ -1,7 +1,18 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { Formik } from 'formik';
 
-import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper, RadioFormGroup, RadioFormInput } from '../auth-styles';
+import {
+  DismissIcon,
+  FormGroup,
+  FormInput,
+  FormWrap,
+  Headline,
+  Icon,
+  LoginInner,
+  LoginWrapper,
+  SubHeadline,
+  Divider,
+} from '../auth-styles';
 import Button from 'components/users/Auth/Button';
 import { Error, ErrorMsg } from 'components/widgets/Input';
 import { getRegisterValidationSchema } from 'src/utils/formValidation';
@@ -12,9 +23,11 @@ import { Profile } from 'public/assets/icons/Profile';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from 'src/app/hooks';
-import { openModal } from 'src/features/modal/reducers';
-import { Column, InnerContainer, Row, Text, Title } from 'styles/common.styles';
-
+import { openModal, closeModal } from 'src/features/modal/reducers';
+import { Column, InnerContainer, Row } from 'styles/common.styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import LinkWrapper from '../LinkWrapper';
+import ToggleSwitch from '../ToggleSwitch';
 
 export interface IRegisterForm {
   formProps?: registerUserProps;
@@ -48,7 +61,7 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = async ({ ...values }: registerUserProps) => {
-  // console.log(values);
+    // console.log(values);
     const user = {
       fullName: values.fullName,
       username: values.username,
@@ -86,6 +99,10 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
     [dispatch]
   );
 
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   return (
     <>
       <Formik
@@ -98,39 +115,24 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
           <InnerContainer>
             <LoginWrapper>
               <LoginInner>
+                <DismissIcon>
+                  <CrossRounded onClick={handleModalClose} />
+                </DismissIcon>
                 {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
-                <Title
-                  style={{
-                    lineHeight: '1.6',
-                    fontSize: '1.5rem',
-                    textAlign: 'center',
-                    marginBottom: '1.5rem',
-                  }}
-                >
-                  Sign Up
-                </Title>
-                <FormWrap>
-                  <RadioFormGroup
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
-                    {/* <Icon><Profile /></Icon> */}
-                    <RadioFormInput
-                      type="radio"
-                      name="userType"
-                      value="candidate"
-                    />
-                    <label>Candidate</label>
+                <Headline>
+                  <span className="title primary">SING UP</span>
+                  <span className="divider">or</span>
+                  <span className="title secondary">SING IN</span>
+                </Headline>
+                <SubHeadline>to take a class</SubHeadline>
 
-                    <RadioFormInput
-                      type="radio"
-                      name="userType"
-                      value="organisation"
-                    />
-                    <label>Organisation</label>
+                <FormWrap>
+                  <FormGroup>
+                    <ToggleSwitch onLabel="Organisation" offLabel="Candidate" />
                     {errors.userType && touched.userType && (
                       <Error>{errors.userType}</Error>
                     )}
-                  </RadioFormGroup>
+                  </FormGroup>
                   <Row>
                     <Column>
                       <FormGroup>
@@ -154,7 +156,7 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
                         </Icon>
                         <FormInput
                           type="text"
-                          placeholder="username"
+                          placeholder="User name"
                           name="username"
                         />
                         {errors.username && touched.username && (
@@ -210,43 +212,21 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
                       loading={isSubmitting}
                     />
                   </FormGroup>
-                  <div style={{ textAlign: 'center', margin: '2rem' }}>OR</div>
+                  <Divider>or</Divider>
 
                   <Provider />
-                  <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
-                    <Text
-                      style={{
-                        marginBottom: '0',
-                        color: '#120D26',
-                        fontSize: '.875rem',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => handleModal('log')}
-                    >
-                      Already have an account?{' '}
-                      {/* <Link href={`${router.pathname}?modal=true`}> */}
-                      <a style={{ color: '#A35193' }}>Sign In</a>
-                      {/* </Link> */}
-                    </Text>
-                  </FormGroup>
-                  <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
-                    <div onClick={() => handleModal('terms')}>
-                      <Text
-                        style={{
-                          marginBottom: '0',
-                          color: '#120D26',
-                          fontSize: '.875rem',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        By creating your account you agree to the
-                        <span style={{ color: '#A35193' }}>
-                          {' '}
-                          terms and privacy policy.
-                        </span>
-                      </Text>
-                    </div>
-                  </FormGroup>
+                  <LinkWrapper>
+                    Already have an account?{' '}
+                    {/* <Link href={`${router.pathname}?modal=true`}> */}
+                    <a style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('log')}>Sign In</a>
+                    {/* </Link> */}
+                    <br />
+                    By creating your account you agree to the
+                    <br />
+                    <span style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('terms')}>
+                      terms and privacy policy.
+                    </span>
+                  </LinkWrapper>
                 </FormWrap>
               </LoginInner>
             </LoginWrapper>
