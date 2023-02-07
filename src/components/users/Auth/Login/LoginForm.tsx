@@ -4,9 +4,6 @@ import { useRouter } from 'next/router';
 
 import {
   InnerContainer,
-  Title,
-  Text,
-  
   FlexGroup,
   Checkbox,
   FormLabel,
@@ -21,9 +18,22 @@ import { Message } from 'public/assets/icons/Message';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
 import { useAppDispatch } from 'src/app/hooks';
-import { openModal } from 'src/features/modal/reducers';
-import { FormGroup, FormInput, FormWrap, Icon, LoginInner, LoginWrapper } from '../auth-styles';
-
+import { openModal, closeModal } from 'src/features/modal/reducers';
+import {
+  FormGroup,
+  FormInput,
+  FormWrap,
+  Icon,
+  LoginInner,
+  LoginWrapper,
+  Headline,
+  SubHeadline,
+  ForgotPassword,
+  DismissIcon,
+  Divider,
+} from '../auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import LinkWrapper from '../LinkWrapper';
 
 export interface ILoginForm {
   formProps?: LoginUserProps;
@@ -36,7 +46,6 @@ type LoginUserProps = {
   error?: string;
 };
 
-
 const initialValues = {
   usernameOrEmail: '',
   password: '',
@@ -48,14 +57,10 @@ const LoginForm: React.FC<ILoginForm> = () => {
   const [errorMsg, setErrorMsg] = useState(false);
   const dispatch = useAppDispatch();
 
-
   const handleSubmit = async ({ ...values }: LoginUserProps) => {
     // console.log('wayveyKiD');
     try {
-      const res = await loginUser(
-        values.usernameOrEmail,
-        values.password,
-      );
+      const res = await loginUser(values.usernameOrEmail, values.password);
       if (res?.error as string) {
         initialValues.error = res?.error as string;
         setErrorMsg(true);
@@ -68,111 +73,117 @@ const LoginForm: React.FC<ILoginForm> = () => {
     }
   };
 
-  const handleModal = useCallback((type: string) => {
-    if (type === 'pass') {
-      dispatch(openModal('FORGOTPASSWORD_FORM'));
-    } else {
-      dispatch(openModal('REGISTER_FORM'));
-    }
-    
+  const handleModal = useCallback(
+    (type: string) => {
+      if (type === 'pass') {
+        dispatch(openModal('FORGOTPASSWORD_FORM'));
+      } else if (type === 'terms') {
+        dispatch(openModal('TERMS_MODAL'));
+      } else {
+        dispatch(openModal('REGISTER_FORM'));
+      }
+    },
+    [dispatch]
+  );
+
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
   }, [dispatch]);
 
   return (
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={getLoginValidationSchema}
-      >
-        {({ isSubmitting, errors, touched }) => (
-          <InnerContainer>
-            <LoginWrapper>
-              <LoginInner>
-                {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
-                <Title
-                  style={{
-                    lineHeight: '1.6',
-                    fontSize: '1.5rem',
-                    textAlign: 'center',
-                    marginBottom: '1.5rem',
-                  }}
-                >
-                  Sign In
-                </Title>
-                <FormWrap>
-                  <FormGroup>
-                    <Icon>
-                      <Message />
-                    </Icon>
-                    <FormInput
-                      type="text"
-                      placeholder="username or email"
-                      name="usernameOrEmail"
-                    />
-                    {errors.usernameOrEmail && touched.usernameOrEmail && (
-                      <Error>{errors.usernameOrEmail}</Error>
-                    )}
-                  </FormGroup>
-                  <FormGroup>
-                    <Icon>
-                      <Lock />
-                    </Icon>
-                    <FormInput
-                      type="password"
-                      placeholder="your password"
-                      name="password"
-                    />
-                    {errors.password && touched.password && (
-                      <Error>{errors.password}</Error>
-                    )}
-                  </FormGroup>
-                  <FormGroup>
-                    <FlexGroup>
-                      <Checkbox>
-                        <FormInput
-                          id="RememberMe"
-                          className="checkbox"
-                          type="checkbox"
-                        />
-                        <FormLabel htmlFor="RememberMe">Remember Me</FormLabel>
-                      </Checkbox>
-                      <div onClick={() => handleModal('pass')}>
-                        <Link href={`${router.pathname}?modal=true`}>
-                          Forgot Password?
-                        </Link>
-                      </div>
-                    </FlexGroup>
-                  </FormGroup>
-                  <FormGroup className="submit-button">
-                    <Button
-                      content="Sign in"
-                      type="submit"
-                      disabled={isSubmitting}
-                      loading={isSubmitting}
-                    />
-                  </FormGroup>
-                  <div style={{ textAlign: 'center', margin: '2rem' }}>OR</div>
-                  <Provider />
-                  <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
-                    <Text
-                      style={{
-                        marginBottom: '0',
-                        color: '#120D26',
-                        fontSize: '.875rem',
-                      }}
-                      onClick={() => handleModal('reg')}
-                    >
-                      Don’t have an account?{' '}
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={getLoginValidationSchema}
+    >
+      {({ isSubmitting, errors, touched }) => (
+        <InnerContainer>
+          <LoginWrapper>
+            <LoginInner>
+              <DismissIcon>
+                <CrossRounded onClick={handleModalClose} />
+              </DismissIcon>
+              {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
+              <Headline>
+                <span className="title secondary">SING UP</span>
+                <span className="divider">or</span>
+                <span className="title primary">SING IN</span>
+              </Headline>
+              <SubHeadline>to take a class</SubHeadline>
+
+              <FormWrap>
+                <FormGroup>
+                  <Icon>
+                    <Message />
+                  </Icon>
+                  <FormInput
+                    type="text"
+                    placeholder="abc@email.com"
+                    name="usernameOrEmail"
+                  />
+                  {errors.usernameOrEmail && touched.usernameOrEmail && (
+                    <Error>{errors.usernameOrEmail}</Error>
+                  )}
+                </FormGroup>
+                <FormGroup>
+                  <Icon>
+                    <Lock />
+                  </Icon>
+                  <FormInput
+                    type="password"
+                    placeholder="Your password"
+                    name="password"
+                  />
+                  {errors.password && touched.password && (
+                    <Error>{errors.password}</Error>
+                  )}
+                </FormGroup>
+                <FormGroup className="remember-me">
+                  <FlexGroup>
+                    <Checkbox>
+                      <FormInput
+                        id="RememberMe"
+                        className="checkbox"
+                        type="checkbox"
+                      />
+                      <FormLabel htmlFor="RememberMe">Remember Me</FormLabel>
+                    </Checkbox>
+                    <ForgotPassword onClick={() => handleModal('pass')}>
                       <Link href={`${router.pathname}?modal=true`}>
-                        <a style={{ color: '#A35193' }}>Sign up</a>
+                        Forgot Password?
                       </Link>
-                    </Text>
-                  </FormGroup>
-                </FormWrap>
-              </LoginInner>
-            </LoginWrapper>
-          </InnerContainer>
-        )}
-      </Formik>
+                    </ForgotPassword>
+                  </FlexGroup>
+                </FormGroup>
+                <FormGroup className="submit-button">
+                  <Button
+                    content="Sign in"
+                    type="submit"
+                    disabled={isSubmitting}
+                    loading={isSubmitting}
+                  />
+                </FormGroup>
+                <Divider>or</Divider>
+                <Provider />
+                <LinkWrapper>
+                  <Link href={`${router.pathname}?modal=true`}>
+                    <a style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('reg')}>Sign up</a>
+                  </Link>{' '}
+                  if you don’t have an account <br />
+                  By creating an account you agree to the
+                  <br />
+                  <Link href="#">
+                    <a style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('terms')}>
+                      terms and privacy policy.
+                    </a>
+                  </Link>
+                </LinkWrapper>
+              </FormWrap>
+            </LoginInner>
+          </LoginWrapper>
+        </InnerContainer>
+      )}
+    </Formik>
   );
 };
 

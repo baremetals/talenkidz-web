@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Profile = () => {
+export const User = () => {
   return (
     <svg
       width="16"

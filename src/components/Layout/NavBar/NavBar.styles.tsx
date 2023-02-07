@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SiteHeader = styled.header`
   padding-top: 1.5rem;
@@ -138,7 +138,7 @@ export const NavBarItem = styled.div`
   &.active {
     background: rgba(57, 0, 126, 0.2);
     border-radius: 10px;
-    padding:3px 18px;
+    padding: 3px 18px;
   }
   a {
     display: block;
@@ -179,13 +179,13 @@ export const NavBarItem = styled.div`
     }
   }
   &.mobileButton {
-     display: none;
-      @media (max-width: 991px) {
+    display: none;
+    @media (max-width: 991px) {
       display: block !important;
       border-radius: 20px;
       button {
-        margin-top:20px;
-         border-radius: 15px !important;
+        margin-top: 20px;
+        border-radius: 15px !important;
       }
     }
   }
@@ -256,26 +256,55 @@ export const ToggleBar = styled.button`
   @media (min-width: 992px) {
     display: none;
   }
-  width: 1.75rem;
-  max-width: 1.75rem;
+  width: 60px;
+  height: 48px;
   padding: 0;
   border: none;
-  background-color: transparent;
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
   display: block;
   cursor: pointer;
   z-index: 1;
+  text-align: center;
+  padding: 0 15px;
   &:hover {
-    background-color: transparent;
+    background: #ffffff;
   }
   span {
     display: block;
     border-radius: 0.25rem;
+    width: 30.24px;
     height: 4px;
-    background-color: #39007e;
+    background-color: #000000;
     margin: 0.25rem 0;
+
+    &:nth-child(2) {
+      width: 22px;
+    }
   }
 `;
 
 export const LogoBlock = styled.div`
   max-width: 25%;
+`;
+
+export const OptionsWrapper = styled.div`
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  width: 202px;
+  padding: 31px 10px;
+`;
+
+export const OptionItem = styled.div`
+  font-family: 'Syne';
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #39007e;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 `;

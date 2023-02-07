@@ -6,6 +6,7 @@ import Login from 'components/users/Auth/Login';
 import ForgotPassword from 'components/users/Auth/ForgotPassword';
 import PasswordReset from 'components/users/Auth/PasswordReset/ResetPasswordForm';
 import TermsModal from 'components/users/Auth/TermsModal'
+import Questions from 'components/users/Auth/Questions'
 
 import { useAppSelector, useAppDispatch } from 'src/app/hooks';
 import {
@@ -22,10 +23,11 @@ const MODAL_COMPONENTS = {
   REGISTER_FORM: Register,
   LOGIN_FORM: Login,
   FORGOTPASSWORD_FORM: ForgotPassword,
+  QUESTIONS: Questions,
   RESETPASSWORD_FORM: PasswordReset,
   TERMS_MODAL: TermsModal,
   POLICY_CONSENT: PolicyConsent,
-  POLICY_SETTINGS: PolicySettings
+  POLICY_SETTINGS: PolicySettings,
 };
 
 export default function AuthModal({
