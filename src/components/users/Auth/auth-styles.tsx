@@ -280,8 +280,7 @@ export const TermsFooter = styled.div`
   button {
     border: 2px solid #39007E;
     border-radius: 10px;
-    max-width: 134px;
-    width: 100%;
+    width: max-content;
     height: 35px;
     font-family: 'Syne';
     font-weight: 600;
