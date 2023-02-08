@@ -10,7 +10,8 @@ const ServiceLinks = ({ class_name }: TServLinks) => {
     <FooterLinks className={class_name}>
       <Link href={'/cookie-policy'}>Cookie Policy</Link>
       <Link href={'/privacy'}>Privacy Policy</Link>
-      <Link href={'/terms'}>Teams and conditions </Link>
+      <Link href={'/terms'}>Teams & conditions </Link>
+      <Link href={'/about'}>About Us</Link>
     </FooterLinks>
   );
 };

@@ -48,7 +48,7 @@ const CommentThread: React.FC<ICommentThread> = ({firebaseId}) => {
     // setEditContent(body);
     // console.log(editContent);
   };
-  console.log(comments.length)
+  // console.log(comments.length)
 
 
   // useEffect(() => {

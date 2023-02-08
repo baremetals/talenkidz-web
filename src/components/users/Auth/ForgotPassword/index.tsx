@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
+// import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Formik } from 'formik';
 import axios from 'axios';
@@ -9,14 +9,13 @@ import { Error, ErrorMsg } from 'components/widgets/Input';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { InnerContainer, Title, Text } from 'styles/common.styles';
+import { InnerContainer, Title } from 'styles/common.styles';
 import Button from 'components/users/Auth/Button';
 
 import { Message } from 'public/assets/icons/Message';
 import { useAppDispatch } from 'src/app/hooks';
 import { closeModal, openModal } from 'src/features/modal/reducers';
 import {
-  DismissIcon,
   FormGroup,
   FormInput,
   FormWrap,
@@ -25,8 +24,8 @@ import {
   LoginWrapper,
   SubHeadline,
 } from '../auth-styles';
-import { CrossRounded } from 'public/assets/icons/CrossRounded';
 import LinkWrapper from '../LinkWrapper';
+import ModalCloseIcon from '../ModalCloseIcon';
 
 const initialValues = {
   email: '',
@@ -48,6 +47,7 @@ const ForgotPassword: React.FC<any> = () => {
       .then((res) => {
         // console.log(res);
         if (res.status === 200) {
+          dispatch(closeModal());
           router.push('/auth/forgot-password/reset-link');
         }
       })
@@ -63,21 +63,6 @@ const ForgotPassword: React.FC<any> = () => {
       });
   };
 
-  const handleModal = useCallback(
-    (type: string) => {
-      if (type === 'log') {
-        dispatch(openModal('LOGIN_FORM'));
-      } else {
-        dispatch(openModal('REGISTER_FORM'));
-      }
-    },
-    [dispatch]
-  );
-
-  const handleModalClose = useCallback(() => {
-    dispatch(closeModal());
-  }, [dispatch]);
-
   return (
     <>
       <Formik
@@ -89,9 +74,7 @@ const ForgotPassword: React.FC<any> = () => {
           <InnerContainer>
             <LoginWrapper>
               <LoginInner>
-                <DismissIcon>
-                  <CrossRounded onClick={handleModalClose} />
-                </DismissIcon>
+                <ModalCloseIcon />
                 {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
                 <Title
                   style={{
@@ -131,14 +114,18 @@ const ForgotPassword: React.FC<any> = () => {
                     />
                   </FormGroup>
                   <LinkWrapper>
-                    <Link href={`${router.pathname}?modal=true`}>
+                    {/* <Link href={`${router.pathname}?modal=true`}> */}
                       <a
-                        style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }}
-                        onClick={() => handleModal('log')}
+                        style={{
+                          color: '#39007E',
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                        }}
+                        onClick={() => dispatch(openModal('LOGIN_FORM'))}
                       >
                         Sign in
                       </a>
-                    </Link>
+                    {/* </Link> */}
                   </LinkWrapper>
                 </FormWrap>
               </LoginInner>

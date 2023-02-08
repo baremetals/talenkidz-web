@@ -1,22 +1,18 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { Input, Label, Switch } from './styles';
 
 interface props {
-  value?: boolean;
   onLabel: string;
   offLabel: string;
+  checked: boolean;
+  name: string;
+  onChange: (_e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ToggleSwitch = ({ value = true, onLabel, offLabel }: props) => {
-  const [checked, setChecked] = useState(value);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-  };
-
+const ToggleSwitch = ({ checked, onLabel, offLabel, onChange, name }: props) => {
   return (
     <Label>
-      <Input checked={checked} type="checkbox" onChange={handleChange} />
+      <Input checked={checked} type="checkbox" onChange={onChange} name={name}/>
       <Switch />
       <span>{checked ? onLabel : offLabel}</span>
     </Label>

@@ -49,6 +49,8 @@ import {
 } from './details.styles';
 import { Comments } from '../Comments';
 import BookMarkIcon from 'components/widgets/BookMarkIcon';
+import { openModal } from 'src/features/modal';
+import { useAppDispatch } from 'src/app/hooks';
 
 export const ArticleDetails = (props: {
   props: {
@@ -58,6 +60,7 @@ export const ArticleDetails = (props: {
   };
 }) => {
   // const [socialDropdown, setSocialDropdown] = useState(false)
+  const dispatch = useAppDispatch();
   const { user, firebaseUser } = useContext(AuthContext);
   const { data } = props.props;
 
@@ -103,7 +106,7 @@ export const ArticleDetails = (props: {
 
   const handleClick = async () => {
     if (!user) {
-      console.log('please sign in first');
+      dispatch(openModal('LOGIN_FORM'))
     } else {
       if (hasLiked) {
         // console.log('before', hasLiked);
@@ -201,8 +204,8 @@ export const ArticleDetails = (props: {
                       />
                     </div> */}
                     <div
-                      // className={hasLiked ? 'active' : 'inactive'}
-                      // onClick={LiketoggleClass}
+                    // className={hasLiked ? 'active' : 'inactive'}
+                    // onClick={LiketoggleClass}
                     >
                       {hasLiked ? (
                         <Image
@@ -290,6 +293,7 @@ export const ArticleDetails = (props: {
                       alt="article image"
                       width={600}
                       height={600}
+                      priority
                     />
                   </ArticleImg>
                 </ArticleBody>

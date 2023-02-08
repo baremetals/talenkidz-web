@@ -74,18 +74,7 @@ export default function UserHeader() {
           <InnerContainer>
             <NavBarHeader>
               <LogoBlock>
-                <Link
-                  href={
-                    user?.id
-                      ? `${
-                          user.userType === 'candidate'
-                            ? 'user-profile'
-                            : 'account'
-                        }/${user?.username}`
-                      : '/'
-                  }
-                  passHref
-                >
+                <Link href={user?.id ? '/account' : '/'} passHref>
                   <Logo>
                     <Image
                       src={'/logo.png'}
@@ -107,7 +96,7 @@ export default function UserHeader() {
               <NavbarCollapse className={`${toggle ? 'opened' : ''}`}>
                 <NavBarNav ref={sidebarRef}>
                   <NavBarItem onClick={() => setToggle(!toggle)}>
-                    <Link href={'/'}>Home</Link>
+                    <Link href={user?.id ? '/account' : '/'}>Home</Link>
                   </NavBarItem>
                   {/* <NavBarItem><Link href={'/'}>About Us</Link></NavBarItem> */}
                   <NavBarItem onClick={() => setToggle(!toggle)}>
@@ -116,11 +105,23 @@ export default function UserHeader() {
                   <NavBarItem onClick={() => setToggle(!toggle)}>
                     <Link href={'/activities'}>Activities</Link>
                   </NavBarItem>
-                  <NavBarItem className="active" onClick={() => setToggle(!toggle)}>
+                  <NavBarItem
+                    className="active"
+                    onClick={() => setToggle(!toggle)}
+                  >
                     <Link href={'/articles'}>Articles</Link>
                   </NavBarItem>
-                   <NavBarItem className="signup mobileButton" onClick={() => handleModal()}>
-                    <button >Connect</button>
+                  <NavBarItem
+                    className="active"
+                    onClick={() => setToggle(!toggle)}
+                  >
+                    <Link href={'#'}>Resources</Link>
+                  </NavBarItem>
+                  <NavBarItem
+                    className="signup mobileButton"
+                    onClick={() => handleModal()}
+                  >
+                    <button>Connect</button>
                   </NavBarItem>
                   {user?.id && (
                     <>
@@ -138,14 +139,10 @@ export default function UserHeader() {
                                             <Link href={`/user-profile/${user?.username}`}>Setting</Link>
                                         </ProfileItem> */}
                           <ProfileItem>
-                            <Link href={`/user-profile/${'user?.username'}`}>
-                              Profile
-                            </Link>
+                            <Link href={`/account/`}>Profile</Link>
                           </ProfileItem>
                           <ProfileItem>
-                            <Link
-                              href={`/user-profile/${'user?.username'}/edit-profile`}
-                            >
+                            <Link href={`/account/edit-profile`}>
                               Edit Profile
                             </Link>
                           </ProfileItem>
@@ -153,7 +150,7 @@ export default function UserHeader() {
                             <Link href="/privacy">Privacy settings</Link>
                           </ProfileItem>
                           <ProfileItem>
-                            <Link href="/terms">Modal</Link>
+                            <Link href="/terms">Terms</Link>
                           </ProfileItem>
                           <ProfileItem>
                             <a onClick={handleLogOut}>Logout</a>
@@ -167,7 +164,7 @@ export default function UserHeader() {
               {!user?.id && (
                 <>
                   <NavBarItem className="signup" onClick={() => handleModal()}>
-                    <button >Connect</button>
+                    <button>Connect</button>
                   </NavBarItem>
                 </>
               )}

@@ -165,7 +165,7 @@ export const Headline = styled.div`
   font-size: 32px;
   line-height: 38px;
   margin-bottom: 10px;
-
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +175,7 @@ export const Headline = styled.div`
     position: relative;
     z-index: 1;
     &::after {
-      content: '';
+      /* content: ''; */
       position: absolute;
       width: 106%;
       min-height: 43.5px;

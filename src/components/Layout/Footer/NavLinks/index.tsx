@@ -8,7 +8,8 @@ const NavLinks = () => {
       <Link href={'/account'}>Home</Link>
       <Link href={'/events'}>Events</Link>
       <Link href={'/articles'}>Articles</Link>
-      <Link href={'activities'}>Activities</Link>
+      <Link href={'/activities'}>Activities</Link>
+      <Link href={'/faqs'}>Faqs</Link>
     </FooterLinks>
   );
 }

@@ -17,6 +17,7 @@ import { formProps, IAuthContext, returnType } from './authSpec';
 
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
+import { openModal } from '../modal';
 
 
 
@@ -40,7 +41,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const dispatch = useAppDispatch();
   const { firebaseUser, user } = useAppSelector(isUser);
   // const mState = useMemo(() => ({ ...state }), [state]);
-  // console.log(firebaseUser);
+  // console.log(auth);
 
   const router = useRouter();
 
@@ -125,6 +126,7 @@ const AuthProvider: React.FC = ({ children }) => {
         // const userType = res.data.user.userType;
         // const username = res.data.user.username;
         const firebaseUserId = res.data.user.firebaseUserId;
+        // console.log(res.data.user.email);
         return signInWithEmailAndPassword(
           auth,
           res.data.user.email as string,
@@ -194,9 +196,9 @@ const AuthProvider: React.FC = ({ children }) => {
       .then(async (res: { data: { user: AuthUser } }) => {
         // console.log(res);
         const generatedToken = v4();
-        const userType = res.data.user.userType;
+        // const userType = res.data.user.userType;
         const email = res.data.user.email;
-        const username = res.data.user.username;
+        // const username = res.data.user.username;
         const firebasePassword =
           res.data.user.firebasePassword === null
             ? generatedToken
@@ -221,7 +223,7 @@ const AuthProvider: React.FC = ({ children }) => {
                   mailinglist: true,
                 },
               });
-              router.push(`/user-profile/${username}`);
+              router.push(`/account`);
               return {
                 success:
                   'You have been successfully logged in. You will be redirected in a few seconds...',
@@ -230,7 +232,7 @@ const AuthProvider: React.FC = ({ children }) => {
             .catch((error) => {
               const errorMessage = error.message;
               console.log('firebase catchblock', errorMessage);
-              router.push(`/user-profile/${username}`);
+              router.push(`/account`);
               return null;
             });
         } else {
@@ -242,12 +244,13 @@ const AuthProvider: React.FC = ({ children }) => {
             .then(async (_userCredential) => {
               // const firebaseUser = userCredential.user;
               // console.log(firebaseUser);
-              if (userType === 'organisation') {
-                router.push(`/account/${username}`);
-              }
-              if (userType === 'candidate') {
-                router.push(`/user-profile/${username}`);
-              }
+              // if (userType === 'organisation') {
+              //   router.push(`/account`);
+              // }
+              // if (userType === 'candidate') {
+              //   router.push(`/user-profile/${username}`);
+              // }
+              router.push(`/account`);
               return {
                 success:
                   'You have been successfully logged in. You will be redirected in a few seconds...',
@@ -256,12 +259,13 @@ const AuthProvider: React.FC = ({ children }) => {
             .catch((error) => {
               const errorMessage = error.message;
               console.log('firebase catchblock', errorMessage);
-              if (userType === 'organisation') {
-                router.push(`/account/${username}`);
-              }
-              if (userType === 'candidate') {
-                router.push(`/user-profile/${username}`);
-              }
+              router.push(`/account`);
+              // if (userType === 'organisation') {
+              //   router.push(`/account/${username}`);
+              // }
+              // if (userType === 'candidate') {
+              //   router.push(`/user-profile/${username}`);
+              // }
               return null;
             });
         }
@@ -285,7 +289,8 @@ const AuthProvider: React.FC = ({ children }) => {
     }).then(() => {
       dispatch(signOutUser());
       signOutFirebaseUser();
-      router.push('/auth/login');
+      router.push('/');
+      dispatch(openModal('LOGIN_FORM'))
     }).catch((err) => {
       console.log(err)
     })

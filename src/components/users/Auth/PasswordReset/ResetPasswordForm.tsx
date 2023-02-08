@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
@@ -39,10 +39,7 @@ const ResetPasswordForm = () => {
   const dispatch = useAppDispatch();
   const [errorMsg, setErrorMsg] = useState(false);
 
-  const handleModal = useCallback(
-    () => dispatch(openModal('LOGIN_FORM')),
-    [dispatch]
-  );
+  
 
   const handleSubmit = async ({ ...values }: any) => {
     const { code } = router.query;
@@ -150,7 +147,7 @@ const ResetPasswordForm = () => {
                   </FormGroup>
                   <FormGroup style={{ marginBottom: '0', textAlign: 'center' }}>
                     <Text
-                      onClick={() => handleModal()}
+                      onClick={() => dispatch(openModal('LOGIN_FORM'))}
                       style={{
                         marginBottom: '0',
                       }}

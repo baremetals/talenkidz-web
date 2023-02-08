@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
 
@@ -18,7 +18,7 @@ import { Message } from 'public/assets/icons/Message';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import Link from 'next/link';
 import { useAppDispatch } from 'src/app/hooks';
-import { openModal, closeModal } from 'src/features/modal/reducers';
+import { closeModal, openModal } from 'src/features/modal/reducers';
 import {
   FormGroup,
   FormInput,
@@ -26,14 +26,12 @@ import {
   Icon,
   LoginInner,
   LoginWrapper,
-  Headline,
-  SubHeadline,
   ForgotPassword,
-  DismissIcon,
   Divider,
 } from '../auth-styles';
-import { CrossRounded } from 'public/assets/icons/CrossRounded';
 import LinkWrapper from '../LinkWrapper';
+import AuthHeaders from '../AuthHeaders';
+import ModalCloseIcon from '../ModalCloseIcon';
 
 export interface ILoginForm {
   formProps?: LoginUserProps;
@@ -67,28 +65,13 @@ const LoginForm: React.FC<ILoginForm> = () => {
         setTimeout(() => {
           setErrorMsg(false);
         }, 20000);
+      } else {
+        dispatch(closeModal());
       }
     } catch (err) {
       console.log('error: ', err);
     }
   };
-
-  const handleModal = useCallback(
-    (type: string) => {
-      if (type === 'pass') {
-        dispatch(openModal('FORGOTPASSWORD_FORM'));
-      } else if (type === 'terms') {
-        dispatch(openModal('TERMS_MODAL'));
-      } else {
-        dispatch(openModal('REGISTER_FORM'));
-      }
-    },
-    [dispatch]
-  );
-
-  const handleModalClose = useCallback(() => {
-    dispatch(closeModal());
-  }, [dispatch]);
 
   return (
     <Formik
@@ -100,17 +83,14 @@ const LoginForm: React.FC<ILoginForm> = () => {
         <InnerContainer>
           <LoginWrapper>
             <LoginInner>
-              <DismissIcon>
-                <CrossRounded onClick={handleModalClose} />
-              </DismissIcon>
-              {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
-              <Headline>
-                <span className="title secondary">SING UP</span>
-                <span className="divider">or</span>
-                <span className="title primary">SING IN</span>
-              </Headline>
-              <SubHeadline>to take a class</SubHeadline>
-
+              <ModalCloseIcon />
+              {errorMsg && (
+                <>
+                  <ErrorMsg>{initialValues.error}</ErrorMsg>
+                  <br />
+                </>
+              )}
+              <AuthHeaders subheading={'Get Started'} />
               <FormWrap>
                 <FormGroup>
                   <Icon>
@@ -148,7 +128,9 @@ const LoginForm: React.FC<ILoginForm> = () => {
                       />
                       <FormLabel htmlFor="RememberMe">Remember Me</FormLabel>
                     </Checkbox>
-                    <ForgotPassword onClick={() => handleModal('pass')}>
+                    <ForgotPassword
+                      onClick={() => dispatch(openModal('FORGOTPASSWORD_FORM'))}
+                    >
                       <Link href={`${router.pathname}?modal=true`}>
                         Forgot Password?
                       </Link>
@@ -166,14 +148,16 @@ const LoginForm: React.FC<ILoginForm> = () => {
                 <Divider>or</Divider>
                 <Provider />
                 <LinkWrapper>
-                  <Link href={`${router.pathname}?modal=true`}>
-                    <a style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('reg')}>Sign up</a>
-                  </Link>{' '}
-                  if you don’t have an account <br />
-                  By creating an account you agree to the
                   <br />
                   <Link href="#">
-                    <a style={{ color: '#39007E', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleModal('terms')}>
+                    <a
+                      style={{
+                        color: '#39007E',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                      }}
+                      onClick={() => dispatch(openModal('TERMS_MODAL'))}
+                    >
                       terms and privacy policy.
                     </a>
                   </Link>

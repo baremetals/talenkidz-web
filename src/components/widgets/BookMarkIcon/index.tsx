@@ -100,7 +100,7 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
             src={
               detailsPage
                 ? '/assets/svgs/bookmark-plus.svg'
-                : '/assets/svgs/bookmark-active.svg'
+                : '/assets/svgs/bookmar.svg'
             }
             alt="bookmark icon"
             width={detailsPage ? 34 : 25}
