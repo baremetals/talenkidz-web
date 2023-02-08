@@ -99,7 +99,7 @@ export const NavbarCollapse = styled.div`
   display: flex;
   justify-content: center;
   @media (max-width: 991px) {
-    margin-top: 60px;
+    margin-top: 80px;
     position: fixed;
     background-color: #fff;
     top: 0;
@@ -122,6 +122,7 @@ export const NavBarNav = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
   @media (min-width: 992px) {
     align-items: center;
     flex-wrap: wrap;
@@ -134,19 +135,23 @@ export const NavBarNav = styled.ul`
 `;
 
 export const NavBarItem = styled.div`
-  margin-right: 2rem;
+  margin-right: 1rem;
+  margin-top: 3px;
+  margin-bottom: 3px;
   &.active {
     background: rgba(57, 0, 126, 0.2);
     border-radius: 10px;
-    padding: 3px 18px;
   }
   a {
-    display: block;
     font-weight: 600;
     font-size: 18px;
-    color: #0f021f;
+    line-height: 22px;
+    text-align: center;
+    color: #39007E;
+    display: block;
+    padding: 3px 10px;
     @media (max-width: 991px) {
-      padding: 0.75rem 1.375rem;
+      padding: 5px 30px;
     }
   }
   &:last-child {
@@ -195,7 +200,7 @@ export const NavBarItem = styled.div`
       background: #0f021f;
       color: #fff;
       padding: 19px 1.375rem;
-      min-width: 210px;
+      min-width: 160px;
       width: 100%;
       border-radius: 20px;
       text-align: center;
@@ -218,7 +223,6 @@ export const NavBarItem = styled.div`
   }
   @media (max-width: 991px) {
     margin-right: 0;
-    width: 100%;
   }
 `;
 
@@ -261,7 +265,6 @@ export const ToggleBar = styled.button`
   padding: 0;
   border: none;
   background: #ffffff;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   display: block;
   cursor: pointer;
@@ -287,24 +290,4 @@ export const ToggleBar = styled.button`
 
 export const LogoBlock = styled.div`
   max-width: 25%;
-`;
-
-export const OptionsWrapper = styled.div`
-  background: #ffffff;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
-  width: 202px;
-  padding: 31px 10px;
-`;
-
-export const OptionItem = styled.div`
-  font-family: 'Syne';
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-  text-align: center;
-  color: #39007e;
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
 `;
