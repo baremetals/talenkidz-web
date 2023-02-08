@@ -1,6 +1,4 @@
-import React from 'react'
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from 'react'
 
 import { useForm } from 'react-hook-form';
 
@@ -11,9 +9,6 @@ import {
   Column,
   InnerContainer,
   Row,
-  Text,
-  Title,
-  ContactSection,
   FormLabel,
 } from 'styles/common.styles';
 import PageTitle from 'components/widgets/PageTitle';
@@ -28,13 +23,15 @@ type formProps = {
 };
 
 export const ContactPage = () => {
-
     const {
       register,
       handleSubmit,
       reset,
       formState: { errors },
     } = useForm<formProps>();
+
+    const [radioOne, setRadioOne] = useState(true)
+    const [radioTwo, setRadioTwo] = useState(false);
 
     const onSubmit = async ({ ...values }: formProps) => {
       const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
@@ -50,7 +47,7 @@ export const ContactPage = () => {
         successMsg = `${name}, Your message has neen sent, You will hear back from us within 48hrs`;
       }
       const errorMsg = `Sorry ${name}, something went wrong, please try again later`;
-      // console.log(body)
+      // console.log(body?.data)
       try {
         const response = await fetch(`${baseUrl}/enquiries`, {
           method: 'post',
@@ -72,23 +69,7 @@ export const ContactPage = () => {
     };
   return (
     <>
-      {/* <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-      <InnerContainer>
-
-        <Row style={{ textAlign: 'left', alignItems: 'center' }}>
-          <Column style={{ textAlign: 'left' }}>
-            <Title>Need Help?</Title>
-            <Text>Willing to leave feedback or need some help?</Text>
-            <Text>Please check the <Link href="/faqs"><a target="_blank">FAQs</a></Link>!</Text>
-          </Column>
-          <Column>
-            <Image height="250" width="250" src='/about-us.png' alt='about' />
-          </Column>
-        </Row>
-
-      </InnerContainer>
-    </InnerBanner> */}
-      <Contactblock>
+      <Contactblock onSubmit={handleSubmit(onSubmit)}>
         <InnerContainer>
           <Row>
             <Column>
@@ -104,27 +85,38 @@ export const ContactPage = () => {
               <Row>
                 <Column>
                   <FlexGroup>
-                    <Checkbox>
+                    <Checkbox
+                      onClick={() => {
+                        setRadioOne(!radioOne);
+                        setRadioTwo(!radioTwo);
+                      }}
+                    >
                       <InputRadio
-                        id="Generalfeedback"
+                        id="GeneralEnquiry"
                         className="radio"
-                        name="reason"
                         type="radio"
-                        checked
-                        defaultValue="leave feedback "
+                        checked={radioOne}
+                        defaultValue="general enquiry"
+                        {...register('reason', { required: true })}
                       />
-                      <FormLabel htmlFor="Generalfeedback">
-                        leave feedback{' '}
-                      </FormLabel>
+                      <FormLabel htmlFor="need">need help</FormLabel>
                     </Checkbox>
                     <Checkbox>
                       <InputRadio
-                        id="need"
+                        id="ContentFeedback"
                         className="radio"
-                        name="reason"
                         type="radio"
+                        checked={radioTwo}
+                        {...register('reason', { required: true })}
+                        onClick={() => {
+                          setRadioOne(!radioOne);
+                          setRadioTwo(!radioTwo);
+                        }}
+                        defaultValue="feedback"
                       />
-                      <FormLabel htmlFor="need">need help</FormLabel>
+                      <FormLabel htmlFor="ContentFeedback">
+                        leave feedback{' '}
+                      </FormLabel>
                     </Checkbox>
                   </FlexGroup>
                 </Column>
@@ -134,15 +126,18 @@ export const ContactPage = () => {
                   <FormInput
                     type="text"
                     placeholder="Full name "
-                    name="fname"
+                    {...register('name', { required: true })}
                   />
+                  {errors.name && <span>Name is required</span>}
                 </Column>
+
                 <Column className="column-7">
                   <FormInput
-                    type="text"
+                    type="email"
                     placeholder="Email address"
-                    name="Email"
+                    {...register('email', { required: true })}
                   />
+                  {errors.email && <span>Email is required</span>}
                 </Column>
               </Row>
               <Row className="mb30">
@@ -150,13 +145,18 @@ export const ContactPage = () => {
                   <FormInput
                     type="text"
                     placeholder="Massage subject "
-                    name="subject"
+                    {...register('subject', { required: true })}
                   />
+                  {errors.subject && <span>Subject is required</span>}
                 </Column>
               </Row>
               <Row className="mb30">
                 <Column>
-                  <FormTextarea placeholder="Massage" />
+                  <FormTextarea
+                    placeholder="Massage"
+                    {...register('message', { required: true })}
+                  />
+                  {errors.subject && <span>Message is required</span>}
                 </Column>
               </Row>
               <Row className="submit">

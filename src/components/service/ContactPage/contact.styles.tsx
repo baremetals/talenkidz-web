@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Contactblock = styled.div`
+export const Contactblock = styled.form`
 margin-bottom:200px;
 .pageTitle {
   font-size: 64px;
