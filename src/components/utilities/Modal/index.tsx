@@ -16,6 +16,8 @@ import {
 import { closeModal } from 'src/features/modal/reducers';
 import PolicyConsent from 'components/service/Policy/PolicyConsent';
 import PolicySettings from 'components/service/Policy/PolicySettings';
+import ParticipationModal from './ParticipationModal';
+import FeedbackModal from './FeedbackModal';
 
 
 /** Components Name Constants */
@@ -28,6 +30,8 @@ const MODAL_COMPONENTS = {
   TERMS_MODAL: TermsModal,
   POLICY_CONSENT: PolicyConsent,
   POLICY_SETTINGS: PolicySettings,
+  PARTICIPATION_MODAL: ParticipationModal,
+  FEEDBACK_MODAL: FeedbackModal,
 };
 
 export default function AuthModal({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useAppDispatch } from 'src/app/hooks';
 import { closeModal, openModal } from 'src/features/modal/reducers';
@@ -12,6 +12,8 @@ import {
   SwitchBox,
   Switch,
 } from 'styles/common.styles';
+import { DismissIcon, TermsFooter } from 'components/users/Auth/auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 const consentData = [
   {
@@ -61,58 +63,64 @@ const consentData = [
 ];
 
 const PolicySettings = () => {
-    const dispatch = useAppDispatch();
-    const [marketing, setMarketing] = useState<boolean>(false);
-    const [statistical, setStatistical] = useState<boolean>(false);
-    const [unclassified, setUnclassified] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const [marketing, setMarketing] = useState<boolean>(false);
+  const [statistical, setStatistical] = useState<boolean>(false);
+  const [unclassified, setUnclassified] = useState<boolean>(false);
 
-    const [isActive, setActive] = useState<number | null>(0);
-    const policyOptions = [
-      // 'Functional',
-      // 'Strictly necessary',
-      'Marketing',
-      'Statistical',
-      'Unclassified',
-    ];
+  const [isActive, setActive] = useState<number | null>(0);
+  const policyOptions = [
+    // 'Functional',
+    // 'Strictly necessary',
+    'Marketing',
+    'Statistical',
+    'Unclassified',
+  ];
 
-
-    const handleSubmit = async () => {
-      let policyChoice = {
-        Functional: 'yes',
-        Strictly_necessary: 'yes',
-        Marketing: marketing ? 'yes' : 'no',
-        Statistical: statistical ? 'yes' : 'no',
-        Unclassified: unclassified ? 'yes' : 'no',
-      };
-
-      await axios
-        .post('/api/policy', { data: { policyChoice, flag: 'setCookie' } })
-        .then((res) => {
-          // console.log(res);
-          if (res?.data?.name === 'done') {
-            dispatch(closeModal());
-          }
-        })
-        .catch((err) => {
-          console.log('I am failing for some reason', err);
-        });
-      // return setPrivacyPolicy(!privacyPolicy);
+  const handleSubmit = async () => {
+    let policyChoice = {
+      Functional: 'yes',
+      Strictly_necessary: 'yes',
+      Marketing: marketing ? 'yes' : 'no',
+      Statistical: statistical ? 'yes' : 'no',
+      Unclassified: unclassified ? 'yes' : 'no',
     };
 
-    const toggleSetting = (index: any) => {
-      if (isActive === index) {
-        setActive(null);
-        return;
-      }
-      setActive(index);
-    };
+    await axios
+      .post('/api/policy', { data: { policyChoice, flag: 'setCookie' } })
+      .then((res) => {
+        // console.log(res);
+        if (res?.data?.name === 'done') {
+          dispatch(closeModal());
+        }
+      })
+      .catch((err) => {
+        console.log('I am failing for some reason', err);
+      });
+    // return setPrivacyPolicy(!privacyPolicy);
+  };
 
-    const handleManageSetting = () => {
-      dispatch(openModal('POLICY_CONSENT'));
-    };
+  const toggleSetting = (index: any) => {
+    if (isActive === index) {
+      setActive(null);
+      return;
+    }
+    setActive(index);
+  };
+
+  const handleManageSetting = () => {
+    dispatch(openModal('POLICY_CONSENT'));
+  };
+
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
 
   return (
     <ModalContainer style={{ textAlign: 'center' }}>
+      <DismissIcon>
+        <CrossRounded onClick={handleModalClose} />
+      </DismissIcon>
       <Title style={{ fontSize: '2rem' }}>Manage Setting</Title>
       <div className="minh">
         {consentData.map((set, i) => (
@@ -179,34 +187,24 @@ const PolicySettings = () => {
           </SwitchBox>
         ))}
       </div>
-      <div
+      <TermsFooter
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           marginTop: '2rem',
         }}
       >
-        <Button
-          style={{ width: '12rem', borderRadius: '8px' }}
-          onClick={() => handleManageSetting()}
-        >
-          Go Back
-        </Button>
-        <Button
-          style={{ width: '12rem', borderRadius: '8px' }}
-          onClick={() => handleSubmit()}
-        >
-          Accept
-        </Button>
+        <Button onClick={() => handleManageSetting()}>Go Back</Button>
+        <Button onClick={() => handleSubmit()}>Accept</Button>
         {/* <Button
           style={{ width: '12rem', borderRadius: '8px' }}
           onClick={() => handleSubmit()}
         >
           Select All
         </Button> */}
-      </div>
+      </TermsFooter>
     </ModalContainer>
   );
-}
+};
 
-export default PolicySettings
+export default PolicySettings;
