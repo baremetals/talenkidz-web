@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react';
 import axios from 'axios';
 import { useAppDispatch } from 'src/app/hooks';
 import { closeModal, openModal } from 'src/features/modal/reducers';
 import Button from 'components/widgets/Button';
-import {
-    Title,
-    Text,
-} from "styles/common.styles";
+import { Title, Text } from 'styles/common.styles';
 import { ModalContainer } from 'components/utilities/Modal/modal.styles';
 import Link from 'next/link';
-
+import { DismissIcon, TermsFooter } from 'components/users/Auth/auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 function PolicyConsent() {
   const dispatch = useAppDispatch();
@@ -39,15 +37,19 @@ function PolicyConsent() {
   };
 
   const handleManageSetting = () => {
-      dispatch(openModal('POLICY_SETTINGS'));
+    dispatch(openModal('POLICY_SETTINGS'));
   };
+
+  const handleModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
 
   return (
     <>
-      <ModalContainer
-        style={{ textAlign: 'center' }}
-        id="policy-modal"
-      >
+      <ModalContainer style={{ textAlign: 'center' }} id="policy-modal">
+        <DismissIcon>
+          <CrossRounded onClick={handleModalClose} />
+        </DismissIcon>
         <Title style={{ fontSize: '2rem' }}>Talentkids Cookie Consent</Title>
         <div className="minh">
           <Text>
@@ -59,29 +61,18 @@ function PolicyConsent() {
             .
           </Text>
         </div>
-        <div
+        <TermsFooter
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             marginTop: '2rem',
           }}
         >
-          <Button
-            style={{ width: '15rem', borderRadius: '8px' }}
-              onClick={() => handleManageSetting()}
-          >
-            Manage Setting
-          </Button>
-          <Button
-            style={{ width: '12rem', borderRadius: '8px' }}
-            onClick={() => acceptPolicy()}
-          >
-            Accept All
-          </Button>
-        </div>
+          <Button onClick={() => handleManageSetting()}>Manage Setting</Button>
+          <Button onClick={() => acceptPolicy()}>Accept All</Button>
+        </TermsFooter>
       </ModalContainer>
     </>
   );
 }
 export default PolicyConsent;
-
