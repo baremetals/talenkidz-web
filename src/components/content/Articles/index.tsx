@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import { useCallback, useEffect, useState } from 'react';
 
 // import { openModal } from 'src/features/modal/reducers';
 
 //articles Redux
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { setArticles } from 'src/features/articles/reducers';
 import {
   articlesSelector,
   totalSelector,
 } from 'src/features/articles/selectors';
-import { setArticles } from 'src/features/articles/reducers';
-
 
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import SmallACards from 'components/content/Articles/SmallACards';
@@ -24,15 +23,13 @@ import Breadcrumb from 'components/widgets/Breadcrumb';
 import {
   ArticleTitle,
   LinkBlock,
-  PageTitle,
   MoreArticlesBlock,
+  PageTitle,
   TrendingBlock,
 } from './styles';
 
-
 import EntitySearch from 'components/utilities/search/EntitySearch';
 import {
-
   Column,
   InnerContainer,
   PageContainer,
@@ -40,7 +37,6 @@ import {
   Title,
 } from 'styles/common.styles';
 
-import Category from 'components/utilities/Category';
 import {
   ArticleEntity,
   ArticlesDocument,
@@ -57,6 +53,7 @@ import { useSearchState } from 'components/utilities/search/searchReducer';
 // import { AuthContext } from 'src/features/auth/AuthContext';
 import { SearchBlock } from 'components/utilities/search/search.styles';
 import { cutTextToLength } from 'src/utils';
+import Categories from 'components/utilities/Categories';
 // import { TBookMark } from 'src/types';
 
 // type saveFuncProps = {
@@ -81,7 +78,6 @@ const Articles = () => {
   const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
 
-
   const searchState = useSearchState();
 
   // console.log('from the articles page', articleEntities);
@@ -95,7 +91,6 @@ const Articles = () => {
   useEffect(() => {
     setFilteredArticles(articleEntities);
   }, [articleEntities]);
-
 
   // const getMe = useCallback(async () => {
   //   const marks: string[] = []
@@ -141,7 +136,14 @@ const Articles = () => {
         })
       );
     }
-  }, [articleEntities, dispatch, fetchData, filteredArticles?.length, searchState.searching, total]);
+  }, [
+    articleEntities,
+    dispatch,
+    fetchData,
+    filteredArticles?.length,
+    searchState.searching,
+    total,
+  ]);
 
   // const saveArticle = useCallback(async ({ id, title, slug, image }: saveFuncProps) => {
   //   // console.log(id, title, slug, image)
@@ -283,7 +285,7 @@ const Articles = () => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Category entityDocument={FilteredArticlesDocument} />
+              <Categories entityDocument={FilteredArticlesDocument} />
             </Column>
           </Row>
         </InnerContainer>

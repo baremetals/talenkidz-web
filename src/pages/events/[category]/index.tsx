@@ -1,6 +1,6 @@
 import Layout from 'components/Layout';
 import Button from 'components/users/Auth/Button';
-import Categories from 'components/utilities/Category/ListCategory';
+import Categories from 'components/utilities/Categories/ListCategory';
 import Banner from 'components/widgets/Banner';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import EventItem from 'components/widgets/EventItem';

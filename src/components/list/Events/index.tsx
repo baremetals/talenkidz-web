@@ -1,5 +1,5 @@
 import Button from 'components/users/Auth/Button';
-import Categories from 'components/utilities/Category/ListCategory';
+import Categories from 'components/utilities/Categories/ListCategory';
 import Banner from 'components/widgets/Banner';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import EventItem from 'components/widgets/EventItem';
@@ -107,16 +107,16 @@ const Events = ({ events, categories }: pageProps) => {
         setFilteredEvents(filteredData as SetStateAction<never[]>);
       } else setFilteredEvents(events as SetStateAction<never[]>);
     };
-    const route = [
-      {
-        name: 'Home',
-        url: '/',
-      },
-      {
-        name: 'articles',
-        url: '/articles',
-      },
-    ];
+  const route = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'articles',
+      url: '/articles',
+    },
+  ];
   return (
     <>
       {/* <InnerBanner>

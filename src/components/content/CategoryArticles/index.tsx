@@ -1,19 +1,10 @@
-import React from 'react';
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
 import dayjs from 'dayjs';
+import { useCallback, useEffect, useState } from 'react';
 
 import ArticleCard from 'components/content/Articles/ArticleCard';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 
-import {
-  LinkBlock,
-  PageTitle,
-  MoreArticlesBlock,
-} from '../Articles/styles';
+import { LinkBlock, MoreArticlesBlock, PageTitle } from '../Articles/styles';
 
 import EntitySearch from 'components/utilities/search/EntitySearch';
 import {
@@ -23,7 +14,7 @@ import {
   Row,
 } from 'styles/common.styles';
 
-import Category from 'components/utilities/Category';
+
 import {
   ArticleEntity,
   // ArticlesDocument,
@@ -32,15 +23,19 @@ import {
 
 // import { useFetchEntities } from 'src/hooks/useFetchEntities';
 
-import { useSearchState } from 'components/utilities/search/searchReducer';
 import { SearchBlock } from 'components/utilities/search/search.styles';
-import { cutTextToLength } from 'src/utils';
+import { useSearchState } from 'components/utilities/search/searchReducer';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { articlesSelector, setArticles, totalSelector } from 'src/features/articles';
+import {
+  articlesSelector,
+  setArticles,
+  totalSelector,
+} from 'src/features/articles';
 import { fetchApi } from 'src/helpers';
 import { TGetArticles } from 'src/types';
-
+import { cutTextToLength } from 'src/utils';
+import Categories from 'components/utilities/Categories';
 
 const CategoryArticles = () => {
   const router = useRouter();
@@ -51,7 +46,7 @@ const CategoryArticles = () => {
 
   const searchState = useSearchState();
 
-    // console.log(router.query.category);
+  // console.log(router.query.category);
   const remaining = total % articleEntities?.length;
   // const fetchData = useFetchEntities({
   //   limit: remaining > 4 ? 4 : remaining,
@@ -105,12 +100,19 @@ const CategoryArticles = () => {
             articlesLength: articles?.data?.length,
           })
         );
-        
       } catch (err: any) {
         console.log(err);
-      }      
+      }
     }
-  }, [articleEntities, dispatch, filteredArticles.length, remaining, router.query.category, searchState.searching, total]);
+  }, [
+    articleEntities,
+    dispatch,
+    filteredArticles.length,
+    remaining,
+    router.query.category,
+    searchState.searching,
+    total,
+  ]);
 
   return (
     <>
@@ -180,7 +182,7 @@ const CategoryArticles = () => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Category entityDocument={FilteredArticlesDocument} />
+              <Categories entityDocument={FilteredArticlesDocument} />
             </Column>
           </Row>
         </InnerContainer>

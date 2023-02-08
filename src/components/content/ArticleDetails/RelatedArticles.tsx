@@ -15,7 +15,8 @@ import { CardWrapper, LinkWrapper, SearchWrapper } from './details.styles';
 import EntitySearch from 'components/utilities/search/EntitySearch';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { articlesSelector, setArticles } from 'src/features/articles';
-import Category from 'components/utilities/Category';
+import Categories from 'components/utilities/Categories';
+// import Category from 'components/utilities/Category';
 
 
 
@@ -106,7 +107,7 @@ export function RelatedArticles({ category }: propType): ReactElement {
             />
           </SearchWrapper>
           {/* <Fields /> */}
-          <Category entityDocument={FilteredArticlesDocument} />
+          <Categories entityDocument={FilteredArticlesDocument} />
         </Column>
       </Row>
     );

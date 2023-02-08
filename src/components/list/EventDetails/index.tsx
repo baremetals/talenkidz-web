@@ -1,4 +1,10 @@
+import Button from 'components/users/Auth/Button';
+import Categories from 'components/utilities/Categories';
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import EventBanner from 'components/widgets/EventBanner';
+import EventItem from 'components/widgets/EventItem';
 import { ErrorMsg } from 'components/widgets/Input';
+import PageTitle from 'components/widgets/PageTitle';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Markdown from 'markdown-to-jsx';
@@ -6,43 +12,39 @@ import { GiPriceTag } from 'react-icons/gi';
 import { HiStatusOnline } from 'react-icons/hi';
 import { MdOutlineSchedule } from 'react-icons/md';
 import { VscLocation } from 'react-icons/vsc';
-import Breadcrumb from 'components/widgets/Breadcrumb';
-import PageTitle from 'components/widgets/PageTitle';
-import EventBanner from 'components/widgets/EventBanner';
-import Button from 'components/users/Auth/Button';
-import Categories from 'components/utilities/Category';
-import EventItem from 'components/widgets/EventItem';
 
 import Image from 'next/image';
 import {
   AddressMap,
-  Avatar,
-  AvatarRow,
   Column,
-  InnerBanner,
   InnerContainer,
   PageContainer,
   Post,
   PostBody,
-  PostDate,
   PostThumb,
   Row,
-  Text,
-  Title,
 } from 'styles/common.styles';
 
-import { EventDetailsBlock,EventButton,ImageIcon,AboutEvent,TimeAddressBlock, CategoriesBlock, EventList  } from './styles';
 import RelatedEvents from '../EventDetails/RelatedEvents';
+import {
+  AboutEvent,
+  CategoriesBlock,
+  EventButton,
+  EventDetailsBlock,
+  EventList,
+  ImageIcon,
+  TimeAddressBlock,
+} from './styles';
 dayjs.extend(relativeTime);
 
 import GoogleMap from 'components/utilities/Google/GoogleMap';
-import SocialShare from 'components/utilities/SocialShare';
-import { EventEntityResponseCollection, FilteredEventsDocument } from 'generated/graphql';
-import Link from 'next/link';
 import Map from 'components/utilities/Google/Map';
-import { upperCase } from 'src/utils';
-import { ButtonBlock } from 'components/service/Home/ServiceSection/ss.styles';
-import { ImageBlock } from 'components/service/Home/FaqsSection/faq.styles';
+import SocialShare from 'components/utilities/SocialShare';
+import {
+  EventEntityResponseCollection,
+  FilteredEventsDocument,
+} from 'generated/graphql';
+import Link from 'next/link';
 
 function EventDetails(props: {
   props: {
