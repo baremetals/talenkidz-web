@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import cookie from 'cookie';
+// import cookie from 'cookie';
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
@@ -9,34 +9,35 @@ type Data = {
   resp?: any;
 };
 
-type user = {
-  id: string;
-  username: string;
-  fullName: string;
-  avatar: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-};
+// type user = {
+//   id: string;
+//   username: string;
+//   fullName: string;
+//   avatar: string;
+//   backgroundImg: string;
+//   userType: string;
+//   jwt: string;
+// };
 
-type org = {
-  id: string;
-  username: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-  orgId: string;
-  orgName: string;
-  slug: string;
-  logo: string;
-  fullProfile: string;
-};
+// type org = {
+//   id: string;
+//   username: string;
+//   backgroundImg: string;
+//   userType: string;
+//   jwt: string;
+//   orgId: string;
+//   orgName: string;
+//   slug: string;
+//   logo: string;
+//   fullProfile: string;
+// };
 
 export default async function passwordReset(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const { data } = req.body;
+  // console.log(baseUrl)
 
   if (data.flag === 'FORGOTPASSWORD') {
     try {
@@ -69,64 +70,16 @@ export default async function passwordReset(
         },
       });
 
-      const user: user = {
-        id: resp.data.user.id,
-        username: resp.data.user.username,
-        fullName: resp.data.user.fullName,
-        avatar: resp.data.user.avatar,
-        backgroundImg: resp.data.user.backgroundImg,
-        userType: resp.data.user.userType,
-        jwt: resp.data.jwt,
-      };
-
-      const org: org = {
-        id: resp.data.user.id,
-        username: resp.data.user.username,
-        backgroundImg: resp.data.user.backgroundImg,
-        userType: resp.data.user.userType,
-        jwt: resp.data.jwt,
-        orgId: resp.data.user.organisation.id,
-        slug: resp.data.user.organisation.slug,
-        orgName: resp.data.user.organisation.name,
-        logo: resp.data.user.organisation.logo,
-        fullProfile: resp.data.user.organisation.fullProfile,
-      };
-
-     if (resp.data.user.userType === 'candidate') {
-       res.setHeader(
-         'Set-Cookie',
-         cookie.serialize(
-           process.env.COOKIE_NAME as string,
-           JSON.stringify(user),
-           {
-             httpOnly: true,
-             secure: process.env.NODE_ENV !== 'development',
-             maxAge: 60 * 60 * 24 * 5, // 2 days
-             sameSite: 'strict',
-             path: '/',
-           }
-         )
-       );
-     } else {
-       res.setHeader(
-         'Set-Cookie',
-         cookie.serialize(
-           process.env.COOKIE_NAME as string,
-           JSON.stringify(org),
-           {
-             httpOnly: true,
-             secure: process.env.NODE_ENV !== 'development',
-             maxAge: 60 * 60 * 24 * 2, // 2 days
-             sameSite: 'strict',
-             path: '/',
-           }
-         )
-       );
-     }
-      res.send(resp.data.user);
+      res.status(200).json(resp.data.user.id);
     } catch (err: any) {
-      // console.log(err.response.data.message);
-      res.status(401).json({ message: err.response.data.error.message });
+      console.log(
+        'the fucking error print: ',
+        err.response.data.error.message
+      );
+      if (err.response.data.error.message === 'Incorrect code provided'){
+        res.status(401).json({ message: err.response.data.error.message });
+      }
+        res.status(401).json({ message: err.response });
     }
   } 
   

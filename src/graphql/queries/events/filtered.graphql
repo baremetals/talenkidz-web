@@ -15,16 +15,29 @@ query FilteredEvents(
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         host {
           data {
             attributes {
-              name
-              slug
-              logo
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
+        }
+        Location {
+          name
+          town
         }
         category {
           data {
@@ -34,6 +47,11 @@ query FilteredEvents(
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

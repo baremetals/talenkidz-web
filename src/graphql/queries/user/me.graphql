@@ -1,0 +1,41 @@
+query Me(
+  $usersPermissionsUserId: ID
+  $sort: [String]
+  $pagination: PaginationArg
+) {
+  usersPermissionsUser(id: $usersPermissionsUserId) {
+    data {
+      id
+      attributes {
+        avatar
+        backgroundImg
+        bio
+        createdAt
+        email
+        firebasePassword
+        firebaseUserId
+        fullName
+        gender
+        mailinglist
+        membership
+        pronoun
+        provider
+        userType
+        username
+        organisation {
+          name
+          organisationType
+          website
+        }
+        bookmarklist(sort: $sort, pagination: $pagination) {
+          itemId
+          id
+          image
+          slug
+          title
+          type
+        }
+      }
+    }
+  }
+}

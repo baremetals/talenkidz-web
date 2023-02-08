@@ -11,16 +11,29 @@ query Events($pagination: PaginationArg, $sort: [String]) {
         endDate
         startTime
         endTime
+        price
+        status
+        venue
+        link
         listImage
         createdAt
+        updatedAt
         host {
           data {
             attributes {
-              name
-              slug
-              logo
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
+        }
+        Location {
+          name
+          town
         }
         category {
           data {
@@ -30,6 +43,11 @@ query Events($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

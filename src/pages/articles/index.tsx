@@ -1,71 +1,85 @@
-import React from "react";
-import Head from "next/head";
-import Articles from 'components/Articles';
-import { GetServerSidePropsContext } from "next";
-import { client } from 'lib/initApollo';
-import { ArticleEntity, ArticlesDocument, ArticlesQueryResult, CategoriesQueryResult, CategoriesDocument, CategoryEntity } from "generated/graphql";
-import { useNoAuthPages } from "lib/noAuth";
+import { useEffect } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
+import { setArticles } from 'src/features/articles/reducers';
 
+import Articles from 'components/content/Articles';
+import Layout from 'components/Layout';
+import {
+  ArticleEntity,
+  ArticlesDocument,
+  ArticlesQueryResult,
+  ResponseCollectionMeta,
+} from 'generated/graphql';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/hooks/noAuth';
+import { GetServerSidePropsContext } from 'next';
 
 type pageProps = {
-    art: { articles: { data: ArticleEntity[] } },
-    cats: { data: { categories: { data: CategoryEntity[] } }, loading: boolean }
-}
+  art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
+};
 
 function ArticlesPage(props: pageProps) {
-    
-    const {cats, art} = props;
-    // console.log(cats?.data?.categories?.data);
-    useNoAuthPages();
-    return (
-        <>
-            <Head>
-                <title>Talentkids | Articles</title>
-                <meta
-                    property="og:title"
-                    content="Talentkids | Articles"
-                    key="title"
-                />
-                <meta
-                    name="description"
-                    content="Articles"
-                />
-                <meta property="og:url" content="https://talentkids.io/articles" />
-                <meta property="og:type" content="articles" />
-                <meta property="og:locale" content="en_GB" />
-                <link rel="canonical" href="https://talentkids.io/articles" />
-            </Head>
-            <Articles articles={art?.articles?.data} categories={cats?.data?.categories?.data}/>
-        </>
+  const { art } = props;
+  const dispatch = useAppDispatch();
+  const description = 'Articles';
+  const url = 'https://www.talentkids.io/articles';
+  // console.log(props);
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPostings',
+  };
+  useNoAuthPages();
+
+  useEffect(() => {
+    dispatch(
+      setArticles({
+        articles: art?.articles?.data,
+        total: art?.articles?.meta?.pagination?.total,
+        articlesLength: art?.articles?.data?.length,
+      })
     );
+  }, [art?.articles?.data, art?.articles?.meta?.pagination?.total, dispatch]);
+  return (
+    <Layout
+      title={`Talentkids | Articles`}
+      metaDescription={description}
+      canonicalUrl={url}
+      data={JSON.stringify(structuredData)}
+      type="articles"
+      pageUrl={url}
+    >
+      <Articles />
+    </Layout>
+  );
 }
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
+  const data  = await client.query<ArticlesQueryResult>({
+    query: ArticlesDocument,
+    variables: {
+      pagination: {
+        start: 0,
+        limit: 6,
+      },
+      sort: 'createdAt:desc',
+    },
+  });
+  // console.log('the fucking data', data);
 
-    const { data } = await client.query<ArticlesQueryResult>({
-        query: ArticlesDocument,
-        variables: {
-            pagination: {
-                start: 0,
-                limit: 6,
-            },
-            sort: "updatedAt:desc",
-        },
-    });
+  // if (data?.error?.name) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/404',
+  //     },
+  //     props: {},
+  //   };
+  // }
 
-    const cats = await client.query<CategoriesQueryResult>({
-        query: CategoriesDocument,
-        variables: {
-            pagination: {
-                start: 0,
-                limit: 6,
-            },
-            sort: "slug:asc",
-        },
-    });
-    return {
-        props: { art: data, cats }, // will be passed to the page component as props
-    };
+  return {
+    props: { art: data.data }, // will be passed to the page component as props
+  };
 }
 
 export default ArticlesPage;

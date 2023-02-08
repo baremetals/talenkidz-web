@@ -10,8 +10,14 @@ query List($filters: ListingFiltersInput) {
         endDate
         slug
         createdAt
+        updatedAt
         startTime
         endTime
+        price
+        status
+        venue
+        link
+        linkButtonText
         listImage
         SEO {
           id
@@ -21,26 +27,34 @@ query List($filters: ListingFiltersInput) {
           image
           type
           locale
+          author
+          keywords
         }
         host {
           data {
-            id
             attributes {
-              name
-              slug
-              logo
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
         Location {
           id
-          numberOrName
+          name
           street
           town
           postCode
+          longtitude
+          latitude
         }
         category {
           data {
+            id
             attributes {
               name
               slug

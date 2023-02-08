@@ -31,9 +31,13 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env
+.env.remote
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+checklist.md
+/public/robots.txt
+/public/sitemap*.xml
