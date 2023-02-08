@@ -40,7 +40,7 @@ import {
   Title,
 } from 'styles/common.styles';
 
-import Categories from 'components/utilities/Category';
+import Category from 'components/utilities/Category';
 import {
   ArticleEntity,
   ArticlesDocument,
@@ -283,7 +283,7 @@ const Articles = () => {
                 />
               </SearchBlock>
               {/* <Fields /> */}
-              <Categories entityDocument={FilteredArticlesDocument} />
+              <Category entityDocument={FilteredArticlesDocument} />
             </Column>
           </Row>
         </InnerContainer>
