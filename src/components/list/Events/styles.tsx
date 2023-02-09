@@ -42,6 +42,13 @@ export const EventList = styled.div`
       max-width:1024px;
       margin:0 auto 50px;
    }
+   .Column-3 {
+    max-width:33.33%;
+    flex:auto;
+     @media (max-width: 992px) {  
+       max-width:100%;
+      }
+   }
    .buttonRow {
       text-align:center;
       margin-top:54px;

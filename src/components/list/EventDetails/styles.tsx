@@ -181,7 +181,6 @@ export const TimeAddressBlock = styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-left:50px;
             }
         }
     } 
