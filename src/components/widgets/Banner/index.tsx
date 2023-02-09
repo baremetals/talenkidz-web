@@ -6,21 +6,29 @@ import Image from 'next/image';
 const Banner = ({ src,text, author, ...props }: any) => {
   return (
     <BannerBlock {...props}>
-        <BannerImg>
-          <Image
-              src={src}
-              alt="article image"
-              width={1170}
-              height={601}
-            />
+      <BannerImg>
+        <Image
+          src={src}
+          alt="hero image"
+          // layout="fill"
+          // sizes="(max-width: 768px) 100vw,
+          //     (max-width: 1200px) 50vw, 33vw"
+          width={1170}
+          height={601}
+          priority
+        />
       </BannerImg>
       <BannerInfo>
         <div>
           <h2>{text}</h2>
-          <h3>{author}</h3>
+          {/* <h3>{author}</h3> */}
         </div>
         <SerchBlock>
-          <Search placeholder={'Search events that may be interesting for you and your child '} />
+          <Search
+            placeholder={
+              'Search events that may be interesting for you and your child '
+            }
+          />
         </SerchBlock>
       </BannerInfo>
     </BannerBlock>

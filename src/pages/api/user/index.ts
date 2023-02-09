@@ -35,5 +35,7 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
     } catch (err) {
       return;
     }
-  } 
+  } else {
+    res.send('nothing');
+  }
 }

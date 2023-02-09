@@ -45,7 +45,7 @@ export const EventList = styled.div`
    .buttonRow {
       text-align:center;
       margin-top:54px;
-      Button {
+      button {
          background: #0F021F !important; 
          border: 1px solid #0F021F !important;
          border-radius: 15px !important;

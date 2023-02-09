@@ -1,5 +1,5 @@
 import Layout from 'components/Layout';
-import ListingsCategories from 'components/list/ListingsCategories';
+import ListingsCategories from 'components/list/CategoryListings';
 import {
   CategoriesDocument,
   CategoriesQueryResult,

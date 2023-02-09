@@ -124,12 +124,15 @@ export default function UserHeader() {
                 >
                   <Link href={'/articles'}>Articles</Link>
                 </NavBarItem>
-                <NavBarItem
-                  className={`${pathname === '/resources' && 'active'}`}
-                  onClick={handleNavBar}
-                >
-                  <Link href={'/resources'}>Resources</Link>
-                </NavBarItem>
+                {user?.id && user?.membership === 'premium' && (
+                  <NavBarItem
+                    className={`${pathname === '/resources' && 'active'}`}
+                    onClick={handleNavBar}
+                  >
+                    <Link href={'/resources'}>Resources</Link>
+                  </NavBarItem>
+                )}
+
                 <NavBarItem
                   className="signup mobileButton"
                   onClick={() => handleModal()}

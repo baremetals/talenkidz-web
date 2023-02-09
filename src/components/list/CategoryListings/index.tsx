@@ -99,7 +99,7 @@ type pageProps = {
     categories: CategoryEntity[]
 }
 
-function Listings({ listings, categories }: pageProps) {
+function CategoryListings({ listings, categories }: pageProps) {
     const router = useRouter();
     const [filteredListings, setFilteredListings] = useState([]);
     const [values, setValues] = useState({
@@ -401,4 +401,4 @@ function Listings({ listings, categories }: pageProps) {
     );
 }
 
-export default Listings
+export default CategoryListings;

@@ -140,60 +140,55 @@ function Listings({ listings, categories }: pageProps) {
         </InnerContainer>
         <PageContainer>
           <InnerContainer>
-            
-              {/* banner */}
-              <Banner src={'/assets/images/activities.jpg'} text={'Choose surroundings according your interests'} />
-            
-              {/* event */}
-              <EventTime>
-                <LinkBlock href={'#'}>Creativity </LinkBlock>
-                <LinkBlock className='active'  href={'#'}>Sport </LinkBlock>
-                <LinkBlock href={'#'}>Education </LinkBlock>
-              </EventTime>
+            {/* banner */}
+            <Banner
+              src={'/assets/images/activities.jpg'}
+              text={'Choose surroundings according your interests'}
+            />
 
-              {/* Categories*/}
-              <CategoriesBlock>
-                 <ActivitiesCategories />
+            {/* event */}
+            <EventTime>
+              <LinkBlock href={'#'}>Creativity </LinkBlock>
+              <LinkBlock className="active" href={'#'}>
+                Sport{' '}
+              </LinkBlock>
+              <LinkBlock href={'#'}>Education </LinkBlock>
+            </EventTime>
+
+            {/* Categories*/}
+            <CategoriesBlock>
+              <ActivitiesCategories />
             </CategoriesBlock>
-            
-              {/* <Activitie*/}
-              <ActivitiesList>
-                   <Row >
-                      <Column><PageTitle className="pageTitle" text={'Most popular sport activities'} /></Column>
-                  </Row>
-                  <Row>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                   </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                   </Column>
-                   <Column className='Column-3'>
-                     <ActivitiesItem />
-                   </Column>
-                   <Column className='Column-3'>
+
+            {/* <Activitie*/}
+            <ActivitiesList>
+              <Row>
+                <Column>
+                  <PageTitle
+                    className="pageTitle"
+                    text={'Most popular sport activities'}
+                  />
+                </Column>
+              </Row>
+              <Row>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((item, i) => (
+                  <Column className="Column-3" key={i}>
                     <ActivitiesItem />
                   </Column>
-                  </Row>
-                  <Row className='buttonRow'>
-                    <Column>
-                      <Button
-                        content="See more events "
-                        type="submit"
-                        disabled={false}
-                        loading={false}
-                      ></Button>
-                  </Column>
+                ))}
               </Row>
-              </ActivitiesList>
-
-            </InnerContainer>
+              <Row className="buttonRow">
+                <Column>
+                  <Button
+                    content="See more events "
+                    type="submit"
+                    disabled={false}
+                    loading={false}
+                  ></Button>
+                </Column>
+              </Row>
+            </ActivitiesList>
+          </InnerContainer>
         </PageContainer>
 
         <InnerBanner

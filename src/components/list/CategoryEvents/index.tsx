@@ -12,7 +12,7 @@ import { SetStateAction, useEffect, useState } from 'react';
 // import { ThumbsUp } from 'public/assets/icons/ThumbsUp'
 // import { BookMark } from 'public/assets/icons/BookMark'
 import { CategoryEntity, Event, EventEntity } from 'generated/graphql';
-import { CategoriesBlock, EventList, EventTime, LinkBlock } from './styles';
+import { CategoriesBlock, EventList, EventTime, LinkBlock } from '../Events/styles';
 
 import {
   Bottom,
@@ -77,7 +77,7 @@ type pageProps = {
   categories: CategoryEntity[];
 };
 
-const Events = ({ events, categories }: pageProps) => {
+const CategoryEvents = ({ events, categories }: pageProps) => {
   const router = useRouter();
 
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -316,4 +316,4 @@ const Events = ({ events, categories }: pageProps) => {
   );
 };
 
-export default Events;
+export default CategoryEvents;
