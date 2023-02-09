@@ -1,14 +1,21 @@
 import Spinner from 'components/utilities/Spinner';
 import Link from 'next/link';
 import PageTitle from 'components/widgets/PageTitle';
-import { Categorie , PageTitleBlock, CategorieList,CategorieRow,Categoriecolumn,LinkBlock } from './styles';
+import { Categorie , PageTitleBlock, CategorieList,CategorieRow,Categoriecolumn,LinkBlock,TimeSlot,Time,PageTitleRow } from './styles';
 
 const Categories = ({ ...props }: any) => {
   return (
     <Categorie {...props} >
-      <PageTitleBlock>
-        <PageTitle text={[<span key={"TRENDING"}>TRENDING</span>, "SPORT ACTIVITIES",]} />
-      </PageTitleBlock>
+      <PageTitleRow>
+        <PageTitleBlock>
+          <PageTitle text={[<span key={"TRENDING"}>TRENDING</span>, "SPORT ACTIVITIES",]} />
+        </PageTitleBlock>
+        <TimeSlot>
+            <Time className='active'>Today</Time>
+            <Time>This week</Time>
+            <Time>This month</Time>
+        </TimeSlot>
+      </PageTitleRow>
       <CategorieList>
          <CategorieRow>
             <Categoriecolumn className='active'>Football</Categoriecolumn>

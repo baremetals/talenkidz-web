@@ -1,9 +1,16 @@
 
-import { EventItemBlock, EventItemImg,EventInfo,TimeBlock,CourseItem,Visitor,VisitorInner,Visitors, SeeMore } from './styles';
+import { EventItemBlock, EventItemImg,EventInfo,TimeBlock,CourseItem,Visitor,VisitorInner,Visitors, SeeMore,IconBlock } from './styles';
 import Image from 'next/image';
+import {  useState } from 'react';
 import { BsTag } from 'react-icons/bs';
 
 const EventItem = () => {
+
+const [bookedMarked, setActives] = useState(false);
+ const toggleClass = () => {
+    setActives(!bookedMarked);
+  };
+
   return (
     <EventItemBlock>
       <EventItemImg>
@@ -12,7 +19,33 @@ const EventItem = () => {
             alt="article image"
             width={1170}
             height={601}
-          />
+        />
+        <IconBlock>
+           <div
+            className={bookedMarked ? 'active' : 'inactive'}
+              onClick={toggleClass}
+          >
+            {bookedMarked ? (
+              <div className="bookmarkActive">
+                <Image
+                  src="/assets/svgs/bookmark-active.svg"
+                  alt="bookmark icon"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            ) : (
+              <div className="bookmark">
+                <Image
+                  src="/assets/svgs/bookmar.svg"
+                  alt="bookmark icon"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            )}
+          </div>
+        </IconBlock>
       </EventItemImg>
       <EventInfo>
         <h2>How to communicate with a child properly </h2>

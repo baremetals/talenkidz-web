@@ -14,6 +14,7 @@ export const EventItemImg = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom:30px;
+    position: relative;
     img {
       height: auto !important;
       min-height: fit-content !important;
@@ -177,6 +178,27 @@ export const EventList = styled.div`
   }
 `;
 
+export const IconBlock = styled.div`
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  top: 10px;
+  right: 10px;
+  width: 31px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  .inactive {
+    top:3px;
+    position: relative;
+  }
+  .active {
+    top:3px;
+     position: relative;    
+  }
+`;
 
 
 

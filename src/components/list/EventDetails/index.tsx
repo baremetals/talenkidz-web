@@ -250,6 +250,7 @@ function EventDetails(props: {
               <div className="time">2,5 hours</div>
               <div className="date">30 January at 10:00 AM </div>
               <div className="address">WASHINGTON D.C. 90094 </div>
+              <div className="tagOnline">online</div>
               <EventButton>
                 <Button
                   content="Participate"

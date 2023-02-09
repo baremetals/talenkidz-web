@@ -6,11 +6,49 @@ export const Categorie = styled.div`
 `;
 export const PageTitleBlock = styled.div`
  max-width: 488px;
- margin-bottom:50px;
+ @media (max-width: 992px) {
+       margin-bottom: 50px;
+  }
 `;
 export const CategorieList = styled.div`
- 
 `;
+
+export const TimeSlot = styled.div`
+ display: flex;
+`;
+export const PageTitleRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
+   @media (max-width: 992px) {
+        flex-direction: column;
+  }
+`;
+
+
+
+export const Time = styled.div`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #0F021F;
+  min-width: 74px;
+  min-height: 26px;
+  padding-left:15px;
+  padding-right:15px;
+  margin-right:10px; 
+  display: flex;
+  align-items: center;
+   cursor: pointer;
+  &.active {
+    border: 1px solid rgba(57, 0, 126, 0.2);
+    border-radius: 10px;
+   
+  }
+`;
+
 
 export const LinkBlock = styled.div`
  text-align:right;
