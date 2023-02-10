@@ -57,8 +57,7 @@ const Layout = ({
       });
 
       if (r.data.name === 'no cookie') {
-        dispatch(openModal('POLICY_CONSENT'));
-        // dispatch(openModal('FEEDBACK_MODAL'));
+        // dispatch(openModal('POLICY_CONSENT'));
         
       } else {
         // console.log(r.data.policyOptions);

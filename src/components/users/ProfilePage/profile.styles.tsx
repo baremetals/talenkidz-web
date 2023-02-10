@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 export const Dashboard = styled.div``;
 
+export const PageSpacer = styled.div`
+  margin-top: 60px;
+`;
+
 export const ProfileCoverImage = styled.img`
-  border-radius: 0;
+  border-radius: 20px;
   height: 18.75rem;
   width: 100%;
   object-fit: cover;
@@ -12,16 +16,19 @@ export const ProfileCoverImage = styled.img`
 `;
 
 export const UserProfileImage = styled.img`
-  border: 3px solid #fff;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
   width: 200px;
   height: 200px;
   object-fit: cover;
   object-position: center center;
   margin-right: 2.1875rem;
-  margin-top: -3.5rem;
+  margin-top: -6rem;
+
   @media (min-width: 991px) {
     margin-left: 0.625rem;
   }
+
   @media (max-width: 767px) {
     width: 150px;
     height: 150px;
@@ -32,31 +39,37 @@ export const UserProfileImage = styled.img`
 
 export const ProfileInfo = styled.div`
   background-color: #fff;
-  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.08);
-  border-radius: 0.625rem;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
   position: relative;
   margin-bottom: 2.5rem;
-  margin-top: 2rem;
+  margin-top: -8rem;
+  margin-left: 80px;
+  margin-right: 80px;
   display: flex;
   box-shadow: 0 4px 10px rgb(0 0 0 / 8%);
-  margin-top: -4rem;
   padding: 1.875rem 2.5rem;
+
   @media (max-width: 991px) {
     padding: 1.25rem;
     flex-wrap: wrap;
   }
+
   @media (max-width: 767px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
 
 export const ProfileActions = styled.div`
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 
   @media (max-width: 991px) {
-    display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -91,11 +104,13 @@ export const Username = styled.div`
 export const UserDescription = styled.div``;
 
 export const ProfileButtons = styled.div`
-  margin-bottom: 1.875rem;
-  @media (max-width: 991px) {
-    margin-bottom: 0;
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 20px;
+
+  svg {
+    cursor: pointer;
   }
 `;
 
@@ -170,7 +185,9 @@ export const ActiveUsersCounter = styled.div`
   font-weight: 600;
 `;
 
-export const ProfileContent = styled.div``;
+export const ProfileContent = styled.div`
+  display: none;
+`;
 
 export const ShareContainer = styled.div`
   box-shadow: 0 0 10px rgb(0 0 0 / 8%);
@@ -606,4 +623,325 @@ export const PostAction = styled.div`
 export const GivenReactionsWrapper = styled.div`
   margin-right: 0.9375rem;
   display: flex;
+`;
+
+export const AccountStatus = styled.div`
+  display: flex;
+  align-items: center;
+
+  span {
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #39007e;
+    margin-right: 30px;
+  }
+
+  a {
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(57, 0, 126, 0.65);
+    text-decoration: underline;
+  }
+`;
+
+export const Followers = styled.div`
+  font-family: 'Syne';
+  font-weight: 500;
+  font-size: 14px;
+  color: #39007e;
+  margin-bottom: 20px;
+
+  span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+`;
+
+export const EditProfileButton = styled.button`
+  outline: none;
+  border: 1px solid #39007e;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0f021f;
+  height: 30px;
+  width: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background: white;
+    color: #0f021f;
+  }
+`;
+
+export const BellWrapper = styled.div`
+  position: relative;
+
+  span {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    width: 11px;
+    height: 11px;
+    background: #39007e;
+    font-weight: 700;
+    font-size: 7px;
+    line-height: 8px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+  }
+`;
+
+export const ProfileCoverWrapper = styled.div`
+  position: relative;
+
+  .actions {
+    position: absolute;
+    top: 30px;
+    right: 45px;
+  }
+`;
+
+export const EditCoverButton = styled.button`
+  outline: none;
+  height: 23px;
+  position: relative;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  color: #39007e;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding-right: 26px;
+
+  &:hover {
+    color: #39007e;
+    background: #ffffff;
+  }
+
+  span {
+    position: absolute;
+    top: -8px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: #39007e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 767px) {
+      width: 30px;
+      height: 30px;
+      top: -3px;
+      right: -9px;
+    }
+  }
+`;
+
+export const ProfileContainer = styled.div`
+  margin: 90px 0;
+  display: flex;
+  @media (max-width: 991px) {
+    flex-direction: column;
+  }
+`;
+
+export const ProfileTimeline = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1.8;
+  margin-right: 40px;
+`;
+
+export const ProfileSidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  
+  @media (max-width: 991px) {
+    margin-top: 40px;
+  }
+`;
+
+export const ProfileMenus = styled.div`
+  display: flex;
+  gap: 60px;
+  margin-bottom: 40px;
+`;
+
+export const ProfileMenu = styled.button`
+  outline: none;
+  min-width: 123px;
+  height: 28px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #0f021f;
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: white;
+    background: rgba(57, 0, 126, 0.2);
+  }
+
+  svg path {
+    fill: #0f021f !important;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover svg path {
+    fill: white !important;
+  }
+
+  svg {
+    width: 14px !important;
+    height: 14px !important;
+    margin-left: 10px;
+  }
+
+  &.active {
+    background: rgba(57, 0, 126, 0.2);
+  }
+`;
+
+export const NoteWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  .primary {
+    min-height: 43px;
+    border: 2px solid #39007e;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #0f021f;
+    width: 100%;
+
+    span {
+      font-weight: 700;
+      color: #39007e;
+    }
+  }
+
+  .secondary {
+    min-height: 43px;
+    background: #ffffff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    max-width: 195px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #39007e;
+    text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  }
+`;
+
+export const PremiumMember = styled.div`
+  min-height: 107px;
+  background: #39007e;
+  border-radius: 10px;
+  padding: 28px;
+
+  p {
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  a {
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: underline;
+  }
+`;
+
+export const EditorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+  height: 43px;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+
+  .primary {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    svg {
+      margin: 15px;
+    }
+
+    svg path {
+      fill: rgba(57, 0, 126, 0.59) !important;
+    }
+
+    input {
+      padding: 0 18px 0 10px;
+      border: 0;
+      font-family: 'Syne';
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      color: rgba(57, 0, 126, 0.59);
+      border-radius: 0;
+      width: 100%;
+      display: flex;
+
+      ::placeholder {
+        font-family: 'Syne';
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        color: rgba(57, 0, 126, 0.59);
+      }
+    }
+  }
+`;
+
+export const SendArticleButton = styled.button`
+  outline: none;
+  background: #39007e;
+  height: 43px;
+  width: 59px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 23px;
+  padding: 10px;
+
+  &:hover {
+    background: #39007e;
+  }
 `;
