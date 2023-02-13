@@ -1,49 +1,29 @@
 
 import { BannerBlock, BannerImg,Icon } from './styles';
 import Image from 'next/image';
-import {  useState } from 'react';
-const Banner = ({ src, text, ...props }: any) => {
-  
+import BookMarkIcon from '../BookMarkIcon';
 
- const [bookedMarked, setActives] = useState(false);
- const toggleClass = () => {
-    setActives(!bookedMarked);
-  };
+type TBanner = {
+  src: string;
+  title: string;
+  itemId: string;
+  slug: string;
+};
 
+const Banner: React.FC<TBanner> = ({ src, title, itemId, slug }) => {
   return (
-    <BannerBlock {...props}>
-        <BannerImg>
-          <Image
-              src={src}
-              alt="article image"
-              width={1170}
-              height={601}
-        />
+    <BannerBlock style={{cursor: 'pointer'}}>
+      <BannerImg>
+        <Image src={src} alt="article image" width={1170} height={601} />
         <Icon>
-           <div
-            className={bookedMarked ? 'active' : 'inactive'}
-              onClick={toggleClass}
-          >
-            {bookedMarked ? (
-              <div className="bookmarkActive">
-                <Image
-                  src="/assets/svgs/bookmark-active.svg"
-                  alt="bookmark icon"
-                  width={35}
-                  height={35}
-                />
-              </div>
-            ) : (
-              <div className="bookmark">
-                <Image
-                  src="/assets/svgs/bookmar.svg"
-                  alt="bookmark icon"
-                  width={35}
-                  height={35}
-                />
-              </div>
-            )}
-          </div>
+          <BookMarkIcon
+            id={itemId}
+            title={title}
+            slug={slug}
+            image={src}
+            width={35}
+            height={35}
+          />
         </Icon>
       </BannerImg>
     </BannerBlock>

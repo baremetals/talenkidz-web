@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const EventTime = styled.div`
    display:flex;
+   cursor:pointer;
    justify-content: space-between;
    margin: 93px auto;
    max-width:1024px;
@@ -12,7 +13,7 @@ export const EventTime = styled.div`
    }
 `;
 
-export const LinkBlock = styled.a`
+export const LinkBlock = styled.p`
    font-weight: 600;
    font-size: 18px;
    line-height: 22px;

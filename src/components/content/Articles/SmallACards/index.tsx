@@ -55,7 +55,9 @@ const SmallACard = ({
             title={articleTitle as string}
             slug={slug as string}
             image={articleImage as string}
-          /> 
+            width={25}
+            height={25}
+          />
         </CardAuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
           <h3>{articleTitle}</h3>

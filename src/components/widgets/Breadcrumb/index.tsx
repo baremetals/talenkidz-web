@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Breadcrumbs, Crumb } from './styles';
+import { upperCase } from 'src/utils';
 
 type Props = {
   route: {
@@ -10,10 +11,10 @@ type Props = {
 
 const Breadcrumb = ({ route = [] }: Props) => {
   return (
-    <Breadcrumbs >
+    <Breadcrumbs>
       {route.map((item, i) => (
         <Crumb key={i}>
-          <Link href={item.url}>{item.name}</Link>
+          <Link href={item.url}>{upperCase(item.name)}</Link>
         </Crumb>
       ))}
     </Breadcrumbs>

@@ -1,30 +1,37 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Entities } from 'src/types';
+import useDebounce from './useDebounce';
 
-export interface SearchEntity {
+export type SearchEntity = {
   searchValue: string;
   entities: Entities[];
-  setFilteredEntities: React.Dispatch<React.SetStateAction<Entities[]>>;
 }
-
-export const useSearch = ({
-  searchValue,
-  entities,
-  setFilteredEntities,
-}: SearchEntity) => {
-
-  const handleSearch = async () => {
-    if (searchValue !== '') {
-      const filteredData = entities?.filter((ent) => {
+export const useSearch = ({ searchValue, entities }: SearchEntity) => {
+  const [data, setData] = useState<Entities[]>(entities);
+  const debouncedValue = useDebounce(searchValue, 1000);
+  const handleSearch = useCallback(async () => {
+    if (debouncedValue !== '') {
+      const filteredData = entities?.slice()?.filter((ent) => {
         const entity = ent?.attributes as Entities;
         return Object.values(entity)
           .join(' ')
           .toLowerCase()
-          .includes(searchValue.toLowerCase());
+          .includes(debouncedValue.toLowerCase());
       });
-      setFilteredEntities(filteredData);
-    } 
-  };
+      setData(filteredData as Entities[]);
+    }
+  }, [debouncedValue, entities]);
 
-  return handleSearch;
+  useEffect(() => {
+    const unsubscribe = handleSearch();
+    return () => {
+      unsubscribe;
+    };
+  }, [handleSearch]);
+
+  useEffect(() => {
+    setData(entities);
+  }, [entities])
+
+  return data;
 };

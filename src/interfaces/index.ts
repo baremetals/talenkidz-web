@@ -1,3 +1,5 @@
+import { Entities, GQDocument } from 'src/types';
+
 export interface AuthUser {
   logo: string | undefined;
   id?: number;
@@ -58,4 +60,12 @@ export interface IArticleCard {
   articleImage?: string | undefined;
   articleIntro?: string | undefined;
   className?: string | undefined;
+}
+
+export interface ICategory {
+  entityDocument: GQDocument;
+}
+
+export interface ISearch {
+  entities: Entities[];
 }

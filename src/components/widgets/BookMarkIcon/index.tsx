@@ -13,8 +13,10 @@ type Props = {
   title: string,
   slug: string,
   image: string,
+  width: number
+  height: number
 };
-const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) => {
+const BookMarkIcon = ({ id, title, slug, image, detailsPage = false, width = 25, height = 25 }: Props) => {
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
 
@@ -60,19 +62,21 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
     if (user === null) {
       // console.log(id, title, slug, image);
       dispatch(openModal('LOGIN_FORM'));
-    }
-    if (bookmarks.includes(id)) {
-      const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
-      await updateStrapiUserBookMarks(filteredMarks);
-      await getMe();
     } else {
-      // console.log('summer house');
-      await updateStrapiUserBookMarks([
-        ...myBookMarks,
-        { itemId: id, title, slug, image, type: 'article' },
-      ]);
-      await getMe();
+      if (bookmarks.includes(id)) {
+        const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
+        await updateStrapiUserBookMarks(filteredMarks);
+        await getMe();
+      } else {
+        // console.log('summer house');
+        await updateStrapiUserBookMarks([
+          ...myBookMarks,
+          { itemId: id, title, slug, image, type: 'article' },
+        ]);
+        await getMe();
+      }
     }
+    
     // console.log('saving articles');
   }, [bookmarks, dispatch, getMe, id, image, myBookMarks, slug, title, user]);
   return (
@@ -85,12 +89,12 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
           <Image
             src={
               detailsPage
-                ? '/assets/svgs/bookmark-plus.svg'
+                ? '/assets/svgs/bookmark-plus-filled.svg'
                 : '/assets/svgs/bookmark-active.svg'
             }
             alt="bookmark icon"
-            width={detailsPage ? 34 : 25}
-            height={detailsPage ? 34 : 25}
+            width={width}
+            height={height}
             onClick={saveArticle}
           />
         </div>
@@ -103,8 +107,8 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false }: Props) =>
                 : '/assets/svgs/bookmar.svg'
             }
             alt="bookmark icon"
-            width={detailsPage ? 34 : 25}
-            height={detailsPage ? 34 : 25}
+            width={width}
+            height={height}
             onClick={saveArticle}
           />
         </div>

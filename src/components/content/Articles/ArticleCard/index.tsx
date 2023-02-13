@@ -33,12 +33,11 @@ const ArticleCard = ({
   createdAt,
   category,
   slug,
-  ...props
 }: IArticleCard) => {
   
 
   return (
-    <CardWrapper {...props}>
+    <CardWrapper className={'kidsRow'}>
       <IconBlock>
         <Image
           src="/assets/svgs/menukids.svg"
@@ -66,8 +65,7 @@ const ArticleCard = ({
             id={id}
             title={articleTitle as string}
             slug={slug as string}
-            image={articleImage as string}
-          />
+            image={articleImage as string} width={25} height={25}/>
           {/* <div
             className={bookedMarked ? 'active' : 'inactive'}
             // onClick={handleClick}

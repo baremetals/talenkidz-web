@@ -41,9 +41,10 @@ import {
   ArticleEntity,
   ArticlesDocument,
   FilteredArticlesDocument,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 
-import { useFetchEntities } from 'src/hooks/useFetchEntities';
+import { useFetchEntities } from 'src/hooks/usefetchEntities';
 // import {
 //   INITIAL_STATE as Article_State,
 //   articleReducer,
@@ -62,64 +63,54 @@ import Categories from 'components/utilities/Categories';
 //   slug: string;
 //   image: string;
 // };
+
+type TFetchArticleState = {
+  data: {
+    articles: {
+      data: ArticleEntity[];
+      meta: ResponseCollectionMeta;
+    };
+  };
+};
 const route = [
   {
     name: 'Home',
     url: '/',
   },
   {
-    name: 'articles',
+    name: 'Articles',
     url: '/articles',
   },
 ];
+
 const Articles = () => {
   const dispatch = useAppDispatch();
   const articleEntities = useAppSelector(articlesSelector);
   const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
-
+ 
   const searchState = useSearchState();
 
   // console.log('from the articles page', articleEntities);
   const remaining = total % articleEntities?.length;
-  const fetchData = useFetchEntities({
-    limit: remaining > 4 ? 4 : remaining,
-    start: articleEntities?.length as number,
-    gQDocument: ArticlesDocument,
-  });
+  const fetchData = useFetchEntities<TFetchArticleState | null>(
+    {
+      limit: remaining > 4 ? 4 : remaining,
+      start: articleEntities?.length as number,
+      gQDocument: ArticlesDocument,
+    },
+    null
+  );
 
   useEffect(() => {
     setFilteredArticles(articleEntities);
   }, [articleEntities]);
 
-  // const getMe = useCallback(async () => {
-  //   const marks: string[] = []
-  //   const {data} = await fetchStrapiUser();
-  //   setMyBookMarks(data?.data);
-  //   data?.data.forEach((item: { itemId: string; }) => marks.push(item.itemId))
-  //   setBookmarks(marks);
-  //   // console.log('the response', data);
-  //   return data
-  // }, [])
-
-  // const handleModal = useCallback(() => {
-  //   dispatch(openModal('REGISTER_FORM'));
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     const unsubscribe = getMe();
-  //     return () => {
-  //       unsubscribe;
-  //     };
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user])
-  // console.log(remaining, total);
+  
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
       const res = fetchData;
-      // console.log(res?.data.articles.data);
+      console.log(res);
       const articles = res?.data?.articles;
       // setFilteredArticles((filteredArticles) => [
       //   ...filteredArticles,
@@ -130,9 +121,12 @@ const Articles = () => {
       dispatch(
         setArticles({
           // ...state,
-          total: articles.meta.pagination.total,
+          total: articles?.meta.pagination.total,
           // eslint-disable-next-line no-unsafe-optional-chaining
-          articles: [...articleEntities, ...articles?.data],
+          articles: [
+            ...articleEntities,
+            ...(articles?.data as ArticleEntity[]),
+          ],
         })
       );
     }
@@ -144,28 +138,6 @@ const Articles = () => {
     searchState.searching,
     total,
   ]);
-
-  // const saveArticle = useCallback(async ({ id, title, slug, image }: saveFuncProps) => {
-  //   // console.log(id, title, slug, image)
-  //   // console.log(bookmarks);
-  //   if (user === null) {
-  //     // console.log(id, title, slug, image);
-  //     dispatcher(openModal('LOGIN_FORM'));
-  //   }
-  //   if (bookmarks.includes(id)) {
-  //     const filteredMarks = myBookMarks.filter((item) => item?.itemId !== id);
-  //     await updateStrapiUserBookMarks(filteredMarks);
-  //     await getMe();
-  //   } else {
-  //     // console.log('summer house');
-  //     await updateStrapiUserBookMarks([
-  //       ...myBookMarks,
-  //       { itemId: id, title, slug, image, type: 'article' },
-  //     ]);
-  //     await getMe();
-  //   }
-  //   // console.log('saving articles');
-  // }, [bookmarks, dispatcher, getMe, myBookMarks, user]);
 
   return (
     <>
@@ -255,19 +227,6 @@ const Articles = () => {
                       item?.attributes?.category?.data?.attributes
                         ?.slug as string
                     }
-                    // saveArticle={() => {
-                    //   const data = {
-                    //     id: item?.id as string,
-                    //     title: item?.attributes?.title as string,
-                    //     slug: item?.attributes?.slug as string,
-                    //     image: item?.attributes?.heroImage?.data?.attributes
-                    //       ?.url as string,
-                    //   };
-                    //   saveArticle({ ...data });
-                    // }}
-                    // bookedMarked={
-                    //   bookmarks.includes(item?.id as string) ? true : false
-                    // }
                     slug={item?.attributes?.slug}
                   />
                 ))}
@@ -281,7 +240,6 @@ const Articles = () => {
                 {/* <Search placeholder={'Search particular information'} /> */}
                 <EntitySearch
                   entities={articleEntities}
-                  setFilteredEntities={setFilteredArticles as any}
                 />
               </SearchBlock>
               {/* <Fields /> */}

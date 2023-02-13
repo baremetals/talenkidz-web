@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
+dayjs.extend(calendar);
 import { uploadProps } from 'src/types';
 import { toBase64 } from './base64';
 
@@ -41,3 +44,24 @@ export const handleImgChange = async ({
   setDisplayImg(base64);
   return;
 };
+
+export const formatTimeAndDate = (date: string, time: string): string => {
+  const combinedTimeAndDate = date + time;
+  const formatedTimeAndDate = dayjs(combinedTimeAndDate).calendar();
+  const formatedDateAndTime =
+    dayjs(combinedTimeAndDate).format('D MMM YY - HH:mm A');
+  const testFirstCharacter = formatedTimeAndDate.charAt(0)
+  if (!Number.isNaN(Number(testFirstCharacter))) {
+    return formatedDateAndTime;
+  } else return formatedTimeAndDate;
+};
+
+export const getCurrentWeek = (currentDate: any) => {
+  const startDate = new Date(currentDate.getFullYear(), 0, 1);
+  const days = Math.floor(
+    (currentDate.valueOf() - startDate.valueOf()) / (24 * 60 * 60 * 1000)
+  );
+  const weekNumber = Math.ceil(days / 7);
+  return weekNumber;
+};
+

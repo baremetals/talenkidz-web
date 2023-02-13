@@ -1,16 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Categorie = styled.div`
-   max-width: 1024px;
-   margin:0 auto;
+  max-width: 1024px;
+  margin: 0 auto;
 `;
 export const PageTitleBlock = styled.div`
- max-width: 488px;
- margin-bottom:50px;
+  max-width: 488px;
+  margin-bottom: 50px;
 `;
-export const CategorieList = styled.div`
- 
-`;
+export const CategorieList = styled.div``;
 export const FieldBlock = styled.div``;
 
 export const Title = styled.p`
@@ -83,56 +81,48 @@ export const FieldAction = styled.div`
 `;
 
 export const LinkBlock = styled.div`
- text-align:right;
- a {
-  color: #39007E;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 123.1%;
- }
-`;
-
-
-
-export const CategorieRow = styled.div`
-  display:flex;
-  justify-content: space-between;
-  @media (max-width: 992px) {
-   flex-wrap: wrap;
+  text-align: right;
+  margin-top: 20px;
+  a {
+    color: #39007e;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 123.1%;
   }
 `;
 
+export const CategorieRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between;
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+  } */
+`;
+
 export const Categoriecolumn = styled.div`
-  border: 2px solid #39007E;
+  border: 2px solid #39007e;
   border-radius: 5px;
-  padding:13px;
+  padding: 13px;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 123.1%;
-  color: #39007E;
-  width: 100%;
+  color: #39007e;
+  max-width: 33.33%;
   text-align: center;
-  margin: 15px;
-  &:first-child {
-    margin-left:0;
-  }
-   &:last-child {
-    margin-right:0;
-  }
+  margin-left: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 21%;
+
   @media (max-width: 992px) {
-    &:first-child {
-    margin-left:15px;
-  }
-   &:last-child {
-    margin-right:15px;
-  }
+    margin-left: 10px;
+    margin-top: 10px;
+    max-width: 50%;
+    flex: 1 0 40%;
   }
 `;
-
-
-
-
-
-

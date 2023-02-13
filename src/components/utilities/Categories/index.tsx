@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Button from 'components/users/Auth/Button';
 import { FieldAction, FieldBlock, FieldGroup, Title } from './cat.styles';
-import { GQDocument, TCategory, TGetArticles } from 'src/types';
+import { TCategory, TGetArticles, TGetCats } from 'src/types';
 
 
 import { useAppDispatch } from 'src/app/hooks';
@@ -15,15 +15,11 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useFetch } from 'src/hooks/useFetch';
 import { fetchApi } from 'src/helpers';
+import { ICategory } from 'src/interfaces';
 
-export interface ICategory {
-  entityDocument: GQDocument;
-}
 
-type TGetCats = {
-  data: TCategory[];
-  total: number;
-};
+
+
 
 
 
@@ -37,8 +33,6 @@ const Categories: React.FC<ICategory> = ({ entityDocument }) => {
   const [categoryArray, setCategoryArray] = useState<string[]>([]);
   const [displayError, setDisplayError] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-
-
 
   useEffect(() => {
     // console.log('i am running')

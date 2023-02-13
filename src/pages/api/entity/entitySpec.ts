@@ -15,7 +15,7 @@ export type EntityData = {
   err?: any;
 };
 
-export type ReqBody<F = any> = {
+export type ReqBody<F extends {} = {}> = {
   start: number;
   limit: number;
   sort: string;

@@ -51,6 +51,7 @@ import { Comments } from '../Comments';
 import BookMarkIcon from 'components/widgets/BookMarkIcon';
 import { openModal } from 'src/features/modal';
 import { useAppDispatch } from 'src/app/hooks';
+import { useRouter } from 'next/router';
 
 export const ArticleDetails = (props: {
   props: {
@@ -60,6 +61,7 @@ export const ArticleDetails = (props: {
   };
 }) => {
   // const [socialDropdown, setSocialDropdown] = useState(false)
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const { user, firebaseUser } = useContext(AuthContext);
   const { data } = props.props;
@@ -80,7 +82,7 @@ export const ArticleDetails = (props: {
   const postSlug = article?.attributes?.slug as string;
   const likes = article?.attributes?.likes;
 
-  // console.log(article)
+  // console.log(router)
   // Article
 
   // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
@@ -146,7 +148,7 @@ export const ArticleDetails = (props: {
     },
     {
       name: article?.attributes?.title as string,
-      url: `#`,
+      url: router.asPath,
     },
   ];
 
@@ -244,6 +246,8 @@ export const ArticleDetails = (props: {
                     slug={article?.attributes?.slug as string}
                     image={imageurl as string}
                     detailsPage={true}
+                    width={34}
+                    height={34}
                   />
                   {/* <Image
                     src={'/assets/svgs/comment-plus.svg'}
@@ -343,3 +347,5 @@ export const ArticleDetails = (props: {
     </>
   );
 };
+
+

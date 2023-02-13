@@ -88,6 +88,11 @@ export type TCategory = {
   };
 };
 
+export type TGetCats = {
+  data: TCategory[];
+  total: number;
+};
+
 export type GQDocument =
   | typeof ArticlesDocument
   | typeof EventsDocument
