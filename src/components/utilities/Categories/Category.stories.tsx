@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Category, { ICategory } from '.';
+import Category from '.';
 import { FilteredArticlesDocument } from 'generated/graphql';
 // import { mockCategoryProps } from './Category.mock';
 

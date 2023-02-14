@@ -1,9 +1,10 @@
-import { ISearch } from './EntitySearch';
+import { ISearch } from 'src/interfaces';
+
 
 
 const base: ISearch = {
   entities: [],
-  setFilteredEntities: () => null,
+  // setFilteredEntities: () => null,
 };
 
 export const mockSearchProps = {

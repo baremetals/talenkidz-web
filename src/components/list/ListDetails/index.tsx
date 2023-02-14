@@ -92,7 +92,7 @@ function ListDetails(props: {
         <Breadcrumb route={[]} />
         
         {/* EventBanner */}
-        <EventBanner src={'/assets/images/activities.png'} />
+        <EventBanner src={'/assets/images/activities.png'} title={''} itemId={''} slug={''} />
          
         {/*  */}
         <ActivitiesDetails>

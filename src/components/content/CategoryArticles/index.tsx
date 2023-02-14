@@ -178,7 +178,6 @@ const CategoryArticles = () => {
                 {/* <Search placeholder={'Search particular information'} /> */}
                 <EntitySearch
                   entities={articleEntities}
-                  setFilteredEntities={setFilteredArticles as any}
                 />
               </SearchBlock>
               {/* <Fields /> */}

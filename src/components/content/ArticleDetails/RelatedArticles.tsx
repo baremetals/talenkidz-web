@@ -103,7 +103,6 @@ export function RelatedArticles({ category }: propType): ReactElement {
           <SearchWrapper>
             <EntitySearch
               entities={arty}
-              setFilteredEntities={setFilteredArticles as any}
             />
           </SearchWrapper>
           {/* <Fields /> */}

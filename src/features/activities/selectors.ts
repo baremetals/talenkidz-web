@@ -3,7 +3,7 @@ import { RootState } from 'src/app/rootReducer';
 
 export const selectActivity = (state: RootState) => state.activity;
 
-export const articlesSelector = createSelector(
+export const activitiesSelector = createSelector(
   selectActivity,
   (state) => state.activities
 );

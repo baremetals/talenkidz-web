@@ -67,28 +67,7 @@ const EventsPage = (props: pageProps) => {
 };
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  console.log(ctx.query.filter);
-  const date = new Date();
-  console.log(date.getMonth() + 1);
-  if (ctx.query.filters !== undefined) {
-    const { data } = await client.query<FilteredEventsQueryResult>({
-      query: FilteredEventsDocument,
-      variables: {
-        filters: {
-          category: {
-            slug: {
-              eq: '',
-            },
-          },
-        },
-        pagination: {
-          start: 0,
-          limit: 6,
-        },
-        sort: 'updatedAt:desc',
-      },
-    });
-  }
+  
     const { data } = await client.query<EventsQueryResult>({
       query: EventsDocument,
       variables: {

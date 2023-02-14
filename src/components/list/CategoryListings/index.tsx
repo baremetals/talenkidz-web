@@ -11,6 +11,7 @@ import PageTitle from 'components/widgets/PageTitle';
 import ActivitiesItem from 'components/widgets/ActivitiesItem';
 import { EventTime, LinkBlock, CategoriesBlock, ActivitiesList, BreadcrumbBlock } from './styles';
 import Button from 'components/users/Auth/Button';
+import Search from 'components/utilities/search/HeroSearch';
 
 import {
     InnerBanner,
@@ -40,6 +41,8 @@ import {
     // PostMedia,
 } from 'styles/common.styles';
 import { upperCase } from 'src/utils';
+import { useAppSelector } from 'src/app/hooks';
+import { activitiesSelector } from 'src/features/activities';
 
 // import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
 // import { BookMark } from '../../../../public/assets/icons/BookMark'
@@ -102,6 +105,7 @@ type pageProps = {
 function CategoryListings({ listings, categories }: pageProps) {
     const router = useRouter();
     const [filteredListings, setFilteredListings] = useState([]);
+    const eventEntities = useAppSelector(activitiesSelector);
     const [values, setValues] = useState({
         category: "",
         search: "",
@@ -140,105 +144,127 @@ function CategoryListings({ listings, categories }: pageProps) {
         </InnerContainer>
         <PageContainer>
           <InnerContainer>
-              {/* banner */}
-              <Banner src={'/assets/images/activities2.jpg'} text={'Tennis is more than most sports, a sport of the mind'} author={'- Rafael Nadal'} />
-            
-              {/* event */}
-              <EventTime>
-                <LinkBlock href={'#'}>Today </LinkBlock>
-                <LinkBlock className='active'  href={'#'}>This week </LinkBlock>
-                <LinkBlock href={'#'}>This month  </LinkBlock>
-                <LinkBlock href={'#'}>Free</LinkBlock>
-              </EventTime>
+            {/* banner */}
+            <Banner
+              src={'/assets/images/activities2.jpg'}
+              text={'Tennis is more than most sports, a sport of the mind'}
+              author={'- Rafael Nadal'}
+            >
+              <Search
+                placeholder={'Search events that may be interesting for you'}
+                entities={eventEntities}
+              />
+            </Banner>
 
-            
-            
-              {/* <Activitie*/}
-              <ActivitiesList>
-                   <Row >
-                      <Column><PageTitle className="pageTitle" text={'Tennis sections for today'} /></Column>
-                  </Row>
-                  <Row className=''>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                   </Column>
-                  </Row>
-            </ActivitiesList>
+            {/* event */}
+            <EventTime>
+              <LinkBlock href={'#'}>Today </LinkBlock>
+              <LinkBlock className="active" href={'#'}>
+                This week{' '}
+              </LinkBlock>
+              <LinkBlock href={'#'}>This month </LinkBlock>
+              <LinkBlock href={'#'}>Free</LinkBlock>
+            </EventTime>
 
             {/* <Activitie*/}
-              <ActivitiesList>
-                   <Row >
-                      <Column><PageTitle className="pageTitle" text={'Participate weekly '} /></Column>
-                  </Row>
-                  <Row>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                   </Column>
-                  </Row>
-            </ActivitiesList>
-
-            {/* <Activitie*/}
-              <ActivitiesList>
-                   <Row >
-                      <Column><PageTitle className="pageTitle" text={'Visit for free'} /></Column>
-                  </Row>
-                  <Row>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                    </Column>
-                    <Column className='Column-3'>
-                      <ActivitiesItem />
-                   </Column>
-                  </Row>
-                  <Row className='buttonRow'>
-                    <Column>
-                      <Button
-                        content="See more events "
-                        type="submit"
-                        disabled={false}
-                        loading={false}
-                      ></Button>
-                  </Column>
+            <ActivitiesList>
+              <Row>
+                <Column>
+                  <PageTitle
+                    className="pageTitle"
+                    text={'Tennis sections for today'}
+                  />
+                </Column>
+              </Row>
+              <Row className="">
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
               </Row>
             </ActivitiesList>
-            
-              {/* Categories*/}
-              <CategoriesBlock>
-                 <ActivitiesCategories />
+
+            {/* <Activitie*/}
+            <ActivitiesList>
+              <Row>
+                <Column>
+                  <PageTitle
+                    className="pageTitle"
+                    text={'Participate weekly '}
+                  />
+                </Column>
+              </Row>
+              <Row>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+              </Row>
+            </ActivitiesList>
+
+            {/* <Activitie*/}
+            <ActivitiesList>
+              <Row>
+                <Column>
+                  <PageTitle className="pageTitle" text={'Visit for free'} />
+                </Column>
+              </Row>
+              <Row>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+                <Column className="Column-3">
+                  <ActivitiesItem />
+                </Column>
+              </Row>
+              <Row className="buttonRow">
+                <Column>
+                  <Button
+                    content="See more events "
+                    type="submit"
+                    disabled={false}
+                    loading={false}
+                  ></Button>
+                </Column>
+              </Row>
+            </ActivitiesList>
+
+            {/* Categories*/}
+            <CategoriesBlock>
+              <ActivitiesCategories />
             </CategoriesBlock>
 
             {/* event */}
-              <EventTime>
-                <LinkBlock href={'#'}>Creativity  </LinkBlock>
-                <LinkBlock className='active'  href={'#'}>Sport </LinkBlock>
-                <LinkBlock href={'#'}>Education </LinkBlock>
-              </EventTime>
-
-            </InnerContainer>
+            <EventTime>
+              <LinkBlock href={'#'}>Creativity </LinkBlock>
+              <LinkBlock className="active" href={'#'}>
+                Sport{' '}
+              </LinkBlock>
+              <LinkBlock href={'#'}>Education </LinkBlock>
+            </EventTime>
+          </InnerContainer>
         </PageContainer>
 
         <InnerBanner
@@ -381,7 +407,7 @@ function CategoryListings({ listings, categories }: pageProps) {
                         style={{ fontSize: '14px', color: '#39364F' }}
                       >
                         <Image
-                          src={require("public/checkbox.svg")}
+                          src={require('public/checkbox.svg')}
                           alt="checkboxes"
                           width={20}
                           height={20}

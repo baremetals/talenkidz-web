@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import EntitySearch, { ISearch } from './EntitySearch';
+import EntitySearch from './EntitySearch';
 import { mockSearchProps } from './EntitySearch.mock';
+import { ISearch } from 'src/interfaces';
 
 export default {
   title: 'search/EntitySearch',

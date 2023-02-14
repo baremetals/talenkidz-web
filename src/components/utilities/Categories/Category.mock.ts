@@ -1,4 +1,4 @@
-import { ICategory } from '.';
+// import { ICategory } from '.';
 
 // const base: ICategory = {
 //   entityDocument: [
