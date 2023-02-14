@@ -158,7 +158,7 @@ export default function UserHeader() {
                           <Link href={`/account/`}>Profile</Link>
                         </ProfileItem>
                         <ProfileItem>
-                          <Link href={`/account/edit-profile`}>
+                          <Link href={`/account/edit-me`}>
                             Edit Profile
                           </Link>
                         </ProfileItem>
