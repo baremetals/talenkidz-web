@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { PremiumMember, TabsBlock } from './profile.styles';
-import MyEvent from '../Account/MyEvent';
-import EventsVisit from '../Account/EventsVisit';
+import MyActivities from '../Account/MyActivities';
+import ActivitiesVisit from '../Account/ActivitiesVisit';
+import ActivityNow from '../Account/ActivityNow';
 import SectionStatus from '../Account/SectionStatus';
 import Editor from '../Account/Editor';
 import Tabs from '../Account/Tabs/Tabs';
+import { Row, Column } from 'styles/common.styles';
 
 type TabsType = {
   label: string;
@@ -15,14 +17,14 @@ type TabsType = {
 // Tabs Array
 const tabs: TabsType = [
   {
-    label: 'My events',
+    label: 'My Activities',
     index: 1,
-    Component: MyEvent,
+    Component: MyActivities,
   },
   {
-    label: 'Events to visit',
+    label: 'Activities to visit',
     index: 2,
-    Component: EventsVisit,
+    Component: ActivityNow,
   },
 ];
 

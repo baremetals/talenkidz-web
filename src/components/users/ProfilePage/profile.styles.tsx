@@ -3,6 +3,67 @@ import styled from 'styled-components';
 
 export const Dashboard = styled.div``;
 
+export const ProfileTabs = styled.div`
+  .tabs-component {
+    div.tabsBlock {
+      border: none;
+
+      button {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: #0f021f;
+        background: transparent;
+        border-radius: 10px;
+        border: none;
+        margin-right: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.active {
+          background: rgba(57, 0, 126, 0.2);
+        }
+        svg {
+          width: 14px;
+          height: 14px;
+          margin-left: 10px;
+          path {
+            fill: #0f021f !important;
+            transition: all 0.2s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const TabsBlock = styled.div`
+  .tabs-component {
+    div.tabsBlock {
+      border-bottom: none;
+      justify-content: space-between;
+      button {
+        min-width: calc(50% - 10px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        padding: 10px 0;
+        color: #0f021f;
+        font-weight: 600;
+        font-size: 20px;
+        min-height: 53px;
+        border: none;
+        background: #fff;
+        margin-right: 0;
+        &.active {
+          background: #d3c7e0;
+          color: #0f021f;
+        }
+      }
+    }
+  }
+`;
+
 export const PageSpacer = styled.div`
   margin-top: 60px;
 `;
@@ -702,7 +763,6 @@ export const BellWrapper = styled.div`
 
 export const ProfileCoverWrapper = styled.div`
   position: relative;
-
   .actions {
     position: absolute;
     top: 30px;
@@ -768,7 +828,7 @@ export const ProfileSidebar = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  
+
   @media (max-width: 991px) {
     margin-top: 40px;
   }
@@ -944,4 +1004,130 @@ export const SendArticleButton = styled.button`
   &:hover {
     background: #39007e;
   }
+`;
+export const BellWrapperCard = styled.div`
+  position: relative;
+`;
+
+export const BellDropdown = styled.div`
+  position: absolute;
+  top: 60px;
+  min-width: 387px;
+  width: 100%;
+  right: -40px;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin-top: 1.5rem;
+  box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
+  border-radius: 0.625rem;
+  z-index: 10;
+  display: none;
+  padding: 15px;
+  &.opened {
+    display: block;
+  }
+  @media (max-width: 991px) {
+    right: -40px;
+    min-width: 300px;
+  }
+`;
+
+export const NotificationWrapper = styled.div`
+  background: #e5d7f5;
+  border-radius: 10px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const User = styled.div`
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  min-width: 38px;
+  margin-right: 10px;
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const UserName = styled.div`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 17px;
+  color: #0f021f;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 79.5%;
+    color: #766b83;
+  }
+`;
+
+export const UserDec = styled.div`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 79.5%;
+  color: #574e62;
+  span {
+    font-weight: 700;
+  }
+`;
+
+export const ActivityNowWrapper = styled.div`
+  text-align: center;
+  margin-top: 70px;
+  button {
+    background: #0f021f;
+    border: 1px solid #0f021f;
+    border-radius: 50px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #ffffff;
+  }
+`;
+
+export const ActivityHeader = styled.h1`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #0f021f;
+  margin-bottom: 20px;
+`;
+
+export const ActivityDec = styled.p`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 129.5%;
+  text-align: center;
+  color: #373737;
+  margin-bottom: 30px;
 `;

@@ -78,3 +78,79 @@ export const EventWrapper = styled.div`
     text-decoration: underline;
   }
 `;
+
+export const Calendarwrapper = styled.div`
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+`;
+
+export const CalendarHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  Button {
+    background: linear-gradient(271.03deg, #d0e4ff 0.52%, #cacafd 104.32%);
+    border-radius: 15px;
+    width: 38px;
+    height: 38px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+export const Month = styled.label`
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+`;
+
+export const CalendarDays = styled.div`
+  margin-top: 30px;
+  table {
+    width: 100%;
+    tr {
+      margin-bottom: 20px;
+      &:last-child {
+        span {
+          margin-bottom: 0;
+          display: block;
+        }
+      }
+      td {
+        text-align: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: #000000;
+        width: 40px;
+        min-height: 22px;
+        &.not-current {
+          color: rgba(0, 0, 0, 0.3);
+        }
+        &.today {
+          color: #63cdff;
+        }
+        &.active {
+          span {
+            background: #c7daf5;
+            box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.11);
+            border-radius: 10px;
+          }
+        }
+        span {
+          margin-bottom: 20px;
+          display: flex;
+          width: 35px;
+          height: 35px;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+`;

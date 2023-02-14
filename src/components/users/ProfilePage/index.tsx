@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 // import Image from 'next/image'
 import { UsersPermissionsUser } from 'generated/graphql';
 
@@ -43,6 +43,8 @@ import {
   // FollowButton,
   // PhotoGallery,
   // VideoGallery
+  BellWrapperCard,
+  BellDropdown,
 } from './profile.styles';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
@@ -51,6 +53,7 @@ import Heart from 'public/assets/icons/Heart';
 import Favourite from 'public/assets/icons/FavouriteInactive';
 import Bell from 'public/assets/icons/Bell';
 import PencilTwo from 'public/assets/icons/PencilTwo';
+import Notification from '../ProfilePage/Notification';
 // import { Card } from './Card'
 // import { ShareCard } from './ShareCard'
 
@@ -62,7 +65,8 @@ import Content from './Content';
 
 function Profile(props: { props: UsersPermissionsUser }) {
   const { user: user } = useAppSelector(isUser);
-
+  const [dropdown, setDropdown] = useState(false);
+  const dropdownRef = useRef<any>(null);
   const { username, fullName, avatar, backgroundImg, bio } =
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
@@ -153,10 +157,20 @@ function Profile(props: { props: UsersPermissionsUser }) {
               <ProfileButtons>
                 <Heart />
                 <Favourite />
-                <BellWrapper>
-                  <Bell />
-                  <span>3</span>
-                </BellWrapper>
+                <BellWrapperCard ref={dropdownRef}>
+                  <BellWrapper onClick={() => setDropdown(!dropdown)}>
+                    <Bell />
+                    <span>3</span>
+                  </BellWrapper>
+                  <BellDropdown
+                    className={`${dropdown ? 'opened' : ''}`}
+                    onClick={() => setDropdown(!dropdown)}
+                  >
+                    <Notification />
+                    <Notification />
+                    <Notification />
+                  </BellDropdown>
+                </BellWrapperCard>
               </ProfileButtons>
               {/* <SendButton><Send /> Write a Message</SendButton> <FollowButton><Plus />Follow</FollowButton> */}
               {/* <ActiveUsers>
@@ -232,7 +246,6 @@ function Profile(props: { props: UsersPermissionsUser }) {
               </Column>
             </Row>
           </ProfileContent>
-
           <Content />
         </InnerContainer>
       </Dashboard>
