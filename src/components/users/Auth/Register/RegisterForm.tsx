@@ -62,7 +62,6 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
-  
 
   const handleSubmit = async ({ ...values }: registerUserProps) => {
     // console.log(values);

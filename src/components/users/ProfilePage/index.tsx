@@ -45,6 +45,11 @@ import {
   // VideoGallery
   BellWrapperCard,
   BellDropdown,
+  BookmarkWrapper,
+  BoomarkItem,
+  BookmarkDropdown,
+  UserProfileImageBlock,
+  Premium,
 } from './profile.styles';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
@@ -62,19 +67,24 @@ import Notification from '../ProfilePage/Notification';
 // import { Send } from '../../../public/assets/icons/Send'
 // import { Plus } from '../../../public/assets/icons/Plus'
 import Content from './Content';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
+import Link from 'next/link';
+import Image from 'next/image';
 
 function Profile(props: { props: UsersPermissionsUser }) {
   const { user: user } = useAppSelector(isUser);
   const [dropdown, setDropdown] = useState(false);
+  const [dropdowns, setDropdowns] = useState(false);
   const dropdownRef = useRef<any>(null);
   const { username, fullName, avatar, backgroundImg, bio } =
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
+  const dispatch = useAppDispatch();
 
   return (
     <div style={{ background: '#F4F4F4', paddingBottom: '100px' }}>
       <NavBar />
-
       <Dashboard>
         <InnerContainer>
           <PageSpacer />
@@ -95,12 +105,22 @@ function Profile(props: { props: UsersPermissionsUser }) {
             </div>
           </ProfileCoverWrapper>
           <ProfileInfo>
-            <UserProfileImage
-              src={avatar as string}
-              alt="user profile"
-              // width={200}
-              // height={200}
-            />
+            <UserProfileImageBlock>
+              <UserProfileImage
+                src={avatar as string}
+                alt="user profile"
+                // width={200}
+                // height={200}
+              />
+              <Premium className="premium-tag">
+                <Image
+                  src="/assets/svgs/premium.svg"
+                  alt="premium"
+                  width={30}
+                  height={20}
+                />
+              </Premium>
+            </UserProfileImageBlock>
             <ProfileBasicInfo>
               <Title
                 style={{
@@ -149,15 +169,50 @@ function Profile(props: { props: UsersPermissionsUser }) {
             </ProfileBasicInfo>
             <ProfileActions>
               <Followers>
-                <span>1,4k</span> followers
+                <span onClick={() => dispatch(openModal('PROFILE_MODAL'))}>
+                  1,4k
+                </span>{' '}
+                followers
               </Followers>
-              <EditProfileButton>
-                Edit profile <Pencil />
+              <EditProfileButton
+                onClick={() => dispatch(openModal('PROFILE_MODAL'))}
+              >
+                Edit profile
+                <Pencil />
               </EditProfileButton>
               <ProfileButtons>
-                <Heart />
-                <Favourite />
-                <BellWrapperCard ref={dropdownRef}>
+                <Link href={`/account/liked-content`}>
+                  <span>
+                    <Heart />
+                  </span>
+                </Link>
+                <BookmarkWrapper
+                  ref={dropdownRef}
+                  className={`${dropdowns ? 'active' : ''}`}
+                >
+                  <Favourite onClick={() => setDropdowns(!dropdowns)} />
+                  <BookmarkDropdown
+                    className={`${dropdowns ? 'opened' : ''}`}
+                    onClick={() => setDropdowns(!dropdowns)}
+                  >
+                    <BoomarkItem className="active">
+                      <Link href={'#'}>All the savings</Link>
+                    </BoomarkItem>
+                    <BoomarkItem>
+                      <Link href={'#'}>Articles</Link>
+                    </BoomarkItem>
+                    <BoomarkItem>
+                      <Link href={'#'}>Events</Link>
+                    </BoomarkItem>
+                    <BoomarkItem>
+                      <Link href={'#'}>Activities</Link>
+                    </BoomarkItem>
+                  </BookmarkDropdown>
+                </BookmarkWrapper>
+                <BellWrapperCard
+                  ref={dropdownRef}
+                  className={`${dropdown ? 'active' : ''}`}
+                >
                   <BellWrapper onClick={() => setDropdown(!dropdown)}>
                     <Bell />
                     <span>3</span>
@@ -182,7 +237,6 @@ function Profile(props: { props: UsersPermissionsUser }) {
                 </ActiveUsers> */}
             </ProfileActions>
           </ProfileInfo>
-
           {/* Old Profile UI */}
           <ProfileContent>
             <Row className="g-10">
