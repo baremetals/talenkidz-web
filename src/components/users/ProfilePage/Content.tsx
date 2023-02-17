@@ -48,11 +48,12 @@ const tabs: TabsType = [
 const Content = () => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[2].index);
   return (
-    <ProfileContainer>
-      {/* Timeline section */}
-      <ProfileTimeline>
-        {/* Profile menus */}
-        {/* <ProfileMenus>
+    <>
+      <ProfileContainer>
+        {/* Timeline section */}
+        <ProfileTimeline>
+          {/* Profile menus */}
+          {/* <ProfileMenus>
           <ProfileMenu className="active">
             Articles <PencilTwo/>
           </ProfileMenu>
@@ -63,20 +64,20 @@ const Content = () => {
             Activities <PencilTwo/>
           </ProfileMenu>
         </ProfileMenus> */}
-        <ProfileTabs>
-          <Tabs
-            selectedTab={selectedTab}
-            onClick={setSelectedTab}
-            tabs={tabs}
-          />
-        </ProfileTabs>
-      </ProfileTimeline>
-
-      {/* Sidebar section */}
-      <ProfileSidebar>
-        <Sidebar />
-      </ProfileSidebar>
-    </ProfileContainer>
+          <ProfileTabs>
+            <Tabs
+              selectedTab={selectedTab}
+              onClick={setSelectedTab}
+              tabs={tabs}
+            />
+          </ProfileTabs>
+        </ProfileTimeline>
+        {/* Sidebar section */}
+        <ProfileSidebar>
+          <Sidebar />
+        </ProfileSidebar>
+      </ProfileContainer>
+    </>
   );
 };
 

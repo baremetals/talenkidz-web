@@ -7,7 +7,6 @@ export const ProfileTabs = styled.div`
   .tabs-component {
     div.tabsBlock {
       border: none;
-
       button {
         font-style: normal;
         font-weight: 600;
@@ -169,7 +168,18 @@ export const ProfileButtons = styled.div`
   justify-content: space-between;
   gap: 30px;
   margin-top: 20px;
-
+  span {
+    width: 49px;
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .active {
+    border: 1px solid #ffb800;
+    background: #f1faff;
+    border-radius: 10px;
+  }
   svg {
     cursor: pointer;
   }
@@ -1007,6 +1017,11 @@ export const SendArticleButton = styled.button`
 `;
 export const BellWrapperCard = styled.div`
   position: relative;
+  width: 49px;
+  height: 49px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BellDropdown = styled.div`
@@ -1079,6 +1094,8 @@ export const UserName = styled.div`
   span {
     font-style: normal;
     font-weight: 500;
+    width: auto;
+    height: auto;
     font-size: 10px;
     line-height: 79.5%;
     color: #766b83;
@@ -1093,6 +1110,9 @@ export const UserDec = styled.div`
   color: #574e62;
   span {
     font-weight: 700;
+    width: auto;
+    height: auto;
+    display: contents;
   }
 `;
 
@@ -1130,4 +1150,194 @@ export const ActivityDec = styled.p`
   text-align: center;
   color: #373737;
   margin-bottom: 30px;
+`;
+
+export const CommentBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 90px auto auto;
+  width: calc(100% - 160px);
+  h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #0f021f;
+    margin-bottom: 50px;
+  }
+`;
+
+export const BookmarkWrapper = styled.div`
+  position: relative;
+  width: 49px;
+  height: 49px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BookmarkDropdown = styled.ul`
+  position: absolute;
+  top: 80px;
+  min-width: 298px;
+  width: 100%;
+  right: -110px;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin-top: 1.5rem;
+  box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
+  border-radius: 0.625rem;
+  z-index: 10;
+  display: none;
+  padding: 20px;
+  &.opened {
+    display: block;
+  }
+  @media (max-width: 991px) {
+    right: -40px;
+    min-width: 300px;
+  }
+`;
+
+export const BoomarkItem = styled.li`
+  margin-bottom: 10px;
+  &:hover {
+    a {
+      color: #373737;
+      background: #d3c7e0;
+    }
+  }
+  &.active {
+    border: none;
+    a {
+      color: #373737;
+      background: #d3c7e0;
+    }
+  }
+
+  a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 129.5%;
+    border-radius: 10px;
+    min-height: 53px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+  }
+`;
+
+export const PaymentStatusCard = styled.div`
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+  max-width: 469px;
+  margin: 0 auto;
+  .PaymentStatus {
+    label {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 129.5%;
+      text-align: center;
+      color: #595959;
+      margin-bottom: 20px;
+      display: block;
+    }
+    h1 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 43px;
+      text-align: center;
+      color: #0f021f;
+      margin-bottom: 20px;
+    }
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 129.5%;
+      text-align: center;
+      text-transform: capitalize;
+      color: #272727;
+      margin-bottom: 20px;
+      span {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 129.5%;
+        text-align: center;
+        color: #39007e;
+      }
+    }
+    Button {
+      background: #39007e;
+      border-radius: 20px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+`;
+
+export const PaymentStatusWrapper = styled.div`
+    max-width: calc(100% - 140px);
+    margin: 90px auto 0 auto;
+    @media (max-width: 991px) {
+        max-width: calc(100% - 20px);
+       margin: 60px auto 0 auto;
+    }
+}`;
+
+export const UserProfileImageBlock = styled.div`
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-top: -6rem;
+  margin-right: 2.1875rem;
+  display: flex;
+  justify-content: center;
+  img {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+  }
+  &.premiumStatus {
+    .premium-tag {
+      display: flex;
+      right: 12px;
+      bottom: 12px;
+    }
+    img {
+      border: 5px solid #ffb800;
+    }
+  }
+`;
+
+export const Premium = styled.div`
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+  background: #ffb800;
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
 `;

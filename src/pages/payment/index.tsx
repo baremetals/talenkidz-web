@@ -1,10 +1,12 @@
-import React from 'react'
-import PaymentFlow from 'components/service/Payment'
+import React from 'react';
+import PaymentFlow from 'components/service/Payment';
 
 const CreatePage = () => {
   return (
-    <PaymentFlow />
-  )
-}
+    <>
+      <PaymentFlow />
+    </>
+  );
+};
 
-export default CreatePage
+export default CreatePage;

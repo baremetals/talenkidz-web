@@ -5,8 +5,8 @@ export const YouTube = () => {
     <svg
       width="37"
       viewBox="0 0 22 22"
-      className='youtube'
-    //   fill="none"
+      className="youtube"
+      //   fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
