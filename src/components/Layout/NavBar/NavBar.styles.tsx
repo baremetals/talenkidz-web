@@ -97,7 +97,7 @@ export const NavbarCollapse = styled.div`
   max-width: 50%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   @media (max-width: 991px) {
     margin-top: 80px;
     position: fixed;
@@ -147,7 +147,7 @@ export const NavBarItem = styled.div`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-    color: #39007E;
+    color: #39007e;
     display: block;
     padding: 3px 10px;
     @media (max-width: 991px) {

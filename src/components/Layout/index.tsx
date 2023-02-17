@@ -1,16 +1,13 @@
 import React, { ReactNode } from 'react';
-import Head from "next/head";
-import dynamic from "next/dynamic";
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import axios from 'axios';
 import NavBar from './NavBar';
 import AuthModal from 'components/utilities/Modal';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModal } from 'src/features/modal/reducers';
-import {
-  openSelector,
-} from 'src/features/modal/selectors';
+import { openSelector } from 'src/features/modal/selectors';
 import { useAppSelector } from 'src/app/hooks';
-
 
 const DynamicFooter = dynamic(() => import('./Footer'), {
   ssr: false,
@@ -31,7 +28,6 @@ type LayoutProps = {
   author?: string;
 };
 
-
 const Layout = ({
   children,
   title = `Talentkids | Discover events and activities for kids`,
@@ -48,7 +44,8 @@ const Layout = ({
 }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(openSelector);
-
+  //dispatch(openModal('PROFILE_MODAL'));
+  console.log('123');
   if (typeof window !== 'undefined') {
     // eslint-disable-next-line no-unused-vars, no-async-promise-executor
     const _promise = new Promise(async function (resolve, reject) {
@@ -58,7 +55,6 @@ const Layout = ({
 
       if (r.data.name === 'no cookie') {
         // dispatch(openModal('POLICY_CONSENT'));
-        
       } else {
         // console.log(r.data.policyOptions);
         resolve('Stuff worked!');
@@ -133,9 +129,7 @@ const Layout = ({
       <NavBar />
       {children}
       <DynamicFooter />
-      {isOpen && (
-          <AuthModal />
-        )}
+      {isOpen && <AuthModal />}
     </div>
   );
 };

@@ -1,23 +1,34 @@
-
-import { ActivitiestemBlock, ActivitiesItemImg, ActivitiesInfo,TimeBlock,SportCoach,Visitor,VisitorInner,Visitors, SeeMore, IconBlock } from './styles';
+import {
+  ActivitiestemBlock,
+  ActivitiesItemImg,
+  ActivitiesInfo,
+  TimeBlock,
+  SportCoach,
+  Visitor,
+  VisitorInner,
+  Visitors,
+  SeeMore,
+  IconBlock,
+} from './styles';
 import Image from 'next/image';
-import {  useState } from 'react';
-const ActivitiesItem = ({ date, title, tag, eventImg, participants,  ...props }: any) => {
-
-// const [bookedMarked, setActives] = useState(false);
-//  const toggleClass = () => {
-//     setActives(!bookedMarked);
-//   };
+import { useState } from 'react';
+const ActivitiesItem = ({
+  date,
+  title,
+  tag,
+  eventImg,
+  participants,
+  ...props
+}: any) => {
+  // const [bookedMarked, setActives] = useState(false);
+  //  const toggleClass = () => {
+  //     setActives(!bookedMarked);
+  //   };
 
   return (
     <ActivitiestemBlock>
       <ActivitiesItemImg>
-        <Image
-            src={eventImg}
-            alt="article image"
-            width={340}
-            height={195}
-        />
+        <Image src={eventImg} alt="article image" width={340} height={195} />
         {/* <IconBlock>
            <div
             className={bookedMarked ? 'active' : 'inactive'}
@@ -46,35 +57,39 @@ const ActivitiesItem = ({ date, title, tag, eventImg, participants,  ...props }:
         </IconBlock> */}
       </ActivitiesItemImg>
       <ActivitiesInfo>
-        <h2>{ title}</h2>
+        <h2>{title}</h2>
         <TimeBlock>
-          <label>{date }</label>
-          <span className='tag'>{tag}</span>
+          <label>{date}</label>
+          <span className="tag">{tag}</span>
         </TimeBlock>
         <SportCoach>
-          <div className='coachSpe'>
+          <div className="coachSpe">
             <Image
-            src={'/assets/images/user.png'}
-            alt="article image"
-            width={35}
-            height={35}
-          /> Andrew Swann</div>
-          <div className='freeTag'><span className='dot'></span> Free</div>
+              src={'/assets/images/user.png'}
+              alt="article image"
+              width={35}
+              height={35}
+            />{' '}
+            Andrew Swann
+          </div>
+          <div className="freeTag">
+            <span className="dot"></span> Free
+          </div>
         </SportCoach>
         <Visitor>
           <VisitorInner>
-             <Visitors>
-                <Image
-                        src={'/assets/svgs/participants.svg'}
-                        alt="article image"
-                        width={16}
-                        height={20}
-                />
+            <Visitors>
+              <Image
+                src={'/assets/svgs/participants.svg'}
+                alt="article image"
+                width={16}
+                height={20}
+              />
               <label>{participants}</label>
             </Visitors>
-             <SeeMore href='#'>See more</SeeMore>
+            <SeeMore href="#">See more</SeeMore>
           </VisitorInner>
-         </Visitor>
+        </Visitor>
       </ActivitiesInfo>
     </ActivitiestemBlock>
   );
