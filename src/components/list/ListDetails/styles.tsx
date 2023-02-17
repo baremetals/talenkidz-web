@@ -124,7 +124,7 @@ export const Visitors = styled.div`
   display: flex;
   align-items: center;
 `;
-export const Fee = styled.a`
+export const Fee = styled.div`
   background: rgba(57, 0, 126, 0.2);
   border-radius: 20px;
   margin-left:90px;

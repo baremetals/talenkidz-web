@@ -1,24 +1,25 @@
 import Layout from 'components/Layout';
 import Listings from 'components/list/Listings';
 import {
-  CategoriesDocument,
-  CategoriesQueryResult,
-  CategoryEntity,
   ListingEntity,
   ListingsDocument,
   ListingsQueryResult,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
 import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
+import { useEffect } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
+import { setActivities } from 'src/features/activities';
 
 type pageProps = {
-  lists: { listings: { data: ListingEntity[] } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+  lists: { listings: { data: ListingEntity[]; meta: ResponseCollectionMeta } };
 };
 
 function ListingsPage(props: pageProps) {
-  const { cats, lists } = props;
+  const dispatch = useAppDispatch();
+  const { lists } = props;
   const description = 'Activities';
   const url = 'https://www.talentkids.io/activities';
   // console.log(cats?.data?.categories?.data);
@@ -39,6 +40,15 @@ function ListingsPage(props: pageProps) {
   };
   // console.log(lists)
   useNoAuthPages();
+  useEffect(() => {
+    dispatch(
+      setActivities({
+        activities: lists?.listings?.data,
+        total: lists?.listings?.meta?.pagination?.total,
+        activitiesLength: lists?.listings?.data?.length,
+      })
+    );
+  }, [lists?.listings?.data, lists?.listings?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Activities`}
@@ -48,10 +58,7 @@ function ListingsPage(props: pageProps) {
       type="activities"
       pageUrl={url}
     >
-      <Listings
-        listings={lists?.listings?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <Listings />
     </Layout>
   );
 }
@@ -62,24 +69,14 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
     variables: {
       pagination: {
         start: 0,
-        limit: 6,
+        limit: 2,
       },
       sort: 'createdAt:desc',
     },
   });
 
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
   return {
-    props: { lists: data, cats }, // will be passed to the page component as props
+    props: { lists: data }, // will be passed to the page component as props
   };
 }
 

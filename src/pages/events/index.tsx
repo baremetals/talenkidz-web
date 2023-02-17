@@ -4,8 +4,8 @@ import {
   EventEntity,
   EventsDocument,
   EventsQueryResult,
-  FilteredEventsDocument,
-  FilteredEventsQueryResult,
+  // FilteredEventsDocument,
+  // FilteredEventsQueryResult,
   ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
@@ -66,7 +66,7 @@ const EventsPage = (props: pageProps) => {
   );
 };
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
   
     const { data } = await client.query<EventsQueryResult>({
       query: EventsDocument,

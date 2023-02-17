@@ -8,6 +8,6 @@ export const activitiesSelector = createSelector(
   (state) => state.activities
 );
 
-export const totalSelector = createSelector(selectActivity, (state) => state.total);
+export const listTotalSelector = createSelector(selectActivity, (state) => state.total);
 
-export const AllSelectors = createSelector(selectActivity, (state) => state);
+export const AllActivitiesSelectors = createSelector(selectActivity, (state) => state);

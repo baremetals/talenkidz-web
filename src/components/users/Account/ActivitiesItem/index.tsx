@@ -2,23 +2,23 @@
 import { ActivitiestemBlock, ActivitiesItemImg, ActivitiesInfo,TimeBlock,SportCoach,Visitor,VisitorInner,Visitors, SeeMore, IconBlock } from './styles';
 import Image from 'next/image';
 import {  useState } from 'react';
-const ActivitiesItem = () => {
+const ActivitiesItem = ({ date, title, tag, eventImg, participants,  ...props }: any) => {
 
-const [bookedMarked, setActives] = useState(false);
- const toggleClass = () => {
-    setActives(!bookedMarked);
-  };
+// const [bookedMarked, setActives] = useState(false);
+//  const toggleClass = () => {
+//     setActives(!bookedMarked);
+//   };
 
   return (
     <ActivitiestemBlock>
       <ActivitiesItemImg>
         <Image
-            src={'/assets/images/sport.png'}
+            src={eventImg}
             alt="article image"
             width={340}
             height={195}
         />
-        <IconBlock>
+        {/* <IconBlock>
            <div
             className={bookedMarked ? 'active' : 'inactive'}
               onClick={toggleClass}
@@ -43,13 +43,13 @@ const [bookedMarked, setActives] = useState(false);
               </div>
             )}
           </div>
-        </IconBlock>
+        </IconBlock> */}
       </ActivitiesItemImg>
       <ActivitiesInfo>
-        <h2>ValleyBall team games </h2>
+        <h2>{ title}</h2>
         <TimeBlock>
-          <label>Sun, Thus at 10:00 AM</label>
-          <span className='tag'>Helly’s GYM</span>
+          <label>{date }</label>
+          <span className='tag'>{tag}</span>
         </TimeBlock>
         <SportCoach>
           <div className='coachSpe'>
@@ -70,7 +70,7 @@ const [bookedMarked, setActives] = useState(false);
                         width={16}
                         height={20}
                 />
-                <label>10-15 participants</label>
+              <label>{participants}</label>
             </Visitors>
              <SeeMore href='#'>See more</SeeMore>
           </VisitorInner>

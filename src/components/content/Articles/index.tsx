@@ -92,7 +92,7 @@ const Articles = () => {
   const searchState = useSearchState();
 
   // console.log('from the articles page', articleEntities);
-  const remaining = total % articleEntities?.length;
+  const remaining = total - articleEntities?.length;
   const fetchData = useFetchEntities<TFetchArticleState | null>(
     {
       limit: remaining > 4 ? 4 : remaining,
@@ -105,7 +105,6 @@ const Articles = () => {
   useEffect(() => {
     setFilteredArticles(articleEntities);
   }, [articleEntities]);
-
   
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {

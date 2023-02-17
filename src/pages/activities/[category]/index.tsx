@@ -1,26 +1,28 @@
+import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from 'src/app/hooks';
+import { setActivities } from 'src/features/activities';
+import { client } from 'src/lib/initApollo';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import Layout from 'components/Layout';
-import ListingsCategories from 'components/list/CategoryListings';
+import CategoryListings from 'components/list/CategoryListings';
 import {
-  CategoriesDocument,
-  CategoriesQueryResult,
-  CategoryEntity,
   FilteredListingsDocument,
   FilteredListingsQueryResult,
   ListingEntity,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
-import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/hooks/noAuth';
-import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
 
 type pageProps = {
-  lists: { listings: { data: ListingEntity[] } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+  lists: { listings: { data: ListingEntity[]; meta: ResponseCollectionMeta } };
 };
 
 function FilteredListingsPage(props: pageProps) {
   const router = useRouter();
-  const { cats, lists } = props;
+  const dispatch = useAppDispatch();
+  const { lists } = props;
   const { category } = router.query;
 
   const description = 'Activities';
@@ -30,18 +32,21 @@ function FilteredListingsPage(props: pageProps) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Events',
-    //  about: {description},
-    // description: meta?.description,
-    // author: [
-    //     {
-    //         '@type': 'Person',
-    //         name: author?.fullName,
-    //     },
-    // ],
-    // image: meta?.image,
-    // datePublished: article?.attributes?.updatedAt,
   };
   useNoAuthPages();
+  useEffect(() => {
+    dispatch(
+      setActivities({
+        activities: lists?.listings?.data,
+        total: lists?.listings?.meta?.pagination?.total,
+        activitiesLength: lists?.listings?.data?.length,
+      })
+    );
+  }, [
+    lists?.listings?.data,
+    lists?.listings?.meta?.pagination?.total,
+    dispatch,
+  ]);
   return (
     <Layout
       title={`Talentkids | Activities`}
@@ -51,11 +56,7 @@ function FilteredListingsPage(props: pageProps) {
       type="activities"
       pageUrl={url}
     >
-      
-      <ListingsCategories
-        listings={lists?.listings?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <CategoryListings />
     </Layout>
   );
 }
@@ -80,18 +81,9 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   });
 
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
+
   return {
-    props: { lists: data, cats }, // will be passed to the page component as props
+    props: { lists: data }, // will be passed to the page component as props
   };
 }
 

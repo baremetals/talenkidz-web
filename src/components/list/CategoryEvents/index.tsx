@@ -1,39 +1,26 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import EventItem from 'components/list/EventItem';
-import Button from 'components/users/Auth/Button';
 import ListCategory from 'components/utilities/Categories/ListCategory';
 import Banner from 'components/widgets/Banner';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import PageTitle from 'components/widgets/PageTitle';
 
-
-
-// import { ThumbsUp } from 'public/assets/icons/ThumbsUp'
-// import { BookMark } from 'public/assets/icons/BookMark'
 import { EventEntity } from 'generated/graphql';
-import {
-  CategoriesBlock,
-  EventList,
-} from '../Events/styles';
+import { CategoriesBlock, EventList } from '../Events/styles';
 
+import HeroSearch from 'components/utilities/search/HeroSearch';
+import { useAppSelector } from 'src/app/hooks';
+import { eventsSelector } from 'src/features/events';
+import { searchingSelector } from 'src/features/search';
 import {
   Column,
   InnerContainer,
   PageContainer,
   Row,
 } from 'styles/common.styles';
-import { useAppSelector } from 'src/app/hooks';
-import { eventsSelector } from 'src/features/events';
-import HeroSearch from 'components/utilities/search/HeroSearch';
-import { searchingSelector } from 'src/features/search';
-import EventFilters from '../Events/EventFilters';
-
-// type pageProps = {
-//   events: EventEntity[];
-//   categories: CategoryEntity[];
-// };
+import EventFilters from '../ListFilters';
 
 const CategoryEvents = () => {
   const router = useRouter();
@@ -47,7 +34,6 @@ const CategoryEvents = () => {
   useEffect(() => {
     setFilteredEvents(eventEntities);
   }, [eventEntities]);
-
 
   const route = [
     {
@@ -81,10 +67,11 @@ const CategoryEvents = () => {
             <HeroSearch
               placeholder={'Search events that may be interesting for you'}
               entities={eventEntities}
+              entityType={'event'}
             />
           </Banner>
           {/* event */}
-          {!searching && <EventFilters />}
+          {!searching && <EventFilters entityType={'event'} />}
 
           <EventList>
             <Row>
@@ -93,8 +80,8 @@ const CategoryEvents = () => {
                   <PageTitle
                     className="pageTitle"
                     text={[
-                      'Most',
-                      <span key={'popular'}>popular</span>,
+                      'Most popular',
+                      <span key={category as string}>{category}</span>,
                       'events',
                     ]}
                   />
@@ -131,7 +118,7 @@ const CategoryEvents = () => {
             </Row>
           </EventList>
 
-          <EventList className="thisWeek">
+          {/* <EventList className="thisWeek">
             <Row>
               <Column>
                 <PageTitle
@@ -171,19 +158,10 @@ const CategoryEvents = () => {
                 </Column>
               ))}
             </Row>
+          </EventList> */}
+          <br></br>
+          <br></br>
 
-            <Row className="buttonRow">
-              <Column>
-                <Button
-                  content="See more events "
-                  type="submit"
-                  disabled={false}
-                  loading={false}
-                ></Button>
-              </Column>
-            </Row>
-          </EventList>
-          
           {/* Categories*/}
           <CategoriesBlock>
             <ListCategory />

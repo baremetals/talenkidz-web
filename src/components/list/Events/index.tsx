@@ -1,7 +1,6 @@
 import {
   EventEntity,
   EventsDocument,
-  ResponseCollectionMeta,
 } from 'generated/graphql';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -15,8 +14,10 @@ import PageTitle from 'components/widgets/PageTitle';
 
 import { CategoriesBlock, EventList } from './styles';
 
+import Search from 'components/utilities/search/HeroSearch';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { eventsSelector, setEvents, totalSelector } from 'src/features/events';
+import { searchingSelector } from 'src/features/search';
 import { useFetchEntities } from 'src/hooks/usefetchEntities';
 import {
   Column,
@@ -24,18 +25,8 @@ import {
   PageContainer,
   Row,
 } from 'styles/common.styles';
-import EventFilters from './EventFilters';
-import Search from 'components/utilities/search/HeroSearch';
-import { searchingSelector } from 'src/features/search';
-
-type TFetchArticleState = {
-  data: {
-    events: {
-      data: EventEntity[];
-      meta: ResponseCollectionMeta;
-    };
-  };
-};
+import EventFilters from '../ListFilters';
+import { TFetchEventState } from 'src/types';
 
 const Events = () => {
   const dispatch = useAppDispatch();
@@ -46,8 +37,8 @@ const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState<EventEntity[]>([]);
   // console.log(searching);
 
-  const remaining = total % eventEntities?.length;
-  const fetchData = useFetchEntities<TFetchArticleState | null>(
+  const remaining = total - eventEntities?.length;
+  const fetchData = useFetchEntities<TFetchEventState | null>(
     {
       limit: remaining > 4 ? 4 : remaining,
       start: eventEntities?.length as number,
@@ -101,12 +92,13 @@ const Events = () => {
             <Search
               placeholder={'Search events that may be interesting for you'}
               entities={eventEntities}
+              entityType={'event'}
             />
           </Banner>
           {/* event */}
           {!searching && (
             <>
-              <EventFilters />
+              <EventFilters entityType={'event'} />
 
               {/* Categories*/}
               <CategoriesBlock>

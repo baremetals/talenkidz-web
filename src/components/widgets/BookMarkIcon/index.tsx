@@ -82,7 +82,7 @@ const BookMarkIcon = ({ id, title, slug, image, detailsPage = false, width = 25,
   return (
     <div
       className={bookedMarked ? 'active' : 'inactive'}
-      // onClick={handleClick}
+      style={{ cursor: 'pointer' }}
     >
       {bookedMarked ? (
         <div className="bookmarkActive">

@@ -276,8 +276,9 @@ function EventDetails(props: {
               />
             </Column>
           </Row>
+
           <Row>
-            <RelatedEvents category={category} />
+            <RelatedEvents category={category} />            
           </Row>
           <Row className="buttonRow">
             <Link passHref href={'/events'}>
@@ -287,7 +288,7 @@ function EventDetails(props: {
                   type="submit"
                   disabled={false}
                   loading={false}
-                ></Button>
+                />
               </Column>
             </Link>
           </Row>

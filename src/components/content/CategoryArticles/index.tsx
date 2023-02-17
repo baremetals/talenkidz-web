@@ -47,7 +47,7 @@ const CategoryArticles = () => {
   const searchState = useSearchState();
 
   // console.log(router.query.category);
-  const remaining = total % articleEntities?.length;
+  const remaining = total - articleEntities?.length;
   // const fetchData = useFetchEntities({
   //   limit: remaining > 4 ? 4 : remaining,
   //   start: articleEntities?.length as number,

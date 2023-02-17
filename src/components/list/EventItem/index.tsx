@@ -56,10 +56,10 @@ const EventItem: React.FC<IEventCard> = ({
           width={1170}
           height={601}
         />
-        <IconBlock style={{ cursor: 'pointer' }}>
+        <IconBlock>
           <BookMarkIcon
             id={id}
-            title={cutTextToLength(title, 45)}
+            title={title}
             slug={slug as string}
             image={image as string}
             width={20}
@@ -70,7 +70,7 @@ const EventItem: React.FC<IEventCard> = ({
 
       <EventInfo>
         <Link passHref href={route}>
-          <h2>{title}</h2>
+          <h2>{cutTextToLength(title, 45)}</h2>
         </Link>
         <TimeBlock>
           <label>{formatTimeAndDate(starDate, starTime)}</label>

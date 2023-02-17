@@ -39,6 +39,7 @@ export const ActivitiesInfo = styled.div`
     font-size: 24px;
     line-height: 110.1%;
     margin-bottom:25px;
+    cursor: pointer;
   }
 `;
 

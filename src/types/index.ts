@@ -88,8 +88,21 @@ export type TCategory = {
   };
 };
 
+export type TTags = {
+  id: number;
+  attributes: {
+    name: string;
+    createdAt: string;
+  };
+};
+
 export type TGetCats = {
   data: TCategory[];
+  total: number;
+};
+
+export type TGetTags = {
+  data: TTags[];
   total: number;
 };
 
@@ -103,6 +116,33 @@ export type TGetArticles = {
   data: {
     articles: {
       data: ArticleEntity[];
+      meta: ResponseCollectionMeta;
+    };
+  };
+};
+
+export type TGetActivities = {
+  data: {
+    listings: {
+      data: ListingEntity[];
+      meta: ResponseCollectionMeta;
+    };
+  };
+};
+
+export type TFetchActivityState = {
+  data: {
+    listings: {
+      data: ListingEntity[];
+      meta: ResponseCollectionMeta;
+    };
+  };
+};
+
+export type TFetchEventState = {
+  data: {
+    events: {
+      data: EventEntity[];
       meta: ResponseCollectionMeta;
     };
   };
