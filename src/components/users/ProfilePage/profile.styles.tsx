@@ -1372,7 +1372,7 @@ export const BookmarkBlock = styled.div`
   .ArticleRow {
     .kidsRow {
       margin-bottom: 44px;
-      max-width: 611px;
+      max-width: 681px;
     }
   }
 `;
