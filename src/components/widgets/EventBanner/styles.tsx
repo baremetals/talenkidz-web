@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-scroll"
+import styled from 'styled-components';
+import { Link } from 'react-scroll';
 // import Spinner from "components/Layout/Spinner";
 
 export const BannerBlock = styled.div`
@@ -8,19 +8,19 @@ export const BannerBlock = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
-  margin-top:120px;
+  margin-top: 60px;
   input {
-   background: #fff;
+    background: #fff;
   }
 `;
 export const BannerImg = styled.div`
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-    }
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+  }
 `;
 export const Icon = styled.div`
   position: absolute;
@@ -35,5 +35,3 @@ export const Icon = styled.div`
   justify-content: center;
   border-radius: 50%;
 `;
-
-

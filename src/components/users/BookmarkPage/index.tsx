@@ -5,7 +5,7 @@ import { UsersPermissionsUser } from 'generated/graphql';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
-
+import ArticleCard from 'components/content/Articles/ArticleCard';
 import NavBar from 'components/Layout/NavBar';
 import { Row, Column, Text, InnerContainer, Title } from 'styles/common.styles';
 
@@ -34,10 +34,10 @@ import {
   // VideoGallery
   BellWrapperCard,
   BellDropdown,
-  CommentBlock,
+  BookmarkBlock,
+  BoomarkItem,
   BookmarkDropdown,
   BookmarkWrapper,
-  BoomarkItem,
 } from '../ProfilePage/profile.styles';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
@@ -45,14 +45,15 @@ import Pencil from 'public/assets/icons/Pencil';
 import Heart from 'public/assets/icons/Heart';
 import Favourite from 'public/assets/icons/FavouriteInactive';
 import Bell from 'public/assets/icons/Bell';
-import CommentBox from 'components/widgets/ArticleCommentBox/CommentBox';
 
 import PencilTwo from 'public/assets/icons/PencilTwo';
 import Notification from '../ProfilePage/Notification';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModal } from 'src/features/modal/reducers';
 import Link from 'next/link';
-function LikedPage(props: { props: UsersPermissionsUser }) {
+
+function BookmarkPage(props: { props: UsersPermissionsUser }) {
+  const { user: user } = useAppSelector(isUser);
   const [dropdown, setDropdown] = useState(false);
   const [dropdowns, setDropdowns] = useState(false);
   const dropdownRef = useRef<any>(null);
@@ -142,12 +143,12 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
                 <Pencil />
               </EditProfileButton>
               <ProfileButtons>
-                <span className="active">
+                <span>
                   <Heart />
                 </span>
                 <BookmarkWrapper
                   ref={dropdownRef}
-                  className={`${dropdowns ? 'active' : ''}`}
+                  className={`${dropdowns ? 'active' : 'active'}`}
                 >
                   <Favourite onClick={() => setDropdowns(!dropdowns)} />
                   <BookmarkDropdown
@@ -189,14 +190,49 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
             </ProfileActions>
           </ProfileInfo>
           {/* Old Profile UI */}
-          <CommentBlock>
-            <h1>Liked content </h1>
-            <CommentBox />
-          </CommentBlock>
+          <BookmarkBlock>
+            <div className="BreadcrumbsBookmark">
+              <h2>All the savings</h2>
+              <span className="cricle"></span>
+              <span className="category">Articles</span>
+            </div>
+            <div className="ArticleRow">
+              <ArticleCard
+                key={'1'}
+                id={'11'}
+                authorImg={''}
+                authorName={'Ally Blackmay'}
+                articleTitle={'Raise good Humans'}
+                articleIntro={
+                  'What I learned when my kids said college wasn’t for them'
+                }
+                articleImage={''}
+                readingTime={'9 min read'}
+                createdAt={'Mar 8'}
+                category={'Self-development'}
+                slug={'Self-development'}
+              />
+              <ArticleCard
+                key={'1'}
+                id={'11'}
+                authorImg={''}
+                authorName={'Ally Blackmay'}
+                articleTitle={'Raise good Humans'}
+                articleIntro={
+                  'What I learned when my kids said college wasn’t for them'
+                }
+                articleImage={''}
+                readingTime={'9 min read'}
+                createdAt={'Mar 8'}
+                category={'Self-development'}
+                slug={'Self-development'}
+              />
+            </div>
+          </BookmarkBlock>
         </InnerContainer>
       </Dashboard>
     </div>
   );
 }
 
-export default LikedPage;
+export default BookmarkPage;

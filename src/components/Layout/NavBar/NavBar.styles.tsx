@@ -26,6 +26,22 @@ export const ProfileSetting = styled.div`
     flex-direction: column;
     justify-content: flex-end;
   }
+  &.userBlock {
+    min-width: 140px;
+    display: flex;
+    justify-content: end;
+    @media (max-width: 991px) {
+      min-width: auto;
+      flex: inherit;
+      img {
+        margin: 0;
+      }
+      .opened {
+        position: absolute;
+        min-width: 140px;
+      }
+    }
+  }
 `;
 
 export const ProfileImg = styled.img`
@@ -91,13 +107,20 @@ export const NavBarHeader = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  .rightHeder {
+    display: flex;
+    align-items: center;
+    button {
+      margin-right: 10px;
+    }
+  }
 `;
 
 export const NavbarCollapse = styled.div`
   max-width: 50%;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   @media (max-width: 991px) {
     margin-top: 80px;
     position: fixed;

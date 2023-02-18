@@ -196,16 +196,16 @@ function Profile(props: { props: UsersPermissionsUser }) {
                     onClick={() => setDropdowns(!dropdowns)}
                   >
                     <BoomarkItem className="active">
-                      <Link href={'#'}>All the savings</Link>
+                      <Link href={'/articles'}>All the savings</Link>
                     </BoomarkItem>
                     <BoomarkItem>
-                      <Link href={'#'}>Articles</Link>
+                      <Link href={'/articles'}>Articles</Link>
                     </BoomarkItem>
                     <BoomarkItem>
-                      <Link href={'#'}>Events</Link>
+                      <Link href={'/articles'}>Events</Link>
                     </BoomarkItem>
                     <BoomarkItem>
-                      <Link href={'#'}>Activities</Link>
+                      <Link href={'/articles'}>Activities</Link>
                     </BoomarkItem>
                   </BookmarkDropdown>
                 </BookmarkWrapper>

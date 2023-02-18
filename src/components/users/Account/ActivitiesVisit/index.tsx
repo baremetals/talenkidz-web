@@ -31,7 +31,6 @@ const ActivitiesVisit = () => {
           tag="Helly’s GYM"
           date="Mon, Tus at 15:00 PM"
           participants="10-15 participants "
-          edit
           eventImg="/assets/images/eventvisit.jpg"
         />
       </Column>

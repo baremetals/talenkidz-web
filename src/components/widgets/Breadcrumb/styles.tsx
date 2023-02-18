@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Breadcrumbs = styled.ul`
   list-style: none;
   padding: 0;
-  margin-left:60px;
+  margin-left: 0;
   & > li:after {
-    content: "";
+    content: '';
     width: 10px;
     height: 10px;
     margin: 0 20px;
@@ -18,18 +18,18 @@ export const Breadcrumbs = styled.ul`
 export const Crumb = styled.li`
   display: inline-block;
   &:last-of-type:after {
-    content: "";
+    content: '';
     padding: 0;
-     display: none;
+    display: none;
   }
 
   a {
-      color: #0F021F;
-      text-decoration: none;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 17px;
+    color: #0f021f;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
     &:hover,
     &:active {
       text-decoration: none;
