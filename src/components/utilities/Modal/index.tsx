@@ -16,6 +16,7 @@ import PolicySettings from 'components/service/Policy/PolicySettings';
 import ParticipationModal from './ParticipationModal';
 import ProfileInformationModal from './ProfileInformationModal';
 import FeedbackModal from './FeedbackModal';
+import EditCommentInput from 'components/utilities/comments/EditCommentInput';
 
 /** Components Name Constants */
 const MODAL_COMPONENTS = {
@@ -30,6 +31,7 @@ const MODAL_COMPONENTS = {
   PARTICIPATION_MODAL: ParticipationModal,
   FEEDBACK_MODAL: FeedbackModal,
   PROFILE_MODAL: ProfileInformationModal,
+  EDIT_COMMENT_MODAL: EditCommentInput,
 };
 
 export default function AuthModal({ ...props }: any) {
@@ -71,13 +73,13 @@ export default function AuthModal({ ...props }: any) {
     return null;
   }
 
-  console.log(modalComponent);
-  const AuthContent: any = MODAL_COMPONENTS[modalComponent];
+  // console.log(modalComponent);
+  const ModalContent: any = MODAL_COMPONENTS[modalComponent];
   return (
     <Background onClick={dropModal} ref={modalRef} {...props}>
       <animated.div styled={animation} {...props}>
         {/* <div className="closeModal" onClick={() => dispatch(closeModal())}>x</div> */}
-        <AuthContent />
+        <ModalContent />
       </animated.div>
     </Background>
   );

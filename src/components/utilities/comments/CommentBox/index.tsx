@@ -92,6 +92,7 @@ const CommentBox: React.FC<ICommentBox> = ({
           type="submit"
           disabled={false}
           loading={false}
+          aria-label="submit button"
           onClick={(e) => handleSubmit(e)}
         >
           <Image

@@ -89,7 +89,7 @@ export type TCategory = {
 };
 
 export type TTags = {
-  id: number;
+  id: string;
   attributes: {
     name: string;
     createdAt: string;

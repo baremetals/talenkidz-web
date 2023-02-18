@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import NavBar from './NavBar';
 import AuthModal from 'components/utilities/Modal';
-import { useAppDispatch } from 'src/app/hooks';
-import { openModal } from 'src/features/modal/reducers';
+// import { useAppDispatch } from 'src/app/hooks';
+// import { openModal } from 'src/features/modal/reducers';
 import { openSelector } from 'src/features/modal/selectors';
 import { useAppSelector } from 'src/app/hooks';
 
@@ -42,10 +42,10 @@ const Layout = ({
   keywords,
   author,
 }: LayoutProps) => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const isOpen = useAppSelector(openSelector);
   //dispatch(openModal('PROFILE_MODAL'));
-  console.log('123');
+  // console.log('123');
   if (typeof window !== 'undefined') {
     // eslint-disable-next-line no-unused-vars, no-async-promise-executor
     const _promise = new Promise(async function (resolve, reject) {

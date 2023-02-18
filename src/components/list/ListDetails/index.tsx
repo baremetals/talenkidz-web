@@ -21,7 +21,7 @@ import {
   ActivitiesAction,
   ActivitiesDetails,
   ActivitiesList,
-  CommentBox,
+  // CommentBox,
   EventButton,
   Fee,
   ImageIcon,
@@ -40,7 +40,7 @@ import Link from 'next/link';
 // import { SocialDropDownIcon } from '../../../public/assets/icons/SocialDropDownIcon';
 import GoogleMap from 'components/utilities/Google/GoogleMap';
 
-import ArticleCommentBox from 'components/widgets/ArticleCommentBox';
+// import ArticleCommentBox from 'components/widgets/ArticleCommentBox';
 import { getDuration } from 'src/utils';
 
 function ListDetails(props: {
@@ -305,9 +305,9 @@ function ListDetails(props: {
             </GoogleMap>
           </AddressMap>
 
-          <CommentBox>
+          {/* <CommentBox>
             <ArticleCommentBox className="commentBox" />
-          </CommentBox>
+          </CommentBox> */}
         </ActivitiesAction>
 
         {/* <Activitie*/}

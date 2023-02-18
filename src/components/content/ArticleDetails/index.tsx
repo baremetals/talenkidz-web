@@ -321,7 +321,10 @@ export const ArticleDetails = (props: {
                 pathname={`/articles/${categoryArticle.toLowerCase()}/${postSlug}`}
               />
 
-              <Comments firebaseId={article?.attributes?.firebaseId as string}>
+              <Comments
+                firebaseId={article?.attributes?.firebaseId as string}
+                totalComments={article?.attributes?.totalComments as number}
+              >
                 {user && firebaseUser && (
                   <CommentBox
                     userId={user?.id as number}

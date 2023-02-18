@@ -21,7 +21,7 @@ type contents = {
   likes?: ComponentLikesLikes[] | ILike;
 };
 
-export const updateStrapiEntity = async (entityName: string, entityId: string, contents: contents) => {
+export const updateStrapiEntity = async <T>(entityName: string, entityId: string, contents: contents): Promise<T> => {
   return axios.post('/api/entity/update', {
     data: {
       entity: entityName,
@@ -41,7 +41,9 @@ export const fetchApiGet = async <T>(url: string): Promise<T> => {
 };
 
 
-export const updateStrapiUserBookMarks = async (bookmarklist: TBookMark[]) => {
+export const updateStrapiUserBookMarks = async (
+  bookmarklist: TBookMark[]
+) => {
   return axios.post('/api/user/bookmark', {
     data: bookmarklist,
   });

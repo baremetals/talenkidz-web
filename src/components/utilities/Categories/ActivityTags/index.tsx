@@ -35,7 +35,7 @@ const ActivityTags: React.FC<TagsProps> = ({ filterItem }) => {
   );
   const activityEntities = useAppSelector(activitiesSelector);
   const [tags, setTags] = useState<TTags[] | undefined>(data?.data);
-  const [idNumber, setIdNumber] = useState<number | null>(null);
+  const [idNumber, setIdNumber] = useState<string | null>(null);
   const [indexNumber, setIndexNumber] = useState<number>(0);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const ActivityTags: React.FC<TagsProps> = ({ filterItem }) => {
   );
 
   const handleFetchData = useCallback(
-    async (id: number) => {
+    async (id: string) => {
       const body = JSON.stringify({
         limit: 12,
         start: 0,
@@ -172,9 +172,9 @@ const ActivityTags: React.FC<TagsProps> = ({ filterItem }) => {
       <CategorieList>
         <CategorieRow>
           {(tags?.length as number) > 0 ? (
-            tags?.map((item, i) => (
+            tags?.map((item) => (
               <Categoriecolumn
-                key={i}
+                key={item?.id}
                 className={idNumber === item?.id ? 'active' : ''}
                 onClick={() => handleFetchData(item?.id)}
               >

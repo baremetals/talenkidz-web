@@ -130,7 +130,12 @@ function EventDetails(props: {
                   rel="noreferrer"
                 >
                   <Button
-                    content="Participate"
+                    content={
+                      event?.attributes?.linkButtonText?.replace(
+                        '_',
+                        ' '
+                      ) as string
+                    }
                     type="submit"
                     disabled={false}
                     loading={false}
@@ -234,7 +239,12 @@ function EventDetails(props: {
                   rel="noreferrer"
                 >
                   <Button
-                    content="Participate"
+                    content={
+                      event?.attributes?.linkButtonText?.replace(
+                        '_',
+                        ' '
+                      ) as string
+                    }
                     type="submit"
                     disabled={false}
                     loading={false}
@@ -278,7 +288,7 @@ function EventDetails(props: {
           </Row>
 
           <Row>
-            <RelatedEvents category={category} />            
+            <RelatedEvents category={category} />
           </Row>
           <Row className="buttonRow">
             <Link passHref href={'/events'}>
