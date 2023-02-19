@@ -8,16 +8,17 @@ import {
   VisitorInner,
   Visitors,
   SeeMore,
-  IconBlock,
 } from './styles';
 import Image from 'next/image';
-import { useState } from 'react';
+import { EditButton } from '../EventItem/styles';
+import PencilTwo from 'public/assets/icons/PencilTwo';
 const ActivitiesItem = ({
   date,
   title,
   tag,
   eventImg,
   participants,
+  edit,
   ...props
 }: any) => {
   // const [bookedMarked, setActives] = useState(false);
@@ -26,7 +27,7 @@ const ActivitiesItem = ({
   //   };
 
   return (
-    <ActivitiestemBlock>
+    <ActivitiestemBlock {...props}>
       <ActivitiesItemImg>
         <Image src={eventImg} alt="article image" width={340} height={195} />
         {/* <IconBlock>
@@ -87,7 +88,14 @@ const ActivitiesItem = ({
               />
               <label>{participants}</label>
             </Visitors>
-            <SeeMore href="#">See more</SeeMore>
+            {edit ? (
+              <EditButton>
+                Edit
+                <PencilTwo />
+              </EditButton>
+            ) : (
+              <SeeMore href="#">See More</SeeMore>
+            )}
           </VisitorInner>
         </Visitor>
       </ActivitiesInfo>

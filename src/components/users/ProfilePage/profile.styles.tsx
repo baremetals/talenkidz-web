@@ -778,6 +778,9 @@ export const ProfileCoverWrapper = styled.div`
     top: 30px;
     right: 45px;
   }
+  @media (max-width: 991px) {
+    margin-top: 130px;
+  }
 `;
 
 export const EditCoverButton = styled.button`
@@ -1340,4 +1343,36 @@ export const Premium = styled.div`
   display: none;
   align-items: center;
   justify-content: center;
+`;
+
+export const BookmarkBlock = styled.div`
+  margin: 90px auto auto;
+  width: calc(100% - 160px);
+  margin-top: 80px;
+  .BreadcrumbsBookmark {
+    display: flex;
+    align-items: center;
+    margin-bottom: 47px;
+    .cricle {
+      width: 10px;
+      height: 10px;
+      margin: 0 20px;
+      background: rgba(57, 0, 126, 0.2);
+      display: inherit;
+      border-radius: 50px;
+    }
+    .category {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+      color: #574e62;
+    }
+  }
+  .ArticleRow {
+    .kidsRow {
+      margin-bottom: 44px;
+      max-width: 681px;
+    }
+  }
 `;

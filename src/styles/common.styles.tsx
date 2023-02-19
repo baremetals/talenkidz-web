@@ -49,9 +49,6 @@ export const Content = styled.div`
 
 export const PageHeading = styled.h1``;
 
-
-
-
 export const Logo = styled.div`
   margin-right: auto;
   font-weight: bold;
@@ -66,7 +63,6 @@ export const Logo = styled.div`
     }
   }
 `;
-
 
 export const NavBarItemLink = styled.a`
   cursor: pointer;
@@ -508,8 +504,6 @@ export const FooterTitle = styled.h4`
   margin-bottom: 2rem;
 `;
 
-
-
 export const MediaObject = styled.div``;
 
 export const MediaObjectItem = styled.div`
@@ -741,15 +735,7 @@ export const BlockquoteName = styled.span`
   font-style: normal;
 `;
 
-
-
 export const FormWrap = styled(Form)``;
-
-
-
-
-
-
 
 export const FlexGroup = styled.div`
   display: flex;
@@ -1319,8 +1305,6 @@ export const AdBlock = styled.div`
   top: 0;
 `;
 
-
-
 export const Question = styled.section`
   padding-top: 6.25rem;
   padding-bottom: 6.25rem;
@@ -1351,17 +1335,22 @@ export const Question = styled.section`
 `;
 
 export const SerchBlocks = styled.div`
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 `;
 
-
-
-
-
-
-
-
-
-
-
-
+export const EditCommentInputModal = styled.div`
+  border-radius: 20px;
+  max-width: 504px;
+  margin: 0 auto;
+  svg {
+    fill: #fff;
+    background: #fff;
+  }
+  textarea {
+    &:focus {
+      outline:none;
+      box-shadow: none;
+    }
+  }
+}
+`;

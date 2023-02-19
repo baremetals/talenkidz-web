@@ -92,11 +92,6 @@ export default function UserHeader() {
                 </Logo>
               </Link>
             </LogoBlock>
-            <ToggleBar onMouseDown={handleNavBar} aria-label="toggle button">
-              <span></span>
-              <span></span>
-              <span></span>
-            </ToggleBar>
             <NavbarCollapse className={`${toggle ? 'opened' : ''}`}>
               <NavBarNav ref={sidebarRef}>
                 <NavBarItem
@@ -139,9 +134,21 @@ export default function UserHeader() {
                 >
                   <button>Connect</button>
                 </NavBarItem>
+              </NavBarNav>
+            </NavbarCollapse>
+            <>
+              <div className="rightHeder">
+                <ToggleBar
+                  onMouseDown={handleNavBar}
+                  aria-label="toggle button"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </ToggleBar>
                 {user?.id && (
                   <>
-                    <ProfileSetting ref={dropdownRef}>
+                    <ProfileSetting className="userBlock" ref={dropdownRef}>
                       <ProfileImg
                         onClick={() => setDropdown(!dropdown)}
                         alt="user profile image"
@@ -158,9 +165,7 @@ export default function UserHeader() {
                           <Link href={`/account/`}>Profile</Link>
                         </ProfileItem>
                         <ProfileItem>
-                          <Link href={`/account/edit-me`}>
-                            Edit Profile
-                          </Link>
+                          <Link href={`/account/edit-me`}>Edit Profile</Link>
                         </ProfileItem>
                         <ProfileItem>
                           <Link href="/privacy">Privacy settings</Link>
@@ -175,8 +180,8 @@ export default function UserHeader() {
                     </ProfileSetting>
                   </>
                 )}
-              </NavBarNav>
-            </NavbarCollapse>
+              </div>
+            </>
             {!user?.id && (
               <>
                 <NavBarItem className="signup" onClick={() => handleModal()}>
