@@ -85,12 +85,12 @@ function Profile(props: { props: UsersPermissionsUser }) {
     bio,
     membership,
     userType,
-    createdAt
+    createdAt,
   } =
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
   const dispatch = useAppDispatch();
-  console.log(props.props)
+  console.log(props.props);
 
   return (
     <Dashboard>
@@ -104,11 +104,12 @@ function Profile(props: { props: UsersPermissionsUser }) {
             // height={300}
           />
           <div className="actions">
-            <EditCoverButton>
-              Edit the cover{' '}
+            <EditCoverButton htmlFor="inputTag">
+              Edit the cover
               <span>
                 <PencilTwo />
               </span>
+              <input id="inputTag" className="inputTag" type="file" />
             </EditCoverButton>
           </div>
         </ProfileCoverWrapper>
@@ -197,29 +198,11 @@ function Profile(props: { props: UsersPermissionsUser }) {
                   <Heart />
                 </span>
               </Link>
-              <BookmarkWrapper
-                ref={dropdownRef}
-                className={`${dropdowns ? 'active' : ''}`}
-              >
-                <Favourite onClick={() => setDropdowns(!dropdowns)} />
-                <BookmarkDropdown
-                  className={`${dropdowns ? 'opened' : ''}`}
-                  onClick={() => setDropdowns(!dropdowns)}
-                >
-                  <BoomarkItem className="active">
-                    <Link href={'/articles'}>All the savings</Link>
-                  </BoomarkItem>
-                  <BoomarkItem>
-                    <Link href={'/articles'}>Articles</Link>
-                  </BoomarkItem>
-                  <BoomarkItem>
-                    <Link href={'/articles'}>Events</Link>
-                  </BoomarkItem>
-                  <BoomarkItem>
-                    <Link href={'/articles'}>Activities</Link>
-                  </BoomarkItem>
-                </BookmarkDropdown>
-              </BookmarkWrapper>
+              <Link passHref href={`/account/articles`}>
+                <span>
+                  <Favourite />
+                </span>
+              </Link>
               <BellWrapperCard
                 ref={dropdownRef}
                 className={`${dropdown ? 'active' : ''}`}

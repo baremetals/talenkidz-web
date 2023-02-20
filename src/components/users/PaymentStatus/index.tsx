@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 import Image from 'next/image';
 import NavBar from 'components/Layout/NavBar';
 import { Row, Column, Text, InnerContainer, Title } from 'styles/common.styles';
-
+import Link from 'next/link';
 import {
   Dashboard,
   ProfileCoverImage,
@@ -76,11 +76,12 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
               // height={300}
             />
             <div className="actions">
-              <EditCoverButton>
-                Edit the cover asas{' '}
+              <EditCoverButton htmlFor="inputTag">
+                Edit the cover
                 <span>
                   <PencilTwo />
                 </span>
+                <input id="inputTag" className="inputTag" type="file" />
               </EditCoverButton>
             </div>
           </ProfileCoverWrapper>
@@ -153,12 +154,16 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
                 <Pencil />
               </EditProfileButton>
               <ProfileButtons>
-                <span>
-                  <Heart />
-                </span>
-                <span>
-                  <Favourite />
-                </span>
+                <Link passHref href={`/account/liked-content`}>
+                  <span>
+                    <Heart />
+                  </span>
+                </Link>
+                <Link passHref href={`/account/articles`}>
+                  <span>
+                    <Favourite />
+                  </span>
+                </Link>
                 <BellWrapperCard
                   className={`${dropdown ? 'active' : ''}`}
                   ref={dropdownRef}
