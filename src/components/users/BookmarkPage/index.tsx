@@ -37,7 +37,9 @@ import {
   BookmarkBlock,
   BoomarkItem,
   BookmarkDropdown,
+  BookmarkList,
   BookmarkWrapper,
+  BookmarkListWrapper,
 } from '../ProfilePage/profile.styles';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
@@ -143,32 +145,16 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                 <Pencil />
               </EditProfileButton>
               <ProfileButtons>
-                <span>
-                  <Heart />
-                </span>
-                <BookmarkWrapper
-                  ref={dropdownRef}
-                  className={`${dropdowns ? 'active' : 'active'}`}
-                >
-                  <Favourite onClick={() => setDropdowns(!dropdowns)} />
-                  <BookmarkDropdown
-                    className={`${dropdowns ? 'opened' : ''}`}
-                    onClick={() => setDropdowns(!dropdowns)}
-                  >
-                    <BoomarkItem className="active">
-                      <Link href={'/articles'}>All the savings</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Articles</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Events</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Activities</Link>
-                    </BoomarkItem>
-                  </BookmarkDropdown>
-                </BookmarkWrapper>
+                <Link passHref href={`/account/liked-content`}>
+                  <span>
+                    <Heart />
+                  </span>
+                </Link>
+                <Link passHref href={`/account/articles`}>
+                  <span className="active">
+                    <Favourite />
+                  </span>
+                </Link>
                 <BellWrapperCard
                   className={`${dropdown ? 'active' : ''}`}
                   ref={dropdownRef}
@@ -191,43 +177,65 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
           </ProfileInfo>
           {/* Old Profile UI */}
           <BookmarkBlock>
-            <div className="BreadcrumbsBookmark">
-              <h2>All the savings</h2>
-              <span className="cricle"></span>
-              <span className="category">Articles</span>
-            </div>
-            <div className="ArticleRow">
-              <ArticleCard
-                key={'1'}
-                id={'11'}
-                authorImg={''}
-                authorName={'Ally Blackmay'}
-                articleTitle={'Raise good Humans'}
-                articleIntro={
-                  'What I learned when my kids said college wasn’t for them'
-                }
-                articleImage={''}
-                readingTime={'9 min read'}
-                createdAt={'Mar 8'}
-                category={'Self-development'}
-                slug={'Self-development'}
-              />
-              <ArticleCard
-                key={'1'}
-                id={'11'}
-                authorImg={''}
-                authorName={'Ally Blackmay'}
-                articleTitle={'Raise good Humans'}
-                articleIntro={
-                  'What I learned when my kids said college wasn’t for them'
-                }
-                articleImage={''}
-                readingTime={'9 min read'}
-                createdAt={'Mar 8'}
-                category={'Self-development'}
-                slug={'Self-development'}
-              />
-            </div>
+            <Row className="row">
+              <Column className="column-7">
+                <div className="BreadcrumbsBookmark">
+                  <h2>All the savings</h2>
+                  <span className="cricle"></span>
+                  <span className="category">Articles</span>
+                </div>
+                <div className="ArticleRow">
+                  <ArticleCard
+                    key={'1'}
+                    id={'11'}
+                    authorImg={''}
+                    authorName={'Ally Blackmay'}
+                    articleTitle={'Raise good Humans'}
+                    articleIntro={
+                      'What I learned when my kids said college wasn’t for them'
+                    }
+                    articleImage={''}
+                    readingTime={'9 min read'}
+                    createdAt={'Mar 8'}
+                    category={'Self-development'}
+                    slug={'Self-development'}
+                  />
+                  <ArticleCard
+                    key={'1'}
+                    id={'11'}
+                    authorImg={''}
+                    authorName={'Ally Blackmay'}
+                    articleTitle={'Raise good Humans'}
+                    articleIntro={
+                      'What I learned when my kids said college wasn’t for them'
+                    }
+                    articleImage={''}
+                    readingTime={'9 min read'}
+                    createdAt={'Mar 8'}
+                    category={'Self-development'}
+                    slug={'Self-development'}
+                  />
+                </div>
+              </Column>
+              <Column className="column-5">
+                <BookmarkListWrapper>
+                  <BookmarkList>
+                    <BoomarkItem>
+                      <Link href={'/articles'}>All the savings</Link>
+                    </BoomarkItem>
+                    <BoomarkItem className="active">
+                      <Link href={'/articles'}>Articles</Link>
+                    </BoomarkItem>
+                    <BoomarkItem>
+                      <Link href={'/articles'}>Events</Link>
+                    </BoomarkItem>
+                    <BoomarkItem>
+                      <Link href={'/articles'}>Activities</Link>
+                    </BoomarkItem>
+                  </BookmarkList>
+                </BookmarkListWrapper>
+              </Column>
+            </Row>
           </BookmarkBlock>
         </InnerContainer>
       </Dashboard>

@@ -142,32 +142,16 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
                 <Pencil />
               </EditProfileButton>
               <ProfileButtons>
-                <span className="active">
-                  <Heart />
-                </span>
-                <BookmarkWrapper
-                  ref={dropdownRef}
-                  className={`${dropdowns ? 'active' : ''}`}
-                >
-                  <Favourite onClick={() => setDropdowns(!dropdowns)} />
-                  <BookmarkDropdown
-                    className={`${dropdowns ? 'opened' : ''}`}
-                    onClick={() => setDropdowns(!dropdowns)}
-                  >
-                    <BoomarkItem className="active">
-                      <Link href={'/articles'}>All the savings</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Articles</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Events</Link>
-                    </BoomarkItem>
-                    <BoomarkItem>
-                      <Link href={'/articles'}>Activities</Link>
-                    </BoomarkItem>
-                  </BookmarkDropdown>
-                </BookmarkWrapper>
+                <Link passHref href={`/account/liked-content`}>
+                  <span>
+                    <Heart />
+                  </span>
+                </Link>
+                <Link passHref href={`/account/articles`}>
+                  <span>
+                    <Favourite />
+                  </span>
+                </Link>
                 <BellWrapperCard
                   className={`${dropdown ? 'active' : ''}`}
                   ref={dropdownRef}

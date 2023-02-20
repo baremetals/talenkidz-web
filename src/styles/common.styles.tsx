@@ -344,6 +344,22 @@ export const Column = styled.div`
             max-width: 100%;
         }
     }
+    &.column-8 {
+        min-width: 75%;
+        max-width: 75%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+    &.column-4 {
+        min-width: 25%;
+        max-width: 25%;
+        @media (max-width: 991px) {
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
     &.column-6 {
         min-width: 50%;
         max-width: 50%;

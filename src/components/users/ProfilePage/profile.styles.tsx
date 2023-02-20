@@ -1206,6 +1206,32 @@ export const BookmarkDropdown = styled.ul`
   }
 `;
 
+export const BookmarkListWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const BookmarkList = styled.ul`
+  max-width: 298px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin-top: 0;
+  box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
+  border-radius: 0.625rem;
+  z-index: 0;
+  padding: 20px;
+  &.opened {
+    display: block;
+  }
+  @media (max-width: 991px) {
+    margin: 0 auto 40px;
+  }
+`;
+
 export const BoomarkItem = styled.li`
   margin-bottom: 10px;
   &:hover {
@@ -1349,6 +1375,12 @@ export const BookmarkBlock = styled.div`
   margin: 90px auto auto;
   width: calc(100% - 160px);
   margin-top: 80px;
+  .row {
+    @media (max-width: 991px) {
+      min-width: 100%;
+      flex-direction: column-reverse;
+    }
+  }
   .BreadcrumbsBookmark {
     display: flex;
     align-items: center;
@@ -1367,6 +1399,14 @@ export const BookmarkBlock = styled.div`
       font-size: 16px;
       line-height: 19px;
       color: #574e62;
+    }
+  }
+  .column-7 {
+    min-width: 71%;
+    max-width: 71%;
+    @media (max-width: 991px) {
+      min-width: 100%;
+      max-width: 100%;
     }
   }
   .ArticleRow {
