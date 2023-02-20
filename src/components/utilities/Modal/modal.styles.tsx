@@ -386,3 +386,27 @@ export const LinkAction = styled.a`
   text-decoration: underline;
   cursor: pointer;
 `;
+
+export const EditButton = styled.label`
+  background: #39007e;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  svg {
+    width: 14px;
+    height: 14px;
+    path {
+      fill: #fff;
+    }
+  }
+  .inputTag {
+    display: none;
+  }
+`;

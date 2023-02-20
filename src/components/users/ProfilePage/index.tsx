@@ -104,11 +104,12 @@ function Profile(props: { props: UsersPermissionsUser }) {
             // height={300}
           />
           <div className="actions">
-            <EditCoverButton>
-              Edit the cover{' '}
+            <EditCoverButton htmlFor="inputTag">
+              Edit the cover
               <span>
                 <PencilTwo />
               </span>
+              <input id="inputTag" className="inputTag" type="file" />
             </EditCoverButton>
           </div>
         </ProfileCoverWrapper>

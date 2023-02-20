@@ -783,9 +783,12 @@ export const ProfileCoverWrapper = styled.div`
   }
 `;
 
-export const EditCoverButton = styled.button`
+export const EditCoverButton = styled.label`
   outline: none;
   height: 23px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
   position: relative;
   font-weight: 500;
   font-size: 10px;
@@ -795,7 +798,7 @@ export const EditCoverButton = styled.button`
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   padding-right: 26px;
-
+  cursor: pointer;
   &:hover {
     color: #39007e;
     background: #ffffff;
@@ -819,6 +822,9 @@ export const EditCoverButton = styled.button`
       top: -3px;
       right: -9px;
     }
+  }
+  .inputTag {
+    display: none;
   }
 `;
 

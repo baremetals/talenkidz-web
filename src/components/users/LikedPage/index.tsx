@@ -75,11 +75,12 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
               // height={300}
             />
             <div className="actions">
-              <EditCoverButton>
-                Edit the cover asas{' '}
+              <EditCoverButton htmlFor="inputTag">
+                Edit the cover
                 <span>
                   <PencilTwo />
                 </span>
+                <input id="inputTag" className="inputTag" type="file" />
               </EditCoverButton>
             </div>
           </ProfileCoverWrapper>
@@ -143,7 +144,7 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
               </EditProfileButton>
               <ProfileButtons>
                 <Link passHref href={`/account/liked-content`}>
-                  <span>
+                  <span className="active">
                     <Heart />
                   </span>
                 </Link>

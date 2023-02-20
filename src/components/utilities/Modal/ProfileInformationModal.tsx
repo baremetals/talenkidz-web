@@ -10,6 +10,7 @@ import {
   Input,
   ActionGroup,
   LinkAction,
+  EditButton,
 } from 'components/utilities/Modal/modal.styles';
 import { DismissIcon, FormGroup } from 'components/users/Auth/auth-styles';
 import { CrossRounded } from 'public/assets/icons/CrossRounded';
@@ -49,9 +50,10 @@ export default function ProfileInformationModal() {
                 height={20}
               />
             </Premium>
-            <Button className="EditButton">
+            <EditButton htmlFor="inputTag" className="EditButton">
               <Pencil />
-            </Button>
+              <input id="inputTag" className="inputTag" type="file" />
+            </EditButton>
           </UserProfileWapper>
           <UserDescription>
             <div className="user-description">
