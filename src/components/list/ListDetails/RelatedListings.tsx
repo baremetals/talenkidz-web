@@ -27,7 +27,7 @@ function RelatedListings({ category }: propType): ReactElement {
     
     return (
       <>
-        {activities.map((list) => (
+        {activities?.map((list) => (
           <Column className="Column-3" key={list?.id}>
             <ActivitiesItem
               id={list?.id as string}

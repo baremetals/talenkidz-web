@@ -5,6 +5,7 @@ import { useIsAuth } from 'src/hooks/isAuth';
 import ProfilePage from 'components/users/ProfilePage';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 import { initializeApollo } from 'src/hooks/apolloClient';
+import Layout from 'components/Layout';
 import {
   MeDocument,
   MeQueryResult,
@@ -23,22 +24,14 @@ const UserProfile = (data: ProfileProps) => {
   //   console.log('the rassssss user', user);
   useIsAuth();
   return (
-    <>
-      <Head>
-        <title>{user?.username} Account Page</title>
-        <meta property="og:title" content="Talentkids" key="title" />
-        <meta property="og:type" content="account page" />
-        <meta
-          property="og:url"
-          content={`https://www.talentkids.io/account/${user?.username}/` || ''}
-        />
-        <link
-          rel="canonical"
-          href={`https://www.talentkids.io/user-profile/${user?.username}/` || ''}
-        />
-      </Head>
+    <Layout
+      title={`${user?.username} Account Page`}
+      canonicalUrl={`https://www.talentkids.io/account/${user?.username}/`}
+      type="account page"
+      pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
+    >
       <ProfilePage props={user} />
-    </>
+    </Layout>
   );
 };
 

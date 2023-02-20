@@ -3,11 +3,12 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
 import NavBar from './NavBar';
-import AuthModal from 'components/utilities/Modal';
+import Modal from 'components/utilities/Modal';
 // import { useAppDispatch } from 'src/app/hooks';
 // import { openModal } from 'src/features/modal/reducers';
 import { openSelector } from 'src/features/modal/selectors';
 import { useAppSelector } from 'src/app/hooks';
+import { useRouter } from 'next/router';
 
 const DynamicFooter = dynamic(() => import('./Footer'), {
   ssr: false,
@@ -44,8 +45,9 @@ const Layout = ({
 }: LayoutProps) => {
   // const dispatch = useAppDispatch();
   const isOpen = useAppSelector(openSelector);
+  const router = useRouter();
   //dispatch(openModal('PROFILE_MODAL'));
-  // console.log('123');
+  // console.log(router.asPath);
   if (typeof window !== 'undefined') {
     // eslint-disable-next-line no-unused-vars, no-async-promise-executor
     const _promise = new Promise(async function (resolve, reject) {
@@ -126,10 +128,20 @@ const Layout = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         /> */}
       </Head>
-      <NavBar />
-      {children}
+      {router.asPath.includes('/account') ? (
+        <div style={{ background: '#F4F4F4', paddingBottom: '100px' }}>
+          <NavBar />
+          {children}
+        </div>
+      ) : (
+        <>
+          <NavBar />
+          {children}
+        </>
+      )}
+
       <DynamicFooter />
-      {isOpen && <AuthModal />}
+      {isOpen && <Modal />}
     </div>
   );
 };
