@@ -2,13 +2,8 @@ import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-
 import Spinner from 'components/utilities/Spinner';
-import {
-  InnerContainer,
-  PageContainer,
-  Title,
-} from 'styles/common.styles';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { LoginInner, LoginWrapper } from '../auth-styles';
 
@@ -103,35 +98,33 @@ const ConnectProvider = () => {
   return (
     <>
       <PageContainer style={{ minHeight: '100vh' }}>
-        <InnerContainer>
-          <LoginWrapper>
-            <LoginInner
+        <LoginWrapper>
+          <LoginInner
+            style={{
+              backgroundColor: '#f3f3f3',
+            }}
+          >
+            <Title
               style={{
-                backgroundColor: '#f3f3f3',
+                lineHeight: '1.6',
+                fontSize: '1.5rem',
+                textAlign: 'center',
+                marginBottom: '1.5rem',
               }}
             >
-              <Title
+              {text}
+            </Title>
+            {spinner && (
+              <Spinner
                 style={{
-                  lineHeight: '1.6',
-                  fontSize: '1.5rem',
-                  textAlign: 'center',
-                  marginBottom: '1.5rem',
+                  position: 'relative',
+                  backgroundColor: 'transparent',
+                  boxShadow: 'none',
                 }}
-              >
-                {text}
-              </Title>
-              {spinner && (
-                <Spinner
-                  style={{
-                    position: 'relative',
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                  }}
-                />
-              )}
-            </LoginInner>
-          </LoginWrapper>
-        </InnerContainer>
+              />
+            )}
+          </LoginInner>
+        </LoginWrapper>
       </PageContainer>
     </>
   );
