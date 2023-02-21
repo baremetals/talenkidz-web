@@ -12,8 +12,12 @@ export const Background = styled.div`
   align-items: center;
   > div {
     width: 100%;
-    overflow-y: scroll;
-    height: 100%;
+    overflow-y: auto;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    align-items: flex-start;
+    padding: 40px 0;
   }
   .closeModal {
     display: flex;
@@ -22,14 +26,16 @@ export const Background = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  margin: 2rem auto;
+  margin: 3rem auto;
   background-color: rgb(255, 255, 255);
   border-radius: 1rem;
   max-width: 45rem;
   padding: 3rem;
   backdrop-filter: blur(0.25rem);
-  overflow: scroll
-  &.participation-modal {
+  @media (max-width: 600px) {
+    max-width: 360px !important;
+  }
+  overflow: scroll &.participation-modal {
     max-width: 470px;
   }
 `;
@@ -136,4 +142,3 @@ export const FeedbackModalContainer = styled(ModalContainer)`
     }
   }
 `;
-
