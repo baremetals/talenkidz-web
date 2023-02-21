@@ -26,6 +26,8 @@ export const LoginWrapper = styled.div`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
 `;
 
 export const LoginInner = styled.div`
@@ -117,7 +119,7 @@ export const FormGroup = styled.div`
   }
   &.question-button {
     text-align: center;
-    
+
     button {
       background: transparent;
       position: relative;
@@ -241,7 +243,7 @@ export const SubHeadline = styled.h3`
     line-height: 93.5%;
     color: #39007e;
   }
-  
+
   &.questions {
     font-size: 20px;
     color: #39007e;
@@ -276,9 +278,9 @@ export const Divider = styled.div`
 
 export const TermsFooter = styled.div`
   margin-top: 50px;
-  
+
   button {
-    border: 2px solid #39007E;
+    border: 2px solid #39007e;
     border-radius: 10px;
     width: max-content;
     height: 35px;
@@ -286,13 +288,13 @@ export const TermsFooter = styled.div`
     font-weight: 600;
     font-size: 14px;
     line-height: 17px;
-    color: #39007E;
+    color: #39007e;
     background: white;
   }
-  
+
   button:hover {
-    border: 2px solid #39007E;
-    color: #39007E;
+    border: 2px solid #39007e;
+    color: #39007e;
     background: white;
   }
 

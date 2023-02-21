@@ -3,15 +3,15 @@ import styled from 'styled-components';
 export const Menu = styled.div`
   padding: 0.625rem 0;
   margin-bottom: 0.625rem;
-`
+`;
 
-export const Image = styled.img``
+export const Image = styled.img``;
 
 export const MenuLink = styled.a<{ isActive: boolean }>`
   margin-right: 15px;
   padding: 5px;
   display: inline-block;
-  color: ${props => props.isActive ? '#BC70AD' : 'initial'};
+  color: ${(props) => (props.isActive ? '#BC70AD' : 'initial')};
   transition: 0.3s color;
   cursor: pointer;
   position: relative;
@@ -26,28 +26,28 @@ export const MenuLink = styled.a<{ isActive: boolean }>`
     bottom: -2px;
     left: 5px;
     display: block;
-    width: ${props => props.isActive ? 'calc(100% - 10px)' : '0'};;
+    width: ${(props) => (props.isActive ? 'calc(100% - 10px)' : '0')};
     transition: 0.3s;
     height: 2px;
-    background-color: #BC70AD;
+    background-color: #bc70ad;
     margin: 0 auto;
   }
 
   &:hover {
-    color: #BC70AD;
+    color: #bc70ad;
 
     &::after {
       width: calc(100% - 10px);
     }
   }
-`
+`;
 
 export const TabContent = styled.div`
   margin: 1rem auto 0;
   max-width: 100%;
   width: 900px;
   max-width: 100%;
-`
+`;
 
 export const ProfilePicturePlaceHolder = styled.div`
   width: 12.5rem;
@@ -58,7 +58,7 @@ export const ProfilePicturePlaceHolder = styled.div`
   background: #989898;
   font-size: 0.875rem;
   color: #eaeaea;
-`
+`;
 
 export const ImageWrapper = styled.div`
   display: flex;
@@ -87,7 +87,7 @@ export const ImageWrapper = styled.div`
       opacity: 0.6;
     }
   }
-`
+`;
 export const ImageActions = styled.div`
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@ export const ImageActions = styled.div`
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-`
+`;
 
 export const ActionButton = styled.div`
   line-height: 1;
@@ -117,17 +117,16 @@ export const ActionButton = styled.div`
   }
 
   &:hover {
-    background-color: #BC70AD;
-    border: 1px solid #BC70AD;
+    background-color: #bc70ad;
+    border: 1px solid #bc70ad;
 
     svg {
       fill: #fff;
     }
   }
-`
+`;
 
 export const EditProfileTab = styled.div`
-
   h3 {
     font-weight: 400;
     font-size: 1.125rem;
@@ -146,14 +145,14 @@ export const EditProfileTab = styled.div`
       text-align: center;
     }
   }
-`
+`;
 
 export const HeaderLine = styled.hr`
   color: white;
   background-color: #ccc;
   height: 1px;
   border: none;
-`
+`;
 
 export const PersonalInformationForm = styled.form`
   margin-top: 2rem;
@@ -178,7 +177,7 @@ export const PersonalInformationForm = styled.form`
       box-shadow: none;
     }
   }
-`
+`;
 
 export const InnerSidebar = styled.div`
   width: fit-content;
@@ -187,7 +186,7 @@ export const InnerSidebar = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-`
+`;
 
 export const Navigation = styled.div`
   width: 100%;
@@ -213,15 +212,15 @@ export const Navigation = styled.div`
     }
 
     &.Mui-selected {
-      color: #BC70AD;
+      color: #bc70ad;
       background-color: #eee;
     }
   }
-`
+`;
 
 export const FormItem = styled.div`
   flex: 1 0 0%;
-`
+`;
 
 export const FormGroup = styled.div`
   display: flex;
@@ -232,12 +231,12 @@ export const FormGroup = styled.div`
     flex-direction: column;
     gap: 0;
   }
-`
+`;
 
 export const SubmitButton = styled.button`
   transition: 0.3s;
   padding: 0.75rem 2.1875rem;
-`
+`;
 
 export const CoverPictureUploaderWrapper = styled.div`
   padding: 1rem 0.875rem 0.625rem;
@@ -257,7 +256,7 @@ export const CoverPictureUploaderWrapper = styled.div`
       object-position: center center;
     }
   }
-`
+`;
 
 export const Label = styled.label`
   color: rgba(0, 0, 0, 0.6);
@@ -276,13 +275,15 @@ export const Label = styled.label`
   top: 0;
   left: -5px;
   transform: translate(14px, -9px) scale(0.75);
-  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   z-index: 1;
   pointer-events: auto;
   user-select: none;
   background-color: #fff;
   line-height: 1.2;
-`
+`;
 
 export const CoverPictureWrapper = styled.div`
   position: relative;
@@ -304,14 +305,14 @@ export const CoverPictureWrapper = styled.div`
       opacity: 0.6;
     }
   }
-`
+`;
 
 export const NoCoverPictureWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px 0;
-`
+`;
 
 export const SelectCoverPictureButton = styled.div`
   display: inline-flex;
@@ -328,9 +329,9 @@ export const SelectCoverPictureButton = styled.div`
   }
 
   &:hover {
-    color: #BC70AD;
+    color: #bc70ad;
   }
-`
+`;
 
 export const EditButton = styled.label`
   width: 100%;
@@ -339,17 +340,13 @@ export const EditButton = styled.label`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`
-
-
+`;
 
 // Modal
 
 export const ProfileInformationWrapper = styled.form`
   @media (max-width: 991px) {
     font-size: 22px;
-    height: 96vh;
-    overflow-y: scroll;
   }
   h1 {
     font-style: normal;
@@ -384,7 +381,6 @@ export const ProfileInformationWrapper = styled.form`
       color: #373737;
     }
   }
-  
 `;
 
 export const ProfileInfo = styled.div`
