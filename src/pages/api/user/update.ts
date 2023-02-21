@@ -38,9 +38,15 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
 
   // console.log(cookies);
 
-  if (data.flag === 'profileImage') {
+  if (data.flag === 'user-image') {
+    const profileImage = {
+      avatar: data?.imagefile,
+    };
+    const backgroundImage = {
+      backgroundImg: data?.imagefile,
+    };
     try {
-      console.log('profile update');
+      // console.log('profile update');
       const resp = await axios({
         method: 'PUT',
         url: `${baseUrl}/users/${id}`,
@@ -48,9 +54,7 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
           Accept: 'application/json',
           Authorization: `Bearer ${jwt}`,
         },
-        data: {
-          avatar: data.imagefile,
-        },
+        data: data.field === 'profile' ? profileImage : backgroundImage,
       });
 
       if (resp?.data) {
@@ -60,8 +64,8 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
           jwt: jwt,
           username,
           fullName,
-          avatar: data.imagefile,
-          backgroundImg: backgroundImg,
+          avatar: data.field === 'profile' ? data.imagefile : avatar,
+          backgroundImg: data.field === 'background' ? data.imagefile : backgroundImg,
         };
         setTheCookie(user)
       }

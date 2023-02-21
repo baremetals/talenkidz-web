@@ -63,7 +63,7 @@ export type FormProps = {
 
 export type uploadProps = {
   event: ChangeEvent<HTMLInputElement>;
-  setUploadImg: React.Dispatch<React.SetStateAction<File | null>>;
+  setUploadImg: React.Dispatch<React.SetStateAction<File | string>>;
   setDisplayImg: React.Dispatch<React.SetStateAction<string| null>>;
 };
 

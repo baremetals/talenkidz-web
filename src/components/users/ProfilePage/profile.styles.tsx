@@ -97,6 +97,30 @@ export const UserProfileImage = styled.img`
   }
 `;
 
+export const EditIconButton = styled.label`
+  background: #39007e;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  svg {
+    width: 14px;
+    height: 14px;
+    path {
+      fill: #fff;
+    }
+  }
+  .inputTag {
+    display: none;
+  }
+`;
+
 export const ProfileInfo = styled.div`
   background-color: #fff;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);

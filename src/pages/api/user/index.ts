@@ -8,15 +8,17 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
       const {
         id,
         username,
+        email,
+        bio,
+        website,
+        orgType,
+        provider,
         fullName,
         avatar,
         backgroundImg,
         userType,
-        orgId,
         slug,
         orgName,
-        logo,
-        fullProfile,
       } = cookies;
       const user = {
         id,
@@ -25,11 +27,13 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         avatar,
         backgroundImg,
         userType,
-        orgId: orgId || '',
         slug: slug || '',
         orgName: orgName || '',
-        logo: logo || '',
-        fullProfile
+        email,
+        bio,
+        website,
+        orgType,
+        provider,
       };
       res.send(user);
     } catch (err) {

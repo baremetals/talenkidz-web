@@ -60,10 +60,10 @@ const EditProfile = ({ user }: Props) => {
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log('we here');
-    const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
-    if (res?.error) {
-      console.log('my - niggerrrrr!', res.error);
-    }
+    // const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
+    // if (res?.error) {
+    //   console.log('my - niggerrrrr!', res.error);
+    // }
   };
 
   const a11yProps = (index: number) => {
@@ -208,12 +208,7 @@ const EditProfile = ({ user }: Props) => {
             </Column>
             <Column className="col" style={{ paddingLeft: '0.6875rem' }}>
               <TabPanel value={activeTab} index={0} {...a11yProps(1)}>
-                {usr?.userType === 'organisation' && (
-                  <OrgProfile user={user as UsersPermissionsUser} />
-                )}
-                {usr?.userType === 'candidate' && (
-                  <MyProfile user={user as UsersPermissionsUser} />
-                )}
+                
               </TabPanel>
               <TabPanel value={activeTab} index={1} {...a11yProps(2)}>
                 {/* <BillingInfo user={user} /> */}

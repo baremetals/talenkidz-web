@@ -13,11 +13,17 @@ type Data = {
 
 type user = {
   id: string;
+  email: string;
+  bio: string;
+  provider: string;
   username: string;
   fullName: string;
   avatar: string;
   userType: string;
   jwt: string;
+  orgName?: string;
+  orgType?: string;
+  website?: string;
 };
 
 
@@ -53,13 +59,20 @@ export default async function login(
       data: { identifier: usernameOrEmail, password },
     });
 
+    console.log(response);
     const user: user = {
       id: response.data.user.id,
+      email: response.data.user.email,
+      provider: response.data.user.provider,
+      bio: response.data.user.bio,
       username: response.data.user.username,
       fullName: response.data.user.fullName,
       avatar: response.data.user.avatar,
       userType: response.data.user.userType,
       jwt: response.data.jwt,
+      orgName: response.data.user.organisation.name || '',
+      orgType: response.data.user.organisation.organisationType || '',
+      website: response.data.user.organisation.website || '',
     };
     setTheCookie(user);
 

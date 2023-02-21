@@ -39,7 +39,7 @@ const ConnectProvider = () => {
             console.log(err);
             setSpinner(false);
             setText('An error occurred, Please try again..');
-            setTimeout(() => router.push('/auth/login'), 3000);
+            setTimeout(() => router.push('/'), 3000);
           });
       }
     }

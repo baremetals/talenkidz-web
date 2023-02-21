@@ -194,7 +194,6 @@ const AuthProvider: React.FC = ({ children }) => {
         },
       })
       .then(async (res: { data: { user: AuthUser } }) => {
-        // console.log(res);
         const generatedToken = v4();
         // const userType = res.data.user.userType;
         const email = res.data.user.email;
@@ -260,12 +259,6 @@ const AuthProvider: React.FC = ({ children }) => {
               const errorMessage = error.message;
               console.log('firebase catchblock', errorMessage);
               router.push(`/account`);
-              // if (userType === 'organisation') {
-              //   router.push(`/account/${username}`);
-              // }
-              // if (userType === 'candidate') {
-              //   router.push(`/user-profile/${username}`);
-              // }
               return null;
             });
         }
@@ -282,11 +275,8 @@ const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function logUserOut() {
-    await axios.post('/api/auth', {
-      data: {
-        flag: 'LOGOUT',
-      },
-    }).then(() => {
+    await axios.get('/api/auth/logout')
+    .then(() => {
       dispatch(signOutUser());
       signOutFirebaseUser();
       router.push('/');

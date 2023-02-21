@@ -14,32 +14,25 @@ type Data = {
   username?: string;
   id?: string;
   name?: string;
-  user?: user | org;
+  user?: user
 };
 
 type user = {
   id: string;
+  email: string;
+  bio: string;
+  provider: string;
   username: string;
   fullName: string;
   avatar: string;
-  backgroundImg: string;
   userType: string;
   jwt: string;
   orgName?: string;
+  orgType?: string;
+  website?: string;
 };
 
-type org = {
-  id: string;
-  username: string;
-  backgroundImg: string;
-  userType: string;
-  jwt: string;
-  orgId: string;
-  orgName: string;
-  slug: string;
-  logo: string;
-  fullProfile: string;
-};
+
 
 export default async function auth(
   req: NextApiRequest,
@@ -47,7 +40,7 @@ export default async function auth(
 ) {
   const { data } = req.body;
 
-  function setTheCookie(user: user | org) {
+  function setTheCookie(user: user) {
     return res.setHeader(
       'Set-Cookie',
       cookie.serialize(
@@ -63,6 +56,7 @@ export default async function auth(
       )
     );
   }
+  
   // console.log(data, 'I am here');
 
   // Register request
@@ -91,102 +85,49 @@ export default async function auth(
       res.status(401).json({ message: err.response.data.error.message });
     }
   }
-  // Login request
-  if (data.flag === 'LOGIN') {
-    const { usernameOrEmail, password } = data;
-    // console.log(baseUrl);
-
-    try {
-      // console.log("failing here");
-      const response = await axios({
-        method: 'POST',
-        url: `${baseUrl}/auth/local`,
-        data: { identifier: usernameOrEmail, password },
-      });
-
-      if (response.data.user.userType === 'candidate') {
-        const user: user = {
-          id: response.data.user.id,
-          username: response.data.user.username,
-          fullName: response.data.user.fullName,
-          avatar: response.data.user.avatar,
-          backgroundImg: response.data.user.backgroundImg,
-          userType: response.data.user.userType,
-          jwt: response.data.jwt,
-        };
-        setTheCookie(user)
-      } else {
-        const org: org = {
-          id: response.data.user.id,
-          username: response.data.user.username,
-          backgroundImg: response.data.user.backgroundImg,
-          userType: response.data.user.userType,
-          jwt: response.data.jwt,
-          orgId: response.data.user.organisation.id,
-          slug: response.data.user.organisation.slug,
-          orgName: response.data.user.organisation.name,
-          logo: response.data.user.avatar,
-          fullProfile: response.data.user.organisation.fullProfile,
-        };
-        setTheCookie(org);
-      }
-
-      // console.log(response);
-        
-      // res.send(response.data.user);
-      res.status(200).json({ user: response.data.user });
-    } catch (err: any) {
-      // console.log(err.response.data);
-      // res.send(err.response.data);
-      res.status(401).json({ message: err.response.data.error.message, name: err.response.data.error.name  });
-    }
-  }
+  
 
   if (data.flag === 'CONNECT') {
     // console.log('the data: ');
     try {
-
-      const response =  await fetch(
+      const response = await fetch(
         `${baseUrl}/auth/${data?.provider}/callback?access_token=${data?.access_token}`
       );
       const auth = await response.json();
-      // console.log('my user', auth)
+      const authData = {
+        jwt: auth.jwt,
+        id: auth.user.id,
+      };
+      const resp = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/user/org`,
+        {
+          method: 'POST',
+          body: JSON.stringify(authData),
+        }
+      );
+      const org = await resp.json();
+
       const user: user = {
         id: auth.user.id,
         username: auth.user.username,
         fullName: auth.user.fullName,
         avatar: auth.user.avatar,
-        backgroundImg: auth.user.backgroundImg,
         userType: auth.user.userType,
         jwt: auth.jwt,
-      }; 
+        email: auth.user.email,
+        bio: auth.user.bio,
+        provider: auth.user.provider,
+        orgName: org.data.organisation == null ? "" : org.data.organisation.name,
+        orgType: org.data.organisation == null ? "" : org.data.organisation.organisationType,
+        website: org.data.organisation == null ? "" : org.data.organisation.website,
+      };
+
       setTheCookie(user);
       res.status(200).json({ user: auth.user });
-     
     } catch (err: any) {
-      // console.log(err);
+      console.log(err);
       res.send(err.response);
     }
   }
 
-  // Logout request
-  if (data.flag === 'LOGOUT') {
-    if (!req.cookies.talentedKid) {
-      // console.log("me deyaaaa");
-      return res.json({ message: 'You have already logged out!' });
-    } else {
-      res.setHeader(
-        'Set-Cookie',
-        cookie.serialize(process.env.COOKIE_NAME as string, '', {
-          httpOnly: true,
-          secure: process.env.NODE_ENV !== 'development',
-          maxAge: -1, // deletes the cookie
-          sameSite: 'strict',
-          path: '/',
-        })
-      );
-    }
-    // console.log('me gwarn');
-    return res.status(200).json({ message: 'Successfuly logged out!' });
-  }
 }

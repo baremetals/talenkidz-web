@@ -22,7 +22,9 @@ export interface AuthUser {
   createdAt?: string;
   updatedAt?: string;
   orgId?: string;
-  organisation?: [Object];
+  orgName?: string;
+  website?: string;
+  orgType?: string;
 }
 
 
@@ -57,9 +59,9 @@ export interface IArticleCard {
   bookedMarked?: boolean;
   saveArticle?: () => void;
   category?: string;
-  articleImage?: string | undefined;
-  articleIntro?: string | undefined;
-  className?: string | undefined;
+  articleImage: string | undefined;
+  articleIntro: string | undefined;
+  className: string | undefined;
 }
 
 export interface ICategory {

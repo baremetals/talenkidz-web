@@ -1,316 +1,358 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, BaseSyntheticEvent, SetStateAction, ChangeEvent } from 'react';
-import { TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
-import { FormData } from "formdata-node";
-import { Organisation, UsersPermissionsUser } from 'generated/graphql';
+
+import React, { useState, ChangeEvent } from 'react';
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from 'components/utilities/Spinner';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import Button from 'components/widgets/Button';
 import {
-    EditProfileTab,
-    HeaderLine,
-    PersonalInformationForm,
-    FormItem,
     FormGroup,
-    SubmitButton,
-    CoverPictureUploaderWrapper,
-    Image,
-    Label,
-    CoverPictureWrapper,
-    ImageActions,
-    ActionButton,
-    NoCoverPictureWrapper,
-    SelectCoverPictureButton,
-    EditButton
+    ProfileInformationWrapper,
+    ActionGroup,
+    LinkAction,
+    ProfileInfo,
+    Input
 } from './editProfile.styles';
 
-import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
-import { Edit } from 'public/assets/icons/Edit';
-import { toBase64 } from 'src/utils/base64';
-import { FileType } from './MyProfile';
+
+
 import axios from 'axios';
+import { ModalContainer } from 'components/utilities/Modal/modal.styles';
+import { DismissIcon } from '../Auth/auth-styles';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { closeModal } from 'src/features/modal';
+import { isUser } from 'src/features/auth';
 
-type Props = {
-  user: UsersPermissionsUser;
-};
 
-const OrgProfile = ({ user }: Props) => {
-    const [backgroundImg, setBackgroundImg] = useState<any>(
-      user?.backgroundImg || ''
-    );
-    const [uploadImg, setUploadImg] = useState<FileType | null>(null);
+const OrgProfile = () => {
+  const dispatch = useAppDispatch();
+  const { user: user } = useAppSelector(isUser);
     const [loading, setLoading] = useState<boolean>(false);
+    const [showError, setShowError] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>('');
+    const [showPasswordForm, setShowPasswordForm] = useState<boolean>(false);
 
     const [profile, setProfile] = useState({
-      orgName: user?.organisation?.name || '',
-      username: user.username || '',
+      fullName: user?.fullName || '',
+      orgName: user?.orgName || '',
+      username: user?.username || '',
       email: user?.email || '',
-      website: user?.organisation?.website || '',
-      bio: user.bio || '',
-      organisationType: user?.organisation?.organisationType || '',
+      website: user?.website || '',
+      organisationType: user?.orgType || '',
+      password: '',
+      currentPassword: '',
+      passwordConfirmation: '',
     });
 
-    // console.log(user)
-
-    const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.files || event.target.files.length === 0) return;
-        const base64 = await toBase64(event.target.files[0]);
-        setBackgroundImg(base64);
-        setUploadImg(event.target.files[0] as any);
-    }
+    console.log(user)
 
     const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     //   console.log(e.target.value);
       setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    // console.log(user)
     const handleSubmit = async () => {
-        
-        if (uploadImg !== null) {
-            setLoading(true)
-            let form = new FormData()
-            form.append('file', uploadImg, uploadImg?.name)
+      setLoading(true);
 
-            try {
-                const res = await axios(`/api/upload`, {
-                    method: "post",
-                    headers: {
-                        Accept: 'multipart/form-data',
-                    },
-                    data: form as any,
-                });
-                // console.log(res)
+      const data = {
+        fullName: profile?.fullName,
+        email: profile?.email,
+        username: profile?.username,
+        organisation: {
+          name: profile.orgName,
+          organisationType: profile?.organisationType,
+          website: profile?.website,
+        },
+      };
 
-                if (res?.data?.content?.url) {
-                    const data = {
-                      username: profile?.username,
-                      backgroundImg: res?.data?.content?.url,
-                      name: profile.orgName,
-                      email: profile?.email,
-                      organisationType: profile?.organisationType,
-                      bio: profile?.bio,
-                      website: profile?.website,
-                    };
-                    // console.log(data)
+      await axios
+        .post('/api/user/update', {
+          data,
+        })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 200) {
+            setLoading(false);
+            toast.success(response?.data?.message, { position: 'top-center' });
+            dispatch(closeModal());
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+          setErrorMsg('Issue updating details please try again later');
+          setShowError(true);
+          setTimeout(() => {
+            setShowError(false);
+          }, 100000);
+        });
+    };
 
-                    const dta = await axios.post('/api/user/update', {
-                        data
-                    })
-                    // console.log(dta)
-                    if (dta.status === 200) {
-                        setUploadImg(null);
-                        setLoading(false)
-                        toast.success(dta?.data?.message, { position: "top-center", })
-                    } else {
-                        setLoading(false)
-                        await axios.post('/api/upload/delete', {
-                            data: { id: res?.data?.content?.id }
-                        })
-                        toast.error('Issue updating details', { position: "top-center", })
-                    }
+    const handlePasswordSubmit = async () => {
+      setLoading(true);
+      const data = {
+        currentPassword: profile?.currentPassword,
+        password: profile?.password,
+        passwordConfirmation: profile?.password,
+      };
 
-                } else {
-                    setLoading(false)
-                    toast.error('Issue uploading image', { position: "top-center", })
-                }
-
-            } catch (err) {
-                console.log(err);
-                setLoading(false)
-                toast.error('issues from mars come back later', { position: "top-center", })
+      if (profile.passwordConfirmation === profile.password) {
+        await axios
+          .post('/api/user/change-password', {
+            data,
+          })
+          .then((response) => {
+            // console.log(response)
+            if (response.status === 200) {
+              setLoading(false);
+              toast.success(response?.data?.message, {
+                position: 'top-center',
+              });
+              dispatch(closeModal());
             }
-
-        } else {
-            console.log('iam going of boy')
-            try {
-                const data = {
-                  name: profile?.orgName,
-                  username: profile?.username,
-                  email: profile?.email,
-                  organisationType: profile?.organisationType,
-                  bio: profile?.bio,
-                  website: profile?.website,
-                  backgroundImg,
-                };
-            const res = await axios.post('/api/org/update', {
-                data
-            })
-            console.log('data', res)
-                if (res.status === 200) {
-                    setUploadImg(null);
-                    setLoading(false)
-                    toast.success(res?.data?.message, { position: "top-center", })
-                } else {
-                    setLoading(false)
-                    toast.error('Issue updating details', { position: "top-center", })
-                }
-            } catch (e) {
-                console.log(e)
-            }
-        }
-
-        // console.log('data', data)
-    }
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+            setErrorMsg('Issue updating password please try again later');
+            setShowError(true);
+            setTimeout(() => {
+              setShowError(false);
+            }, 100000);
+          });
+      } else {
+        setLoading(false);
+        setErrorMsg('passwords do not match');
+        setShowError(true);
+      }
+    };
 
     return (
-      <>
-        <EditProfileTab>
-          <h3>Personal Information</h3>
-          <HeaderLine />
-          <PersonalInformationForm onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="Organisation Name"
-              variant="outlined"
-              name="orgName"
-              value={profile?.orgName}
-              onChange={handleChange}
-            />
-            <FormGroup>
-              <FormItem>
-                <TextField
-                  fullWidth
-                  label="Username"
-                  variant="outlined"
+      <ModalContainer style={{ maxWidth: '715px' }}>
+        <ProfileInformationWrapper onSubmit={handleSubmit}>
+          <DismissIcon className="dismiss-icon">
+            <CrossRounded onClick={() => dispatch(closeModal())} />
+          </DismissIcon>
+          {!showPasswordForm ? (
+            <>
+              <h1>Organisation Information</h1>
+              <ProfileInfo>
+                <ActionGroup>
+                  {user?.provider === 'local' ? (
+                    <LinkAction
+                      className="LinkButton"
+                      onClick={() => setShowPasswordForm(!showPasswordForm)}
+                    >
+                      Update Password
+                    </LinkAction>
+                  ) : null}
+                </ActionGroup>
+              </ProfileInfo>
+              <FormGroup className="form-group">
+                <label>Full Name</label>
+                <Input
+                  id=""
+                  name="fullName"
+                  value={profile?.fullName}
+                  type="text"
+                  onChange={handleChange}
+                />
+                <div className="input-info">
+                  <p>Appears on your Profile page.</p>
+                  {/* <span>12/50</span> */}
+                </div>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>Organisation Name</label>
+                <Input
+                  id=""
+                  name="orgName"
+                  value={profile?.orgName}
+                  type="text"
+                  onChange={handleChange}
+                />
+                <div className="input-info">
+                  <p>Appears on your Profile page.</p>
+                  {/* <span>12/50</span> */}
+                </div>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>Username</label>
+                <Input
+                  id=""
+                  type="text"
                   name="username"
                   value={profile?.username}
                   onChange={handleChange}
                 />
-              </FormItem>
-              <FormItem>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  variant="outlined"
-                  name="email"
-                  disabled
-                  value={profile?.email}
-                  onChange={handleChange}
-                />
-              </FormItem>
-              <FormItem>
-                <TextField
-                  fullWidth
-                  label="organisationType"
-                  variant="outlined"
+                <div className="input-info">
+                  <p>Appears on your Profile Page.</p>
+                  {/* <span>0/160</span> */}
+                </div>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>Organisation Type</label>
+                <Input
+                  id=""
+                  type="text"
                   name="organisationType"
                   value={profile?.organisationType}
                   onChange={handleChange}
-                />
-              </FormItem>
-              <FormItem>
-                <TextField
-                  fullWidth
-                  label="Website"
-                  variant="outlined"
-                  name="website"
+                ></Input>
+                <div className="input-info">
+                  <p>Appears on your profile, as your byline.</p>
+                  {/* <span>0/160</span> */}
+                </div>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>Website</label>
+                <Input
+                  id=""
+                  type="text"
+                  name="organisationType"
                   value={profile?.website}
                   onChange={handleChange}
                 />
-              </FormItem>
-              {/* <FormItem>
-                            <FormControl fullWidth>
-                                <InputLabel>Gender</InputLabel>
-                                <Select
-                                    labelId="gender-select-label"
-                                    value={user.gender}
-                                    label="Gender"
-                                    onChange={(e) => setGender(e.target.value as SetStateAction<string>)}
-                                >
-                                    <MenuItem value={'M'}>Male</MenuItem>
-                                    <MenuItem value={'F'}>Female</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </FormItem> */}
-              {/* <FormItem>
-                            <FormControl fullWidth>
-                                <InputLabel>Pronoun</InputLabel>
-                                <Select
-                                    labelId="pronoun-select-label"
-                                    value={user.pronoun}
-                                    label="Pronoun"
-                                    onChange={(e) => setPronoun(e.target.value as SetStateAction<string>)}
-                                >
-                                    <MenuItem value={'Mr'}>Mr.</MenuItem>
-                                    <MenuItem value={'Mrs'}>Mrs</MenuItem>
-                                    <MenuItem value={'Miss'}>Mrs</MenuItem>
-                                    <MenuItem value={'Ms'}>Ms</MenuItem>
-                                    <MenuItem value={'Sir'}>Sir</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </FormItem> */}
-            </FormGroup>
-            <CoverPictureUploaderWrapper>
-              <Label>Cover Picture</Label>
-              <TextField style={{ display: 'none' }} fullWidth type="file" />
-              {backgroundImg ? (
-                <>
-                  <CoverPictureWrapper>
-                    <div className="overlay"></div>
-                    <Image src={backgroundImg} alt="User cover picture" />
-                    <ImageActions>
-                      <ActionButton>
-                        <EditButton htmlFor="upload-bg-photo">
-                          <input
-                            style={{ display: 'none' }}
-                            id="upload-bg-photo"
-                            name="upload-bg-photo"
-                            type="file"
-                            onChange={(e) => handleImgChange(e)}
-                          />
-                          <Edit />
-                        </EditButton>
-                      </ActionButton>
-                      <ActionButton onClick={() => setBackgroundImg('')}>
-                        <BsTrash />
-                      </ActionButton>
-                    </ImageActions>
-                  </CoverPictureWrapper>
-                </>
-              ) : (
-                <NoCoverPictureWrapper>
-                  <EditButton htmlFor="upload-bg-photo">
-                    <input
-                      style={{ display: 'none' }}
-                      id="upload-bg-photo"
-                      name="upload-bg-photo"
-                      type="file"
-                      onChange={(e) => handleImgChange(e)}
-                    />
-                    <SelectCoverPictureButton>
-                      <BsCloudArrowUp />
-                      Select a cover picture
-                    </SelectCoverPictureButton>
-                  </EditButton>
-                </NoCoverPictureWrapper>
-              )}
-            </CoverPictureUploaderWrapper>
-            <TextField
-              label="Bio"
-              multiline
-              fullWidth
-              rows={4}
-              name="bio"
-              value={profile?.bio}
-              onChange={handleChange}
-            />
-            <SubmitButton type="button" onClick={() => handleSubmit()}>
-              {loading ? 'Saving...' : 'Save Changes'}
-              {loading && (
-                <Spinner
-                  style={{
-                    position: 'relative',
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                  }}
+                <div className="input-info">
+                  <p>Appears on your profile.</p>
+                  {/* <span>0/160</span> */}
+                </div>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>Email</label>
+                <Input
+                  id=""
+                  type="email"
+                  name="email"
+                  value={profile?.email}
+                  onChange={handleChange}
+                  disabled={(user?.provider as string) === "local" ? false: true}
                 />
+                <div className="input-info">
+                  <p>Does not Appear on your profile.</p>
+                  {/* <span>0/160</span> */}
+                </div>
+              </FormGroup>
+              <ActionGroup>
+                {user?.provider === 'local' ? (
+                  <LinkAction
+                    className="LinkButton"
+                    onClick={() => setShowPasswordForm(!showPasswordForm)}
+                  >
+                    Update Password
+                  </LinkAction>
+                ) : null}
+                <div className="action">
+                  <Button type="button" className="CancelButton">
+                    Cancel
+                  </Button>
+                  <Button
+                    type="button"
+                    className="SaveButton"
+                    onClick={() => handleSubmit()}
+                  >
+                    {loading ? 'Saving...' : 'Save'}
+                    {loading && (
+                      <Spinner
+                        style={{
+                          position: 'relative',
+                          backgroundColor: 'transparent',
+                          boxShadow: 'none',
+                        }}
+                      />
+                    )}
+                    {/* Save */}
+                  </Button>
+                </div>
+              </ActionGroup>
+            </>
+          ) : (
+            <>
+              <h1>Password information</h1>
+              {showError && (
+                <p style={{ color: 'red', alignItems: 'center' }}>{errorMsg}</p>
               )}
-            </SubmitButton>
-          </PersonalInformationForm>
-        </EditProfileTab>
+              <ProfileInfo>
+                <ActionGroup
+                  onClick={() => setShowPasswordForm(!showPasswordForm)}
+                >
+                  <LinkAction className="LinkButton">Update Profile</LinkAction>
+                </ActionGroup>
+              </ProfileInfo>
+              <FormGroup className="form-group">
+                <label>Current Password</label>
+                <Input
+                  name="currentPassword"
+                  placeholder="Please provide your current password"
+                  type="password"
+                  onChange={handleChange}
+                />
+                {/* <div className="input-info">
+                  <p>Appears on your Profile page.</p>
+                </div> */}
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>New Password</label>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Please provide your new password"
+                  onChange={handleChange}
+                />
+                {/* <div className="input-info">
+                  <p>Appears on your Profile Page.</p>
+                  <span>0/160</span>
+                </div> */}
+              </FormGroup>
+              <FormGroup className="form-group">
+                <label>confirm Password</label>
+                <Input
+                  type="password"
+                  name="passwordConfirmation"
+                  placeholder="Please confirm your new password"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <ActionGroup>
+                <LinkAction
+                  className="LinkButton"
+                  onClick={() => setShowPasswordForm(!showPasswordForm)}
+                >
+                  Update Profile
+                </LinkAction>
+                <div className="action">
+                  <Button
+                    className="CancelButton"
+                    type="button"
+                    onClick={() => dispatch(closeModal())}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="button"
+                    className="SaveButton"
+                    onClick={() => handlePasswordSubmit()}
+                  >
+                    {loading ? 'Saving...' : 'Save'}
+                    {loading && (
+                      <Spinner
+                        style={{
+                          position: 'relative',
+                          backgroundColor: 'transparent',
+                          boxShadow: 'none',
+                        }}
+                      />
+                    )}
+                    {/* Save */}
+                  </Button>
+                </div>
+              </ActionGroup>
+            </>
+          )}
+        </ProfileInformationWrapper>
         <ToastContainer />
-      </>
+      </ModalContainer>
     );
 };
 

@@ -3,6 +3,7 @@ import calendar from 'dayjs/plugin/calendar';
 dayjs.extend(calendar);
 import { uploadProps } from 'src/types';
 import { toBase64 } from './base64';
+import axios from 'axios';
 
 export function cutTextToLength(str: string, maxLength: number): string {
   return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
@@ -42,7 +43,34 @@ export const handleImgChange = async ({
   const base64 = await toBase64(event.target.files[0]);
   setUploadImg(image);
   setDisplayImg(base64);
-  return;
+  return image;
+};
+
+export const uploadNewImage = async (upload: File, field: string) => {
+  //   console.log(upload);
+  let form = new FormData();
+  form.append('file', upload, upload?.name);
+  try {
+    //   console.log(uploadImg);
+    const res = await axios(`/api/upload`, {
+      method: 'post',
+      headers: {
+        Accept: 'multipart/form-data',
+      },
+      data: form,
+    });
+    // console.log(res);
+    const data = {
+      imagefile: res?.data?.content?.url,
+      flag: 'user-image',
+      field,
+    };
+    await axios.post('/api/user/update', {
+      data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const formatTimeAndDate = (date: string, time: string): string => {
