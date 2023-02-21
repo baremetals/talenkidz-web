@@ -70,20 +70,29 @@ export default async function login(
       avatar: response.data.user.avatar,
       userType: response.data.user.userType,
       jwt: response.data.jwt,
-      orgName: response.data.user.organisation.name || '',
-      orgType: response.data.user.organisation.organisationType || '',
-      website: response.data.user.organisation.website || '',
+      orgName:
+        response.data.user.organisation == null
+          ? ''
+          : response.data.user.organisation.name,
+      orgType:
+        response.data.user.organisation == null
+          ? ''
+          : response.data.user.organisation.organisationType,
+      website:
+        response.data.user.organisation == null
+          ? ''
+          : response.data.user.organisation.website,
     };
     setTheCookie(user);
 
     // res.send(response.data.user);
     res.status(200).json({ user: response.data.user });
   } catch (err: any) {
-    // console.log(err.response.data);
+    // console.log(err.response);
     // res.send(err.response.data);
     res.status(401).json({
-      message: err.response.data.error.message,
-      name: err.response.data.error.name,
+      message: err?.response?.data?.error?.message,
+      name: err?.response?.data?.error?.name,
     });
   }
  

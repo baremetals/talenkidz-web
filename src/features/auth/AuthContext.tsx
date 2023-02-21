@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'src/app/hooks';
 import { setFirebaseUser, signOutUser } from 'src/features/auth';
 import { AuthUser } from 'src/interfaces';

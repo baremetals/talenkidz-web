@@ -108,20 +108,20 @@ const Form = ({ formType, id }: form) => {
     formState: { errors },
   } = useForm<FormProps>();
 
-  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  // const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
 
-      console.log('we here');
-      const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
-      if (res?.error) {
-        console.log('my - niggerrrrr!', res.error);
-        setMsg(res.error);
-        setImgSizeErr(true);
-        setTimeout(() => {
-          setImgSizeErr(false);
-        }, 8000);
-      }
-      setValue('listImage', uploadImg as File);
-    };
+  //     console.log('we here');
+  //     const res = await handleImgChange({ event, setUploadImg, setDisplayImg });
+  //     if (res?.error) {
+  //       console.log('my - niggerrrrr!', res.error);
+  //       setMsg(res.error);
+  //       setImgSizeErr(true);
+  //       setTimeout(() => {
+  //         setImgSizeErr(false);
+  //       }, 8000);
+  //     }
+  //     setValue('listImage', uploadImg as File);
+  //   };
 
   const onSubmit = async (info: FormProps) => {
     // console.log('going down: ',);
@@ -596,7 +596,7 @@ const Form = ({ formType, id }: form) => {
                               name="listImage"
                               type="file"
                               // onChange={handleImageChange('listImage')}
-                              onChange={(e) => handleImageChange(e)}
+                              // onChange={(e) => handleImageChange(e)}
                             />
                             <Edit />
                           </EditButton>
@@ -621,7 +621,7 @@ const Form = ({ formType, id }: form) => {
                         type="file"
                         name="listImage"
                         // onChange={handleImageChange('listImage')}
-                        onChange={(e) => handleImageChange(e)}
+                        // onChange={(e) => handleImageChange(e)}
                       />
                       <SelectCoverPictureButton>
                         <BsCloudArrowUp />

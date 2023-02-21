@@ -51,7 +51,7 @@ import { useAppDispatch } from 'src/app/hooks';
 import { openModal } from 'src/features/modal/reducers';
 
 import Button from 'components/users/Auth/Button';
-import { UserProfileWapper } from 'components/utilities/Modal/modal.styles';
+// import { UserProfileWapper } from 'components/utilities/Modal/modal.styles';
 
 function LikedPage(props: { props: UsersPermissionsUser }) {
   const { user: user } = useAppSelector(isUser);

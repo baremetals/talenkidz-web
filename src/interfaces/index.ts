@@ -59,9 +59,9 @@ export interface IArticleCard {
   bookedMarked?: boolean;
   saveArticle?: () => void;
   category?: string;
-  articleImage: string | undefined;
-  articleIntro: string | undefined;
-  className: string | undefined;
+  articleImage?: string;
+  articleIntro?: string;
+  className?: string;
 }
 
 export interface ICategory {
