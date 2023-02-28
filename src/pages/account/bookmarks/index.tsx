@@ -1,10 +1,10 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useIsAuth } from 'src/hooks/isAuth';
 import BookmarkPage from 'components/users/BookmarkPage';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 import { initializeApollo } from 'src/hooks/apolloClient';
+import Layout from 'components/Layout';
 import {
   MeDocument,
   MeQueryResult,
@@ -17,30 +17,20 @@ export type ProfileProps = {
   };
 };
 
-const UserProfile = (data: ProfileProps) => {
+const BookMarks = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
   //   console.log('the rassssss user', user);
   useIsAuth();
   return (
-    <>
-      <Head>
-        <title>{user?.username} Account Page</title>
-        <meta property="og:title" content="Talentkids" key="title" />
-        <meta property="og:type" content="account page" />
-        <meta
-          property="og:url"
-          content={`https://www.talentkids.io/account/${user?.username}/` || ''}
-        />
-        <link
-          rel="canonical"
-          href={
-            `https://www.talentkids.io/user-profile/${user?.username}/` || ''
-          }
-        />
-      </Head>
+    <Layout
+      title="My bookmarks Page"
+      canonicalUrl={`https://www.talentkids.io/account/bookmarks`}
+      type="account page"
+      pageUrl={`https://www.talentkids.io/account/bookmarks`}
+    >
       <BookmarkPage props={user} />
-    </>
+    </Layout>
   );
 };
 
@@ -70,4 +60,4 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
   }
 );
 
-export default UserProfile;
+export default BookMarks;

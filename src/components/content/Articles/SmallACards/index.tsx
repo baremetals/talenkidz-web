@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import dayjs from 'dayjs';
+import { cutTextToLength } from 'src/utils';
 
 import { IArticleCard } from 'src/interfaces';
 import {
@@ -52,7 +54,7 @@ const SmallACard = ({
           </AuthorWrap>
           <BookMarkIcon
             id={id as string}
-            title={articleTitle as string}
+            title={cutTextToLength(articleTitle as string, 40)}
             slug={slug as string}
             image={articleImage as string}
             width={25}
@@ -63,7 +65,7 @@ const SmallACard = ({
           <h3>{articleTitle}</h3>
         </Link>
         <Datetime>
-          <Date>{createdAt}</Date>
+          <Date>{dayjs(createdAt).format('MMM D')}</Date>
           <span></span>
           <Time>{readingTime} read</Time>
         </Datetime>

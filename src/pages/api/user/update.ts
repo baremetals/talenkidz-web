@@ -17,7 +17,9 @@ type user = {
 export default async function updateUser(req: NextApiRequest, res: NextApiResponse) {
   const { data } = req.body;
   const cookies = JSON.parse(req.cookies.talentedKid as string);
-  const { id, jwt, avatar, backgroundImg, username, fullName, userType } = cookies;
+  const { id, jwt, avatar, backgroundImg } = cookies;
+
+  // console.log('the request body', cookies);
 
   function setTheCookie(user: user) {
     return res.setHeader(
@@ -36,7 +38,8 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
     );
   }
 
-  // console.log(cookies);
+  // console.log(data);
+  // console.log('the request body',req.body);
 
   if (data.flag === 'user-image') {
     const profileImage = {
@@ -59,11 +62,7 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
 
       if (resp?.data) {
         const user: user = {
-          id,
-          userType,
-          jwt: jwt,
-          username,
-          fullName,
+          ...cookies,
           avatar: data.field === 'profile' ? data.imagefile : avatar,
           backgroundImg: data.field === 'background' ? data.imagefile : backgroundImg,
         };
@@ -78,7 +77,7 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
     }
   } else {
     try {
-      console.log("profile details update");
+      // console.log("profile details update");
 
       const resp = await axios({
         method: 'PUT',
@@ -94,20 +93,19 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
       
       if (resp?.data) {
         const user: user = {
-          id,
+          ...cookies,
           username: data.username,
           fullName: data.fullName,
-          avatar,
-          backgroundImg: data.backgroundImg,
-          userType,
-          jwt: jwt,
+          bio: data.bio,
+          stripeCustomerId: data.stripeCustomerId,
         };
         setTheCookie(user);
       }
+      // console.log('fucking response',resp)
 
       res.status(200).json({ message: 'Details successfully changed.' });
     } catch (err: any) {
-      // console.log(err.graphQLErrors[0].message);
+      // console.log(err);
       if (err.graphQLErrors[0].message) {
         res.status(401).json({ message: err.graphQLErrors[0].message });
       } else {

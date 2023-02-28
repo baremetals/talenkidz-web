@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react'
-import Image from 'next/image';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import { isUser } from 'src/features/auth';
-import { useAppSelector, useAppDispatch } from 'src/app/hooks';
+// import { isUser } from 'src/features/auth';
+import { useAppDispatch } from 'src/app/hooks';
 
 
 
@@ -28,24 +27,23 @@ import {
   EditProfileButton,
   Followers,
   PageSpacer,
-  Premium,
   ProfileActions,
   ProfileBasicInfo,
   ProfileButtons,
   ProfileInfo,
-  UserProfileImage,
-  UserProfileImageBlock,
-  EditIconButton,
 } from '../profile.styles';
 import { InnerContainer, Title, Text } from 'styles/common.styles';
 import { upperCase } from 'src/utils';
 import Link from 'next/link';
 import { openModal } from 'src/features/modal';
+import ProfileImage from '../ProfileImage';
+import { useRouter } from 'next/router';
 
 
 type TUserProps = {
   username: string;
   fullName: string;
+  orgName: string;
   avatar: string;
   backgroundImg: string;
   bio: string;
@@ -58,6 +56,7 @@ type TUserProps = {
 const ProfileBase: React.FC<TUserProps> = ({
   username,
   fullName,
+  orgName,
   avatar,
   backgroundImg,
   bio,
@@ -66,8 +65,10 @@ const ProfileBase: React.FC<TUserProps> = ({
   createdAt,
   children,
 }) => {
-  const { user: user } = useAppSelector(isUser);
+  // const { user: user } = useAppSelector(isUser);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  // console.log(user)
 
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<any>(null);
@@ -81,30 +82,11 @@ const ProfileBase: React.FC<TUserProps> = ({
         />
 
         <ProfileInfo>
-          <UserProfileImageBlock
-            className={membership === 'premium' ? 'premiumStatus' : ''}
-          >
-            <UserProfileImage
-              src={avatar as string}
-              alt="user profile"
-              // width={200}
-              // height={200}
-            />
-            {userType === 'organisation' && (
-              <Premium className="premium-tag">
-                <Image
-                  src="/assets/svgs/premium.svg"
-                  alt="premium"
-                  width={30}
-                  height={20}
-                />
-              </Premium>
-            )}
-            <EditIconButton htmlFor="inputTag" className="EditButton">
-              <Pencil />
-              <input id="inputTag" className="inputTag" type="file" />
-            </EditIconButton>
-          </UserProfileImageBlock>
+          <ProfileImage
+            membership={membership}
+            avatar={avatar}
+            userType={userType}
+          />
           <ProfileBasicInfo>
             <Title
               style={{
@@ -114,12 +96,14 @@ const ProfileBase: React.FC<TUserProps> = ({
                 lineHeight: '29px',
               }}
             >
-              {fullName || username}
+              {userType === 'organisation'
+                ? orgName || fullName || username
+                : fullName || username}
             </Title>
-            {userType === 'organisation' && (
+            {userType === 'organisation' ? (
               <Text
                 style={{
-                  marginBottom: '10px',
+                  marginBottom: '20px',
                   fontWeight: 500,
                   fontSize: '16px',
                   lineHeight: 1,
@@ -127,6 +111,18 @@ const ProfileBase: React.FC<TUserProps> = ({
                 }}
               >
                 Organisation
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  marginBottom: '20px',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  lineHeight: 1,
+                  color: '#373737',
+                }}
+              >
+                {bio}
               </Text>
             )}
 
@@ -149,7 +145,7 @@ const ProfileBase: React.FC<TUserProps> = ({
                 )}
               </span>
               {userType === 'standard' && membership !== 'premium' ? (
-                <a href="#">get the Premium status</a>
+                <Link href="/account/subscribe">get the Premium status</Link>
               ) : null}
             </AccountStatus>
           </ProfileBasicInfo>
@@ -165,12 +161,20 @@ const ProfileBase: React.FC<TUserProps> = ({
             </EditProfileButton>
             <ProfileButtons>
               <Link passHref href={`/account/liked-content`}>
-                <span>
+                <span
+                  className={
+                    router.asPath.includes('/bookmarks') ? 'active' : ''
+                  }
+                >
                   <Heart />
                 </span>
               </Link>
-              <Link passHref href={`/account/articles`}>
-                <span>
+              <Link passHref href={`/account/bookmarks`}>
+                <span
+                  className={
+                    router.asPath.includes('/bookmarks') ? 'active' : ''
+                  }
+                >
                   <Favourite />
                 </span>
               </Link>

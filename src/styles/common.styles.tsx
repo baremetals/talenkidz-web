@@ -1131,14 +1131,6 @@ export const StepHead = styled.div`
   position: relative;
 `;
 
-export const CardFormGroup = styled.div`
-  margin-bottom: 1rem;
-  .cardinput {
-    border: 1px solid #ced4da;
-    border-radius: 0.357rem;
-  }
-`;
-
 export const LabelText = styled.label`
   display: block;
   text-transform: uppercase;

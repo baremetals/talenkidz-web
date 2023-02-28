@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import dayjs from 'dayjs';
+import { cutTextToLength } from 'src/utils';
+
 import {
   CategoryBtn,
   ArticleImageColumn,
@@ -10,6 +13,7 @@ import {
   AuthorBlock,
   ArticleImageBlock,
 } from './styles';
+
 
 import Button from 'components/users/Auth/Button';
 import {
@@ -65,7 +69,10 @@ const ArticleCard = ({
             id={id}
             title={articleTitle as string}
             slug={slug as string}
-            image={articleImage as string} width={25} height={25}/>
+            image={articleImage as string}
+            width={25}
+            height={25}
+          />
           {/* <div
             className={bookedMarked ? 'active' : 'inactive'}
             // onClick={handleClick}
@@ -94,12 +101,14 @@ const ArticleCard = ({
           </div> */}
         </AuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
-          <h3>{articleTitle}</h3>
+          <h3>{cutTextToLength(articleTitle as string, 18)}</h3>
         </Link>
 
-        <ArticleBlurb>{articleIntro}</ArticleBlurb>
+        <ArticleBlurb>
+          {cutTextToLength(articleIntro as string, 80)}
+        </ArticleBlurb>
         <Datetime>
-          <Date>{createdAt}</Date>
+          <Date>{dayjs(createdAt).format('MMM D')}</Date>
           <span></span>
           <Time>{readingTime} read</Time>
           <Link passHref href={`/articles/${category}`}>

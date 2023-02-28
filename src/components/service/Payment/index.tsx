@@ -1,105 +1,95 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import StripeForm from './stripe-form';
+// import StripeForm from './stripe-form';
 
-import Footer from 'components/Layout/Footer';
-import NavBar from 'components/Layout/NavBar';
-import PaymentPage from 'components/content/Payment';
+import CheckBox from 'public/assets/icons/CheckBox';
 
 import {
   InnerContainer,
-  // Row,
-  // Column,
-  PageContainer,
-  // WidgetPanel,
-  // WidgetPanelTitle,
-  AlignCentered,
-  PaymentOuter,
-  CardStyle,
-  PaymentInner,
-  // PaymentDetail,
-  PaymentForm,
-  // Paragraph,
-  // H6,
-  H3,
-  StepTabs,
-  StepItem,
-  StepHead,
-  Title,
+  Column,
+  Row,
 } from 'styles/common.styles';
 
-import Button from 'components/widgets/Button';
+import Button from 'components/users/Auth/Button';
 import { AuthContext } from 'src/features/auth/AuthContext';
+import { Pageheader, PayCard, PayCardWrapper, PaymentCard, PaymentTerms } from './styles';
+import StripeForm from './StripeForm';
+// import StripeForm from './CheckoutForm';
 
-const CreateListing = () => {
+const Payment = () => {
   // const [formType, setFormType] = useState('activity')
   const { user } = useContext(AuthContext);
+  const [interval, setInterval] = useState('month');
 
   return (
-    <>
-      <div className="demo" style={{ background: '#F4F4F4' }}>
-        <NavBar />
-        <PageContainer style={{ minHeight: '100vh' }}>
-          <PaymentPage />
-          <InnerContainer>
-            <Title style={{ marginBottom: '2rem', textAlign: 'center' }}>
-              Payment method
-            </Title>
-            <PaymentOuter>
-              <AlignCentered style={{ minWidth: '100%' }}>
-                <CardStyle style={{ minWidth: '100%' }}>
-                  <StepTabs>
-                    <StepItem>
-                      <StepHead>1</StepHead>
-                      <H3>Card Details</H3>
-                    </StepItem>
-                    <StepItem>
-                      <StepHead>2</StepHead>
-                      <H3>Form Reviews</H3>
-                    </StepItem>
-                    <StepItem>
-                      <StepHead>3</StepHead>
-                      <H3>Authenticate OPT</H3>
-                    </StepItem>
-                    <StepItem>
-                      <StepHead>4</StepHead>
-                      <H3>Create code</H3>
-                    </StepItem>
-                  </StepTabs>
-                  {/* <Button className={formType !=='activity' ? 'primary-outline' : ''} style={{margin:'0 .5rem', minWidth:'180px' }} onClick={() => setFormType('activity')}>
-                                    List An Activity
-                                </Button>
-                                <Button className={formType !=='event' ? 'primary-outline' : ''}  style={{margin:'0 .5rem', minWidth:'180px'}} onClick={() => setFormType('event')}>
-                                    List An Event
-                                </Button> */}
-                </CardStyle>
-              </AlignCentered>
+    <InnerContainer>
+      <Pageheader>
+        <h1>Get unlimited access to all of TALENTKIDS </h1>
+        <p>Plans starting at less than 1 £/week. Cancel anytime.</p>
+        <ul>
+          <li>
+            <CheckBox />
+            <span>no ads</span>
+          </li>
+          <li>
+            <CheckBox />
+            <span>support quality writing</span>
+          </li>
+          <li>
+            <CheckBox />
+            <span>access on any device</span>
+          </li>
+        </ul>
+      </Pageheader>
+      <PaymentCard>
+        <Row>
+          <Column className="column-6">
+            <PaymentTerms>
+              <div className="PaymentTerms selected">
+                <h1>Mounthly</h1>
+                <p>£5/month</p>
+                <Button
+                  content={interval === 'month' ? 'Selected' : 'Select'}
+                  type="submit"
+                  disabled={false}
+                  loading={false}
+                  onClick={() => setInterval('month')}
+                />
+              </div>
+            </PaymentTerms>
+          </Column>
+          <Column className="column-6">
+            <PaymentTerms>
+              <div className="PaymentTerms">
+                <h1>Annual</h1>
+                <p>£60/month</p>
+                <Button
+                  content={interval !== 'month' ? 'Selected' : 'Select'}
+                  type="submit"
+                  disabled={false}
+                  loading={false}
+                  onClick={() => setInterval('year')}
+                />
+              </div>
+            </PaymentTerms>
+          </Column>
+        </Row>
+      </PaymentCard>
 
-              <PaymentInner>
-                {/* <PaymentDetail>
-                                <CardStyle>
-                                    <H6>Step 2</H6>
-                                    <H3>Application reviews</H3>
-                                    <Paragraph style={{margin: '0' }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Paragraph>
-                                </CardStyle>
-                            </PaymentDetail> */}
-
-                <PaymentForm style={{ minWidth: '100%' }}>
-                  <CardStyle>
-                    <StripeForm />
-                  </CardStyle>
-                </PaymentForm>
-              </PaymentInner>
-            </PaymentOuter>
-          </InnerContainer>
-        </PageContainer>
-        <Footer />
-      </div>
-    </>
+      {/* payCard */}
+      <PayCardWrapper>
+        <div className="PayHeader">
+          <h1>Total billed today</h1>
+          <label>{interval === 'month'? '£5': '£60'}</label>
+        </div>
+        <StripeForm purchaseType={'subscribe'} interval={interval} />
+      </PayCardWrapper>
+    </InnerContainer>
   );
 };
 
-export default CreateListing;
+export default Payment;

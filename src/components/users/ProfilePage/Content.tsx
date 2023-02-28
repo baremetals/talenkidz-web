@@ -46,7 +46,7 @@ const tabs: TabsType = [
 ];
 
 const Content = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(tabs[2].index);
+  const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   return (
     <>
       <ProfileContainer>

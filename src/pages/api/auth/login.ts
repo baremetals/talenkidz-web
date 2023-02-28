@@ -24,6 +24,7 @@ type user = {
   orgName?: string;
   orgType?: string;
   website?: string;
+  stripeCustomerId: string;
 };
 
 
@@ -59,7 +60,7 @@ export default async function login(
       data: { identifier: usernameOrEmail, password },
     });
 
-    console.log(response);
+    // console.log(response);
     const user: user = {
       id: response.data.user.id,
       email: response.data.user.email,
@@ -69,6 +70,7 @@ export default async function login(
       fullName: response.data.user.fullName,
       avatar: response.data.user.avatar,
       userType: response.data.user.userType,
+      stripeCustomerId: response.data.user.stripeCustomerId,
       jwt: response.data.jwt,
       orgName:
         response.data.user.organisation == null

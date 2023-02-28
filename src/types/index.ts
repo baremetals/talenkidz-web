@@ -147,3 +147,21 @@ export type TFetchEventState = {
     };
   };
 };
+
+export type TNotifications = {
+  sender: string;
+  recipientEmail: string;
+  recipientName: string;
+  subject: string;
+  message: string;
+
+  messageType: string;
+  messageImage: string;
+  entityType: string;
+  entityId: string | number;
+  messageLink?: string;
+  read?: boolean;
+  emailNotificationsOn?: boolean;
+  appNotificationsOn?: boolean;
+  createdAt?: string;
+};

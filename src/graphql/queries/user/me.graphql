@@ -22,10 +22,19 @@ query Me(
         provider
         userType
         username
+        stripeCustomerId
         organisation {
           name
           organisationType
           website
+        }
+        subscription {
+          data {
+            id
+            attributes {
+              stripeSubscriptionId
+            }
+          }
         }
         bookmarklist(sort: $sort, pagination: $pagination) {
           itemId
@@ -34,6 +43,30 @@ query Me(
           slug
           title
           type
+          category
+          article {
+            data {
+              id
+              attributes {
+                author {
+                  data {
+                    attributes {
+                      avatar {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      fullName
+                    }
+                  }
+                }
+                readingTime
+                blurb
+              }
+            }
+          }
         }
       }
     }

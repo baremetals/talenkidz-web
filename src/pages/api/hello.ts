@@ -1,13 +1,37 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SK);
 type Data = {
-  name: string
-}
+  clientSecret?: string;
+  error?: any
+};
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+
+  try {
+    // console.log(stripe)
+    const paymentIntent = await stripe.paymentIntents.create({
+    amount: 5,
+    currency: 'gbp',
+    payment_method_types: ['card'],
+    // Verify your integration in this guide by including this parameter
+    statement_descriptor: 'Subscription',
+    automatic_payment_methods: { enabled: true },
+    metadata: { integration_check: 'accept_a_payment' },
+  });
+  // console.log('the payment creation: ',paymentIntent);
+  res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (err: any) {
+    return res.status(400).send({
+      error: {
+        message: err.message
+      }
+    })
+  }
+  
+  
 }

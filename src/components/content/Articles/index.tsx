@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useCallback, useEffect, useState } from 'react';
 
 // import { openModal } from 'src/features/modal/reducers';
@@ -53,7 +52,6 @@ import { useFetchEntities } from 'src/hooks/usefetchEntities';
 import { useSearchState } from 'components/utilities/search/searchReducer';
 // import { AuthContext } from 'src/features/auth/AuthContext';
 import { SearchBlock } from 'components/utilities/search/search.styles';
-import { cutTextToLength } from 'src/utils';
 import Categories from 'components/utilities/Categories';
 // import { TBookMark } from 'src/types';
 
@@ -162,13 +160,10 @@ const Articles = () => {
                     item?.attributes?.author?.data?.attributes
                       ?.fullName as string
                   }
-                  articleTitle={cutTextToLength(
-                    item?.attributes?.title as string,
-                    40
-                  )}
+                  articleTitle={item?.attributes?.title as string}
                   slug={item?.attributes?.slug}
                   readingTime={item?.attributes?.readingTime as string}
-                  createdAt={dayjs(item?.attributes?.createdAt).format('MMM D')}
+                  createdAt={item?.attributes?.createdAt}
                   category={
                     item?.attributes?.category?.data?.attributes?.slug as string
                   }
@@ -207,21 +202,13 @@ const Articles = () => {
                       item?.attributes?.author?.data?.attributes
                         ?.fullName as string
                     }
-                    articleTitle={cutTextToLength(
-                      item?.attributes?.title as string,
-                      18
-                    )}
-                    articleIntro={cutTextToLength(
-                      item?.attributes?.blurb as string,
-                      80
-                    )}
+                    articleTitle={item?.attributes?.title as string}
+                    articleIntro={item?.attributes?.blurb as string}
                     articleImage={
                       item?.attributes?.heroImage?.data?.attributes?.url
                     }
                     readingTime={item?.attributes?.readingTime as string}
-                    createdAt={dayjs(item?.attributes?.createdAt).format(
-                      'MMM D'
-                    )}
+                    createdAt={item?.attributes?.createdAt}
                     category={
                       item?.attributes?.category?.data?.attributes
                         ?.slug as string

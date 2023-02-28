@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useIsAuth } from 'src/hooks/isAuth';
 import ProfilePage from 'components/users/ProfilePage';

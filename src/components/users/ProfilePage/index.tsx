@@ -15,9 +15,11 @@ function Profile(props: { props: UsersPermissionsUser }) {
     membership,
     userType,
     createdAt,
+    organisation
   } =
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
+    // console.log(props?.props)
 
   return (
     <ProfileBase
@@ -29,6 +31,7 @@ function Profile(props: { props: UsersPermissionsUser }) {
       membership={membership as string}
       userType={userType as string}
       createdAt={createdAt as string}
+      orgName={organisation?.name as string}
     >
       <Content />
     </ProfileBase>

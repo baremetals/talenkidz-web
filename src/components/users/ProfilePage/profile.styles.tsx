@@ -99,6 +99,7 @@ export const UserProfileImage = styled.img`
 
 export const EditIconButton = styled.label`
   background: #39007e;
+  cursor: pointer;
   width: 40px;
   height: 40px;
   border-radius: 50px;

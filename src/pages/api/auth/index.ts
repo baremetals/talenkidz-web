@@ -2,6 +2,9 @@ import axios from 'axios';
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 // import { addToMailingList } from 'src/lib/helpers';
+const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SK, {
+  apiVersion: '2022-08-01',
+});
 
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
@@ -30,6 +33,7 @@ type user = {
   orgName?: string;
   orgType?: string;
   website?: string;
+  stripeCustomerId: string;
 };
 
 
@@ -59,9 +63,15 @@ export default async function auth(
   
   // console.log(data, 'I am here');
 
+  
+
   // Register request
   if (data.flag === 'REGISTER') {
     try {
+      const customer = await stripe.customers.create({
+        email: data.email,
+        name: data.fullName,
+      });
       // console.log('register me!', baseUrl);
       await axios({
         method: 'POST',
@@ -72,8 +82,9 @@ export default async function auth(
           password: data.password,
           userType: data.userType,
           username: data.username,
-          mailinglist:data.mailinglist,
+          mailinglist: data.mailinglist,
           firebasePassword: data.firebasePassword,
+          stripeCustomerId: customer.id,
 
           // organisationName: data.organisationName || "",
         },
@@ -117,9 +128,15 @@ export default async function auth(
         email: auth.user.email,
         bio: auth.user.bio,
         provider: auth.user.provider,
-        orgName: org.data.organisation == null ? "" : org.data.organisation.name,
-        orgType: org.data.organisation == null ? "" : org.data.organisation.organisationType,
-        website: org.data.organisation == null ? "" : org.data.organisation.website,
+        stripeCustomerId: auth.user.stripeCustomerId,
+        orgName:
+          org.data.organisation == null ? '' : org.data.organisation.name,
+        orgType:
+          org.data.organisation == null
+            ? ''
+            : org.data.organisation.organisationType,
+        website:
+          org.data.organisation == null ? '' : org.data.organisation.website,
       };
 
       setTheCookie(user);

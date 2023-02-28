@@ -75,7 +75,9 @@ const OrgProfile = () => {
           if (response.status === 200) {
             setLoading(false);
             toast.success(response?.data?.message, { position: 'top-center' });
-            dispatch(closeModal());
+            setTimeout(() => {
+              dispatch(closeModal());
+            }, 4000);
           }
         })
         .catch((err) => {
@@ -109,7 +111,9 @@ const OrgProfile = () => {
               toast.success(response?.data?.message, {
                 position: 'top-center',
               });
-              dispatch(closeModal());
+              setTimeout(() => {
+                dispatch(closeModal());
+              }, 4000);
             }
           })
           .catch((err) => {

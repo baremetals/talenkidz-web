@@ -59,6 +59,7 @@ import slugify from 'slugify';
 import axios from 'axios';
 import { FormProps } from 'src/types';
 import { handleImgChange } from 'src/utils';
+import StripeForm from 'components/service/Payment/StripeForm';
 
 
 
@@ -662,6 +663,7 @@ const Form = ({ formType, id }: form) => {
           </FormWrap>
         </InnerFormWrapper>
       </FormWrapper>
+      {/* <StripeForm purchaseType={formType} /> */}
     </InnerContainer>
   );
 };

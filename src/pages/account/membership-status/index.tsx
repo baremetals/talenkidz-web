@@ -1,8 +1,7 @@
 import React from 'react';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useIsAuth } from 'src/hooks/isAuth';
-import PaymentStatus from 'components/users/PaymentStatus';
+import MembershipStatus from 'components/users/MembershipStatus';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 import { initializeApollo } from 'src/hooks/apolloClient';
 import {
@@ -10,6 +9,7 @@ import {
   MeQueryResult,
   UsersPermissionsUser,
 } from 'generated/graphql';
+import Layout from 'components/Layout';
 
 export type ProfileProps = {
   data: {
@@ -24,22 +24,14 @@ const UserProfile = (data: ProfileProps) => {
   useIsAuth();
   return (
     <>
-      <Head>
-        <title>{user?.username} Account Page</title>
-        <meta property="og:title" content="Talentkids" key="title" />
-        <meta property="og:type" content="account page" />
-        <meta
-          property="og:url"
-          content={`https://www.talentkids.io/account/${user?.username}/` || ''}
-        />
-        <link
-          rel="canonical"
-          href={
-            `https://www.talentkids.io/user-profile/${user?.username}/` || ''
-          }
-        />
-      </Head>
-      <PaymentStatus props={user} />
+      <Layout
+        title={`${user?.username} Account Page`}
+        canonicalUrl={`https://www.talentkids.io/account/${user?.username}/`}
+        type="account page"
+        pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
+      >
+        <MembershipStatus props={user} />
+      </Layout>
     </>
   );
 };

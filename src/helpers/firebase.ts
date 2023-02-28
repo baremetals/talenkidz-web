@@ -1,3 +1,4 @@
+import { TNotifications } from 'src/types';
 import { updateStrapiEntity } from '.';
 import {
   addDoc,
@@ -124,4 +125,16 @@ export const updateAComment = async (docId: string, body: string) => {
 
 export const deleteAComment = async (docId: string) => {
   await deleteDoc(doc(db, 'comments', docId));
+};
+
+export const createFirebaseNotification = async (
+  data: TNotifications
+) => {
+  return addDoc(collection(db, 'notifications'), {
+    ...data,
+    read: false,
+    emailNotificationsOn: true,
+    appNotificationsOn: true,
+    createdAt: Timestamp.fromDate(new Date()),
+  });
 };

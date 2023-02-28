@@ -31,6 +31,6 @@
     "src/**/*.tsx",
     "src/components/Payment/stripe-form.js",
     "public/"
-, "src/components/Layout/Google/index.tsx", "src/lib/firebase.ts", "src/lib/firebase.ts", "src/pages/auth/login/index.tsx", "src/pages/auth/login/index.tsx"  ],
+, "src/components/Layout/Google/index.tsx", "src/lib/firebase.ts", "src/lib/firebase.ts", "src/pages/auth/login/index.tsx", "src/pages/auth/login/index.tsx", "src/components/service/Payment/StripeForm.tsxx", "src/components/service/Payment/CheckoutForm.js"  ],
   "exclude": ["node_modules"]
 }

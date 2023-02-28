@@ -88,6 +88,7 @@ export type Article = {
   readingTime?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
+  totalBookmarks?: Maybe<Scalars['Long']>;
   totalComments?: Maybe<Scalars['Int']>;
   totalLikes?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -135,6 +136,7 @@ export type ArticleFiltersInput = {
   readingTime?: InputMaybe<StringFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
+  totalBookmarks?: InputMaybe<LongFilterInput>;
   totalComments?: InputMaybe<IntFilterInput>;
   totalLikes?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -154,6 +156,7 @@ export type ArticleInput = {
   readingTime?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  totalBookmarks?: InputMaybe<Scalars['Long']>;
   totalComments?: InputMaybe<Scalars['Int']>;
   totalLikes?: InputMaybe<Scalars['Int']>;
   views?: InputMaybe<Scalars['Long']>;
@@ -387,9 +390,13 @@ export type ComponentAddressLocationInput = {
 
 export type ComponentBookMarksReadingList = {
   __typename?: 'ComponentBookMarksReadingList';
+  article?: Maybe<ArticleEntityResponse>;
+  category?: Maybe<Scalars['String']>;
+  event?: Maybe<EventEntityResponse>;
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   itemId?: Maybe<Scalars['String']>;
+  listing?: Maybe<ListingEntityResponse>;
   slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -397,8 +404,12 @@ export type ComponentBookMarksReadingList = {
 
 export type ComponentBookMarksReadingListFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
+  article?: InputMaybe<ArticleFiltersInput>;
+  category?: InputMaybe<StringFilterInput>;
+  event?: InputMaybe<EventFiltersInput>;
   image?: InputMaybe<StringFilterInput>;
   itemId?: InputMaybe<StringFilterInput>;
+  listing?: InputMaybe<ListingFiltersInput>;
   not?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
   slug?: InputMaybe<StringFilterInput>;
@@ -407,9 +418,13 @@ export type ComponentBookMarksReadingListFiltersInput = {
 };
 
 export type ComponentBookMarksReadingListInput = {
+  article?: InputMaybe<Scalars['ID']>;
+  category?: InputMaybe<Scalars['String']>;
+  event?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['String']>;
   itemId?: InputMaybe<Scalars['String']>;
+  listing?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Scalars['String']>;
@@ -615,6 +630,17 @@ export enum Enum_Listing_Venue {
   Online = 'online'
 }
 
+export enum Enum_Product_Type {
+  Event = 'event',
+  Listing = 'listing',
+  Subscription = 'subscription'
+}
+
+export enum Enum_Subscription_Paymentoption {
+  Month = 'month',
+  Year = 'year'
+}
+
 export enum Enum_Userspermissionsuser_Membership {
   Partner = 'Partner',
   Basic = 'basic',
@@ -694,6 +720,7 @@ export type Event = {
   link?: Maybe<Scalars['String']>;
   linkButtonText?: Maybe<Enum_Event_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
+  order?: Maybe<OrderEntityResponse>;
   price?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
@@ -749,6 +776,7 @@ export type EventFiltersInput = {
   listImage?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<EventFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
+  order?: InputMaybe<OrderFiltersInput>;
   price?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -833,6 +861,7 @@ export type EventInput = {
   link?: InputMaybe<Scalars['String']>;
   linkButtonText?: InputMaybe<Enum_Event_Linkbuttontext>;
   listImage?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Scalars['ID']>;
   price?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
@@ -923,7 +952,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = AboutUs | Article | Author | Category | Comment | ComponentAddressLocation | ComponentBookMarksReadingList | ComponentLikesLikes | ComponentOrganisationOrganisation | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Organisation | Privacy | Review | Tag | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = AboutUs | Article | Author | Category | Comment | ComponentAddressLocation | ComponentBookMarksReadingList | ComponentLikesLikes | ComponentOrganisationOrganisation | ComponentSeoSeo | CookiePolicy | Enquiry | Event | EventGuest | Faq | I18NLocale | Listing | ListingGuest | Order | Organisation | Privacy | Product | Review | Subscription | Tag | TermsAndCondition | Timeline | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -1048,6 +1077,7 @@ export type Listing = {
   link?: Maybe<Scalars['String']>;
   linkButtonText?: Maybe<Enum_Listing_Linkbuttontext>;
   listImage?: Maybe<Scalars['String']>;
+  order?: Maybe<OrderEntityResponse>;
   price?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
@@ -1112,6 +1142,7 @@ export type ListingFiltersInput = {
   listImage?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ListingFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ListingFiltersInput>>>;
+  order?: InputMaybe<OrderFiltersInput>;
   price?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -1190,6 +1221,7 @@ export type ListingInput = {
   link?: InputMaybe<Scalars['String']>;
   linkButtonText?: InputMaybe<Enum_Listing_Linkbuttontext>;
   listImage?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Scalars['ID']>;
   price?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
@@ -1240,8 +1272,11 @@ export type Mutation = {
   createFaq?: Maybe<FaqEntityResponse>;
   createListing?: Maybe<ListingEntityResponse>;
   createListingGuest?: Maybe<ListingGuestEntityResponse>;
+  createOrder?: Maybe<OrderEntityResponse>;
   createOrganisation?: Maybe<OrganisationEntityResponse>;
+  createProduct?: Maybe<ProductEntityResponse>;
   createReview?: Maybe<ReviewEntityResponse>;
+  createSubscription?: Maybe<SubscriptionEntityResponse>;
   createTag?: Maybe<TagEntityResponse>;
   createTimeline?: Maybe<TimelineEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1262,9 +1297,12 @@ export type Mutation = {
   deleteFaq?: Maybe<FaqEntityResponse>;
   deleteListing?: Maybe<ListingEntityResponse>;
   deleteListingGuest?: Maybe<ListingGuestEntityResponse>;
+  deleteOrder?: Maybe<OrderEntityResponse>;
   deleteOrganisation?: Maybe<OrganisationEntityResponse>;
   deletePrivacy?: Maybe<PrivacyEntityResponse>;
+  deleteProduct?: Maybe<ProductEntityResponse>;
   deleteReview?: Maybe<ReviewEntityResponse>;
+  deleteSubscription?: Maybe<SubscriptionEntityResponse>;
   deleteTag?: Maybe<TagEntityResponse>;
   deleteTermsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
   deleteTimeline?: Maybe<TimelineEntityResponse>;
@@ -1298,9 +1336,12 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateListing?: Maybe<ListingEntityResponse>;
   updateListingGuest?: Maybe<ListingGuestEntityResponse>;
+  updateOrder?: Maybe<OrderEntityResponse>;
   updateOrganisation?: Maybe<OrganisationEntityResponse>;
   updatePrivacy?: Maybe<PrivacyEntityResponse>;
+  updateProduct?: Maybe<ProductEntityResponse>;
   updateReview?: Maybe<ReviewEntityResponse>;
+  updateSubscription?: Maybe<SubscriptionEntityResponse>;
   updateTag?: Maybe<TagEntityResponse>;
   updateTermsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
   updateTimeline?: Maybe<TimelineEntityResponse>;
@@ -1371,13 +1412,28 @@ export type MutationCreateListingGuestArgs = {
 };
 
 
+export type MutationCreateOrderArgs = {
+  data: OrderInput;
+};
+
+
 export type MutationCreateOrganisationArgs = {
   data: OrganisationInput;
 };
 
 
+export type MutationCreateProductArgs = {
+  data: ProductInput;
+};
+
+
 export type MutationCreateReviewArgs = {
   data: ReviewInput;
+};
+
+
+export type MutationCreateSubscriptionArgs = {
+  data: SubscriptionInput;
 };
 
 
@@ -1461,12 +1517,27 @@ export type MutationDeleteListingGuestArgs = {
 };
 
 
+export type MutationDeleteOrderArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteOrganisationArgs = {
   id: Scalars['ID'];
 };
 
 
+export type MutationDeleteProductArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteReviewArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteSubscriptionArgs = {
   id: Scalars['ID'];
 };
 
@@ -1617,6 +1688,12 @@ export type MutationUpdateListingGuestArgs = {
 };
 
 
+export type MutationUpdateOrderArgs = {
+  data: OrderInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateOrganisationArgs = {
   data: OrganisationInput;
   id: Scalars['ID'];
@@ -1628,8 +1705,20 @@ export type MutationUpdatePrivacyArgs = {
 };
 
 
+export type MutationUpdateProductArgs = {
+  data: ProductInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateReviewArgs = {
   data: ReviewInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateSubscriptionArgs = {
+  data: SubscriptionInput;
   id: Scalars['ID'];
 };
 
@@ -1681,6 +1770,73 @@ export type MutationUploadArgs = {
   info?: InputMaybe<FileInfoInput>;
   ref?: InputMaybe<Scalars['String']>;
   refId?: InputMaybe<Scalars['ID']>;
+};
+
+export type Order = {
+  __typename?: 'Order';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  event?: Maybe<EventEntityResponse>;
+  listing?: Maybe<ListingEntityResponse>;
+  product?: Maybe<ProductEntityResponse>;
+  productType?: Maybe<Scalars['String']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  status?: Maybe<Scalars['Boolean']>;
+  stripeId?: Maybe<Scalars['String']>;
+  total?: Maybe<Scalars['Float']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<UsersPermissionsUserEntityResponse>;
+};
+
+export type OrderEntity = {
+  __typename?: 'OrderEntity';
+  attributes?: Maybe<Order>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type OrderEntityResponse = {
+  __typename?: 'OrderEntityResponse';
+  data?: Maybe<OrderEntity>;
+};
+
+export type OrderEntityResponseCollection = {
+  __typename?: 'OrderEntityResponseCollection';
+  data: Array<OrderEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type OrderFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  event?: InputMaybe<EventFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  listing?: InputMaybe<ListingFiltersInput>;
+  not?: InputMaybe<OrderFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>;
+  product?: InputMaybe<ProductFiltersInput>;
+  productType?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  status?: InputMaybe<BooleanFilterInput>;
+  stripeId?: InputMaybe<StringFilterInput>;
+  total?: InputMaybe<FloatFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  user?: InputMaybe<UsersPermissionsUserFiltersInput>;
+};
+
+export type OrderInput = {
+  event?: InputMaybe<Scalars['ID']>;
+  listing?: InputMaybe<Scalars['ID']>;
+  product?: InputMaybe<Scalars['ID']>;
+  productType?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  stripeId?: InputMaybe<Scalars['String']>;
+  total?: InputMaybe<Scalars['Float']>;
+  user?: InputMaybe<Scalars['ID']>;
+};
+
+export type OrderRelationResponseCollection = {
+  __typename?: 'OrderRelationResponseCollection';
+  data: Array<OrderEntity>;
 };
 
 export type Organisation = {
@@ -1798,6 +1954,64 @@ export type PrivacyInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type Product = {
+  __typename?: 'Product';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  orders?: Maybe<OrderRelationResponseCollection>;
+  price: Scalars['Float'];
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  type: Enum_Product_Type;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type ProductOrdersArgs = {
+  filters?: InputMaybe<OrderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ProductEntity = {
+  __typename?: 'ProductEntity';
+  attributes?: Maybe<Product>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ProductEntityResponse = {
+  __typename?: 'ProductEntityResponse';
+  data?: Maybe<ProductEntity>;
+};
+
+export type ProductEntityResponseCollection = {
+  __typename?: 'ProductEntityResponseCollection';
+  data: Array<ProductEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ProductFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ProductFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
+  orders?: InputMaybe<OrderFiltersInput>;
+  price?: InputMaybe<FloatFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ProductInput = {
+  name?: InputMaybe<Scalars['String']>;
+  orders?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  price?: InputMaybe<Scalars['Float']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  type?: InputMaybe<Enum_Product_Type>;
+};
+
 export enum PublicationState {
   Live = 'LIVE',
   Preview = 'PREVIEW'
@@ -1830,11 +2044,17 @@ export type Query = {
   listingGuests?: Maybe<ListingGuestEntityResponseCollection>;
   listings?: Maybe<ListingEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
+  order?: Maybe<OrderEntityResponse>;
+  orders?: Maybe<OrderEntityResponseCollection>;
   organisation?: Maybe<OrganisationEntityResponse>;
   organisations?: Maybe<OrganisationEntityResponseCollection>;
   privacy?: Maybe<PrivacyEntityResponse>;
+  product?: Maybe<ProductEntityResponse>;
+  products?: Maybe<ProductEntityResponseCollection>;
   review?: Maybe<ReviewEntityResponse>;
   reviews?: Maybe<ReviewEntityResponseCollection>;
+  subscription?: Maybe<SubscriptionEntityResponse>;
+  subscriptions?: Maybe<SubscriptionEntityResponseCollection>;
   tag?: Maybe<TagEntityResponse>;
   tags?: Maybe<TagEntityResponseCollection>;
   termsAndCondition?: Maybe<TermsAndConditionEntityResponse>;
@@ -2003,6 +2223,19 @@ export type QueryListingsArgs = {
 };
 
 
+export type QueryOrderArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryOrdersArgs = {
+  filters?: InputMaybe<OrderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryOrganisationArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -2021,6 +2254,19 @@ export type QueryPrivacyArgs = {
 };
 
 
+export type QueryProductArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryProductsArgs = {
+  filters?: InputMaybe<ProductFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryReviewArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -2028,6 +2274,19 @@ export type QueryReviewArgs = {
 
 export type QueryReviewsArgs = {
   filters?: InputMaybe<ReviewFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QuerySubscriptionArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QuerySubscriptionsArgs = {
+  filters?: InputMaybe<SubscriptionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -2183,6 +2442,62 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  active?: Maybe<Scalars['Boolean']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  paymentOption: Enum_Subscription_Paymentoption;
+  paymentconfirmed?: Maybe<Scalars['Boolean']>;
+  price?: Maybe<Scalars['Float']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  stripeSubscriptionId?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<UsersPermissionsUserEntityResponse>;
+};
+
+export type SubscriptionEntity = {
+  __typename?: 'SubscriptionEntity';
+  attributes?: Maybe<Subscription>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type SubscriptionEntityResponse = {
+  __typename?: 'SubscriptionEntityResponse';
+  data?: Maybe<SubscriptionEntity>;
+};
+
+export type SubscriptionEntityResponseCollection = {
+  __typename?: 'SubscriptionEntityResponseCollection';
+  data: Array<SubscriptionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type SubscriptionFiltersInput = {
+  active?: InputMaybe<BooleanFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<SubscriptionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<SubscriptionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<SubscriptionFiltersInput>>>;
+  paymentOption?: InputMaybe<StringFilterInput>;
+  paymentconfirmed?: InputMaybe<BooleanFilterInput>;
+  price?: InputMaybe<FloatFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  stripeSubscriptionId?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  user?: InputMaybe<UsersPermissionsUserFiltersInput>;
+};
+
+export type SubscriptionInput = {
+  active?: InputMaybe<Scalars['Boolean']>;
+  paymentOption?: InputMaybe<Enum_Subscription_Paymentoption>;
+  paymentconfirmed?: InputMaybe<Scalars['Boolean']>;
+  price?: InputMaybe<Scalars['Float']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  stripeSubscriptionId?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<Scalars['ID']>;
 };
 
 export type Tag = {
@@ -2657,10 +2972,13 @@ export type UsersPermissionsUser = {
   gender?: Maybe<Scalars['String']>;
   mailinglist?: Maybe<Scalars['Boolean']>;
   membership?: Maybe<Enum_Userspermissionsuser_Membership>;
+  order?: Maybe<OrderEntityResponse>;
   organisation?: Maybe<ComponentOrganisationOrganisation>;
   pronoun?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
+  stripeCustomerId?: Maybe<Scalars['String']>;
+  subscription?: Maybe<SubscriptionEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userType: Enum_Userspermissionsuser_Usertype;
   username: Scalars['String'];
@@ -2711,12 +3029,15 @@ export type UsersPermissionsUserFiltersInput = {
   membership?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
+  order?: InputMaybe<OrderFiltersInput>;
   organisation?: InputMaybe<ComponentOrganisationOrganisationFiltersInput>;
   password?: InputMaybe<StringFilterInput>;
   pronoun?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
+  stripeCustomerId?: InputMaybe<StringFilterInput>;
+  subscription?: InputMaybe<SubscriptionFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   userType?: InputMaybe<StringFilterInput>;
   username?: InputMaybe<StringFilterInput>;
@@ -2738,12 +3059,15 @@ export type UsersPermissionsUserInput = {
   gender?: InputMaybe<Scalars['String']>;
   mailinglist?: InputMaybe<Scalars['Boolean']>;
   membership?: InputMaybe<Enum_Userspermissionsuser_Membership>;
+  order?: InputMaybe<Scalars['ID']>;
   organisation?: InputMaybe<ComponentOrganisationOrganisationInput>;
   password?: InputMaybe<Scalars['String']>;
   pronoun?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
+  stripeCustomerId?: InputMaybe<Scalars['String']>;
+  subscription?: InputMaybe<Scalars['ID']>;
   userType?: InputMaybe<Enum_Userspermissionsuser_Usertype>;
   username?: InputMaybe<Scalars['String']>;
 };
@@ -2881,7 +3205,7 @@ export type MeQueryVariables = Exact<{
 }>;
 
 
-export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', itemId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null, type?: string | null } | null> | null } | null } | null } | null };
+export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, stripeCustomerId?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, subscription?: { __typename?: 'SubscriptionEntityResponse', data?: { __typename?: 'SubscriptionEntity', id?: string | null, attributes?: { __typename?: 'Subscription', stripeSubscriptionId?: string | null } | null } | null } | null, bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', itemId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null, type?: string | null, category?: string | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', readingTime?: string | null, blurb?: string | null, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null } | null };
 
 
 export const ArticleDocument = gql`
@@ -4037,10 +4361,19 @@ export const MeDocument = gql`
         provider
         userType
         username
+        stripeCustomerId
         organisation {
           name
           organisationType
           website
+        }
+        subscription {
+          data {
+            id
+            attributes {
+              stripeSubscriptionId
+            }
+          }
         }
         bookmarklist(sort: $sort, pagination: $pagination) {
           itemId
@@ -4049,6 +4382,30 @@ export const MeDocument = gql`
           slug
           title
           type
+          category
+          article {
+            data {
+              id
+              attributes {
+                author {
+                  data {
+                    attributes {
+                      avatar {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      fullName
+                    }
+                  }
+                }
+                readingTime
+                blurb
+              }
+            }
+          }
         }
       }
     }

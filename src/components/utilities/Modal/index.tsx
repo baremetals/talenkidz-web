@@ -14,7 +14,7 @@ import { closeModal } from 'src/features/modal/reducers';
 import PolicyConsent from 'components/service/Policy/PolicyConsent';
 import PolicySettings from 'components/service/Policy/PolicySettings';
 import ParticipationModal from './ParticipationModal';
-import ProfileInformationModal from '../../users/EditProfile/ProfileInformationModal';
+import ProfileInformationModal from '../../users/EditProfile';
 import FeedbackModal from './FeedbackModal';
 import EditCommentInput from 'components/utilities/comments/EditCommentInput';
 

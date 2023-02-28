@@ -17,8 +17,8 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         avatar,
         backgroundImg,
         userType,
-        slug,
         orgName,
+        stripeCustomerId,
       } = cookies;
       const user = {
         id,
@@ -27,13 +27,13 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         avatar,
         backgroundImg,
         userType,
-        slug: slug || '',
         orgName: orgName || '',
         email,
         bio,
         website,
         orgType,
         provider,
+        stripeCustomerId,
       };
       res.send(user);
     } catch (err) {

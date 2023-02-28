@@ -25,6 +25,7 @@ export interface AuthUser {
   orgName?: string;
   website?: string;
   orgType?: string;
+  stripeCustomerId: string;
 }
 
 

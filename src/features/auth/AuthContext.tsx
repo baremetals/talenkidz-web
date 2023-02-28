@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { createContext, useEffect, useMemo } from 'react';
+import { createContext, useEffect } from 'react';
 import { useAppDispatch } from 'src/app/hooks';
 import { setFirebaseUser, signOutUser } from 'src/features/auth';
 import { AuthUser } from 'src/interfaces';
@@ -18,6 +18,7 @@ import { formProps, IAuthContext, returnType } from './authSpec';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
 import { openModal } from '../modal';
+import React from 'react';
 
 
 
@@ -143,7 +144,7 @@ const AuthProvider: React.FC = ({ children }) => {
               });
             }
 
-            router.push('/account')
+            router.push(router.asPath === '/' ? '/account' : router.asPath);
             // if (userType === 'organisation') {
             //   router.push(`/account/${username}`);
             // }
@@ -161,7 +162,7 @@ const AuthProvider: React.FC = ({ children }) => {
             // if (userType === 'candidate') {
             //   router.push(`/user-profile/${username}`);
             // }
-            router.push('/account');
+            router.push(router.asPath === '/' ? '/account' : router.asPath);
             return null;
           });
       })
@@ -195,9 +196,31 @@ const AuthProvider: React.FC = ({ children }) => {
       })
       .then(async (res: { data: { user: AuthUser } }) => {
         const generatedToken = v4();
-        // const userType = res.data.user.userType;
+        const stripeCustomerId = res.data.user.stripeCustomerId;
+        console.log(stripeCustomerId)
         const email = res.data.user.email;
-        // const username = res.data.user.username;
+        const name = res.data.user.fullName || res.data.user.username;
+        if (stripeCustomerId === null) {
+          const stripe = await fetch('/api/user/stripe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+            }),
+          });
+          const stripeResponse = await stripe.json();
+          // console.log(stripeResponse);
+
+          if (!stripeResponse.error) {
+            await axios.post('/api/user/update', {
+              data: {
+                stripeCustomerId: stripeResponse.customerid,
+                flag: 'stripe',
+              },
+            });
+          }
+        }
         const firebasePassword =
           res.data.user.firebasePassword === null
             ? generatedToken
@@ -222,7 +245,7 @@ const AuthProvider: React.FC = ({ children }) => {
                   mailinglist: true,
                 },
               });
-              router.push(`/account`);
+              router.push(router.asPath);
               return {
                 success:
                   'You have been successfully logged in. You will be redirected in a few seconds...',
@@ -231,7 +254,7 @@ const AuthProvider: React.FC = ({ children }) => {
             .catch((error) => {
               const errorMessage = error.message;
               console.log('firebase catchblock', errorMessage);
-              router.push(`/account`);
+              router.push(router.asPath);
               return null;
             });
         } else {
@@ -285,6 +308,8 @@ const AuthProvider: React.FC = ({ children }) => {
       console.log(err)
     })
   }
+
+  // const authFunctions = useMemo(() => {})
 
   return (
     <AuthContext.Provider
