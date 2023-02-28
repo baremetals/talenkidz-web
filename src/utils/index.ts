@@ -5,8 +5,9 @@ import { uploadProps } from 'src/types';
 import { toBase64 } from './base64';
 import axios from 'axios';
 
-export function cutTextToLength(str: string, maxLength: number): string {
-  return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
+export function cutTextToLength(str: string | undefined, maxLength: number): string | undefined {
+if (str === undefined) return
+return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
 }
 
 export function slugify(str: string): string {

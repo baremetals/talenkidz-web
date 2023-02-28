@@ -1406,6 +1406,19 @@ export const BookmarkBlock = styled.div`
   margin: 90px auto auto;
   width: calc(100% - 160px);
   margin-top: 80px;
+  @media (max-width: 991px) {
+    width: calc(100% - 10px);
+  }
+  .activityBlock {
+    display: flex;
+    justify-content: center;
+    button {
+      background: #0f021f;
+      border-radius: 15px;
+      max-width: 310.94px;
+      width: 100%;
+    }
+  }
   .row {
     @media (max-width: 991px) {
       min-width: 100%;
