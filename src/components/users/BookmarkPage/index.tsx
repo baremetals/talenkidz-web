@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 // import Image from 'next/image'
 import { UsersPermissionsUser } from 'generated/graphql';
-
+import Button from 'components/users/Auth/Button';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 import ArticleCard from 'components/content/Articles/ArticleCard';
+import ActivitiesItem from 'components/content/Articles/ActivitiesItem';
 
 import { Row, Column } from 'styles/common.styles';
 
 import {
-  
   BookmarkBlock,
   BoomarkItem,
   BookmarkList,
@@ -40,7 +40,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
 
   const [bookmarks, setBookmarks] = useState(bookmarklist);
 
-  console.log(bookmarklist)
+  console.log(bookmarklist);
 
   return (
     <ProfileBase
@@ -110,6 +110,50 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                 category={'Self-development'}
                 slug={'Self-development'}
               />
+              <ActivitiesItem
+                id={''}
+                hostName={'Andrew Swann'}
+                hostImage={'/assets/images/sport.png'}
+                title={'How to communicate with a child properly '}
+                slug={'Online'}
+                venue={'dede'}
+                venueName={'250 more visitors vn'}
+                route={'9809'}
+                startDate={'Sun, Thus at 10:00 AM'}
+                starTime={'Sun, Thus at 10:00 AM'}
+                price={'Free'}
+                image={'/assets/images/sport.png'}
+                location={undefined}
+                visitors={'250 more visitors'}
+                map={true}
+                hostImg={true}
+              />
+              <ActivitiesItem
+                id={''}
+                hostName={'Andrew Swann'}
+                hostImage={'/assets/images/sport.png'}
+                title={'How to communicate with a child properly '}
+                slug={'Online'}
+                location={'Online'}
+                venue={'dede'}
+                venueName={'de'}
+                visitors={'250 more visitors 4'}
+                route={'9809'}
+                startDate={'Sun, Thus at 10:00 AM'}
+                starTime={'Sun, Thus at 10:00 AM'}
+                price={'Free'}
+                image={'/assets/images/sport.png'}
+                map={false}
+                hostImg={false}
+              />
+              <div className="activityBlock">
+                <Button
+                  content="See more"
+                  type="submit"
+                  disabled={false}
+                  loading={false}
+                />
+              </div>
             </div>
           </Column>
           <Column className="column-5">
