@@ -1,18 +1,18 @@
-import styled from "styled-components"
-import { BsUpload } from "react-icons/bs";
+import styled from 'styled-components';
+import { BsUpload } from 'react-icons/bs';
 
 export const FormWrapper = styled.div`
-    /* display: flex; */
-    max-width: 50rem;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  /* display: flex; */
+  max-width: 50rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const FormWrap = styled.form``;
 
 export const InnerFormWrapper = styled.div`
-  box-shadow: 0 0 .625rem rgba(0,0,0,.13);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.13);
   background-color: #fff;
   border-radius: 1rem;
   padding: 3rem;
@@ -20,24 +20,24 @@ export const InnerFormWrapper = styled.div`
 `;
 
 export const FormGroup = styled.div`
-    position: relative;
-    margin-bottom: 1.25rem;
-    @media (max-width: 991px) {
-        margin-bottom: 1rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+  @media (max-width: 991px) {
+    margin-bottom: 1rem;
+  }
+  &.submit-button {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    button {
+      color: #fff;
+      border-radius: 0.75rem;
+      padding: 1.25rem 2rem;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      box-shadow: 0 0.625rem 2.25rem rgb(111 126 201 / 25%);
     }
-    &.submit-button {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        button {
-            color: #FFF;
-            border-radius: .75rem;
-            padding: 1.25rem 2rem;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: .2rem;
-            box-shadow: 0 .625rem 2.25rem rgb(111 126 201 / 25%);
-        }
-    }
+  }
 `;
 
 export const CardFormGroup = styled.div`
@@ -56,19 +56,13 @@ export const CardFormGroup = styled.div`
   }
 `;
 
-export const FormInput = styled.input`
-    
-`;
+export const FormInput = styled.input``;
 
-export const Select = styled.select`
-  
-`;
+export const Select = styled.select``;
 
 export const CategoryOptions = styled.option``;
 
-export const TextArea = styled.textarea`
-    
-`;
+export const TextArea = styled.textarea``;
 
 export const UploadWrapper = styled.div`
   width: 100%;
@@ -79,9 +73,7 @@ export const UploadLabel = styled.label``;
 
 export const UploadIcon = styled(BsUpload)``;
 
-export const UploadInput = styled.input`
-
-`;
+export const UploadInput = styled.input``;
 
 export const EditorTextWrapper = styled.div``;
 
@@ -110,11 +102,11 @@ export const ErrorDialogContent = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-`
+`;
 
 export const ErrorIcon = styled.img`
   width: 3.5rem;
-`
+`;
 
 export const Pageheader = styled.div`
   text-align: center;
@@ -211,11 +203,11 @@ export const PaymentCard = styled.div`
 `;
 
 export const PayCardWrapper = styled.div`
-  max-width: 834px;
-  min-height: 641px;
+  max-width: 459px;
+  min-height: 520px;
   margin: 0 auto 90px;
   .mb50 {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
   .PayHeader {
     display: flex;
@@ -227,7 +219,7 @@ export const PayCardWrapper = styled.div`
     h1 {
       font-style: normal;
       font-weight: 700;
-      font-size: 32px;
+      font-size: 24px;
       line-height: 38px;
       text-align: center;
       color: #0f021f;
@@ -282,24 +274,30 @@ export const PayCard = styled.div`
   border: 1px solid #39007e;
   border-radius: 20px;
   width: 100%;
-  max-width: 834px;
+  max-width: 520px;
   min-height: 641px;
   margin: 0 auto 90px;
-  padding: 50px;
+  padding: 30px;
   @media (max-width: 767px) {
     padding: 20px;
   }
   .PayCardHeader {
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 16px;
     line-height: 29px;
     color: #0f021f;
     margin: 0 0 34px;
+    h1 {
+      @media (max-width: 767px) {
+        margin-bottom: 10px;
+      }
+    }
   }
   .PayCardAction {
     margin: 0 0 50px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     @media (max-width: 767px) {
       flex-direction: column;
@@ -332,6 +330,11 @@ export const PayForm = styled.form`
       line-height: 24px;
       color: #0f021f;
     }
+  }
+  .StripeElement {
+    border: none;
+    border-bottom: 1px solid #626262;
+    border-radius: 0;
   }
 `;
 
