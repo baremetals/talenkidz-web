@@ -508,3 +508,22 @@ article ol[start] {
   border-color: #e9ecef transparent #e9ecef #b41c1c;
 }
 
+.MuiDialogActions-root button {
+    background: #39007e;
+    border-radius: 20px;
+    min-height: 51px;
+    min-width: 159px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.MuiDialogContent-root .error {
+  font-size: 20px;
+   color: #0f021f;
+   padding: 10px;
+}
+
