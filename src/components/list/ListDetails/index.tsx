@@ -1,4 +1,3 @@
-
 import Button from 'components/users/Auth/Button';
 import Breadcrumb from 'components/widgets/Breadcrumb';
 import EventBanner from 'components/widgets/EventBanner';
@@ -9,12 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Markdown from 'markdown-to-jsx';
 
 import Image from 'next/image';
-import {
-  AddressMap,
-  Column,
-  InnerContainer,
-  Row,
-} from 'styles/common.styles';
+import { AddressMap, Column, InnerContainer, Row } from 'styles/common.styles';
 
 import {
   AboutActivities,
@@ -108,6 +102,21 @@ function ListDetails(props: {
           title={list?.attributes?.title as string}
           itemId={list?.id as string}
           slug={list?.attributes?.slug as string}
+          readingTimeOrPrice={list?.attributes?.price as string}
+          hostName={
+            host?.username ||
+            host?.organisation?.name ||
+            (host?.fullName as string)
+          }
+          startDate={list?.attributes?.startDate}
+          category={category}
+          type={'activity'}
+          price={list?.attributes?.price as string}
+          userImage={host?.avatar as string}
+          startTime={list?.attributes?.startTime as string}
+          venueName={location?.name as string}
+          venue={list?.attributes?.venue as string}
+          location={location?.town as string}
         />
 
         {/*  */}

@@ -13,28 +13,10 @@ import {
 } from './styles';
 // import {  useState } from 'react';
 import Link from 'next/link';
+import { IActivityCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import BookMarkIcon from '../../../widgets/BookMarkIcon';
 
-export interface IActivityCard {
-  id: string;
-  hostName: string | undefined;
-  hostImage: string | undefined;
-  title: string;
-  slug: string | undefined;
-  location: string | undefined;
-  venue: string | undefined;
-  venueName: string | undefined;
-  route: string;
-  startDate: string;
-  starTime: string;
-  price: string;
-  image: string | undefined;
-  visitors: string | undefined;
-  map: true | false;
-  hostImg: true | false;
-  // className?: string | undefined;
-}
 const ActivitiesItem: React.FC<IActivityCard> = ({
   id,
   hostName,
@@ -49,9 +31,8 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
   route,
   venue,
   location,
-  visitors,
-  map,
-  hostImg,
+  category,
+  // visitors,
 }) => {
   // const [bookedMarked, setActives] = useState(false);
 
@@ -74,16 +55,12 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
         </TimeBlock>
         <SportCoach>
           <div className="coachSpe">
-            {hostImg ? (
-              <Image
-                src={hostImage || '/assets/images/user.png'}
-                alt="host image"
-                width={35}
-                height={35}
-              />
-            ) : (
-              ''
-            )}
+            <Image
+              src={hostImage || '/assets/images/user.png'}
+              alt="host image"
+              width={35}
+              height={35}
+            />
             {hostName}
           </div>
           <div className="freeTag">
@@ -93,27 +70,25 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
         <Visitor>
           <VisitorInner>
             <Visitors>
-              {map ? (
-                <div className="visitors">
-                  <Image
-                    src={'/assets/svgs/participants.svg'}
-                    alt="article image"
-                    width={16}
-                    height={20}
-                  />
-                  <label>{venueName}</label>
-                </div>
-              ) : (
-                <div className="visitors">
-                  <Image
-                    src={'/assets/svgs/visitor.svg'}
-                    alt="article image"
-                    width={16}
-                    height={20}
-                  />
-                  <label>{visitors}</label>
-                </div>
-              )}
+              <div className="visitors">
+                <Image
+                  src={'/assets/svgs/participants.svg'}
+                  alt="article image"
+                  width={16}
+                  height={20}
+                />
+                <label>{venueName}</label>
+              </div>
+
+              <div className="visitors">
+                <Image
+                  src={'/assets/svgs/visitor.svg'}
+                  alt="article image"
+                  width={16}
+                  height={20}
+                />
+                <label>{venueName}</label>
+              </div>
             </Visitors>
             <Link passHref href={route}>
               <SeeMore href="#">See more</SeeMore>
@@ -136,6 +111,16 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
             image={image as string}
             width={20}
             height={20}
+            userImage={hostImage as string}
+            userName={hostName as string}
+            date={startDate}
+            category={category as string}
+            type={'listing'}
+            readingTimeOrPrice={price}
+            venueName={venueName as string}
+            time={starTime}
+            venue={venue as string}
+            location={location as string}
           />
         </IconBlock>
       </ActivitiesItemImg>

@@ -8,6 +8,9 @@ import {
   ListingsDocument,
   FilteredArticlesDocument,
   ResponseCollectionMeta,
+  // Article,
+  // Listing,
+  // Event,
 } from 'generated/graphql';
 
 export type Entities = ArticleEntity | EventEntity | ListingEntity;
@@ -73,6 +76,16 @@ export type TBookMark = {
   slug: string;
   image: string;
   type: string;
+  userName?: string;
+  userImage?: string;
+  date?: string;
+  category?: string;
+  readingTimeOrPrice: string;
+  time?: string;
+  venueName?: string;
+  venue?: string;
+  blurb?: string;
+  location?: string;
 };
 
 export type TCategory = {

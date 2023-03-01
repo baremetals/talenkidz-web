@@ -1,30 +1,29 @@
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import dayjs from 'dayjs';
 import { cutTextToLength } from 'src/utils';
 
 import {
-  CategoryBtn,
-  ArticleImageColumn,
   ArticleBlurb,
+  ArticleImageBlock,
+  ArticleImageColumn,
   ArticleInfo,
+  AuthorBlock,
+  CategoryBtn,
   Date,
   Time,
-  AuthorBlock,
-  ArticleImageBlock,
 } from './styles';
 
-
 import Button from 'components/users/Auth/Button';
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
+import { IArticleCard } from 'src/interfaces';
 import {
-  CardWrapper,
-  IconBlock,
-  Datetime,
   AuthorImg,
   AuthorWrap,
+  CardWrapper,
+  Datetime,
+  IconBlock,
 } from '../styles';
-import { IArticleCard } from 'src/interfaces';
-import BookMarkIcon from 'components/widgets/BookMarkIcon';
 
 const ArticleCard = ({
   id,
@@ -38,8 +37,6 @@ const ArticleCard = ({
   category,
   slug,
 }: IArticleCard) => {
-  
-
   return (
     <CardWrapper className={'kidsRow'}>
       <IconBlock>
@@ -72,6 +69,13 @@ const ArticleCard = ({
             image={articleImage as string}
             width={25}
             height={25}
+            userName={authorName as string}
+            userImage={authorImg as string}
+            date={createdAt as string}
+            readingTimeOrPrice={readingTime as string}
+            blurb={articleIntro as string}
+            category={category as string}
+            type={'article'}
           />
           {/* <div
             className={bookedMarked ? 'active' : 'inactive'}

@@ -89,6 +89,7 @@ export interface IActivityCard {
   image: string | undefined;
   userId?: string;
   hostId?: string;
+  category?: string;
   // className?: string | undefined;
 }
 
@@ -108,4 +109,6 @@ export interface IEventCard {
   slug?: string | undefined;
   userId?: string;
   hostId?: string;
+  category?: string;
+  hostImage?: string;
 }

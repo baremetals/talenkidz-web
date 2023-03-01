@@ -86,10 +86,10 @@ const Articles = () => {
   const articleEntities = useAppSelector(articlesSelector);
   const total = useAppSelector(totalSelector) as number;
   const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
- 
+
   const searchState = useSearchState();
 
-  // console.log('from the articles page', articleEntities);
+  // console.log('from the articles page', filteredArticles);
   const remaining = total - articleEntities?.length;
   const fetchData = useFetchEntities<TFetchArticleState | null>(
     {
@@ -103,11 +103,11 @@ const Articles = () => {
   useEffect(() => {
     setFilteredArticles(articleEntities);
   }, [articleEntities]);
-  
+
   const getData = useCallback(async () => {
     if (!searchState.searching && filteredArticles.length < total) {
       const res = fetchData;
-      console.log(res);
+      // console.log(res);
       const articles = res?.data?.articles;
       // setFilteredArticles((filteredArticles) => [
       //   ...filteredArticles,

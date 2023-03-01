@@ -1,26 +1,24 @@
-
-import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
 // import Link from 'next/link';
-import Markdown from 'markdown-to-jsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import Markdown from 'markdown-to-jsx';
 dayjs.extend(relativeTime);
 
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { updateStrapiEntity } from 'src/helpers';
 
+import Breadcrumb from 'components/widgets/Breadcrumb';
 import {
   ArticleEntityResponseCollection,
   ComponentLikesLikes,
 } from 'generated/graphql';
-import Breadcrumb from 'components/widgets/Breadcrumb';
 // import Fields from 'components/widgets/Fields';
 import SocialShare from 'components/utilities/SocialShare';
 import CommentBox from 'components/utilities/comments/CommentBox';
 
 // import Search from 'components/widgets/Search';
-import RelatedArticles from '../ArticleDetails/RelatedArticles';
 import {
   Column,
   InnerContainer,
@@ -28,30 +26,30 @@ import {
   Row,
   SerchBlocks,
 } from 'styles/common.styles';
+import RelatedArticles from '../ArticleDetails/RelatedArticles';
 
-
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal';
+import { Comments } from '../Comments';
 import {
-  ArticleLikeIcon,
-  ArticleMediaIcons,
-  ArticleCommentIcon,
-  Datetime,
-  Time,
-  Date,
-  BookMarkIconWrap,
-  Readmore,
   ArticleAuthor,
   ArticleAuthorImg,
   ArticleAuthorSpe,
-  ArticleInfo,
   ArticleBody,
+  ArticleCommentIcon,
   ArticleDescription,
   ArticleImg,
+  ArticleInfo,
+  ArticleLikeIcon,
+  ArticleMediaIcons,
+  BookMarkIconWrap,
+  Date,
+  Datetime,
+  Readmore,
+  Time,
 } from './details.styles';
-import { Comments } from '../Comments';
-import BookMarkIcon from 'components/widgets/BookMarkIcon';
-import { openModal } from 'src/features/modal';
-import { useAppDispatch } from 'src/app/hooks';
-import { useRouter } from 'next/router';
 
 export const ArticleDetails = (props: {
   props: {
@@ -83,7 +81,7 @@ export const ArticleDetails = (props: {
   const postSlug = article?.attributes?.slug as string;
   const likes = article?.attributes?.likes;
 
-  console.log(creator)
+  // console.log(creator);
   // Article
 
   // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
@@ -179,14 +177,17 @@ export const ArticleDetails = (props: {
               <ArticleAuthor>
                 <ArticleAuthorImg>
                   <Image
-                    src={author?.avatar?.data?.attributes?.url || creator?.avatar as string}
+                    src={
+                      author?.avatar?.data?.attributes?.url ||
+                      (creator?.avatar as string)
+                    }
                     alt="author image"
                     width={600}
                     height={600}
                   />
                 </ArticleAuthorImg>
                 <ArticleAuthorSpe>
-                  <h2>{author?.fullName}</h2>
+                  <h2>{author?.fullName || creator?.fullName}</h2>
                   <Datetime>
                     <Date>
                       {dayjs(article?.attributes?.updatedAt).format('MMM D')}
@@ -249,6 +250,18 @@ export const ArticleDetails = (props: {
                     detailsPage={true}
                     width={34}
                     height={34}
+                    userName={author?.fullName || (creator?.fullName as string)}
+                    userImage={
+                      author?.avatar?.data?.attributes?.url ||
+                      (creator?.avatar as string)
+                    }
+                    date={article?.attributes?.createdAt}
+                    category={category}
+                    type={'article'}
+                    readingTimeOrPrice={
+                      article?.attributes?.readingTime as string
+                    }
+                    blurb={article?.attributes?.blurb as string}
                   />
                   {/* <Image
                     src={'/assets/svgs/comment-plus.svg'}
@@ -351,5 +364,3 @@ export const ArticleDetails = (props: {
     </>
   );
 };
-
-

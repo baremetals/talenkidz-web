@@ -13,10 +13,9 @@ import {
 } from './styles';
 // import {  useState } from 'react';
 import Link from 'next/link';
+import { IActivityCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import BookMarkIcon from '../../widgets/BookMarkIcon';
-import { IActivityCard } from 'src/interfaces';
-
 
 const ActivitiesItem: React.FC<IActivityCard> = ({
   id,
@@ -32,6 +31,7 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
   route,
   venue,
   location,
+  category,
 }) => {
   // const [bookedMarked, setActives] = useState(false);
 
@@ -52,6 +52,16 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
             image={image as string}
             width={20}
             height={20}
+            userImage={hostImage as string}
+            userName={hostName as string}
+            date={startDate}
+            category={category as string}
+            type={'listing'}
+            readingTimeOrPrice={price}
+            venueName={venueName as string}
+            time={starTime}
+            venue={venue as string}
+            location={location as string}
           />
         </IconBlock>
       </ActivitiesItemImg>

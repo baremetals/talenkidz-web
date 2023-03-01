@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Markdown from 'markdown-to-jsx';
 
-
 import Image from 'next/image';
 import {
   AddressMap,
@@ -90,6 +89,16 @@ function EventDetails(props: {
           title={event?.attributes?.title as string}
           itemId={event?.id as string}
           slug={event?.attributes?.slug as string}
+          readingTimeOrPrice={''}
+          hostName={host?.organisation?.name || (host?.fullName as string)}
+          startDate={event?.attributes?.startDate}
+          startTime={event?.attributes?.startTime}
+          category={category}
+          type={'event'}
+          price={event?.attributes?.price as string}
+          location={location?.town as string}
+          venue={event?.attributes?.venue as string}
+          venueName={location?.name as string}
         />
         <EventDetailsBlock>
           <Row className="eventTime">

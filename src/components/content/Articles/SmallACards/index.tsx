@@ -1,19 +1,18 @@
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import dayjs from 'dayjs';
 import { cutTextToLength } from 'src/utils';
 
+import BookMarkIcon from 'components/widgets/BookMarkIcon';
 import { IArticleCard } from 'src/interfaces';
 import {
-  CardWrapper,
-  IconBlock,
-  Datetime,
   AuthorImg,
   AuthorWrap,
+  CardWrapper,
+  Datetime,
+  IconBlock,
 } from '../styles';
-import { CardInfoWrap, Date, Time, CardAuthorBlock } from './styles';
-import BookMarkIcon from 'components/widgets/BookMarkIcon';
-
+import { CardAuthorBlock, CardInfoWrap, Date, Time } from './styles';
 
 const SmallACard = ({
   id,
@@ -24,9 +23,8 @@ const SmallACard = ({
   readingTime,
   createdAt,
   slug,
-  category
+  category,
 }: IArticleCard) => {
-
   return (
     <CardWrapper>
       <IconBlock>
@@ -59,6 +57,12 @@ const SmallACard = ({
             image={articleImage as string}
             width={25}
             height={25}
+            userName={authorName as string}
+            userImage={authorImg as string}
+            date={createdAt as string}
+            readingTimeOrPrice={readingTime as string}
+            category={category as string}
+            type={'article'}
           />
         </CardAuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>

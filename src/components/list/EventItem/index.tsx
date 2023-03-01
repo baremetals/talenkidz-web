@@ -13,12 +13,10 @@ import {
   Visitors,
 } from './styles';
 // import {  useState } from 'react';
-import BookMarkIcon from '../../widgets/BookMarkIcon';
-import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import { IEventCard } from 'src/interfaces';
+import { cutTextToLength, formatTimeAndDate } from 'src/utils';
+import BookMarkIcon from '../../widgets/BookMarkIcon';
 // import { BsTag } from 'react-icons/bs';
-
-
 
 const EventItem: React.FC<IEventCard> = ({
   id,
@@ -33,6 +31,8 @@ const EventItem: React.FC<IEventCard> = ({
   route,
   starDate,
   starTime,
+  category,
+  hostImage,
 }) => {
   return (
     <EventItemBlock>
@@ -51,7 +51,16 @@ const EventItem: React.FC<IEventCard> = ({
             image={image as string}
             width={20}
             height={20}
-          />
+            userImage={hostImage as string}
+            userName={hostName as string}
+            date={starDate}
+            readingTimeOrPrice={price}
+            venueName={venueName as string}
+            time={starTime}
+            venue={venue as string}
+            location={location as string}
+            category={category as string}
+            type={'event'}/>
         </IconBlock>
       </EventItemImg>
 

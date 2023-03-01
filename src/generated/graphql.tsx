@@ -393,44 +393,62 @@ export type ComponentAddressLocationInput = {
 
 export type ComponentBookMarksReadingList = {
   __typename?: 'ComponentBookMarksReadingList';
-  article?: Maybe<ArticleEntityResponse>;
+  blurb?: Maybe<Scalars['String']>;
   category?: Maybe<Scalars['String']>;
-  event?: Maybe<EventEntityResponse>;
+  date?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   itemId?: Maybe<Scalars['String']>;
-  listing?: Maybe<ListingEntityResponse>;
+  location?: Maybe<Scalars['String']>;
+  readingTimeOrPrice?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+  time?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  userImage?: Maybe<Scalars['String']>;
+  userName?: Maybe<Scalars['String']>;
+  venue?: Maybe<Scalars['String']>;
+  venueName?: Maybe<Scalars['String']>;
 };
 
 export type ComponentBookMarksReadingListFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
-  article?: InputMaybe<ArticleFiltersInput>;
+  blurb?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<StringFilterInput>;
-  event?: InputMaybe<EventFiltersInput>;
+  date?: InputMaybe<StringFilterInput>;
   image?: InputMaybe<StringFilterInput>;
   itemId?: InputMaybe<StringFilterInput>;
-  listing?: InputMaybe<ListingFiltersInput>;
+  location?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBookMarksReadingListFiltersInput>>>;
+  readingTimeOrPrice?: InputMaybe<StringFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
+  time?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   type?: InputMaybe<StringFilterInput>;
+  userImage?: InputMaybe<StringFilterInput>;
+  userName?: InputMaybe<StringFilterInput>;
+  venue?: InputMaybe<StringFilterInput>;
+  venueName?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentBookMarksReadingListInput = {
-  article?: InputMaybe<Scalars['ID']>;
+  blurb?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['String']>;
-  event?: InputMaybe<Scalars['ID']>;
+  date?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['String']>;
   itemId?: InputMaybe<Scalars['String']>;
-  listing?: InputMaybe<Scalars['ID']>;
+  location?: InputMaybe<Scalars['String']>;
+  readingTimeOrPrice?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
+  time?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Scalars['String']>;
+  userImage?: InputMaybe<Scalars['String']>;
+  userName?: InputMaybe<Scalars['String']>;
+  venue?: InputMaybe<Scalars['String']>;
+  venueName?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentLikesLikes = {
@@ -3205,10 +3223,11 @@ export type MeQueryVariables = Exact<{
   usersPermissionsUserId?: InputMaybe<Scalars['ID']>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
   pagination?: InputMaybe<PaginationArg>;
+  filters?: InputMaybe<ComponentBookMarksReadingListFiltersInput>;
 }>;
 
 
-export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, stripeCustomerId?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, subscription?: { __typename?: 'SubscriptionEntityResponse', data?: { __typename?: 'SubscriptionEntity', id?: string | null, attributes?: { __typename?: 'Subscription', stripeSubscriptionId?: string | null } | null } | null } | null, bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', itemId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null, type?: string | null, category?: string | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', readingTime?: string | null, blurb?: string | null, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null } | null };
+export type MeQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, backgroundImg?: string | null, bio?: string | null, createdAt?: any | null, email: string, firebasePassword?: string | null, firebaseUserId?: string | null, fullName?: string | null, gender?: string | null, mailinglist?: boolean | null, membership?: Enum_Userspermissionsuser_Membership | null, pronoun?: string | null, provider?: string | null, userType: Enum_Userspermissionsuser_Usertype, username: string, stripeCustomerId?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null, subscription?: { __typename?: 'SubscriptionEntityResponse', data?: { __typename?: 'SubscriptionEntity', id?: string | null, attributes?: { __typename?: 'Subscription', stripeSubscriptionId?: string | null } | null } | null } | null, bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', itemId?: string | null, id: string, image?: string | null, slug?: string | null, title?: string | null, type?: string | null, category?: string | null, userImage?: string | null, userName?: string | null, date?: string | null, time?: string | null, readingTimeOrPrice?: string | null, venueName?: string | null, venue?: string | null, blurb?: string | null } | null> | null } | null } | null } | null };
 
 
 export const ArticleDocument = gql`
@@ -4392,7 +4411,7 @@ export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export const MeDocument = gql`
-    query Me($usersPermissionsUserId: ID, $sort: [String], $pagination: PaginationArg) {
+    query Me($usersPermissionsUserId: ID, $sort: [String], $pagination: PaginationArg, $filters: ComponentBookMarksReadingListFiltersInput) {
   usersPermissionsUser(id: $usersPermissionsUserId) {
     data {
       id
@@ -4426,7 +4445,7 @@ export const MeDocument = gql`
             }
           }
         }
-        bookmarklist(sort: $sort, pagination: $pagination) {
+        bookmarklist(sort: $sort, pagination: $pagination, filters: $filters) {
           itemId
           id
           image
@@ -4434,29 +4453,14 @@ export const MeDocument = gql`
           title
           type
           category
-          article {
-            data {
-              id
-              attributes {
-                author {
-                  data {
-                    attributes {
-                      avatar {
-                        data {
-                          attributes {
-                            url
-                          }
-                        }
-                      }
-                      fullName
-                    }
-                  }
-                }
-                readingTime
-                blurb
-              }
-            }
-          }
+          userImage
+          userName
+          date
+          time
+          readingTimeOrPrice
+          venueName
+          venue
+          blurb
         }
       }
     }
@@ -4479,6 +4483,7 @@ export const MeDocument = gql`
  *      usersPermissionsUserId: // value for 'usersPermissionsUserId'
  *      sort: // value for 'sort'
  *      pagination: // value for 'pagination'
+ *      filters: // value for 'filters'
  *   },
  * });
  */

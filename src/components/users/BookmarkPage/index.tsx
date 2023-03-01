@@ -67,85 +67,63 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                 if (item?.type === 'article') {
                   return (
                     <ArticleCard
-                      key={item.itemId}
-                      id={item.itemId as string}
-                      authorImg={
-                        item?.article?.data?.attributes?.author?.data
-                          ?.attributes?.avatar?.data?.attributes?.url as string
-                      }
-                      authorName={
-                        item?.article?.data?.attributes?.author?.data
-                          ?.attributes?.fullName as string
-                      }
+                      key={item?.slug}
+                      id={item?.itemId as string}
+                      authorImg={item?.userImage as string}
+                      authorName={item?.userName as string}
                       articleTitle={item.title as string}
                       articleIntro={
-                        item?.article?.data?.attributes?.blurb as string
+                        item?.blurb as string
                       }
-                      articleImage={item.image as string}
-                      readingTime={
-                        item?.article?.data?.attributes?.readingTime as string
-                      }
-                      createdAt={
-                        item?.article?.data?.attributes?.createdAt as string
-                      }
-                      category={item.category as string}
-                      slug={item.slug as string}
+                      articleImage={item?.image as string}
+                      readingTime={item?.readingTimeOrPrice as string}
+                      createdAt={item?.date as string}
+                      category={item?.category as string}
+                      slug={item?.slug as string}
+                    />
+                  );
+                } else if (item?.type === 'event') {
+                  return (
+                    <ActivitiesItem
+                      key={item?.slug}
+                      id={item?.itemId as string}
+                      hostName={item?.userName as string}
+                      hostImage={item?.userImage || '/assets/images/sport.png'}
+                      title={item?.title as string}
+                      slug={item?.slug as string}
+                      venue={item?.venue as string}
+                      venueName={item?.venueName as string}
+                      route={`/event/${item?.category}/${item?.slug}`}
+                      startDate={item?.date as string}
+                      starTime={item?.time as string}
+                      price={item?.readingTimeOrPrice as string}
+                      image={item?.image as string}
+                      location={item?.location as string}
+                      category={item?.category as string}
+                    />
+                  );
+                } else {
+                  return (
+                    <ActivitiesItem
+                      key={item?.slug}
+                      id={item?.itemId as string}
+                      hostName={item?.userName as string}
+                      hostImage={item?.userImage || '/assets/images/sport.png'}
+                      title={item?.title as string}
+                      slug={item?.slug as string}
+                      venue={item?.venue as string}
+                      venueName={item?.venueName as string}
+                      route={`/activities/${item?.category}/${item?.slug}`}
+                      startDate={item?.date as string}
+                      starTime={item?.time as string}
+                      price={item?.readingTimeOrPrice as string}
+                      image={item?.image as string}
+                      location={item?.location as string}
+                      category={item?.category as string}
                     />
                   );
                 }
               })}
-
-              <ArticleCard
-                key={'2'}
-                id={'11'}
-                authorImg={''}
-                authorName={'Ally Blackmay'}
-                articleTitle={'Raise good Humans'}
-                articleIntro={
-                  'What I learned when my kids said college wasn’t for them'
-                }
-                articleImage={''}
-                readingTime={'9 min read'}
-                createdAt={'Mar 8'}
-                category={'Self-development'}
-                slug={'Self-development'}
-              />
-              <ActivitiesItem
-                id={''}
-                hostName={'Andrew Swann'}
-                hostImage={'/assets/images/sport.png'}
-                title={'How to communicate with a child properly '}
-                slug={'Online'}
-                venue={'dede'}
-                venueName={'250 more visitors vn'}
-                route={'9809'}
-                startDate={'Sun, Thus at 10:00 AM'}
-                starTime={'Sun, Thus at 10:00 AM'}
-                price={'Free'}
-                image={'/assets/images/sport.png'}
-                location={undefined}
-                visitors={'250 more visitors'}
-                map={true}
-                hostImg={true}
-              />
-              <ActivitiesItem
-                id={''}
-                hostName={'Andrew Swann'}
-                hostImage={'/assets/images/sport.png'}
-                title={'How to communicate with a child properly '}
-                slug={'Online'}
-                location={'Online'}
-                venue={'dede'}
-                venueName={'de'}
-                visitors={'250 more visitors 4'}
-                route={'9809'}
-                startDate={'Sun, Thus at 10:00 AM'}
-                starTime={'Sun, Thus at 10:00 AM'}
-                price={'Free'}
-                image={'/assets/images/sport.png'}
-                map={false}
-                hostImg={false}
-              />
               <div className="activityBlock">
                 <Button
                   content="See more"

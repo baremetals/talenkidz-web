@@ -73,7 +73,10 @@ function CategoryListings() {
           </Banner>
 
           {/* event */}
-          <ListFilters entityType="activity-category" category={category as string} />
+          <ListFilters
+            entityType="activity-category"
+            category={category as string}
+          />
 
           {/* <Activitie*/}
           <ActivitiesList>
@@ -114,6 +117,10 @@ function CategoryListings() {
                         : `£${list?.attributes?.price}`
                     }
                     image={list?.attributes?.listImage as string}
+                    category={
+                      list?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
                   />
                 </Column>
               ))}

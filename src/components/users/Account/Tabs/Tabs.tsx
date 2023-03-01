@@ -8,7 +8,7 @@ type TabsProps = {
     icon?: any;
   }[];
   selectedTab: number;
-  onClick?: (_index: number) => void;
+  onClick: (_index: number) => void;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
 };

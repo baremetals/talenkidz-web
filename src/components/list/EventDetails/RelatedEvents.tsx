@@ -52,6 +52,9 @@ function RelatedEvents({ category }: propType): ReactElement {
                   : `£${eve?.attributes?.price}`
               }
               image={eve?.attributes?.listImage || '/default-list-img.jpg'}
+              category={
+                eve?.attributes?.category?.data?.attributes?.slug as string
+              }
             />
           </Column>
         ))}

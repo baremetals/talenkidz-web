@@ -161,6 +161,10 @@ function Listings() {
                         : `£${list?.attributes?.price}`
                     }
                     image={list?.attributes?.listImage as string}
+                    category={
+                      list?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
                   />
                 </Column>
               ))}

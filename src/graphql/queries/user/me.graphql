@@ -2,6 +2,7 @@ query Me(
   $usersPermissionsUserId: ID
   $sort: [String]
   $pagination: PaginationArg
+  $filters: ComponentBookMarksReadingListFiltersInput
 ) {
   usersPermissionsUser(id: $usersPermissionsUserId) {
     data {
@@ -36,7 +37,7 @@ query Me(
             }
           }
         }
-        bookmarklist(sort: $sort, pagination: $pagination) {
+        bookmarklist(sort: $sort, pagination: $pagination, filters: $filters) {
           itemId
           id
           image
@@ -44,29 +45,14 @@ query Me(
           title
           type
           category
-          article {
-            data {
-              id
-              attributes {
-                author {
-                  data {
-                    attributes {
-                      avatar {
-                        data {
-                          attributes {
-                            url
-                          }
-                        }
-                      }
-                      fullName
-                    }
-                  }
-                }
-                readingTime
-                blurb
-              }
-            }
-          }
+          userImage
+          userName
+          date
+          time
+          readingTimeOrPrice
+          venueName
+          venue
+          blurb
         }
       }
     }

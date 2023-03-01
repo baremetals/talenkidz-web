@@ -112,6 +112,10 @@ const CategoryEvents = () => {
                     image={
                       item?.attributes?.listImage || '/default-list-img.jpg'
                     }
+                    category={
+                      item?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
                   />
                 </Column>
               ))}

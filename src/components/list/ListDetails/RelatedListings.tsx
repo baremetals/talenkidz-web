@@ -52,6 +52,9 @@ function RelatedListings({ category }: propType): ReactElement {
                 (list?.attributes?.listImage as string) ||
                 '/default-list-img.jpg'
               }
+              category={
+                list?.attributes?.category?.data?.attributes?.slug as string
+              }              
             />
           </Column>
         ))}
