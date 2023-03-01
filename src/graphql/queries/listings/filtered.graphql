@@ -35,6 +35,7 @@ query FilteredListings(
         }
         host {
           data {
+            id
             attributes {
               username
               avatar

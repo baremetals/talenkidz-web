@@ -72,3 +72,40 @@ export interface ICategory {
 export interface ISearch {
   entities: Entities[];
 }
+
+export interface IActivityCard {
+  id: string;
+  hostName: string | undefined;
+  hostImage: string | undefined;
+  title: string;
+  slug: string | undefined;
+  location: string | undefined;
+  venue: string | undefined;
+  venueName: string | undefined;
+  route: string;
+  startDate: string;
+  starTime: string;
+  price: string;
+  image: string | undefined;
+  userId?: string;
+  hostId?: string;
+  // className?: string | undefined;
+}
+
+export interface IEventCard {
+  hostName: string | undefined;
+  title: string;
+  location: string | undefined;
+  venue: string | undefined;
+  venueName: string | undefined;
+  route: string;
+  starDate: string;
+  starTime: string;
+  price: string;
+  image: string | undefined;
+  id?: string;
+  className?: string | undefined;
+  slug?: string | undefined;
+  userId?: string;
+  hostId?: string;
+}

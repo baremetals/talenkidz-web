@@ -13,6 +13,8 @@ query FilteredArticles(
         blurb
         totalComments
         totalLikes
+        views
+        totalBookmarks
         readingTime
         createdAt
         updatedAt
@@ -21,6 +23,18 @@ query FilteredArticles(
             id
             attributes {
               url
+            }
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
             }
           }
         }

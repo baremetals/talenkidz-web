@@ -1,7 +1,7 @@
 import React from 'react';
 import { UsersPermissionsUser } from 'generated/graphql';
 
-import Content from './Content';
+import Content from './PageContent';
 
 import ProfileBase from './ProfileBase';
 

@@ -20,6 +20,7 @@ query Events($pagination: PaginationArg, $sort: [String]) {
         updatedAt
         host {
           data {
+            id
             attributes {
               username
               avatar

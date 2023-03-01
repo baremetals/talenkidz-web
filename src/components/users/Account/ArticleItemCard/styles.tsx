@@ -24,7 +24,7 @@ export const ArticleCard = styled.div`
       width: 100%;
     }
 
-    h1 {
+    h3 {
       font-weight: 600;
       font-size: 30px;
       letter-spacing: -0.01em;
@@ -161,7 +161,7 @@ export const ArticleEditButton = styled.button`
   }
 `;
 
-export const AuthorName = styled.h3`
+export const AuthorName = styled.p`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;

@@ -71,10 +71,14 @@ export function RelatedArticles({ category }: propType): ReactElement {
                 id={item.id as string}
                 authorImg={
                   item?.attributes?.author?.data?.attributes?.avatar?.data
-                    ?.attributes?.url as string
+                    ?.attributes?.url ||
+                  (item?.attributes?.creator?.data?.attributes
+                    ?.avatar as string)
                 }
                 authorName={
-                  item?.attributes?.author?.data?.attributes?.fullName as string
+                  item?.attributes?.author?.data?.attributes?.fullName ||
+                  (item?.attributes?.creator?.data?.attributes
+                    ?.fullName as string)
                 }
                 articleTitle={cutTextToLength(
                   item?.attributes?.title as string,
@@ -101,9 +105,7 @@ export function RelatedArticles({ category }: propType): ReactElement {
         </Column>
         <Column className="column-5">
           <SearchWrapper>
-            <EntitySearch
-              entities={arty}
-            />
+            <EntitySearch entities={arty} />
           </SearchWrapper>
           {/* <Fields /> */}
           <Categories entityDocument={FilteredArticlesDocument} />

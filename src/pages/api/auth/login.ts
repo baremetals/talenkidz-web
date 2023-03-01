@@ -11,7 +11,7 @@ type Data = {
   user?: user
 };
 
-type user = {
+export type user = {
   id: string;
   email: string;
   bio: string;
@@ -20,6 +20,7 @@ type user = {
   fullName: string;
   avatar: string;
   userType: string;
+  membership: string;
   jwt: string;
   orgName?: string;
   orgType?: string;
@@ -70,6 +71,7 @@ export default async function login(
       fullName: response.data.user.fullName,
       avatar: response.data.user.avatar,
       userType: response.data.user.userType,
+      membership: response.data.user.membership,
       stripeCustomerId: response.data.user.stripeCustomerId,
       jwt: response.data.jwt,
       orgName:

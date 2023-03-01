@@ -10,11 +10,25 @@ query Articles($pagination: PaginationArg, $sort: [String]) {
         readingTime
         totalComments
         totalLikes
+        views
+        totalBookmarks
         heroImage {
           data {
             id
             attributes {
               url
+            }
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
             }
           }
         }

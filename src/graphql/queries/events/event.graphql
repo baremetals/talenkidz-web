@@ -30,6 +30,7 @@ query Event($filters: EventFiltersInput) {
         }
         host {
           data {
+            id
             attributes {
               username
               avatar

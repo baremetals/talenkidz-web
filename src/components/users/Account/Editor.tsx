@@ -31,7 +31,7 @@ const Editor = ({ placeholder, status }: props) => {
     <EditorWrapper>
       <div className="primary">
         <PencilTwo />
-        <input type="text" placeholder={placeholder} />
+        <input type="text" placeholder={placeholder} disabled/>
       </div>
       <SendArticleButton>
         <Icon status={status} />

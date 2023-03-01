@@ -1,6 +1,7 @@
 import axios from 'axios';
 import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { user } from './login';
 // import { addToMailingList } from 'src/lib/helpers';
 const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SK, {
   apiVersion: '2022-08-01',
@@ -20,21 +21,7 @@ type Data = {
   user?: user
 };
 
-type user = {
-  id: string;
-  email: string;
-  bio: string;
-  provider: string;
-  username: string;
-  fullName: string;
-  avatar: string;
-  userType: string;
-  jwt: string;
-  orgName?: string;
-  orgType?: string;
-  website?: string;
-  stripeCustomerId: string;
-};
+
 
 
 
@@ -124,6 +111,7 @@ export default async function auth(
         fullName: auth.user.fullName,
         avatar: auth.user.avatar,
         userType: auth.user.userType,
+        membership: auth.user.membership,
         jwt: auth.jwt,
         email: auth.user.email,
         bio: auth.user.bio,

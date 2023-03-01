@@ -154,11 +154,14 @@ const Articles = () => {
                   id={item.id as string}
                   authorImg={
                     item?.attributes?.author?.data?.attributes?.avatar?.data
-                      ?.attributes?.url as string
+                      ?.attributes?.url ||
+                    (item?.attributes?.creator?.data?.attributes
+                      ?.avatar as string)
                   }
                   authorName={
-                    item?.attributes?.author?.data?.attributes
-                      ?.fullName as string
+                    item?.attributes?.author?.data?.attributes?.fullName ||
+                    (item?.attributes?.creator?.data?.attributes
+                      ?.fullName as string)
                   }
                   articleTitle={item?.attributes?.title as string}
                   slug={item?.attributes?.slug}
@@ -196,11 +199,14 @@ const Articles = () => {
                     id={item.id as string}
                     authorImg={
                       item?.attributes?.author?.data?.attributes?.avatar?.data
-                        ?.attributes?.url as string
+                        ?.attributes?.url ||
+                      (item?.attributes?.creator?.data?.attributes
+                        ?.avatar as string)
                     }
                     authorName={
-                      item?.attributes?.author?.data?.attributes
-                        ?.fullName as string
+                      item?.attributes?.author?.data?.attributes?.fullName ||
+                      (item?.attributes?.creator?.data?.attributes
+                        ?.fullName as string)
                     }
                     articleTitle={item?.attributes?.title as string}
                     articleIntro={item?.attributes?.blurb as string}
@@ -224,9 +230,7 @@ const Articles = () => {
             <Column className="column-5">
               <SearchBlock>
                 {/* <Search placeholder={'Search particular information'} /> */}
-                <EntitySearch
-                  entities={articleEntities}
-                />
+                <EntitySearch entities={articleEntities} />
               </SearchBlock>
               {/* <Fields /> */}
               <Categories entityDocument={FilteredArticlesDocument} />

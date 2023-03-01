@@ -1,11 +1,10 @@
-import React from 'react';
-import EventItem from '../EventItem';
-import { Row, Column } from 'styles/common.styles';
+import { Row } from 'styles/common.styles';
+// import EventItem from '../EventCard';
 
-const EventsVisit = () => {
+const SelectAnEvent = () => {
   return (
     <Row>
-      <Column className="column-6">
+      {/* <Column className="column-6">
         <EventItem
           title="How to communicate with a child properly"
           tag="online"
@@ -32,9 +31,9 @@ const EventsVisit = () => {
           courseType="5 Dec at 10:00 AM"
           eventImg="/assets/images/event.png"
         />
-      </Column>
+      </Column> */}
     </Row>
   );
 };
 
-export default EventsVisit;
+export default SelectAnEvent;

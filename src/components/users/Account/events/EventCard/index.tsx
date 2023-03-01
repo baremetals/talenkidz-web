@@ -1,28 +1,10 @@
+
+import { EventItemBlock, EventItemImg,EventInfo,TimeBlock,CourseItem,Visitor,VisitorInner,Visitors, EditButton, SeeMore } from './styles';
 import Image from 'next/image';
-import Link from 'next/link';
-import {
-  CourseItem,
-  EventInfo,
-  EventItemBlock,
-  EventItemImg,
-  IconBlock,
-  SeeMore,
-  TimeBlock,
-  Visitor,
-  VisitorInner,
-  Visitors,
-} from './styles';
-// import {  useState } from 'react';
-import BookMarkIcon from '../../widgets/BookMarkIcon';
-import { cutTextToLength, formatTimeAndDate } from 'src/utils';
+import PencilTwo from 'public/assets/icons/PencilTwo';
 import { IEventCard } from 'src/interfaces';
-// import { BsTag } from 'react-icons/bs';
-
-
-
-const EventItem: React.FC<IEventCard> = ({
-  id,
-  slug,
+import { cutTextToLength, formatTimeAndDate } from 'src/utils';
+const EventCard: React.FC<IEventCard> = ({
   title,
   hostName,
   image,
@@ -33,6 +15,9 @@ const EventItem: React.FC<IEventCard> = ({
   route,
   starDate,
   starTime,
+  userId,
+  hostId,
+
 }) => {
   return (
     <EventItemBlock>
@@ -43,22 +28,9 @@ const EventItem: React.FC<IEventCard> = ({
           width={1170}
           height={601}
         />
-        <IconBlock>
-          <BookMarkIcon
-            id={id as string}
-            title={title}
-            slug={slug as string}
-            image={image as string}
-            width={20}
-            height={20}
-          />
-        </IconBlock>
       </EventItemImg>
-
       <EventInfo>
-        <Link passHref href={route}>
-          <h2>{cutTextToLength(title, 45)}</h2>
-        </Link>
+        <h2>{cutTextToLength(title, 45)}</h2>
         <TimeBlock>
           <label>{formatTimeAndDate(starDate, starTime)}</label>
           <span className="tag">{venue === 'online' ? venue : location}</span>
@@ -66,23 +38,27 @@ const EventItem: React.FC<IEventCard> = ({
         <CourseItem>
           <span>{hostName}</span>
           <span className="dot"></span>
-          <span>{price}</span>
+          <span>{price === '0' ? 'Free' : `£${price}`}</span>
         </CourseItem>
         <Visitor>
           <VisitorInner>
             <Visitors>
               <Image
                 src={'/assets/svgs/visitor.svg'}
-                alt="visitors icon"
+                alt="article image"
                 width={16}
                 height={20}
               />
-              {/* <label>250 more visitors</label> */}
               <label>{venueName}</label>
             </Visitors>
-            <Link passHref href={route}>
-              <SeeMore href="#">See more</SeeMore>
-            </Link>
+            {hostId === userId ? (
+              <EditButton>
+                Edit
+                <PencilTwo />
+              </EditButton>
+            ) : (
+              <SeeMore href={route}>See More</SeeMore>
+            )}
           </VisitorInner>
         </Visitor>
       </EventInfo>
@@ -90,4 +66,4 @@ const EventItem: React.FC<IEventCard> = ({
   );
 };
 
-export default EventItem;
+export default EventCard;

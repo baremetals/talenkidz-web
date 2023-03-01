@@ -24,6 +24,7 @@ query FilteredEvents(
         updatedAt
         host {
           data {
+            id
             attributes {
               username
               avatar

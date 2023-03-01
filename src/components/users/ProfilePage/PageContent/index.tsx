@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
+import ArticlesTitle from '../../Account/PencilIcon';
+import Sidebar from '../../Account/Sidebar';
+import ArticleSection from '../ArticleSection';
 import {
   ProfileContainer,
-  ProfileMenu,
-  ProfileMenus,
   ProfileSidebar,
-  ProfileTimeline,
   ProfileTabs,
-} from './profile.styles';
-import PencilTwo from 'public/assets/icons/PencilTwo';
-import ArticleSection from './ArticleSection';
-import Sidebar from '../Account/Sidebar';
-import ArticlesTitle from '../Account/ArticlesTitle';
+  ProfileTimeline,
+} from '../profile.styles';
 
-import EventSection from './EventSection';
-import ActivitiesSection from './ActivitiesSection';
-import Tabs from '../Account/Tabs/Tabs';
+import Tabs from '../../Account/Tabs/Tabs';
+import ActivitiesSection from '../ActivitiesSection';
+import EventSection from '../EventSection';
 
 type TabsType = {
   label: string;
@@ -45,25 +42,13 @@ const tabs: TabsType = [
   },
 ];
 
-const Content = () => {
+const PageContent = () => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   return (
     <>
       <ProfileContainer>
         {/* Timeline section */}
         <ProfileTimeline>
-          {/* Profile menus */}
-          {/* <ProfileMenus>
-          <ProfileMenu className="active">
-            Articles <PencilTwo/>
-          </ProfileMenu>
-          <ProfileMenu>
-            Events <PencilTwo/>
-          </ProfileMenu>
-          <ProfileMenu>
-            Activities <PencilTwo/>
-          </ProfileMenu>
-        </ProfileMenus> */}
           <ProfileTabs>
             <Tabs
               selectedTab={selectedTab}
@@ -81,4 +66,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default PageContent;

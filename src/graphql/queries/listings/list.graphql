@@ -32,6 +32,7 @@ query List($filters: ListingFiltersInput) {
         }
         host {
           data {
+            id
             attributes {
               username
               avatar

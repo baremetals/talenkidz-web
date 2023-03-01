@@ -120,8 +120,8 @@ const Events = () => {
               </Column>
             </Row>
             <Row>
-              {filteredEvents?.map((item, i) => (
-                <Column className="Column-3" key={i}>
+              {filteredEvents?.map((item) => (
+                <Column className="Column-3" key={item?.id}>
                   <EventItem
                     id={item?.id as string}
                     hostName={

@@ -63,7 +63,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
               <span className="category">Articles</span>
             </div>
             <div className="ArticleRow">
-              {bookmarks?.map((item, i) => {
+              {bookmarks?.map((item) => {
                 if (item?.type === 'article') {
                   return (
                     <ArticleCard

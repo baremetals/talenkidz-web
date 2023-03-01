@@ -8,6 +8,8 @@ query Article($filters: ArticleFiltersInput) {
         slug
         totalComments
         totalLikes
+        views
+        totalBookmarks
         firebaseId
         readingTime
         heroImage {
@@ -16,6 +18,18 @@ query Article($filters: ArticleFiltersInput) {
               url
             }
             id
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
+            }
           }
         }
         author {

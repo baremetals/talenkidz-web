@@ -61,7 +61,7 @@ export const ArticleDetails = (props: {
   };
 }) => {
   // const [socialDropdown, setSocialDropdown] = useState(false)
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { user, firebaseUser } = useContext(AuthContext);
   const { data } = props.props;
@@ -72,6 +72,7 @@ export const ArticleDetails = (props: {
 
   const imageurl = article?.attributes?.heroImage?.data?.attributes?.url;
   const author = article?.attributes?.author?.data?.attributes;
+  const creator = article?.attributes?.creator?.data?.attributes;
   // const avatar = author?.avatar?.data?.attributes?.url;
   const category = article?.attributes?.category?.data?.attributes
     ?.slug as string;
@@ -82,7 +83,7 @@ export const ArticleDetails = (props: {
   const postSlug = article?.attributes?.slug as string;
   const likes = article?.attributes?.likes;
 
-  // console.log(router)
+  console.log(creator)
   // Article
 
   // const filterLIkes = likes?.filter((like) => like?.userId === user?.id)
@@ -108,7 +109,7 @@ export const ArticleDetails = (props: {
 
   const handleClick = async () => {
     if (!user) {
-      dispatch(openModal('LOGIN_FORM'))
+      dispatch(openModal('LOGIN_FORM'));
     } else {
       if (hasLiked) {
         // console.log('before', hasLiked);
@@ -178,7 +179,7 @@ export const ArticleDetails = (props: {
               <ArticleAuthor>
                 <ArticleAuthorImg>
                   <Image
-                    src={author?.avatar?.data?.attributes?.url as string}
+                    src={author?.avatar?.data?.attributes?.url || creator?.avatar as string}
                     alt="author image"
                     width={600}
                     height={600}

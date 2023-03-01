@@ -5,7 +5,8 @@ import { uploadProps } from 'src/types';
 import { toBase64 } from './base64';
 import axios from 'axios';
 
-export function cutTextToLength(str: string, maxLength: number): string {
+export function cutTextToLength(str: string | undefined, maxLength: number): string | undefined {
+  if (str === undefined) return
   return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
 }
 
@@ -24,7 +25,10 @@ export function extractArticleIdFromSlug(slug: string) {
   return slug.split('-').pop();
 }
 
-export const upperCase = (word: string = 'talentkids') => {
+export const upperCase = (
+  word: string | undefined = 'talentkids'
+): string | undefined => {
+  if (word === undefined) return;
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-scroll"
+// import { Link } from "react-scroll"
 // import Spinner from "components/Layout/Spinner";
 
 export const ActivitiestemBlock = styled.div`

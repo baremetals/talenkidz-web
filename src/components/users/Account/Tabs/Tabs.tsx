@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import ArticlesTitle from '../../../users/Account/ArticlesTitle';
+import { FC } from 'react';
+import PencilIcon from '../PencilIcon';
 type TabsProps = {
   tabs: {
     label: string;
@@ -8,7 +8,7 @@ type TabsProps = {
     icon?: any;
   }[];
   selectedTab: number;
-  onClick: (index: number) => void;
+  onClick?: (_index: number) => void;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
 };
@@ -49,7 +49,7 @@ const Tabs: FC<TabsProps> = ({
             tabIndex={selectedTab === tab.index ? 0 : -1}
             id={`btn-${tab.index}`}
           >
-            {tab.label} {tab.icon ? <ArticlesTitle /> : ''}
+            {tab.label} {tab.icon ? <PencilIcon /> : ''}
           </button>
         ))}
       </div>

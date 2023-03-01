@@ -1,9 +1,12 @@
 import Image from 'next/image';
+import PencilTwo from 'public/assets/icons/PencilTwo';
+import { IActivityCard } from 'src/interfaces';
+import { cutTextToLength, formatTimeAndDate } from 'src/utils';
+import { EditButton } from '../../events/EventCard/styles';
 import {
   ActivitiesInfo,
   ActivitiesItemImg,
   ActivitiestemBlock,
-  IconBlock,
   SeeMore,
   SportCoach,
   TimeBlock,
@@ -11,64 +14,48 @@ import {
   VisitorInner,
   Visitors,
 } from './styles';
-// import {  useState } from 'react';
-import Link from 'next/link';
-import { cutTextToLength, formatTimeAndDate } from 'src/utils';
-import BookMarkIcon from '../../widgets/BookMarkIcon';
-import { IActivityCard } from 'src/interfaces';
 
-
-const ActivitiesItem: React.FC<IActivityCard> = ({
-  id,
+const ActivitiesCard: React.FC<IActivityCard> = ({
+  startDate,
+  starTime,
+  title,
+  price,
   hostName,
   hostImage,
-  title,
-  slug,
   image,
-  starTime,
-  startDate,
-  venueName,
-  price,
-  route,
   venue,
   location,
+  venueName,
+  userId,
+  hostId,
+  route,
 }) => {
   // const [bookedMarked, setActives] = useState(false);
+  //  const toggleClass = () => {
+  //     setActives(!bookedMarked);
+  //   };
 
   return (
     <ActivitiestemBlock>
       <ActivitiesItemImg>
         <Image
-          src={image || '/assets/images/sport.png'}
-          alt="activity image"
+          src={image as string}
+          alt="article image"
           width={340}
           height={195}
         />
-        <IconBlock>
-          <BookMarkIcon
-            id={id}
-            title={title}
-            slug={slug as string}
-            image={image as string}
-            width={20}
-            height={20}
-          />
-        </IconBlock>
       </ActivitiesItemImg>
       <ActivitiesInfo>
-        <Link passHref href={route}>
-          <h2>{cutTextToLength(title, 45)}</h2>
-        </Link>
+        <h2>{cutTextToLength(title, 45)}</h2>
         <TimeBlock>
-          {/* <label>Sun, Thus at 10:00 AM</label> */}
           <label>{formatTimeAndDate(startDate, starTime)}</label>
           <span className="tag">{venue === 'online' ? venue : location}</span>
         </TimeBlock>
         <SportCoach>
           <div className="coachSpe">
             <Image
-              src={hostImage || '/assets/images/user.png'}
-              alt="host image"
+              src={hostImage as string}
+              alt="article image"
               width={35}
               height={35}
             />{' '}
@@ -83,22 +70,20 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
             <Visitors>
               <Image
                 src={'/assets/svgs/visitor.svg'}
-                alt="visitors icon"
-                width={16}
-                height={20}
-              />
-              {/* <Image
-                src={'/assets/svgs/participants.svg'}
                 alt="article image"
                 width={16}
                 height={20}
-              /> */}
-              {/* <label>10-15 participants</label> */}
+              />
               <label>{venueName}</label>
             </Visitors>
-            <Link passHref href={route}>
-              <SeeMore href="#">See more</SeeMore>
-            </Link>
+            {hostId === userId ? (
+              <EditButton>
+                Edit
+                <PencilTwo />
+              </EditButton>
+            ) : (
+              <SeeMore href={route}>See More</SeeMore>
+            )}
           </VisitorInner>
         </Visitor>
       </ActivitiesInfo>
@@ -106,4 +91,4 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
   );
 };
 
-export default ActivitiesItem;
+export default ActivitiesCard;

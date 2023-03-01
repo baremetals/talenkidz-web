@@ -54,7 +54,7 @@ const SmallACard = ({
           </AuthorWrap>
           <BookMarkIcon
             id={id as string}
-            title={cutTextToLength(articleTitle as string, 40)}
+            title={articleTitle as string}
             slug={slug as string}
             image={articleImage as string}
             width={25}
@@ -62,7 +62,7 @@ const SmallACard = ({
           />
         </CardAuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
-          <h3>{articleTitle}</h3>
+          <h3>{cutTextToLength(articleTitle, 18)}</h3>
         </Link>
         <Datetime>
           <Date>{dayjs(createdAt).format('MMM D')}</Date>

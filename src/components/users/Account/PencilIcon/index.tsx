@@ -1,10 +1,10 @@
 import React from 'react';
 import PencilTwo from 'public/assets/icons/PencilTwo';
 
-const EventsVisit = () => {
+const PencilIcon = () => {
   return (
     <PencilTwo/>
   );
 };
 
-export default EventsVisit;
+export default PencilIcon;

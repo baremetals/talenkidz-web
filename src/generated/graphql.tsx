@@ -81,6 +81,7 @@ export type Article = {
   body: Scalars['String'];
   category?: Maybe<CategoryEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  creator?: Maybe<UsersPermissionsUserEntityResponse>;
   firebaseId?: Maybe<Scalars['String']>;
   heroImage: UploadFileEntityResponse;
   likes?: Maybe<Array<Maybe<ComponentLikesLikes>>>;
@@ -127,6 +128,7 @@ export type ArticleFiltersInput = {
   body?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<CategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  creator?: InputMaybe<UsersPermissionsUserFiltersInput>;
   firebaseId?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   likes?: InputMaybe<ComponentLikesLikesFiltersInput>;
@@ -149,6 +151,7 @@ export type ArticleInput = {
   blurb?: InputMaybe<Scalars['String']>;
   body?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['ID']>;
+  creator?: InputMaybe<Scalars['ID']>;
   firebaseId?: InputMaybe<Scalars['String']>;
   heroImage?: InputMaybe<Scalars['ID']>;
   likes?: InputMaybe<Array<InputMaybe<ComponentLikesLikesInput>>>;
@@ -3082,7 +3085,7 @@ export type ArticleQueryVariables = Exact<{
 }>;
 
 
-export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, totalComments?: number | null, totalLikes?: number | null, firebaseId?: string | null, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ArticleQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, totalComments?: number | null, totalLikes?: number | null, views?: any | null, totalBookmarks?: any | null, firebaseId?: string | null, readingTime?: string | null, blurb?: string | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, creator?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, bio?: string | null, backgroundImg?: string | null, fullName?: string | null, username: string } | null } | null } | null, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type FilteredArticlesQueryVariables = Exact<{
   filters?: InputMaybe<ArticleFiltersInput>;
@@ -3091,7 +3094,7 @@ export type FilteredArticlesQueryVariables = Exact<{
 }>;
 
 
-export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, totalComments?: number | null, totalLikes?: number | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type FilteredArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, totalComments?: number | null, totalLikes?: number | null, views?: any | null, totalBookmarks?: any | null, readingTime?: string | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, creator?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, bio?: string | null, backgroundImg?: string | null, fullName?: string | null, username: string } | null } | null } | null, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ArticlesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -3099,7 +3102,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, totalComments?: number | null, totalLikes?: number | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type ArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename?: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', body: string, title: string, slug: string, blurb?: string | null, readingTime?: string | null, totalComments?: number | null, totalLikes?: number | null, views?: any | null, totalBookmarks?: any | null, createdAt?: any | null, updatedAt?: any | null, heroImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, creator?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', avatar?: string | null, bio?: string | null, backgroundImg?: string | null, fullName?: string | null, username: string } | null } | null } | null, author?: { __typename?: 'AuthorEntityResponse', data?: { __typename?: 'AuthorEntity', id?: string | null, attributes?: { __typename?: 'Author', fullName?: string | null, avatar?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null } | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, likes?: Array<{ __typename?: 'ComponentLikesLikes', id: string, userId: number } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type CategoriesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -3114,7 +3117,7 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, linkButtonText?: Enum_Event_Linkbuttontext | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null } | null }> } | null };
+export type EventQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, linkButtonText?: Enum_Event_Linkbuttontext | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null, name?: string | null } | null } | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null } | null }> } | null };
 
 export type FilteredEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -3123,7 +3126,7 @@ export type FilteredEventsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type FilteredEventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type EventsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -3131,7 +3134,7 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type EventsQuery = { __typename?: 'Query', events?: { __typename?: 'EventEntityResponseCollection', data: Array<{ __typename?: 'EventEntity', id?: string | null, attributes?: { __typename?: 'Event', title?: string | null, slug?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, startTime?: any | null, endTime?: string | null, price?: string | null, status?: Enum_Event_Status | null, venue?: Enum_Event_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type FilteredListingsQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
@@ -3140,7 +3143,7 @@ export type FilteredListingsQueryVariables = Exact<{
 }>;
 
 
-export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type FilteredListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ListingsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -3148,14 +3151,14 @@ export type ListingsQueryVariables = Exact<{
 }>;
 
 
-export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
+export type ListingsQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, listImage?: string | null, createdAt?: any | null, updatedAt?: any | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', slug?: string | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', name?: string | null, town?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } } } | null };
 
 export type ListQueryVariables = Exact<{
   filters?: InputMaybe<ListingFiltersInput>;
 }>;
 
 
-export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, updatedAt?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, linkButtonText?: Enum_Listing_Linkbuttontext | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
+export type ListQuery = { __typename?: 'Query', listings?: { __typename?: 'ListingEntityResponseCollection', data: Array<{ __typename?: 'ListingEntity', id?: string | null, attributes?: { __typename?: 'Listing', title?: string | null, description?: string | null, body?: string | null, startDate?: any | null, endDate?: any | null, slug?: string | null, createdAt?: any | null, updatedAt?: any | null, startTime?: string | null, endTime?: string | null, price?: string | null, status?: Enum_Listing_Status | null, venue?: Enum_Listing_Venue | null, link?: string | null, linkButtonText?: Enum_Listing_Linkbuttontext | null, listImage?: string | null, SEO?: { __typename?: 'ComponentSeoSeo', id: string, title?: string | null, description?: string | null, url?: string | null, image?: string | null, type?: string | null, locale?: string | null, author?: string | null, keywords?: string | null } | null, host?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', id?: string | null, attributes?: { __typename?: 'UsersPermissionsUser', username: string, avatar?: string | null, organisation?: { __typename?: 'ComponentOrganisationOrganisation', name?: string | null, organisationType?: string | null, website?: string | null } | null } | null } | null } | null, Location?: { __typename?: 'ComponentAddressLocation', id: string, name?: string | null, street?: string | null, town?: string | null, postCode?: string | null, longtitude?: number | null, latitude?: number | null } | null, category?: { __typename?: 'CategoryEntityResponse', data?: { __typename?: 'CategoryEntity', id?: string | null, attributes?: { __typename?: 'Category', name?: string | null, slug?: string | null } | null } | null } | null } | null }> } | null };
 
 export type UserEventsQueryVariables = Exact<{
   filters?: InputMaybe<EventFiltersInput>;
@@ -3219,6 +3222,8 @@ export const ArticleDocument = gql`
         slug
         totalComments
         totalLikes
+        views
+        totalBookmarks
         firebaseId
         readingTime
         heroImage {
@@ -3227,6 +3232,18 @@ export const ArticleDocument = gql`
               url
             }
             id
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
+            }
           }
         }
         author {
@@ -3316,6 +3333,8 @@ export const FilteredArticlesDocument = gql`
         blurb
         totalComments
         totalLikes
+        views
+        totalBookmarks
         readingTime
         createdAt
         updatedAt
@@ -3324,6 +3343,18 @@ export const FilteredArticlesDocument = gql`
             id
             attributes {
               url
+            }
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
             }
           }
         }
@@ -3408,11 +3439,25 @@ export const ArticlesDocument = gql`
         readingTime
         totalComments
         totalLikes
+        views
+        totalBookmarks
         heroImage {
           data {
             id
             attributes {
               url
+            }
+          }
+        }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
             }
           }
         }
@@ -3561,6 +3606,7 @@ export const EventDocument = gql`
         }
         host {
           data {
+            id
             attributes {
               username
               avatar
@@ -3648,6 +3694,7 @@ export const FilteredEventsDocument = gql`
         updatedAt
         host {
           data {
+            id
             attributes {
               username
               avatar
@@ -3734,6 +3781,7 @@ export const EventsDocument = gql`
         updatedAt
         host {
           data {
+            id
             attributes {
               username
               avatar
@@ -3830,6 +3878,7 @@ export const FilteredListingsDocument = gql`
         }
         host {
           data {
+            id
             attributes {
               username
               avatar
@@ -3915,6 +3964,7 @@ export const ListingsDocument = gql`
         }
         host {
           data {
+            id
             attributes {
               username
               avatar
@@ -4000,6 +4050,7 @@ export const ListDocument = gql`
         }
         host {
           data {
+            id
             attributes {
               username
               avatar

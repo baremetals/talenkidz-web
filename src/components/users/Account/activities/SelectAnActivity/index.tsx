@@ -1,18 +1,17 @@
-import React from 'react';
-import { Row, Column } from 'styles/common.styles';
-import Button from 'components/users/Auth/Button';
+// import Button from 'components/users/Auth/Button';
+import { Column, Row } from 'styles/common.styles';
 
 import {
-  ActivityNowWrapper,
-  ActivityHeader,
-  ActivityDec,
-} from '../../ProfilePage/profile.styles';
+  // ActivityDec,
+  // ActivityHeader,
+  // ActivityNowWrapper,
+} from '../../../ProfilePage/profile.styles';
 
-const ActivityNow = () => {
+const SelectAnActivity = () => {
   return (
     <Row>
       <Column className="column-12">
-        <ActivityNowWrapper>
+        {/* <ActivityNowWrapper>
           <ActivityHeader>Be more active with new people</ActivityHeader>
           <ActivityDec>You haven’t chosen activities yet</ActivityDec>
           <Button
@@ -21,10 +20,10 @@ const ActivityNow = () => {
             disabled={false}
             loading={false}
           />
-        </ActivityNowWrapper>
+        </ActivityNowWrapper> */}
       </Column>
     </Row>
   );
 };
 
-export default ActivityNow;
+export default SelectAnActivity;
