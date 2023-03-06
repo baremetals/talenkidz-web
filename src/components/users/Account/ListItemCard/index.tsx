@@ -17,7 +17,7 @@ import { IActivityCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import BookMarkIcon from '../../../widgets/BookMarkIcon';
 
-const ActivitiesItem: React.FC<IActivityCard> = ({
+const ListItemCard: React.FC<IActivityCard> = ({
   id,
   hostName,
   hostImage,
@@ -70,7 +70,7 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
         <Visitor>
           <VisitorInner>
             <Visitors>
-              <div className="visitors">
+              {/* <div className="visitors">
                 <Image
                   src={'/assets/svgs/participants.svg'}
                   alt="article image"
@@ -78,7 +78,7 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
                   height={20}
                 />
                 <label>{venueName}</label>
-              </div>
+              </div> */}
 
               <div className="visitors">
                 <Image
@@ -128,4 +128,4 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
   );
 };
 
-export default ActivitiesItem;
+export default ListItemCard;

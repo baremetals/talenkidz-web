@@ -46,10 +46,10 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
       query: MeDocument,
       variables: {
         usersPermissionsUserId: id,
-        sort: null,
+        sort: 'date:desc',
         pagination: {
           start: 0,
-          limit: 6,
+          limit: 12,
         },
       },
     });

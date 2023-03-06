@@ -69,7 +69,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
     variables: {
       pagination: {
         start: 0,
-        limit: 2,
+        limit: 12,
       },
       sort: 'createdAt:desc',
     },

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // import Image from 'next/image'
-import { UsersPermissionsUser } from 'generated/graphql';
+import { ComponentBookMarksReadingList, UsersPermissionsUser, useUsersBookMarksLazyQuery } from 'generated/graphql';
 import Button from 'components/users/Auth/Button';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 import ArticleCard from 'components/content/Articles/ArticleCard';
-import ActivitiesItem from 'components/content/Articles/ActivitiesItem';
+import ListItemCard from 'components/users/Account/ListItemCard';
 
 import { Row, Column } from 'styles/common.styles';
 
@@ -16,13 +16,13 @@ import {
   BookmarkList,
   BookmarkListWrapper,
 } from '../ProfilePage/profile.styles';
-// import { useAppSelector } from 'src/app/hooks';
-// import { isUser } from 'src/features/auth/selectors';
-import Link from 'next/link';
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth/selectors';
 import ProfileBase from '../ProfilePage/ProfileBase';
+import { upperCase } from 'src/utils';
 
 function BookmarkPage(props: { props: UsersPermissionsUser }) {
-  // const { user: user } = useAppSelector(isUser);
+  const { user: user } = useAppSelector(isUser);
   const {
     username,
     fullName,
@@ -38,9 +38,47 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
 
+    
+    const [showButton, setShowButton] = useState(true);
   const [bookmarks, setBookmarks] = useState(bookmarklist);
+  const [active, setActive] = useState('all');
 
-  console.log(bookmarklist);
+  const [loadBookmarks] = useUsersBookMarksLazyQuery({
+    variables: {
+      usersPermissionsUserId: user?.id?.toString(),
+      pagination: {
+        start: bookmarks?.length,
+        limit: 12,
+      },
+      sort: 'date:desc',
+    },
+  });
+
+  // console.log(bookmarklist);
+
+  const getBookmarks = useCallback(async () => {
+    const res = await loadBookmarks();
+    const newBookMarks =
+      res.data?.usersPermissionsUser?.data?.attributes?.bookmarklist;
+    // console.log(newBookMarks);
+    if (newBookMarks && newBookMarks.length < 1) setShowButton(false);
+      setBookmarks(() => [
+        ...(bookmarks as ComponentBookMarksReadingList[]),
+        ...(newBookMarks as ComponentBookMarksReadingList[]),
+      ]);
+    // console.log(meta);
+  }, [bookmarks, loadBookmarks]);
+
+  const filterbookmarks = useCallback((type: string) => {
+    setActive(type);
+    const filteredData = bookmarks?.filter((ent) => {
+      return ent?.type === type;
+    });
+    if (type !== 'all'){
+      setBookmarks(filteredData);
+    } else setBookmarks(bookmarklist);
+    
+  },[bookmarklist, bookmarks])
 
   return (
     <ProfileBase
@@ -58,9 +96,17 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
         <Row className="row">
           <Column className="column-7">
             <div className="BreadcrumbsBookmark">
-              <h2>All the savings</h2>
+              <h2>saved articles events and activities</h2>
               <span className="cricle"></span>
-              <span className="category">Articles</span>
+              <span className="category">
+                {upperCase(
+                  active === 'all'
+                    ? active
+                    : active === 'listing'
+                    ? 'activities'
+                    : active + 's'
+                )}
+              </span>
             </div>
             <div className="ArticleRow">
               {bookmarks?.map((item) => {
@@ -72,9 +118,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                       authorImg={item?.userImage as string}
                       authorName={item?.userName as string}
                       articleTitle={item.title as string}
-                      articleIntro={
-                        item?.blurb as string
-                      }
+                      articleIntro={item?.blurb as string}
                       articleImage={item?.image as string}
                       readingTime={item?.readingTimeOrPrice as string}
                       createdAt={item?.date as string}
@@ -84,7 +128,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                   );
                 } else if (item?.type === 'event') {
                   return (
-                    <ActivitiesItem
+                    <ListItemCard
                       key={item?.slug}
                       id={item?.itemId as string}
                       hostName={item?.userName as string}
@@ -104,7 +148,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                   );
                 } else {
                   return (
-                    <ActivitiesItem
+                    <ListItemCard
                       key={item?.slug}
                       id={item?.itemId as string}
                       hostName={item?.userName as string}
@@ -124,30 +168,45 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
                   );
                 }
               })}
-              <div className="activityBlock">
-                <Button
-                  content="See more"
-                  type="submit"
-                  disabled={false}
-                  loading={false}
-                />
-              </div>
+              {showButton ? (
+                <div className="activityBlock">
+                  <Button
+                    content="See more"
+                    type="button"
+                    disabled={false}
+                    loading={false}
+                    onClick={getBookmarks}
+                  />
+                </div>
+              ) : null}
             </div>
           </Column>
           <Column className="column-5">
             <BookmarkListWrapper>
               <BookmarkList>
-                <BoomarkItem>
-                  <Link href={'/articles'}>All the savings</Link>
+                <BoomarkItem
+                  className={active === 'all' ? 'active' : ''}
+                  onClick={() => filterbookmarks('all')}
+                >
+                  <span>All</span>
                 </BoomarkItem>
-                <BoomarkItem className="active">
-                  <Link href={'/articles'}>Articles</Link>
+                <BoomarkItem
+                  className={active === 'article' ? 'active' : ''}
+                  onClick={() => filterbookmarks('article')}
+                >
+                  <span>Articles</span>
                 </BoomarkItem>
-                <BoomarkItem>
-                  <Link href={'/articles'}>Events</Link>
+                <BoomarkItem
+                  className={active === 'event' ? 'active' : ''}
+                  onClick={() => filterbookmarks('event')}
+                >
+                  <span>Events</span>
                 </BoomarkItem>
-                <BoomarkItem>
-                  <Link href={'/articles'}>Activities</Link>
+                <BoomarkItem
+                  className={active === 'listing' ? 'active' : ''}
+                  onClick={() => filterbookmarks('listing')}
+                >
+                  <span>Activities</span>
                 </BoomarkItem>
               </BookmarkList>
             </BookmarkListWrapper>

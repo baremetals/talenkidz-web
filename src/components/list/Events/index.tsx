@@ -127,6 +127,9 @@ const Events = () => {
                     hostName={
                       item?.attributes?.host?.data?.attributes?.username
                     }
+                    hostImage={
+                      item?.attributes?.host?.data?.attributes?.avatar as string
+                    }
                     title={item?.attributes?.title as string}
                     slug={item?.attributes?.slug as string}
                     location={item?.attributes?.Location?.town as string}

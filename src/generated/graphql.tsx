@@ -3212,6 +3212,15 @@ export type TagsQueryVariables = Exact<{
 
 export type TagsQuery = { __typename?: 'Query', tags?: { __typename?: 'TagEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number } }, data: Array<{ __typename?: 'TagEntity', id?: string | null, attributes?: { __typename?: 'Tag', createdAt?: any | null, name?: string | null } | null }> } | null };
 
+export type UsersBookMarksQueryVariables = Exact<{
+  usersPermissionsUserId?: InputMaybe<Scalars['ID']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+}>;
+
+
+export type UsersBookMarksQuery = { __typename?: 'Query', usersPermissionsUser?: { __typename?: 'UsersPermissionsUserEntityResponse', data?: { __typename?: 'UsersPermissionsUserEntity', attributes?: { __typename?: 'UsersPermissionsUser', bookmarklist?: Array<{ __typename?: 'ComponentBookMarksReadingList', blurb?: string | null, category?: string | null, id: string, date?: string | null, image?: string | null, itemId?: string | null, location?: string | null, readingTimeOrPrice?: string | null, slug?: string | null, time?: string | null, title?: string | null, type?: string | null, userImage?: string | null, userName?: string | null, venue?: string | null, venueName?: string | null } | null> | null } | null } | null } | null };
+
 export type UserQueryVariables = Exact<{
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
 }>;
@@ -4361,6 +4370,64 @@ export function useTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TagsQ
 export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
+export const UsersBookMarksDocument = gql`
+    query UsersBookMarks($usersPermissionsUserId: ID, $pagination: PaginationArg, $sort: [String]) {
+  usersPermissionsUser(id: $usersPermissionsUserId) {
+    data {
+      attributes {
+        bookmarklist(pagination: $pagination, sort: $sort) {
+          blurb
+          category
+          id
+          date
+          image
+          itemId
+          location
+          readingTimeOrPrice
+          slug
+          time
+          title
+          type
+          userImage
+          userName
+          venue
+          venueName
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUsersBookMarksQuery__
+ *
+ * To run a query within a React component, call `useUsersBookMarksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersBookMarksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersBookMarksQuery({
+ *   variables: {
+ *      usersPermissionsUserId: // value for 'usersPermissionsUserId'
+ *      pagination: // value for 'pagination'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useUsersBookMarksQuery(baseOptions?: Apollo.QueryHookOptions<UsersBookMarksQuery, UsersBookMarksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersBookMarksQuery, UsersBookMarksQueryVariables>(UsersBookMarksDocument, options);
+      }
+export function useUsersBookMarksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersBookMarksQuery, UsersBookMarksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersBookMarksQuery, UsersBookMarksQueryVariables>(UsersBookMarksDocument, options);
+        }
+export type UsersBookMarksQueryHookResult = ReturnType<typeof useUsersBookMarksQuery>;
+export type UsersBookMarksLazyQueryHookResult = ReturnType<typeof useUsersBookMarksLazyQuery>;
+export type UsersBookMarksQueryResult = Apollo.QueryResult<UsersBookMarksQuery, UsersBookMarksQueryVariables>;
 export const UserDocument = gql`
     query User($filters: UsersPermissionsUserFiltersInput) {
   usersPermissionsUsers(filters: $filters) {

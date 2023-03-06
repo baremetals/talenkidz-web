@@ -1266,20 +1266,20 @@ export const BookmarkList = styled.ul`
 export const BoomarkItem = styled.li`
   margin-bottom: 10px;
   &:hover {
-    a {
+    span {
       color: #373737;
       background: #d3c7e0;
     }
   }
   &.active {
     border: none;
-    a {
+    span{
       color: #373737;
       background: #d3c7e0;
     }
   }
 
-  a {
+  span {
     font-style: normal;
     font-weight: 500;
     font-size: 20px;

@@ -98,7 +98,7 @@ const BookMarkIcon = ({
         await updateStrapiUserBookMarks(filteredMarks);
         await getMe();
       } else {
-        console.log('summer house', userImage);
+        // console.log('summer house', userImage);
         await updateStrapiUserBookMarks([
           ...myBookMarks,
           {

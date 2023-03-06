@@ -116,6 +116,9 @@ const CategoryEvents = () => {
                       item?.attributes?.category?.data?.attributes
                         ?.slug as string
                     }
+                    hostImage={
+                      item?.attributes?.host?.data?.attributes?.avatar as string
+                    }
                   />
                 </Column>
               ))}
