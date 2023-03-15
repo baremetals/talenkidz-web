@@ -10,7 +10,7 @@ export function cutTextToLength(str: string | undefined, maxLength: number): str
   return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
 }
 
-export function slugify(str: string): string {
+export function customeSlugify(str: string): string {
   return str
     .toLowerCase()
     .replace(/[^\w ]+/g, '')
@@ -18,7 +18,7 @@ export function slugify(str: string): string {
 }
 
 export function composeArticleSlug(id: string, title: string): string {
-  return `${slugify(title)}-${id}`;
+  return `${customeSlugify(title)}-${id}`;
 }
 
 export function extractArticleIdFromSlug(slug: string) {
@@ -32,11 +32,18 @@ export const upperCase = (
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
+type TErrorType = {
+  error: string;
+};
+
+type TImageReturnType = TErrorType | undefined
+
+// 209715200
 export const handleImgChange = async ({
   event,
   setUploadImg,
   setDisplayImg,
-}: uploadProps) => {
+}: uploadProps): Promise<TImageReturnType> => {
   if (!event.target.files) return;
   const image = event?.target?.files![0];
   if (image.size > 209715200) {
@@ -47,7 +54,7 @@ export const handleImgChange = async ({
   const base64 = await toBase64(event.target.files[0]);
   setUploadImg(image);
   setDisplayImg(base64);
-  return image;
+  return;
 };
 
 export const uploadNewImage = async (upload: File, field: string) => {

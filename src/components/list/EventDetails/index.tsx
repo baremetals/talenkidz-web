@@ -235,9 +235,10 @@ function EventDetails(props: {
                   event?.attributes?.startTime as string
                 )}
               </div>
-              <div className="address">
+              {event?.attributes?.venue !== 'online' ? <div className="address">
                 {location?.town + ' ' + location?.postCode}
-              </div>
+              </div> : null}
+              
               {event?.attributes?.venue !== 'location' && (
                 <div className="tagOnline">online</div>
               )}

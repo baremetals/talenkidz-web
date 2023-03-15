@@ -3,7 +3,7 @@ import { ArticleEntity, useFilteredArticlesLazyQuery } from 'generated/graphql';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth';
-import Article from '../../Account/ArticleItemCard';
+import ArticleItemCard from '../../Account/ArticleItemCard';
 import Editor from '../../Account/Editor';
 import PostLimits from '../../Account/PostLimits';
 
@@ -11,7 +11,7 @@ const ArticleSection = () => {
   const { user: user } = useAppSelector(isUser);
   const [entity, setEntities] = useState<ArticleEntity[]>([]);
 
-  const [loadActivities, { loading, data }] = useFilteredArticlesLazyQuery({
+  const [loadArticles, { loading, data }] = useFilteredArticlesLazyQuery({
     variables: {
       filters: {
         creator: {
@@ -30,12 +30,12 @@ const ArticleSection = () => {
 
   // console.log(entity);
   useEffect(() => {
-    const subscribe = loadActivities();
+    const subscribe = loadArticles();
 
     return () => {
       subscribe;
     };
-  }, [loadActivities]);
+  }, [loadArticles]);
 
   useEffect(() => {
     const subscribe = setEntities(data?.articles?.data as ArticleEntity[]);
@@ -53,11 +53,11 @@ const ArticleSection = () => {
       <PremiumBanner />
 
       {/* Write a new article */}
-      <Editor />
+      <Editor companentName={'ARTICLE_FORM_MODAL'} />
 
       {/* Articles */}
       {entity?.map((item) => (
-        <Article
+        <ArticleItemCard
           key={item.id}
           totalLikes={item?.attributes?.totalLikes as number}
           totalComments={item?.attributes?.totalComments as number}
@@ -83,6 +83,9 @@ const ArticleSection = () => {
           }
           userId={user?.id?.toString() as string}
           creatorId={item?.attributes?.creator?.data?.id as string}
+          keywords={item?.attributes?.SEO?.keywords as string}
+          body={item?.attributes?.body as string}
+          categoryId={item?.attributes?.category?.data?.id as string}
         />
       ))}
     </>

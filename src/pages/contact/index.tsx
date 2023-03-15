@@ -1,15 +1,14 @@
 import React from 'react';
-import NavBar from 'components/Layout/NavBar';
-import Footer from 'components/Layout/Footer';
 import { ContactPage } from 'components/service/ContactPage';
+import Layout from 'components/Layout';
 
 const Contact = () => {
 
-  return <>
-    <NavBar />
+  return (
+    <Layout canonicalUrl="https://www.talentkids.io/contact">
       <ContactPage />
-    <Footer />
-  </>
+    </Layout>
+  );
 };
 
 export default Contact;

@@ -38,7 +38,11 @@ const ActivitiesSection = () => {
       <PremiumBanner />
 
       {/* Create Content */}
-      <Editor status="activities" placeholder="Create an activity" />
+      <Editor
+        status="activities"
+        placeholder="Create an activity"
+        companentName={'ACTIVITY_FORM_MODAL'}
+      />
       {/*  */}
       <TabsBlock>
         <Tabs selectedTab={selectedTab} onClick={() => null} tabs={tabs} />

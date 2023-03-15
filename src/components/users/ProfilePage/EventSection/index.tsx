@@ -29,6 +29,7 @@ const tabs: TabsType = [
 
 const EventSection = () => {
   const [selectedTab] = useState<number>(tabs[0].index);
+  
   return (
     <>
       {/* Account status notes */}
@@ -38,7 +39,11 @@ const EventSection = () => {
       <PremiumBanner />
 
       {/* Write a new event */}
-      <Editor status="events" placeholder="Create an event" />
+      <Editor
+        status="events"
+        placeholder="Create an event"
+        companentName={'EVENT_FORM_MODAL'}
+      />
       {/*  */}
       <TabsBlock>
         <Tabs selectedTab={selectedTab} onClick={() => null} tabs={tabs} />

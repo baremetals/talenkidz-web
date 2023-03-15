@@ -57,6 +57,8 @@ const MyEvent = () => {
             price={item?.attributes?.price as string}
             userId={user?.id?.toString()}
             hostId={item?.attributes?.host?.data?.id as string}
+            slug={item?.attributes?.slug as string}
+            eventId={item?.id as string}
           />
         </Column>
       ))}

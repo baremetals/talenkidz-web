@@ -60,7 +60,8 @@ const EventItem: React.FC<IEventCard> = ({
             venue={venue as string}
             location={location as string}
             category={category as string}
-            type={'event'}/>
+            type={'event'}
+          />
         </IconBlock>
       </EventItemImg>
 
@@ -87,7 +88,11 @@ const EventItem: React.FC<IEventCard> = ({
                 height={20}
               />
               {/* <label>250 more visitors</label> */}
-              <label>{venueName}</label>
+              {venue === 'online' ? (
+                <label>{venue}</label>
+              ) : (
+                <label>{venueName}</label>
+              )}
             </Visitors>
             <Link passHref href={route}>
               <SeeMore href="#">See more</SeeMore>

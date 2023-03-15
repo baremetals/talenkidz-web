@@ -30,7 +30,7 @@ const SearchBox = ({ onPlace }: searchType) => {
                 lng: place.geometry.location.lng()
             }
             setLocation(address)
-            // console.log('the current: ', inputRef?.current)
+            console.log('the current: ', inputRef?.current)
             onPlace(place)
         }
     }

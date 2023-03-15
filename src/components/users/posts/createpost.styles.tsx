@@ -1,16 +1,24 @@
-import styled from "styled-components"
-import { BsUpload } from "react-icons/bs";
+import styled from 'styled-components';
+import { BsUpload } from 'react-icons/bs';
+
+export const AlignCentered = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 
 export const FormWrapper = styled.div`
-    /* display: flex; */
-    max-width: 50rem;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  /* display: flex; */
+  max-width: 50rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const FormWrap = styled.form`
-  input, .MuiSelect-select {
+  input,
+  .MuiSelect-select {
     padding: 10px 14px;
 
     &:focus {
@@ -20,7 +28,7 @@ export const FormWrap = styled.form`
 
   .MuiInputBase-root button {
     &:hover {
-      color: #BC70AD !important;
+      color: #bc70ad !important;
     }
   }
 `;
@@ -34,41 +42,35 @@ export const InnerFormWrapper = styled.div`
 `;
 
 export const FormGroup = styled.div`
-    position: relative;
-    margin-bottom: 1.25rem;
-    @media (max-width: 991px) {
-        margin-bottom: 1rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+  @media (max-width: 991px) {
+    margin-bottom: 1rem;
+  }
+  &.submit-button {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    button {
+      color: #fff;
+      border-radius: 0.75rem;
+      padding: 1.25rem 2rem;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      box-shadow: 0 0.625rem 2.25rem rgb(111 126 201 / 25%);
     }
-    &.submit-button {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        button {
-            color: #FFF;
-            border-radius: .75rem;
-            padding: 1.25rem 2rem;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: .2rem;
-            box-shadow: 0 .625rem 2.25rem rgb(111 126 201 / 25%);
-        }
-    }
+  }
 `;
 
-export const FormInput = styled.input`
+export const FormInput = styled.input``;
 
-`;
+export const ArticlePostSelect = styled.select``;
 
-export const Select = styled.select`
-  
-`;
+export const ArticlePostCategoryOptions = styled.option``;
 
-export const CategoryOptions = styled.option``;
+export const TextArea = styled.textarea``;
 
-export const TextArea = styled.textarea`
-    
-`;
-
-export const UploadWrapper = styled.div`
+export const ArticlePostUploadWrapper = styled.div`
   width: 100%;
   margin-bottom: 1rem;
 `;
@@ -83,9 +85,7 @@ export const UploadLabel = styled.label`
 
 export const UploadIcon = styled(BsUpload)``;
 
-export const UploadInput = styled.input`
-
-`;
+export const UploadInput = styled.input``;
 
 export const EditorTextWrapper = styled.div`
   margin-bottom: 1.5rem;

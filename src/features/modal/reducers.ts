@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TArticleFormContent } from './modalSpec';
 
 type TModal = {
   isOpen: boolean;
   modalComponent: null;
   content: string;
   entityId: string;
+  articleFormContent: TArticleFormContent | null;
 };
 
 const initialState: TModal = {
   isOpen: false,
   modalComponent: null,
   content: '',
-  entityId: ''
-
+  entityId: '',
+  articleFormContent: null,
 };
 
  const modalSlice = createSlice({
@@ -35,6 +37,14 @@ const initialState: TModal = {
          entityId: action.payload.entityId,
        };
      },
+     openEditArticalModal: (state, action: PayloadAction<any>) => {
+       return {
+         ...state,
+         isOpen: true,
+         modalComponent: action.payload.modalComponent,
+         articleFormContent: action.payload.content,
+       };
+     },
      closeModal: (state) => {
        return {
          ...state,
@@ -44,6 +54,7 @@ const initialState: TModal = {
    },
  });
 
- export const { closeModal, openModal, openModalWithContent } = modalSlice.actions;
+ export const { closeModal, openModal, openModalWithContent, openEditArticalModal } =
+   modalSlice.actions;
 
  export default modalSlice.reducer;

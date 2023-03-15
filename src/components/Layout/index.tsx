@@ -105,7 +105,7 @@ const Layout = ({
         <meta property="og:image:height" content={imageHeight} />
         <meta property="og:type" content={type} />
         <meta property="og:locale" content="en_GB" />
-        <meta property="og:url" content={pageUrl} />
+        <meta property="og:url" content={pageUrl || canonicalUrl} />
 
         {/* twitter card meta */}
         <meta name="twitter:card" content="summary" />

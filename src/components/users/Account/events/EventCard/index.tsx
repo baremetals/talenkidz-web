@@ -1,4 +1,5 @@
 
+import { useRouter } from 'next/router';
 import { EventItemBlock, EventItemImg,EventInfo,TimeBlock,CourseItem,Visitor,VisitorInner,Visitors, EditButton, SeeMore } from './styles';
 import Image from 'next/image';
 import PencilTwo from 'public/assets/icons/PencilTwo';
@@ -17,8 +18,11 @@ const EventCard: React.FC<IEventCard> = ({
   starTime,
   userId,
   hostId,
+  slug,
+  // eventId
 
 }) => {
+  const router = useRouter()
   return (
     <EventItemBlock>
       <EventItemImg>
@@ -49,10 +53,14 @@ const EventCard: React.FC<IEventCard> = ({
                 width={16}
                 height={20}
               />
-              <label>{venueName}</label>
+              {venue === 'online' ? (
+                <label>{venue}</label>
+              ) : (
+                <label>{venueName}</label>
+              )}
             </Visitors>
             {hostId === userId ? (
-              <EditButton>
+              <EditButton onClick={() => router.push(`/account/create/events/update/${slug}`)}>
                 Edit
                 <PencilTwo />
               </EditButton>

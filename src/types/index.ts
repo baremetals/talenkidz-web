@@ -178,3 +178,13 @@ export type TNotifications = {
   appNotificationsOn?: boolean;
   createdAt?: string;
 };
+
+export type TArticleFormProps = {
+  title: string;
+  blurb: string;
+  category: string;
+  body: string;
+  heroImage: File | null | string;
+  readingTime: string;
+  keywords: string;
+};

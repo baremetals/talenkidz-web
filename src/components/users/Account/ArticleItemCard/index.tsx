@@ -17,6 +17,8 @@ import {
   AuthorImg,
   AuthorName,
 } from './styles';
+import { useAppDispatch } from 'src/app/hooks';
+import { openEditArticalModal } from 'src/features/modal';
 
 interface IArticleItemCard extends IArticleCard {
   totalLikes: number;
@@ -24,6 +26,9 @@ interface IArticleItemCard extends IArticleCard {
   totalBookmarks: number;
   userId: string;
   creatorId: string;
+  keywords: string;
+  body: string;
+  categoryId: string;
 }
 
 const ArticleItemCard: React.FC<IArticleItemCard> = ({
@@ -41,7 +46,34 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
   totalBookmarks,
   userId,
   creatorId,
+  keywords,
+  body,
+  id,
+  categoryId,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const sendArticleDataWithModal = () => {
+    const article = {
+      title: articleTitle,
+      blurb: articleIntro,
+      category,
+      body,
+      heroImage: articleImage,
+      readingTime,
+      keywords,
+      slug,
+      articleId: id,
+      categoryId,
+    };
+    dispatch(
+      openEditArticalModal({
+        modalComponent: 'EDIT_ARTICALFORM_MODAL',
+        content: article,
+        // entityId: id,
+      })
+    );
+  };
   return (
     <ArticleCard>
       <DragIcon className="drag-icon" />
@@ -76,17 +108,18 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
           alt="article media"
         />
         <div className="article-actions">
-          {userId === creatorId ? <ArticleEditButton>
-            Edit <Pencil />
-          </ArticleEditButton>: null}
-          
+          {userId === creatorId ? (
+            <ArticleEditButton onClick={sendArticleDataWithModal}>
+              Edit <Pencil />
+            </ArticleEditButton>
+          ) : null}
 
           <div className="article-options">
             <ArticleOption>
               {totalLikes} likes <Heart className="like-icon" />
             </ArticleOption>
             <ArticleOption>
-              {totalComments} com <Comment className="comment-icon" />
+              {totalComments} comments <Comment className="comment-icon" />
             </ArticleOption>
             <ArticleOption>
               {totalBookmarks} saving{' '}

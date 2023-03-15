@@ -17,6 +17,12 @@ import ParticipationModal from './ParticipationModal';
 import ProfileInformationModal from '../../users/EditProfile';
 import FeedbackModal from './FeedbackModal';
 import EditCommentInput from 'components/utilities/comments/EditCommentInput';
+import EventForm from 'components/users/posts/events/EventForm';
+import ActivityForm from 'components/users/posts/activities/ActivityForm';
+import ArticleForm from 'components/users/posts/articles/ArticleForm';
+import EditArticleForm from 'components/users/posts/articles/EditArticleForm';
+// import EditEventForm from 'components/users/posts/events/EditEventForm';
+// import EditActivityForm from 'components/users/posts/activities/EditActivityForm';
 
 /** Components Name Constants */
 const MODAL_COMPONENTS = {
@@ -32,6 +38,12 @@ const MODAL_COMPONENTS = {
   FEEDBACK_MODAL: FeedbackModal,
   PROFILE_MODAL: ProfileInformationModal,
   EDIT_COMMENT_MODAL: EditCommentInput,
+  EVENT_FORM_MODAL: EventForm,
+  ACTIVITY_FORM_MODAL: ActivityForm,
+  ARTICLE_FORM_MODAL: ArticleForm,
+  EDIT_ARTICALFORM_MODAL: EditArticleForm,
+  // EDIT_ACTIVITYFORM_MODAL: EditActivityForm,
+  // EDIT_EVENTFORM_MODAL: EditEventForm,
 };
 
 export default function AuthModal({ ...props }: any) {

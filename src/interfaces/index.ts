@@ -105,10 +105,11 @@ export interface IEventCard {
   price: string;
   image: string | undefined;
   id?: string;
-  className?: string | undefined;
-  slug?: string | undefined;
+  className?: string
+  slug?: string;
   userId?: string;
   hostId?: string;
   category?: string;
   hostImage?: string;
+  eventId?: string;
 }

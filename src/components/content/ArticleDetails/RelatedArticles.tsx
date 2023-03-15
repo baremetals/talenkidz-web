@@ -94,7 +94,7 @@ export function RelatedArticles({ category }: propType): ReactElement {
                 )}
                 slug={item?.attributes?.slug}
                 readingTime={item?.attributes?.readingTime as string}
-                createdAt={dayjs(item?.attributes?.createdAt).format('MMM D')}
+                createdAt={dayjs(item?.attributes?.createdAt).format()}
                 category={category}
               />
             ))}

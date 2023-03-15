@@ -160,15 +160,15 @@ const ProfileBase: React.FC<TUserProps> = ({
               <Pencil />
             </EditProfileButton>
             <ProfileButtons>
-              <Link passHref href={`/account/liked-content`}>
+              {/* <Link passHref href={`/account/timeline`}>
                 <span
                   className={
-                    router.asPath.includes('/bookmarks') ? 'active' : ''
+                    router.asPath.includes('/timeline') ? 'active' : ''
                   }
                 >
                   <Heart />
                 </span>
-              </Link>
+              </Link> */}
               <Link passHref href={`/account/bookmarks`}>
                 <span
                   className={
@@ -182,10 +182,10 @@ const ProfileBase: React.FC<TUserProps> = ({
                 ref={dropdownRef}
                 className={`${dropdown ? 'active' : ''}`}
               >
-                <BellWrapper onClick={() => setDropdown(!dropdown)}>
+                {/* <BellWrapper onClick={() => setDropdown(!dropdown)}>
                   <Bell />
                   <span>3</span>
-                </BellWrapper>
+                </BellWrapper> */}
                 <BellDropdown
                   className={`${dropdown ? 'opened' : ''}`}
                   onClick={() => setDropdown(!dropdown)}

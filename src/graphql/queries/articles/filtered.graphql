@@ -66,6 +66,9 @@ query FilteredArticles(
           id
           userId
         }
+        SEO {
+          keywords
+        }
       }
     }
     meta {

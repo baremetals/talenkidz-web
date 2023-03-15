@@ -87,7 +87,11 @@ const ListItemCard: React.FC<IActivityCard> = ({
                   width={16}
                   height={20}
                 />
-                <label>{venueName}</label>
+                {venue === 'online' ? (
+                  <label>{venue}</label>
+                ) : (
+                  <label>{venueName}</label>
+                )}
               </div>
             </Visitors>
             <Link passHref href={route}>

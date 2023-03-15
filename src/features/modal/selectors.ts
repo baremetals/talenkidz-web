@@ -9,3 +9,7 @@ export const componentSelector = createSelector(
   selectModal,
   (state) => state.modalComponent
 );
+export const articleFormContentSelector = createSelector(
+  selectModal,
+  (state) => state.articleFormContent
+);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ArticlesTitle from '../../Account/PencilIcon';
-import Sidebar from '../../Account/Sidebar';
+// import Sidebar from '../../Account/Sidebar';
 import ArticleSection from '../ArticleSection';
 import {
   ProfileContainer,
@@ -59,7 +59,7 @@ const PageContent = () => {
         </ProfileTimeline>
         {/* Sidebar section */}
         <ProfileSidebar>
-          <Sidebar />
+          {/* <Sidebar /> */}
         </ProfileSidebar>
       </ProfileContainer>
     </>

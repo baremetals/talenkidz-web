@@ -104,7 +104,12 @@ const ActivitiesItem: React.FC<IActivityCard> = ({
                 height={20}
               /> */}
               {/* <label>10-15 participants</label> */}
-              <label>{venueName}</label>
+
+              {venue === 'online' ? (
+                <label>{venue}</label>
+              ) : (
+                <label>{venueName}</label>
+              )}
             </Visitors>
             <Link passHref href={route}>
               <SeeMore href="#">See more</SeeMore>

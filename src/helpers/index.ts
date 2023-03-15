@@ -19,6 +19,7 @@ type contents = {
   totalComments?: number;
   firebaseId?: string;
   likes?: ComponentLikesLikes[] | ILike;
+  totalLikes?: number;
 };
 
 export const updateStrapiEntity = async <T>(entityName: string, entityId: string, contents: contents): Promise<T> => {

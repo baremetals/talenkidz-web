@@ -279,8 +279,8 @@ function ListDetails(props: {
           <Markdown>{list?.attributes?.body as string}</Markdown>
           <Row className="infomationBlock">
             <Column className="column-8">
-              <h3>Important information about participation in our events:</h3>
-              <p>Age: 10 to 18 years | Maximum number of participants: 15</p>
+              {/* <h3>Important information about participation in our events:</h3>
+              <p>Age: 10 to 18 years | Maximum number of participants: 15</p> */}
             </Column>
             <Column className="column-4">
               <Link passHref href={(list?.attributes?.link as string) || ''}>

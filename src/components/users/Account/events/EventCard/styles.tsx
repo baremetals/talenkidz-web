@@ -95,7 +95,7 @@ export const Visitors = styled.div`
   display: flex;
   align-items: center;
 `;
-export const EditButton = styled.a`
+export const EditButton = styled.div`
   border: 1px solid #39007e;
   border-radius: 10px;
   display: flex;

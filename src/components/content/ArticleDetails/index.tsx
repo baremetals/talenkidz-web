@@ -116,6 +116,7 @@ export const ArticleDetails = (props: {
         const filter = likes?.filter((like) => like?.userId !== user?.id);
         await updateStrapiEntity('articles', article?.id as string, {
           likes: filter as ComponentLikesLikes[],
+          totalLikes: (likes?.length as number) > 1 ? (likes?.length as number) - 1: 0,
         });
         // console.log(totalLikes);
       } else {
@@ -126,6 +127,7 @@ export const ArticleDetails = (props: {
             ...(likes as ComponentLikesLikes[]),
             { userId: user.id },
           ] as ComponentLikesLikes[],
+          totalLikes: (likes?.length as number) + 1,
         });
         // console.log(res);
       }

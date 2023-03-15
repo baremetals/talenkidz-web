@@ -14,6 +14,7 @@ import {
   VisitorInner,
   Visitors,
 } from './styles';
+import { useRouter } from 'next/router';
 
 const ActivitiesCard: React.FC<IActivityCard> = ({
   startDate,
@@ -29,11 +30,14 @@ const ActivitiesCard: React.FC<IActivityCard> = ({
   userId,
   hostId,
   route,
+  slug,
+  // id
 }) => {
   // const [bookedMarked, setActives] = useState(false);
   //  const toggleClass = () => {
   //     setActives(!bookedMarked);
   //   };
+  const router = useRouter()
 
   return (
     <ActivitiestemBlock>
@@ -74,12 +78,22 @@ const ActivitiesCard: React.FC<IActivityCard> = ({
                 width={16}
                 height={20}
               />
-              <label>{venueName}</label>
+              {venue === 'online' ? (
+                <label>{venue}</label>
+              ) : (
+                <label>{venueName}</label>
+              )}
             </Visitors>
             {hostId === userId ? (
-              <EditButton>
+              <EditButton
+                onClick={() =>
+                  router.push(
+                    `/account/create/activities/update/${slug}`
+                  )
+                }
+              >
                 Edit
-                <PencilTwo />
+                  <PencilTwo />
               </EditButton>
             ) : (
               <SeeMore href={route}>See More</SeeMore>
