@@ -9,7 +9,7 @@ type buttonProps = {
   bgColor?: string;
   BtnNames?: string;
   children?: React.ReactNode;
-  onChange?: (_event: any) => void;
+  onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (_event: any) => void;
 };
 
