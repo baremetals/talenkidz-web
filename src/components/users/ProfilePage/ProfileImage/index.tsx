@@ -12,7 +12,7 @@ type TProfileImage = {
 };
 
 const ProfileImage: React.FC<TProfileImage> = ({membership, avatar, userType}) => {
-    const [, setUploadImg] = useState<any>(null);
+    const [uploadImg, setUploadImg] = useState<any>(null);
     const [profileImg, setProfileImg] = useState<string | null>(avatar);
     const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
       // console.log('In the function',uploadImg);
@@ -22,7 +22,7 @@ const ProfileImage: React.FC<TProfileImage> = ({membership, avatar, userType}) =
           setUploadImg,
           setDisplayImg: setProfileImg,
         });
-        await uploadNewImage(res as File, 'profile');
+        await uploadNewImage(uploadImg, 'profile');
         // console.log(resp);
       } catch (error) {
         console.log('The Error Is: ', error);

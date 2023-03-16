@@ -36,7 +36,7 @@ type TErrorType = {
   error: string;
 };
 
-type TImageReturnType = TErrorType | undefined
+type TImageReturnType = TErrorType | null
 
 // 209715200
 export const handleImgChange = async ({
@@ -44,7 +44,7 @@ export const handleImgChange = async ({
   setUploadImg,
   setDisplayImg,
 }: uploadProps): Promise<TImageReturnType> => {
-  if (!event.target.files) return;
+  if (!event.target.files) return null;
   const image = event?.target?.files![0];
   if (image.size > 209715200) {
     return {
@@ -54,7 +54,7 @@ export const handleImgChange = async ({
   const base64 = await toBase64(event.target.files[0]);
   setUploadImg(image);
   setDisplayImg(base64);
-  return;
+  return null;
 };
 
 export const uploadNewImage = async (upload: File, field: string) => {

@@ -13,7 +13,7 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
   backgroundImg,
   membership,
 }) => {
-  const [, setUploadImg] = useState<any>(null);
+  const [uploadImg, setUploadImg] = useState<any>(null);
   const [profileCover, setProfileCover] = useState<string | null>(
     backgroundImg
   );
@@ -25,7 +25,7 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
         setUploadImg,
         setDisplayImg: setProfileCover,
       });
-      await uploadNewImage(res as File, 'background');
+      await uploadNewImage(uploadImg, 'background');
       // console.log(resp);
     } catch (error) {
       console.log('The Error Is: ', error);
