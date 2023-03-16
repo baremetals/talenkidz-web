@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Post from 'components/content/Post'
+// import Post from 'components/content/Post'
 import {
     ShareContainer,
     ShareWrapper,
@@ -16,9 +16,9 @@ import {
     TextArea
 } from './profile.styles';
 
-import { PhotoLine } from '../../../../public/assets/icons/PhotoLine'
-import { VideoLine } from '../../../../public/assets/icons/VideoLine'
-import { CommentLines } from '../../../../public/assets/icons/CommentLines'
+import { PhotoLine } from 'public/assets/icons/PhotoLine'
+import { VideoLine } from 'public/assets/icons/VideoLine'
+import { CommentLines } from 'public/assets/icons/CommentLines'
 
 type cardProps = {
     avatar: string
@@ -69,11 +69,11 @@ export const ShareCard = ({ avatar }: cardProps) => {
                     </ShareBottomWrap>
                 </ShareWrapper>
             </ShareContainer>
-            <Post
+            {/* <Post
                 showModal={showModal}
                 closeM={() => setShowModal(false)}
                 setShowModal={setShowModal}
-            />
+            /> */}
         </>
     )
 }
