@@ -5,8 +5,43 @@ export const AlignCentered = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  .activity {
+    background: #39007e;
+    border-radius: 20px;
+    min-height: 51px;
+    min-width: 159px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .event {
+    background: #39007e;
+    border-radius: 20px;
+    min-height: 51px;
+    min-width: 159px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .primary-outline {
+    border-radius: 20px;
+    background: #fff;
+    min-height: 51px;
+    min-width: 159px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #1e0a3c;
+  }
 `;
-
 
 export const FormWrapper = styled.div`
   /* display: flex; */
@@ -50,6 +85,7 @@ export const FormGroup = styled.div`
   &.submit-button {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    color: #ffffff;
     button {
       color: #fff;
       border-radius: 0.75rem;
@@ -58,6 +94,15 @@ export const FormGroup = styled.div`
       text-transform: uppercase;
       letter-spacing: 0.2rem;
       box-shadow: 0 0.625rem 2.25rem rgb(111 126 201 / 25%);
+      background: #39007e;
+      border-radius: 20px;
+      min-height: 51px;
+      min-width: 159px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
     }
   }
 `;
@@ -111,3 +156,7 @@ export const UploadImage = styled.img`
   }
 `;
 
+export const DismissIcon = styled.div`
+  text-align: right;
+  margin-bottom: 10px;
+`;

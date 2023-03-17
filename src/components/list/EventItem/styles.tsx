@@ -34,6 +34,7 @@ export const EventInfo = styled.div`
     font-size: 24px;
     line-height: 110.1%;
     margin-bottom: 15px;
+    min-height: 52px;
   }
 `;
 
@@ -57,7 +58,9 @@ export const TimeBlock = styled.div`
     text-align: center;
     letter-spacing: -0.01em;
     color: rgba(57, 0, 126, 0.59);
-    width: 72px;
+    min-width: 72px;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 23px;
     display: flex;
     align-items: center;
