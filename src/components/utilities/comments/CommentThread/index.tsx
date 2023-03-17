@@ -14,19 +14,34 @@ import Dropdown, {
 } from '../styles';
 import Link from 'next/link';
 // import { getFirebaseComments, commentsListener } from 'src/helpers/firebase';
-import { collection, db, DocumentData, limit, onSnapshot, orderBy, query, where } from 'src/lib/firebase';
-import { CommentActionWrap, CommentUser, CommentUserImg, CommentUserWrap, CommentWrapper, DayBlock, ReplyBlock } from './thread.styles';
+import {
+  collection,
+  db,
+  DocumentData,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'src/lib/firebase';
+import {
+  CommentActionWrap,
+  CommentUser,
+  CommentUserImg,
+  CommentUserWrap,
+  CommentWrapper,
+  DayBlock,
+  ReplyBlock,
+} from './thread.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { deleteAComment } from 'src/helpers/firebase';
 import { updateStrapiEntity } from 'src/helpers';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModalWithContent } from 'src/features/modal';
 
-
 export interface ICommentThread {
   firebaseId: string;
   totalComments: number;
-
 }
 const CommentThread: React.FC<ICommentThread> = ({
   firebaseId,
@@ -34,7 +49,7 @@ const CommentThread: React.FC<ICommentThread> = ({
 }) => {
   const { user } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState<number | boolean>(-1);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   // const [showEditor, setShowEditor] = useState(true);
   // const [showEditEditor, setShowEditEditor] = useState(false);
   const [comments, setComments] = useState<DocumentData>([]);
@@ -52,6 +67,16 @@ const CommentThread: React.FC<ICommentThread> = ({
     dispatch(
       openModalWithContent({
         modalComponent: 'EDIT_COMMENT_MODAL',
+        content: body,
+        entityId: id,
+      })
+    );
+  };
+
+  const deleteComment = (body: string, id: string): void => {
+    dispatch(
+      openModalWithContent({
+        modalComponent: 'DELETE_COMMENT_MODAL',
         content: body,
         entityId: id,
       })
@@ -148,10 +173,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                       >
                         <div>
                           <EditIcon />
-                          <ItemText
-                          >
-                            Edit
-                          </ItemText>
+                          <ItemText>Edit</ItemText>
                         </div>
                       </ItemWrapper>
                       <ItemWrapper>
@@ -186,6 +208,14 @@ const CommentThread: React.FC<ICommentThread> = ({
                 <DayBlock>
                   {dayjs.unix(com.updatedAt?.seconds).fromNow()}
                 </DayBlock>
+                <div onClick={() => editComment(com.body, com.id)}>
+                  <EditIcon />
+                  <ItemText>Edit</ItemText>
+                </div>
+                <div onClick={() => deleteComment(com.body, com.id)}>
+                  <EditIcon />
+                  <ItemText>Delete</ItemText>
+                </div>
                 <ReplyBlock>
                   {/* <label>reply on</label>
                 <Image

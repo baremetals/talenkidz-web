@@ -16,3 +16,5 @@ export const Delete = ({ onClick }: props) => {
     </svg>
   );
 };
+
+export default Delete;

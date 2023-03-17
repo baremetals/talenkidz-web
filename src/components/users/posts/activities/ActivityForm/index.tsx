@@ -13,7 +13,6 @@ import axios from 'axios';
 
 import { formReducer, INITIAL_STATE } from 'components/users/posts/formReducer';
 
-
 import GoogleMap from 'components/utilities/Google/GoogleMap';
 import SearchBox from 'components/utilities/Google/SearchBox';
 
@@ -23,10 +22,7 @@ const PostEditor: any = dynamic(
     ssr: false,
   }
 );
-import {
-  FormControl,
-  TextField,
-} from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 import { ErrorMsg } from 'components/widgets/Input';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import {
@@ -139,7 +135,7 @@ const ActivityForm = () => {
       const slug: string = customeSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
-      const activityUrl = `${url}/activities/${category.toLowerCase()}/${slug.toLowerCase()}`;
+      const activityUrl = `${url}/activities/${category?.toLowerCase()}/${slug.toLowerCase()}`;
       // console.log(activityUrl);
 
       let form = new FormData();
@@ -200,10 +196,10 @@ const ActivityForm = () => {
               console.log(res.data);
               if (res.status === 200) {
                 dispatch(closeModal());
-                router.push(activityUrl)
+                router.push(activityUrl);
               }
             })
-            .catch(async(_err) => {
+            .catch(async (_err) => {
               // console.log(err.response.data)
               setSubmitting(false);
               setMsg('Sorry something went wrong please try again later.');
@@ -226,10 +222,8 @@ const ActivityForm = () => {
       } catch (err) {
         console.log(err);
       }
-
     }
-  }
-  
+  };
 
   const onChangeAddress = (data: {
     address_components: any;
@@ -251,7 +245,7 @@ const ActivityForm = () => {
       payload: { ...location },
     });
 
-      // console.log('state', state);
+    // console.log('state', state);
   };
   return (
     <CreatePost formType={'activity'}>

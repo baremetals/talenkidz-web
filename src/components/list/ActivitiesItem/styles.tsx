@@ -32,7 +32,7 @@ export const ActivitiesItemImg = styled.div`
 export const ActivitiesInfo = styled.div`
   padding-left: 15px;
   padding-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   h2 {
     color: #39007e;
     font-style: normal;

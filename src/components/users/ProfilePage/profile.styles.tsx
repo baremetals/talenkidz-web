@@ -1273,7 +1273,7 @@ export const BoomarkItem = styled.li`
   }
   &.active {
     border: none;
-    span{
+    span {
       color: #373737;
       background: #d3c7e0;
     }

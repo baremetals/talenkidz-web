@@ -176,7 +176,7 @@ export const StyledInput = styled.textarea`
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   width: 100%;
-  height: 57px;
+  min-height: 57px;
   padding: 1rem;
   border: none;
   outline: none;
@@ -198,15 +198,21 @@ export const StyledInput = styled.textarea`
 
 export const StyledEditInput = styled.textarea`
   background: #f1faff;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
-  height: 57px;
-  padding: 1rem;
+  min-height: 282px;
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
   border: none;
   outline: none;
   color: #3c354e;
   font-size: 1rem;
   font-weight: bold;
+  padding: 20px 20px 20px 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
   &:focus {
     display: inline-block;
     box-shadow: 0 0 0 0.2rem #b9abe0;
@@ -221,15 +227,19 @@ export const StyledEditInput = styled.textarea`
 `;
 
 export const EditCommentWrapper = styled.div`
+  background: #f1faff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
   position: relative;
   max-width: 90%;
-  max-width: 31.5rem;
+  max-width: 967px;
+  padding: 30px 60px 30px 40px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   button {
     background: #39007e;
-    border-radius: 0px 20px 20px 20px;
+    border-radius: 0px 20px 0px 20px;
     position: absolute;
     top: 0;
     right: 0;
@@ -245,4 +255,120 @@ export const EditCommentInner = styled.div`
   border-radius: 0.625rem;
   padding: 2rem 1.875rem;
   /* margin-top: .2rem; */
+`;
+
+export const EditBlock = styled.div`
+  display: flex;
+  align-items: center;
+  color: #39007e;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 17px;
+  text-align: center;
+  svg {
+    margin-right: 9px;
+    background: transparent;
+    path {
+      fill: #39007e;
+    }
+  }
+`;
+
+export const ButtonBlock = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  button {
+    position: relative;
+    border-radius: 20px 0px 0px 0;
+    width: 74px;
+    height: 74px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 8px;
+    div {
+      text-align: center;
+    }
+    svg {
+      margin-bottom: 5px;
+    }
+  }
+`;
+export const ButtonBlockClose = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  button {
+    position: relative;
+    border-radius: 0 20px 0px 20px;
+    width: 74px;
+    height: 74px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 8px;
+    div {
+      text-align: center;
+    }
+    svg {
+      margin-bottom: 5px;
+    }
+  }
+`;
+
+export const DeleteCommentWrapper = styled.div`
+  background: #ffffff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  position: relative;
+  max-width: 90%;
+  max-width: 235px;
+  min-height: 147px;
+  padding: 20px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #0f021f;
+  button {
+    background: #39007e;
+    border-radius: 10px;
+    padding: 0 10px;
+    min-width: 105px;
+    height: 29px;
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      margin-right: 4px;
+      background: transparent;
+      path {
+        fill: #fff;
+      }
+    }
+  }
 `;
