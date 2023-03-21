@@ -38,6 +38,9 @@ import { deleteAComment } from 'src/helpers/firebase';
 import { updateStrapiEntity } from 'src/helpers';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModalWithContent } from 'src/features/modal';
+import DeletesIcon from 'public/assets/icons/DeleteOutline';
+import StarIcon from 'public/assets/icons/StarIcon';
+import LikeIcon from 'public/assets/icons/LikeIcon';
 
 export interface ICommentThread {
   firebaseId: string;
@@ -161,7 +164,16 @@ const CommentThread: React.FC<ICommentThread> = ({
                     <h3>{com.username}</h3>
                   </Link>
                 </CommentUser>
-                {user?.id === com.userId ? (
+                <div className="BlockIcon">
+                  <div className="likeicon">
+                    3 liked <LikeIcon />
+                  </div>
+                  <div className="StarIcon">
+                    <StarIcon /> 5,0
+                  </div>
+                </div>
+
+                {/* {user?.id === com.userId ? (
                   <PostDropdown>
                     <ExpandIcon onClick={() => toggleDropdown(i)} />
                     <Dropdown
@@ -182,7 +194,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                             handleDelete(com.id, com.entityStrapiId)
                           }
                         >
-                          <DeleteIcon />
+                          <DeletesIcon />
                           <ItemText
                             onClick={() =>
                               handleDelete(com.id, com.entityStrapiId)
@@ -194,7 +206,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                       </ItemWrapper>
                     </Dropdown>
                   </PostDropdown>
-                ) : null}
+                ) : null} */}
 
                 {/* <div className='star'>  <Image
             src={'/assets/svgs/StarIcon.svg'}
@@ -208,23 +220,31 @@ const CommentThread: React.FC<ICommentThread> = ({
                 <DayBlock>
                   {dayjs.unix(com.updatedAt?.seconds).fromNow()}
                 </DayBlock>
-                <div onClick={() => editComment(com.body, com.id)}>
-                  <EditIcon />
-                  <ItemText>Edit</ItemText>
+                <div className="icons-block">
+                  <div
+                    className="block-icon"
+                    onClick={() => editComment(com.body, com.id)}
+                  >
+                    <EditIcon />
+                    <ItemText>Edit</ItemText>
+                  </div>
+                  <div
+                    className="block-icon"
+                    onClick={() => deleteComment(com.body, com.id)}
+                  >
+                    <DeletesIcon />
+                    <ItemText>Delete</ItemText>
+                  </div>
                 </div>
-                <div onClick={() => deleteComment(com.body, com.id)}>
-                  <EditIcon />
-                  <ItemText>Delete</ItemText>
-                </div>
-                <ReplyBlock>
-                  {/* <label>reply on</label>
+                {/* <ReplyBlock> */}
+                {/* <label>reply on</label>
                 <Image
                   src={'/assets/svgs/like.svg'}
                   alt="article image"
                   width={24}
                   height={24}
                 /> */}
-                </ReplyBlock>
+                {/* </ReplyBlock> */}
               </CommentActionWrap>
             </CommentWrapper>
           )

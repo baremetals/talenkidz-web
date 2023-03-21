@@ -366,9 +366,6 @@ export const DeleteCommentWrapper = styled.div`
     svg {
       margin-right: 4px;
       background: transparent;
-      path {
-        fill: #fff;
-      }
     }
   }
 `;

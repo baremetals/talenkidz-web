@@ -4,7 +4,7 @@ import { DeleteCommentWrapper } from '../styles';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { closeModal, modalSelector } from 'src/features/modal';
 import { InnerContainer, DeleteCommentInputModal } from 'styles/common.styles';
-import DeleteIcon from 'public/assets/icons/Delete';
+import DeleteIcon from 'public/assets/icons/DeleteOutline';
 
 const DeleteCommentInput: React.FC = () => {
   const dispatch = useAppDispatch();

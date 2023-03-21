@@ -7,7 +7,7 @@ export const ActivitiestemBlock = styled.div`
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   padding: 14px 16px;
-  margin-bottom: 15px;
+  margin-bottom: 05px;
   height: 100%;
 `;
 export const ActivitiesItemImg = styled.div`

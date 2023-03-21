@@ -31,8 +31,8 @@ export const NativeButton = styled.button`
 
   &:disabled {
     transition: none;
-    background-color: #bc70ad;
-    border-color: #bc70ad;
+    background-color: #7755e2;
+    border-color: #7755e2;
     cursor: not-allowed;
   }
 `;
