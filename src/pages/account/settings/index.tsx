@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 
-import NotificationsPage from 'components/users/NotificationsPage';
+import SettingsPage from 'components/users/SettingsPage';
 import { requireAuthentication } from 'src/lib/requireAuthentication';
 import { initializeApollo } from 'src/hooks/apolloClient';
 import Layout from 'components/Layout';
@@ -17,7 +17,7 @@ export type ProfileProps = {
   };
 };
 
-const Notifications = (data: ProfileProps) => {
+const SettingProfile = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
   //   console.log('the rassssss user', user);
@@ -29,7 +29,7 @@ const Notifications = (data: ProfileProps) => {
       type="account page"
       pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
     >
-      <NotificationsPage props={user} />
+      <SettingsPage props={user} />
     </Layout>
   );
 };
@@ -60,4 +60,4 @@ export const getServerSideProps: GetServerSideProps = requireAuthentication(
   }
 );
 
-export default Notifications;
+export default SettingProfile;
