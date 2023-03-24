@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import Button from 'components/widgets/Button';
+// import Button from 'components/widgets/Button';
 import { AuthContext } from 'src/features/auth/AuthContext';
-import { AlignCentered } from '../createpost.styles';
+// import { AlignCentered } from '../createpost.styles';
 import { InnerContainer, PageContainer } from 'styles/common.styles';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 type TCreatePostProps = {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ const CreatePost: React.FC<TCreatePostProps> = ({ children, formType }) => {
   return (
     <PageContainer>
       <InnerContainer>
-        <AlignCentered>
+        {/* <AlignCentered>
           <Link passHref href={'/account/create/activities'}>
             <Button
               className={
@@ -35,7 +35,7 @@ const CreatePost: React.FC<TCreatePostProps> = ({ children, formType }) => {
               List An Event
             </Button>
           </Link>
-        </AlignCentered>
+        </AlignCentered> */}
         {children}
       </InnerContainer>
     </PageContainer>

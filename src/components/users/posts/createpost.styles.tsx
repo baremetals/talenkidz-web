@@ -5,6 +5,7 @@ export const AlignCentered = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 50px;
   .activity {
     background: #39007e;
     border-radius: 20px;
@@ -41,6 +42,49 @@ export const AlignCentered = styled.div`
     text-align: center;
     color: #1e0a3c;
   }
+  .link-block {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 130%;
+    color: #0f021f;
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+    margin-left: 35px;
+  }
+  span {
+    width: 28px;
+    height: 28px;
+    background: #39007e;
+    display: flex;
+    border-radius: 50px;
+    margin-right: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      z-index: 11;
+      position: relative;
+      background-color: #fff;
+      border-radius: 50px;
+    }
+  }
+  .active {
+    width: 28px;
+    height: 28px;
+    background: #39007e;
+    display: flex;
+    border-radius: 50px;
+    &:after {
+      display: none;
+    }
+  }
 `;
 
 export const FormWrapper = styled.div`
@@ -71,9 +115,44 @@ export const FormWrap = styled.form`
 export const InnerFormWrapper = styled.div`
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.13);
   background-color: #fff;
-  border-radius: 0.625rem;
+  border-radius: 20px;
   padding: 2rem 1.875rem;
   margin-top: 2rem;
+  .note {
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #39007e;
+    margin-bottom: 30px;
+  }
+  select {
+    border: 2px solid #39007e !important;
+    position: relative;
+  }
+  input {
+    border: 2px solid #39007e !important;
+  }
+  label {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #0f021f;
+    text-transform: capitalize;
+  }
+
+  .only-horizontal-padding {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .horizontal {
+    @media (max-width: 991px) {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -85,24 +164,23 @@ export const FormGroup = styled.div`
   &.submit-button {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    display: flex;
+    justify-content: center;
     color: #ffffff;
     button {
       color: #fff;
       border-radius: 0.75rem;
-      padding: 1.25rem 2rem;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 0.2rem;
-      box-shadow: 0 0.625rem 2.25rem rgb(111 126 201 / 25%);
+      text-transform: capitalize;
       background: #39007e;
       border-radius: 20px;
       min-height: 51px;
-      min-width: 159px;
+      min-width: 169px;
+      font-family: 'Syne';
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
-      line-height: 24px;
       text-align: center;
+      color: #ffffff;
     }
   }
 `;

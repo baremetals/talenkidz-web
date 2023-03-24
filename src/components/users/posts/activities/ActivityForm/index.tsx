@@ -33,6 +33,8 @@ import {
   UploadLabel,
   FormInput,
   EditorTextWrapper,
+  AlignCentered,
+  DismissIcon,
 } from '../../createpost.styles';
 import {
   ActionButton,
@@ -52,6 +54,9 @@ import { FormProps } from 'src/types';
 import CreatePost from '../../CreatePost';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { closeModal } from 'src/features/modal';
+import Link from 'next/link';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import SelectArrow from 'public/assets/icons/SelectArrow';
 
 const ActivityForm = () => {
   const router = useRouter();
@@ -252,6 +257,11 @@ const ActivityForm = () => {
       <InnerContainer>
         <FormWrapper>
           <InnerFormWrapper>
+            <div>
+              <DismissIcon className="dismiss-icon">
+                <CrossRounded />
+              </DismissIcon>
+            </div>
             <Title
               style={{
                 lineHeight: '1.6',
@@ -260,15 +270,27 @@ const ActivityForm = () => {
                 marginBottom: '1.5rem',
               }}
             >
-              Create New Activity
+              Create something new
             </Title>
+            <AlignCentered>
+              <Link passHref href={'/account/create/activities'}>
+                <div className="link-block">
+                  <span className="active"></span>Activity
+                </div>
+              </Link>
+              <Link passHref href={'/account/create/events'}>
+                <div className="link-block">
+                  <span></span>Event
+                </div>
+              </Link>
+            </AlignCentered>
             {error && <ErrorMsg>{msg}</ErrorMsg>}
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <TextField
                     fullWidth
-                    label="Title"
+                    placeholder="Title"
                     variant="outlined"
                     {...register('title', { required: true })}
                   />
@@ -305,6 +327,9 @@ const ActivityForm = () => {
                             )
                           )}
                       </select>
+                      <span className="selectArrow">
+                        <SelectArrow />
+                      </span>
                     </FormControl>
                     {errors.category && (
                       <span style={{ color: 'red' }}>Category is required</span>
@@ -315,7 +340,7 @@ const ActivityForm = () => {
 
               <FormGroup>
                 <TextField
-                  label="Description"
+                  placeholder="Description"
                   multiline
                   fullWidth
                   rows={2}
@@ -329,7 +354,9 @@ const ActivityForm = () => {
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Start Date</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong>start date</strong>
+                    </UploadLabel>
                     <FormInput
                       type="date"
                       {...register('startDate', { required: true })}
@@ -344,7 +371,9 @@ const ActivityForm = () => {
 
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>End Date</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong>end date</strong>
+                    </UploadLabel>
                     <FormInput
                       type="date"
                       {...register('endDate', { required: true })}
@@ -358,7 +387,9 @@ const ActivityForm = () => {
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Start Time</UploadLabel>
+                    <UploadLabel>
+                      Set the <strong>start time</strong>
+                    </UploadLabel>
                     <FormInput
                       type="time"
                       {...register('startTime', { required: true })}
@@ -372,7 +403,9 @@ const ActivityForm = () => {
                 </Column>
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>End Time</UploadLabel>
+                    <UploadLabel>
+                      Set the <strong>end time</strong>
+                    </UploadLabel>
                     <FormInput
                       type="time"
                       {...register('endTime', { required: true })}
@@ -385,19 +418,31 @@ const ActivityForm = () => {
               </Row>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
-                  <input defaultValue={'0'} {...register('price')} />
+                  <FormGroup>
+                    <UploadLabel>
+                      Set the <strong>PRICE</strong>
+                    </UploadLabel>
+                    <input defaultValue={'0'} {...register('price')} />
+                  </FormGroup>
                 </Column>
                 <Column className="only-horizontal-padding">
-                  <input
-                    defaultValue="www.talentkids.io"
-                    {...register('link', { required: true })}
-                  />
+                  <FormGroup>
+                    <UploadLabel>
+                      Add the <strong>LINK</strong>
+                    </UploadLabel>
+                    <input
+                      defaultValue="www.talentkids.io"
+                      {...register('link', { required: true })}
+                    />
+                  </FormGroup>
                 </Column>
               </Row>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Please select button text</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong> button text</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Button Text</InputLabel> */}
                       <select
@@ -418,7 +463,9 @@ const ActivityForm = () => {
                   </FormGroup>
                 </Column>
                 <Column className="only-horizontal-padding">
-                  <UploadLabel>Please select venue option</UploadLabel>
+                  <UploadLabel>
+                    Choose the <strong> venue</strong>
+                  </UploadLabel>
                   <FormGroup>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
@@ -545,7 +592,6 @@ const ActivityForm = () => {
                 {imgSizeErr && <ErrorMsg>{msg}</ErrorMsg>}
 
                 <CoverPictureUploaderWrapper>
-                  <Label>Upload</Label>
                   <TextField
                     style={{ display: 'none' }}
                     fullWidth
@@ -598,7 +644,7 @@ const ActivityForm = () => {
                         />
                         <SelectCoverPictureButton>
                           <BsCloudArrowUp />
-                          Select a picture
+                          Click to upload an image of the activity
                         </SelectCoverPictureButton>
                       </EditButton>
                     </NoCoverPictureWrapper>
@@ -623,9 +669,14 @@ const ActivityForm = () => {
                   }}
                 />
               </EditorTextWrapper>
+              <p>
+                *with Standard status the activity will be in the list only for
+                5 days. After that it will be deleted. To create unlimited
+                position, change the option in Settings.
+              </p>
               <FormGroup className="submit-button">
                 <Button
-                  content="Send"
+                  content="Create"
                   type="submit"
                   disabled={submitting}
                   loading={submitting}
