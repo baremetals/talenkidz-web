@@ -165,9 +165,9 @@ function LikedPage(props: { props: UsersPermissionsUser }) {
                     className={`${dropdown ? 'opened' : ''}`}
                     onClick={() => setDropdown(!dropdown)}
                   >
+                    {/* <Notification />
                     <Notification />
-                    <Notification />
-                    <Notification />
+                    <Notification /> */}
                   </BellDropdown>
                 </BellWrapperCard>
               </ProfileButtons>

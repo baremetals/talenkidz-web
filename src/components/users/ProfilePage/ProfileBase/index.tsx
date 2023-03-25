@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -7,10 +7,19 @@ dayjs.extend(relativeTime);
 // import { isUser } from 'src/features/auth';
 import { useAppDispatch } from 'src/app/hooks';
 
-
+import {
+  collection,
+  db,
+  DocumentData,
+  // limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'src/lib/firebase';
 
 import Pencil from 'public/assets/icons/Pencil';
-import Heart from 'public/assets/icons/Heart';
+// import Heart from 'public/assets/icons/Heart';
 import Favourite from 'public/assets/icons/FavouriteInactive';
 import Bell from 'public/assets/icons/Bell';
 
@@ -38,6 +47,8 @@ import Link from 'next/link';
 import { openModal } from 'src/features/modal';
 import ProfileImage from '../ProfileImage';
 import { useRouter } from 'next/router';
+import { AuthContext } from 'src/features/auth/AuthContext';
+
 
 
 type TUserProps = {
@@ -50,7 +61,7 @@ type TUserProps = {
   membership: string;
   userType: string;
   createdAt: string;
-  children: React.ReactNode
+  children: React.ReactNode;
 };
 
 const ProfileBase: React.FC<TUserProps> = ({
@@ -65,10 +76,40 @@ const ProfileBase: React.FC<TUserProps> = ({
   createdAt,
   children,
 }) => {
-  // const { user: user } = useAppSelector(isUser);
+  const { user } = useContext(AuthContext);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // console.log(user)
+  const [notifications, setNotifications] = useState<DocumentData>([]);
+  // console.log(user);
+
+  useEffect(() => {
+    if (user?.email !== undefined) {
+      const getNewNotification = async () => {
+        const q = query(
+          collection(db, 'notifications'),
+          where('recipientEmail', '==', user?.email),
+          where('read', '==', false),
+          orderBy('createdAt', 'desc')
+          // limit(3)
+        );
+        // console.log(q);
+
+        onSnapshot(q, (querySnapshot) => {
+          const notices: React.SetStateAction<DocumentData> = [];
+          querySnapshot.forEach((doc) => {
+            // console.log(doc.id)
+            notices.push({ id: doc.id, ...doc.data() });
+          });
+          setNotifications(notices);
+        });
+      };
+      const listen = getNewNotification();
+      return () => {
+        listen;
+      };
+    }
+      
+  }, [user?.email]);
 
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<any>(null);
@@ -180,20 +221,54 @@ const ProfileBase: React.FC<TUserProps> = ({
               </Link>
               <BellWrapperCard
                 ref={dropdownRef}
-                className={`${dropdown ? 'active' : ''}`}
+                className={
+                  `${dropdown ? 'active' : ''}` ||
+                  router.asPath.includes('/notifications')
+                    ? 'active'
+                    : ''
+                }
               >
-                {/* <BellWrapper onClick={() => setDropdown(!dropdown)}>
-                  <Bell />
-                  <span>3</span>
-                </BellWrapper> */}
-                <BellDropdown
-                  className={`${dropdown ? 'opened' : ''}`}
-                  onClick={() => setDropdown(!dropdown)}
-                >
-                  <Notification />
-                  <Notification />
-                  <Notification />
-                </BellDropdown>
+                {notifications.length > 0 ? (
+                  <BellWrapper onClick={() => setDropdown(!dropdown)}>
+                    <Bell />
+                    {notifications.length > 0 ? (
+                      <span>{notifications.length}</span>
+                    ) : null}
+                  </BellWrapper>
+                ) : (
+                  <Link passHref href={'/account/notifications'}>
+                    <BellWrapper onClick={() => setDropdown(!dropdown)}>
+                      <Bell />
+                    </BellWrapper>
+                  </Link>
+                )}
+
+                {notifications.length > 0 ? (
+                  <BellDropdown
+                    className={`${dropdown ? 'opened' : ''}`}
+                    onClick={() => setDropdown(!dropdown)}
+                  >
+                    {notifications
+                      .slice(0, 3)
+                      .map(
+                        (item: {
+                          id: string;
+                          sender: string;
+                          messageImage: string;
+                          createdAt: { seconds: number };
+                        }) => (
+                          <Notification
+                            key={item.id}
+                            name={item.sender}
+                            createdAt={dayjs
+                              .unix(item.createdAt?.seconds)
+                              .fromNow()}
+                            messageImage={item.messageImage}
+                          />
+                        )
+                      )}
+                  </BellDropdown>
+                ) : null}
               </BellWrapperCard>
             </ProfileButtons>
           </ProfileActions>

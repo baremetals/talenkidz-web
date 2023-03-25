@@ -60,12 +60,12 @@ const PostEditor: any = dynamic(
   }
 );
 
-const styles = (theme) => ({
-  notchedOutline: {
-    borderWidth: '1px',
-    borderColor: 'yellow !important',
-  },
-});
+// const styles = (theme) => ({
+//   notchedOutline: {
+//     borderWidth: '1px',
+//     borderColor: 'yellow !important',
+//   },
+// });
 
 const EventForm = () => {
   const router = useRouter();

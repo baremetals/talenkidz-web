@@ -165,13 +165,18 @@ export default function UserHeader() {
                           <Link href={`/account/`}>Profile</Link>
                         </ProfileItem>
                         <ProfileItem>
-                          <Link href={`/account/membership-status`}>Membership</Link>
+                          <Link href={`/account/membership-status`}>
+                            Membership
+                          </Link>
                         </ProfileItem>
                         <ProfileItem>
                           <Link href="/privacy">Privacy settings</Link>
                         </ProfileItem>
                         <ProfileItem>
                           <Link href="/terms">Terms</Link>
+                        </ProfileItem>
+                        <ProfileItem>
+                          <Link href="/account/settings">Settings</Link>
                         </ProfileItem>
                         <ProfileItem>
                           <a onClick={handleLogOut}>Logout</a>

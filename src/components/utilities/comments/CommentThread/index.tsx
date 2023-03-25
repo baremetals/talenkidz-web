@@ -4,12 +4,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import Dropdown, {
-  ExpandIcon,
+import {
   ItemText,
-  ItemWrapper,
-  PostDropdown,
-  DeleteIcon,
   EditIcon,
 } from '../styles';
 import Link from 'next/link';
@@ -31,16 +27,15 @@ import {
   CommentUserWrap,
   CommentWrapper,
   DayBlock,
-  ReplyBlock,
+  // ReplyBlock,
 } from './thread.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
-import { deleteAComment } from 'src/helpers/firebase';
-import { updateStrapiEntity } from 'src/helpers';
+ 
 import { useAppDispatch } from 'src/app/hooks';
 import { openModalWithContent } from 'src/features/modal';
 import DeletesIcon from 'public/assets/icons/DeleteOutline';
-import StarIcon from 'public/assets/icons/StarIcon';
-import LikeIcon from 'public/assets/icons/LikeIcon';
+// import StarIcon from 'public/assets/icons/StarIcon';
+// import LikeIcon from 'public/assets/icons/LikeIcon';
 
 export interface ICommentThread {
   firebaseId: string;
@@ -51,20 +46,13 @@ const CommentThread: React.FC<ICommentThread> = ({
   totalComments,
 }) => {
   const { user } = useContext(AuthContext);
-  const [showDropdown, setShowDropdown] = useState<number | boolean>(-1);
   const dispatch = useAppDispatch();
   // const [showEditor, setShowEditor] = useState(true);
   // const [showEditEditor, setShowEditEditor] = useState(false);
   const [comments, setComments] = useState<DocumentData>([]);
   // console.log(comments);
 
-  const toggleDropdown = (id: number) => {
-    if (id === showDropdown) {
-      setShowDropdown(false);
-    } else {
-      setShowDropdown(id);
-    }
-  };
+  
 
   const editComment = (body: string, id: string): void => {
     dispatch(
@@ -76,12 +64,12 @@ const CommentThread: React.FC<ICommentThread> = ({
     );
   };
 
-  const deleteComment = (body: string, id: string): void => {
+  const deleteComment = (entityStrapiId: string, id: string): void => {
     dispatch(
       openModalWithContent({
         modalComponent: 'DELETE_COMMENT_MODAL',
-        content: body,
-        entityId: id,
+        content: entityStrapiId,
+        entityId: id + '-' + totalComments,
       })
     );
   };
@@ -117,34 +105,20 @@ const CommentThread: React.FC<ICommentThread> = ({
     };
   }, [firebaseId]);
 
-  const handleDelete = async (id: string, strapiId: string) => {
-    console.log('starting', id);
-    try {
-      await deleteAComment(id);
-      await updateStrapiEntity('articles', strapiId, {
-        totalComments: totalComments - 1,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <>
       {comments.length > 0 ? (
         comments.map(
-          (
-            com: {
-              id: string;
-              entityStrapiId: string;
-              entityFirebaseId: string;
-              username: string;
-              avatar: string;
-              userId: number;
-              updatedAt: { seconds: number };
-              body: string;
-            },
-            i: number
-          ) => (
+          (com: {
+            id: string;
+            entityStrapiId: string;
+            entityFirebaseId: string;
+            username: string;
+            avatar: string;
+            userId: number;
+            updatedAt: { seconds: number };
+            body: string;
+          }) => (
             <CommentWrapper key={com.id}>
               <CommentUserWrap>
                 <CommentUser>
@@ -164,14 +138,14 @@ const CommentThread: React.FC<ICommentThread> = ({
                     <h3>{com.username}</h3>
                   </Link>
                 </CommentUser>
-                <div className="BlockIcon">
+                {/* <div className="BlockIcon">
                   <div className="likeicon">
                     3 liked <LikeIcon />
                   </div>
                   <div className="StarIcon">
                     <StarIcon /> 5,0
                   </div>
-                </div>
+                </div> */}
 
                 {/* {user?.id === com.userId ? (
                   <PostDropdown>
@@ -220,7 +194,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                 <DayBlock>
                   {dayjs.unix(com.updatedAt?.seconds).fromNow()}
                 </DayBlock>
-                <div className="icons-block">
+                {user?.id === com.userId? <div className="icons-block">
                   <div
                     className="block-icon"
                     onClick={() => editComment(com.body, com.id)}
@@ -230,12 +204,13 @@ const CommentThread: React.FC<ICommentThread> = ({
                   </div>
                   <div
                     className="block-icon"
-                    onClick={() => deleteComment(com.body, com.id)}
+                    onClick={() => deleteComment(com.entityStrapiId, com.id)}
                   >
                     <DeletesIcon />
                     <ItemText>Delete</ItemText>
                   </div>
-                </div>
+                </div>: null}
+                
                 {/* <ReplyBlock> */}
                 {/* <label>reply on</label>
                 <Image

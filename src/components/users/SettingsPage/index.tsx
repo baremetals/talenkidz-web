@@ -49,7 +49,7 @@ function SettingsPage(props: { props: UsersPermissionsUser }) {
   const {
     username,
     fullName,
-    email,
+    // email,
     avatar,
     backgroundImg,
     bio,
@@ -57,7 +57,7 @@ function SettingsPage(props: { props: UsersPermissionsUser }) {
     userType,
     createdAt,
     organisation,
-    subscription,
+    // subscription,
   } =
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
