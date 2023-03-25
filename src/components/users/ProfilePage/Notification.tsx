@@ -8,18 +8,18 @@ import {
 } from './profile.styles';
 import Image from 'next/image';
 
- type TProps = {
-   name: string;
-   createdAt: string;
-   messageImage: string;
- };
-const Notification: React.FC<TProps> = ({name, createdAt, messageImage}) => {
+type TProps = {
+  name: string;
+  createdAt: string;
+  messageImage: string;
+};
+const Notification: React.FC<TProps> = ({ name, createdAt, messageImage }) => {
   return (
     <>
       <NotificationWrapper>
         <User>
           <Image
-            src={messageImage ||'/assets/images/user3.png'}
+            src={messageImage || '/assets/images/user3.png'}
             alt="User logo"
             width={50}
             height={50}
@@ -27,7 +27,7 @@ const Notification: React.FC<TProps> = ({name, createdAt, messageImage}) => {
         </User>
         <UserInfo>
           <UserName>
-            {name}{' '}
+            {name}
             <span>{createdAt}</span>
           </UserName>
           <UserDec>

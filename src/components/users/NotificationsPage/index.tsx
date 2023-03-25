@@ -44,35 +44,35 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
 
-    const [notifications, setNotifications] = useState<DocumentData>([]);
-    // console.log(user);
+  const [notifications, setNotifications] = useState<DocumentData>([]);
+  // console.log(user);
 
-    useEffect(() => {
-      if (user?.email !== undefined) {
-        const getNewNotification = async () => {
-          const q = query(
-            collection(db, 'notifications'),
-            where('recipientEmail', '==', user?.email),
-            orderBy('createdAt', 'desc'),
-            limit(10)
-          );
-          // console.log(q);
+  useEffect(() => {
+    if (user?.email !== undefined) {
+      const getNewNotification = async () => {
+        const q = query(
+          collection(db, 'notifications'),
+          where('recipientEmail', '==', user?.email),
+          orderBy('createdAt', 'desc'),
+          limit(10)
+        );
+        // console.log(q);
 
-          onSnapshot(q, (querySnapshot) => {
-            const notices: React.SetStateAction<DocumentData> = [];
-            querySnapshot.forEach((doc) => {
-              // console.log(doc.id)
-              notices.push({ id: doc.id, ...doc.data() });
-            });
-            setNotifications(notices);
+        onSnapshot(q, (querySnapshot) => {
+          const notices: React.SetStateAction<DocumentData> = [];
+          querySnapshot.forEach((doc) => {
+            // console.log(doc.id)
+            notices.push({ id: doc.id, ...doc.data() });
           });
-        };
-        const listen = getNewNotification();
-        return () => {
-          listen;
-        };
-      }
-    }, [user?.email]);
+          setNotifications(notices);
+        });
+      };
+      const listen = getNewNotification();
+      return () => {
+        listen;
+      };
+    }
+  }, [user?.email]);
   return (
     <ProfileBase
       username={username}
@@ -91,17 +91,19 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
         <Row>
           <Column className="column-7">
             <HeaderNotifications>
-              Notifications{' '}
+              Notifications
               {notifications.length > 0 ? (
                 <NumberNotifications>
                   {notifications.length}
                 </NumberNotifications>
               ) : null}
             </HeaderNotifications>
-            {notifications.length > 0? <Notification
-              notifications={notifications}
-            />: null}
-            
+
+            <Notification notifications={notifications} />
+
+            {/* {notifications.length > 0 ? (
+              <Notification notifications={notifications} />
+            ) : null} */}
           </Column>
           <Column className="column-5">{/* <Sidebar /> */}</Column>
         </Row>
