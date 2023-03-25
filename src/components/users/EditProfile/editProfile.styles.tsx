@@ -329,7 +329,7 @@ export const SelectCoverPictureButton = styled.div`
   }
 
   &:hover {
-    color: #bc70ad;
+    color: #39007e;
   }
 `;
 

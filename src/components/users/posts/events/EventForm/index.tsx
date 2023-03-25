@@ -260,16 +260,14 @@ const EventForm = () => {
 
     //   console.log('state', state);
   };
+
+  const [count, setCount] = useState(0);
+
   return (
     <CreatePost formType={'event'}>
       <InnerContainer>
         <FormWrapper>
-          <InnerFormWrapper>
-            <div>
-              <DismissIcon className="dismiss-icon">
-                <CrossRounded />
-              </DismissIcon>
-            </div>
+          <InnerFormWrapper className="create-post">
             <Title
               style={{
                 lineHeight: '1.6',
@@ -347,12 +345,15 @@ const EventForm = () => {
 
               <FormGroup>
                 <TextField
-                  placeholder="Description"
+                  placeholder="Describe your activity in a few sentences  "
                   multiline
                   fullWidth
-                  rows={2}
+                  rows={4}
+                  inputProps={{ maxLength: 250 }}
                   {...register('description', { required: true })}
+                  onChange={(e) => setCount(e.target.value.length)}
                 />
+                <p className="count-block">{count} / 250 </p>
                 {errors.description && (
                   <span style={{ color: 'red' }}>Description is required</span>
                 )}
@@ -375,23 +376,6 @@ const EventForm = () => {
                     )}
                   </FormGroup>
                 </Column>
-
-                <Column className="only-horizontal-padding">
-                  <FormGroup>
-                    <UploadLabel>
-                      Choose the <strong>end date</strong>
-                    </UploadLabel>
-                    <FormInput
-                      type="date"
-                      {...register('endDate', { required: true })}
-                    />
-                    {errors.endDate && (
-                      <span style={{ color: 'red' }}>End Date is required</span>
-                    )}
-                  </FormGroup>
-                </Column>
-              </Row>
-              <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
@@ -405,6 +389,22 @@ const EventForm = () => {
                       <span style={{ color: 'red' }}>
                         Start Date is required
                       </span>
+                    )}
+                  </FormGroup>
+                </Column>
+              </Row>
+              <Row className="horizontal">
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Choose the <strong>end date</strong>
+                    </UploadLabel>
+                    <FormInput
+                      type="date"
+                      {...register('endDate', { required: true })}
+                    />
+                    {errors.endDate && (
+                      <span style={{ color: 'red' }}>End Date is required</span>
                     )}
                   </FormGroup>
                 </Column>
@@ -437,8 +437,6 @@ const EventForm = () => {
                       {...register('price')}
                     />
                   </FormGroup>
-                </Column>
-                <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
                       Add the <strong>LINK</strong>
@@ -452,13 +450,8 @@ const EventForm = () => {
                     />
                   </FormGroup>
                 </Column>
-              </Row>
-              <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>
-                      Choose the <strong> button text</strong>
-                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Button Text</InputLabel> */}
                       <select
@@ -467,10 +460,11 @@ const EventForm = () => {
                         defaultValue={state.linkButtonText}
                         {...register('linkButtonText', { required: true })}
                       >
-                        <option value="Buy Tickets">Buy Tickets</option>
-                        <option value="Learn More" selected>
-                          Learn More
+                        <option value="Choose the BUTTON TEXT" selected>
+                          Choose the BUTTON TEXT
                         </option>
+                        <option value="Buy Tickets">Buy Tickets</option>
+                        <option value="Learn More">Learn More</option>
                         <option value="Register">Register</option>
                         <option value="Visit Us">Visit Us</option>
                         <option value="Buy Now">Buy Now</option>
@@ -480,11 +474,6 @@ const EventForm = () => {
                       </span>
                     </FormControl>
                   </FormGroup>
-                </Column>
-                <Column className="only-horizontal-padding">
-                  <UploadLabel>
-                    Choose the <strong> venue</strong>
-                  </UploadLabel>
                   <FormGroup>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
@@ -494,9 +483,8 @@ const EventForm = () => {
                         defaultValue={state.venue}
                         {...register('venue')}
                       >
-                        <option value="location" selected>
-                          On Site
-                        </option>
+                        <option selected>Choose the VENUE</option>
+                        <option value="location">On Site</option>
                         <option value="online">Online</option>
                         <option value="both">Online and On Site</option>
                       </select>
@@ -505,13 +493,11 @@ const EventForm = () => {
                       </span>
                     </FormControl>
                   </FormGroup>
+                  <GoogleMap>
+                    <SearchBox onPlace={onChangeAddress}></SearchBox>
+                  </GoogleMap>
                 </Column>
               </Row>
-              <br />
-              <UploadLabel>Location</UploadLabel>
-              <GoogleMap>
-                <SearchBox onPlace={onChangeAddress}></SearchBox>
-              </GoogleMap>
 
               {state.showInput && (
                 <>

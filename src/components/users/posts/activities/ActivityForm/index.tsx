@@ -252,16 +252,12 @@ const ActivityForm = () => {
 
     // console.log('state', state);
   };
+  const [count, setCount] = useState(0);
   return (
     <CreatePost formType={'activity'}>
       <InnerContainer>
         <FormWrapper>
-          <InnerFormWrapper>
-            <div>
-              <DismissIcon className="dismiss-icon">
-                <CrossRounded />
-              </DismissIcon>
-            </div>
+          <InnerFormWrapper className="create-post">
             <Title
               style={{
                 lineHeight: '1.6',
@@ -340,12 +336,15 @@ const ActivityForm = () => {
 
               <FormGroup>
                 <TextField
-                  placeholder="Description"
+                  placeholder="Describe your activity in a few sentences"
                   multiline
                   fullWidth
-                  rows={2}
+                  rows={4}
+                  inputProps={{ maxLength: 250 }}
                   {...register('description', { required: true })}
+                  onChange={(e) => setCount(e.target.value.length)}
                 />
+                <p className="count-block">{count} / 250 </p>
                 {errors.description && (
                   <span style={{ color: 'red' }}>Description is required</span>
                 )}
@@ -372,22 +371,6 @@ const ActivityForm = () => {
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
-                      Choose the <strong>end date</strong>
-                    </UploadLabel>
-                    <FormInput
-                      type="date"
-                      {...register('endDate', { required: true })}
-                    />
-                    {errors.endDate && (
-                      <span style={{ color: 'red' }}>End Date is required</span>
-                    )}
-                  </FormGroup>
-                </Column>
-              </Row>
-              <Row className="horizontal">
-                <Column className="only-horizontal-padding">
-                  <FormGroup>
-                    <UploadLabel>
                       Set the <strong>start time</strong>
                     </UploadLabel>
                     <FormInput
@@ -398,6 +381,22 @@ const ActivityForm = () => {
                       <span style={{ color: 'red' }}>
                         Start Date is required
                       </span>
+                    )}
+                  </FormGroup>
+                </Column>
+              </Row>
+              <Row className="horizontal">
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Choose the <strong>end date</strong>
+                    </UploadLabel>
+                    <FormInput
+                      type="date"
+                      {...register('endDate', { required: true })}
+                    />
+                    {errors.endDate && (
+                      <span style={{ color: 'red' }}>End Date is required</span>
                     )}
                   </FormGroup>
                 </Column>
@@ -424,8 +423,6 @@ const ActivityForm = () => {
                     </UploadLabel>
                     <input defaultValue={'0'} {...register('price')} />
                   </FormGroup>
-                </Column>
-                <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
                       Add the <strong>LINK</strong>
@@ -436,13 +433,8 @@ const ActivityForm = () => {
                     />
                   </FormGroup>
                 </Column>
-              </Row>
-              <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>
-                      Choose the <strong> button text</strong>
-                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Button Text</InputLabel> */}
                       <select
@@ -451,21 +443,17 @@ const ActivityForm = () => {
                         defaultValue={state.linkButtonText}
                         {...register('linkButtonText', { required: true })}
                       >
-                        <option value="Buy Tickets">Buy Tickets</option>
-                        <option value="Learn More" selected>
-                          Learn More
+                        <option selected value="Choose the BUTTON TEXT">
+                          Choose the BUTTON TEXT
                         </option>
+                        <option value="Buy Tickets">Buy Tickets</option>
+                        <option value="Learn More">Learn More</option>
                         <option value="Register">Register</option>
                         <option value="Visit Us">Visit Us</option>
                         <option value="Buy Now">Buy Now</option>
                       </select>
                     </FormControl>
                   </FormGroup>
-                </Column>
-                <Column className="only-horizontal-padding">
-                  <UploadLabel>
-                    Choose the <strong> venue</strong>
-                  </UploadLabel>
                   <FormGroup>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
@@ -475,22 +463,18 @@ const ActivityForm = () => {
                         defaultValue={state.venue}
                         {...register('venue')}
                       >
-                        <option value="location" selected>
-                          On Site
-                        </option>
+                        <option selected> Choose the Venue</option>
+                        <option value="location">On Site</option>
                         <option value="online">Online</option>
                         <option value="both">Online and On Site</option>
                       </select>
                     </FormControl>
                   </FormGroup>
+                  <GoogleMap>
+                    <SearchBox onPlace={onChangeAddress}></SearchBox>
+                  </GoogleMap>
                 </Column>
               </Row>
-              <br />
-              <UploadLabel>Location</UploadLabel>
-              <GoogleMap>
-                <SearchBox onPlace={onChangeAddress}></SearchBox>
-              </GoogleMap>
-
               {state.showInput && (
                 <>
                   <Row className="horizontal">
@@ -580,7 +564,7 @@ const ActivityForm = () => {
                   </Row>
                 </>
               )}
-              {state.showInput !== true && <br />}
+              {state.showInput !== true && ''}
               <FormGroup style={{ marginTop: '0.5rem' }}>
                 <>
                   {image && (

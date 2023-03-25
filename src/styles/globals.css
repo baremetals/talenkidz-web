@@ -152,7 +152,7 @@ button.primary-outline:hover {
 }
 
 .rdw-editor-main {
-  border: 1px solid #ced4da !important;
+  border: 2px solid #39007e !important;
   padding: 5px 14px !important;
   border-radius: 2px !important;
   height: 160px !important;
@@ -162,7 +162,18 @@ button.primary-outline:hover {
 .rdw-editor-toolbar {
   margin-bottom: 0 !important;
   border-radius: 0.25rem 0.25rem 0 0 !important;
-  border-color: #ced4da !important;
+  border-color: #39007e !important;
+  border-width: 2px !important;
+}
+
+.rdw-dropdown-wrapper {
+   border-color: #39007e !important;
+    border-width: 2px !important;
+}
+
+.rdw-option-wrapper {
+  border-color: #39007e !important;
+   border-width: 2px !important;
 }
 
 .StripeElement.loading {
@@ -529,11 +540,11 @@ article ol[start] {
 
 
 
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+.create-post .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #39007E !important;
 }
 
-.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+.create-post .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
   border-color: #39007E !important;
    font-family: 'Syne';
 font-style: normal;
