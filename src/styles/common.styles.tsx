@@ -1348,12 +1348,21 @@ export const SerchBlocks = styled.div`
 
 export const EditCommentInputModal = styled.div`
   border-radius: 20px;
-  max-width: 504px;
+  max-width: 967px;
   margin: 0 auto;
-  svg {
-    fill: #fff;
-    background: #fff;
+  textarea {
+    &:focus {
+      outline:none;
+      box-shadow: none;
+    }
   }
+}
+`;
+
+export const DeleteCommentInputModal = styled.div`
+  border-radius: 20px;
+  max-width: 967px;
+  margin: 0 auto;
   textarea {
     &:focus {
       outline:none;

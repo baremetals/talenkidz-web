@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
-import Button from 'components/widgets/Button';
+import React, { useContext, useState } from 'react';
+// import Button from 'components/widgets/Button';
 import { AuthContext } from 'src/features/auth/AuthContext';
-import { AlignCentered } from '../createpost.styles';
+// import { AlignCentered } from '../createpost.styles';
 import { InnerContainer, PageContainer } from 'styles/common.styles';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 type TCreatePostProps = {
   children: React.ReactNode;
@@ -15,10 +15,12 @@ const CreatePost: React.FC<TCreatePostProps> = ({ children, formType }) => {
   return (
     <PageContainer>
       <InnerContainer>
-        <AlignCentered>
+        {/* <AlignCentered>
           <Link passHref href={'/account/create/activities'}>
             <Button
-              className={formType !== 'activity' ? 'primary-outline' : ''}
+              className={
+                formType !== 'activity' ? 'primary-outline' : 'activity'
+              }
               style={{ margin: '0 .5rem', minWidth: '180px' }}
             >
               List An Activity
@@ -27,17 +29,17 @@ const CreatePost: React.FC<TCreatePostProps> = ({ children, formType }) => {
 
           <Link passHref href={'/account/create/events'}>
             <Button
-              className={formType !== 'event' ? 'primary-outline' : ''}
+              className={formType !== 'event' ? 'primary-outline' : 'event'}
               style={{ margin: '0 .5rem', minWidth: '180px' }}
             >
               List An Event
             </Button>
           </Link>
-        </AlignCentered>
+        </AlignCentered> */}
         {children}
       </InnerContainer>
     </PageContainer>
   );
 };
 
-export default CreatePost
+export default CreatePost;

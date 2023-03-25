@@ -14,19 +14,37 @@ import Dropdown, {
 } from '../styles';
 import Link from 'next/link';
 // import { getFirebaseComments, commentsListener } from 'src/helpers/firebase';
-import { collection, db, DocumentData, limit, onSnapshot, orderBy, query, where } from 'src/lib/firebase';
-import { CommentActionWrap, CommentUser, CommentUserImg, CommentUserWrap, CommentWrapper, DayBlock, ReplyBlock } from './thread.styles';
+import {
+  collection,
+  db,
+  DocumentData,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'src/lib/firebase';
+import {
+  CommentActionWrap,
+  CommentUser,
+  CommentUserImg,
+  CommentUserWrap,
+  CommentWrapper,
+  DayBlock,
+  ReplyBlock,
+} from './thread.styles';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { deleteAComment } from 'src/helpers/firebase';
 import { updateStrapiEntity } from 'src/helpers';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModalWithContent } from 'src/features/modal';
-
+import DeletesIcon from 'public/assets/icons/DeleteOutline';
+import StarIcon from 'public/assets/icons/StarIcon';
+import LikeIcon from 'public/assets/icons/LikeIcon';
 
 export interface ICommentThread {
   firebaseId: string;
   totalComments: number;
-
 }
 const CommentThread: React.FC<ICommentThread> = ({
   firebaseId,
@@ -34,7 +52,7 @@ const CommentThread: React.FC<ICommentThread> = ({
 }) => {
   const { user } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState<number | boolean>(-1);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   // const [showEditor, setShowEditor] = useState(true);
   // const [showEditEditor, setShowEditEditor] = useState(false);
   const [comments, setComments] = useState<DocumentData>([]);
@@ -52,6 +70,16 @@ const CommentThread: React.FC<ICommentThread> = ({
     dispatch(
       openModalWithContent({
         modalComponent: 'EDIT_COMMENT_MODAL',
+        content: body,
+        entityId: id,
+      })
+    );
+  };
+
+  const deleteComment = (body: string, id: string): void => {
+    dispatch(
+      openModalWithContent({
+        modalComponent: 'DELETE_COMMENT_MODAL',
         content: body,
         entityId: id,
       })
@@ -136,7 +164,16 @@ const CommentThread: React.FC<ICommentThread> = ({
                     <h3>{com.username}</h3>
                   </Link>
                 </CommentUser>
-                {user?.id === com.userId ? (
+                <div className="BlockIcon">
+                  <div className="likeicon">
+                    3 liked <LikeIcon />
+                  </div>
+                  <div className="StarIcon">
+                    <StarIcon /> 5,0
+                  </div>
+                </div>
+
+                {/* {user?.id === com.userId ? (
                   <PostDropdown>
                     <ExpandIcon onClick={() => toggleDropdown(i)} />
                     <Dropdown
@@ -148,10 +185,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                       >
                         <div>
                           <EditIcon />
-                          <ItemText
-                          >
-                            Edit
-                          </ItemText>
+                          <ItemText>Edit</ItemText>
                         </div>
                       </ItemWrapper>
                       <ItemWrapper>
@@ -160,7 +194,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                             handleDelete(com.id, com.entityStrapiId)
                           }
                         >
-                          <DeleteIcon />
+                          <DeletesIcon />
                           <ItemText
                             onClick={() =>
                               handleDelete(com.id, com.entityStrapiId)
@@ -172,7 +206,7 @@ const CommentThread: React.FC<ICommentThread> = ({
                       </ItemWrapper>
                     </Dropdown>
                   </PostDropdown>
-                ) : null}
+                ) : null} */}
 
                 {/* <div className='star'>  <Image
             src={'/assets/svgs/StarIcon.svg'}
@@ -186,15 +220,31 @@ const CommentThread: React.FC<ICommentThread> = ({
                 <DayBlock>
                   {dayjs.unix(com.updatedAt?.seconds).fromNow()}
                 </DayBlock>
-                <ReplyBlock>
-                  {/* <label>reply on</label>
+                <div className="icons-block">
+                  <div
+                    className="block-icon"
+                    onClick={() => editComment(com.body, com.id)}
+                  >
+                    <EditIcon />
+                    <ItemText>Edit</ItemText>
+                  </div>
+                  <div
+                    className="block-icon"
+                    onClick={() => deleteComment(com.body, com.id)}
+                  >
+                    <DeletesIcon />
+                    <ItemText>Delete</ItemText>
+                  </div>
+                </div>
+                {/* <ReplyBlock> */}
+                {/* <label>reply on</label>
                 <Image
                   src={'/assets/svgs/like.svg'}
                   alt="article image"
                   width={24}
                   height={24}
                 /> */}
-                </ReplyBlock>
+                {/* </ReplyBlock> */}
               </CommentActionWrap>
             </CommentWrapper>
           )

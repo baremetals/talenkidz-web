@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Button from 'components/users/Auth/Button';
-import { EditCommentWrapper, StyledEditInput } from '../styles';
+import {
+  EditCommentWrapper,
+  StyledEditInput,
+  EditBlock,
+  ButtonBlock,
+  ButtonBlockClose,
+} from '../styles';
 import { updateAComment } from 'src/helpers/firebase';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { closeModal, modalSelector } from 'src/features/modal';
-import ModalCloseIcon from 'components/users/Auth/ModalCloseIcon';
 import { InnerContainer, EditCommentInputModal } from 'styles/common.styles';
+import CloseIcon from 'public/assets/icons/Close';
+import CheckMark from 'public/assets/icons/CheckMark';
+import PencilIcon from 'components/users/Account/PencilIcon';
 
 const EditCommentInput: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,12 +37,14 @@ const EditCommentInput: React.FC = () => {
   return (
     <InnerContainer>
       <EditCommentInputModal>
-        <ModalCloseIcon />
         <EditCommentWrapper>
-          {/* <EditCommentInner></EditCommentInner> */}
+          <EditBlock>
+            <PencilIcon />
+            Editing
+          </EditBlock>
           <StyledEditInput
             id="review"
-            placeholder={'Leave a comment'}
+            placeholder={'Leave a comment d'}
             aria-multiline="true"
             rows={14}
             cols={50}
@@ -43,23 +52,25 @@ const EditCommentInput: React.FC = () => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-
-          <Button
-            content=""
-            type="submit"
-            disabled={false}
-            loading={false}
-            aria-label="submit button"
-            onClick={(e) => handleSubmit(e)}
-          >
-            <Image
-              src="/assets/svgs/send.svg"
-              alt="location icon"
-              className="bookmar"
-              width={20}
-              height={20}
-            />
-          </Button>
+          <ButtonBlockClose onClick={() => dispatch(closeModal())}>
+            <Button content="" type="submit" disabled={false} loading={false}>
+              <CloseIcon />
+              cancel
+            </Button>
+          </ButtonBlockClose>
+          <ButtonBlock>
+            <Button
+              content=""
+              type="submit"
+              disabled={false}
+              loading={false}
+              aria-label="submit button"
+              onClick={(e) => handleSubmit(e)}
+            >
+              <CheckMark />
+              save edits
+            </Button>
+          </ButtonBlock>
         </EditCommentWrapper>
       </EditCommentInputModal>
     </InnerContainer>

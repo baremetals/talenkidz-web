@@ -38,20 +38,20 @@ export default function AuthButton({
 }
 
 const StyledButton = styled.button`
- &.BtnPrimery{
-        background: #0F021F;
-        border-radius: 20px;
-        font-weight: 600;
-         font-size: 24px;
-         font-family: 'Syne', sans-serif;
-         min-height: 70px;
-         max-width:365px;
-         width:100%;
- }
-  background-color: #bc70ad;
+  &.BtnPrimery {
+    background: #0f021f;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 24px;
+    font-family: 'Syne', sans-serif;
+    min-height: 70px;
+    max-width: 365px;
+    width: 100%;
+  }
+  background-color: #39007e;
   color: #fff;
   font-size: 1rem;
-  border-radius: .375rem;
+  border-radius: 0.375rem;
   padding: 0.875rem 2rem;
   border: 1px solid transparent;
   cursor: pointer;

@@ -190,7 +190,7 @@ input,
 span,
 .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
-  font-family: 'Heebo', sans-serif !important;
+      font-family: 'Syne', sans-serif !important;
 }
 
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
@@ -526,4 +526,27 @@ article ol[start] {
    color: #0f021f;
    padding: 10px;
 }
+
+
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #39007E !important;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #39007E !important;
+   font-family: 'Syne';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+}
+
+ .selectArrow   {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+
+
+
 
