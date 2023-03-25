@@ -20,7 +20,7 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     // console.log('In the function',uploadImg);
     try {
-      const res = await handleImgChange({
+      await handleImgChange({
         event,
         setUploadImg,
         setDisplayImg: setProfileCover,

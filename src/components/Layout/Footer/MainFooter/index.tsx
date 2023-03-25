@@ -23,12 +23,20 @@ function MainFooter(): ReactElement {
 
 
   const handleSubmit = async () => {
-    try {
-      const res = await addToMailingList(email);
-      toast.success(res.data.message, { position: 'bottom-left' });
-      setEmail('');
-    } catch (error) {
-      console.log(error);
+    if (email !== '') {
+      try {
+        const res = await addToMailingList(email);
+        toast.success(res.data.message, { position: 'bottom-left' });
+        setEmail('');
+      } catch (error) {
+        toast.error('Something is wrong Please try again later.', {
+          position: 'bottom-left',
+        });
+      }
+    } else {
+      toast.error('Please provide an email address', {
+        position: 'bottom-left',
+      });
     }
   };
 
@@ -57,6 +65,7 @@ function MainFooter(): ReactElement {
                 placeholder="Write your email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                required
               ></Input>
               <Button
                 content=""

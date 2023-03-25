@@ -61,6 +61,8 @@ function EventDetails(props: {
   //     setSocialDropdown(!socialDropdown)
   // }
 
+  // console.log(category)
+
   const route = [
     {
       name: 'Home',
@@ -264,7 +266,7 @@ function EventDetails(props: {
             </Column>
           </Row>
           <SocialShare
-            pathname={`/events/${category.toLowerCase()}/${postSlug}`}
+            pathname={`/events/${category?.toLowerCase()}/${postSlug}`}
           />
         </TimeAddressBlock>
         {/* Address Map */}

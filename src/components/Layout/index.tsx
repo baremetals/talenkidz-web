@@ -113,7 +113,7 @@ const Layout = ({
         {metaDescription && (
           <meta name="twitter:description" content={metaDescription} />
         )}
-        {}
+
         {image && <meta name="twitter:image" content={image} />}
 
         <script
