@@ -38,6 +38,8 @@ import { FormProps } from 'src/types';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import CreatePost from '../../CreatePost';
 import {
+  AlignCentered,
+  DismissIcon,
   EditorTextWrapper,
   FormGroup,
   FormInput,
@@ -46,6 +48,10 @@ import {
   InnerFormWrapper,
   UploadLabel,
 } from '../../createpost.styles';
+import Link from 'next/link';
+import SelectArrow from 'public/assets/icons/SelectArrow';
+import PencilIcon from 'components/users/Account/PencilIcon';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 const PostEditor: any = dynamic(
   () => import('components/utilities/Editor/PostEditor'),
@@ -53,6 +59,13 @@ const PostEditor: any = dynamic(
     ssr: false,
   }
 );
+
+const styles = (theme) => ({
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: 'yellow !important',
+  },
+});
 
 const EventForm = () => {
   const router = useRouter();
@@ -201,7 +214,7 @@ const EventForm = () => {
               }
             })
             .catch(async (err) => {
-              console.log(err.response.data)
+              console.log(err.response.data);
               setSubmitting(false);
               setMsg('Sorry something went wrong please try again later.');
               setError(true);
@@ -252,6 +265,11 @@ const EventForm = () => {
       <InnerContainer>
         <FormWrapper>
           <InnerFormWrapper>
+            <div>
+              <DismissIcon className="dismiss-icon">
+                <CrossRounded />
+              </DismissIcon>
+            </div>
             <Title
               style={{
                 lineHeight: '1.6',
@@ -260,15 +278,28 @@ const EventForm = () => {
                 marginBottom: '1.5rem',
               }}
             >
-              Create An Event
+              Create something new
             </Title>
+            <AlignCentered>
+              <Link passHref href={'/account/create/activities'}>
+                <div className="link-block">
+                  <span></span>Activity
+                </div>
+              </Link>
+              <Link passHref href={'/account/create/events'}>
+                <div className="link-block">
+                  <span className="active"></span>Event
+                </div>
+              </Link>
+            </AlignCentered>
+
             {error && <ErrorMsg>{msg}</ErrorMsg>}
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <TextField
                     fullWidth
-                    label="Title"
+                    placeholder="Title"
                     variant="outlined"
                     {...register('title', { required: true })}
                   />
@@ -303,6 +334,9 @@ const EventForm = () => {
                             )
                           )}
                       </select>
+                      <span className="selectArrow">
+                        <SelectArrow />
+                      </span>
                     </FormControl>
                     {errors.category && (
                       <span style={{ color: 'red' }}>Category is required</span>
@@ -313,7 +347,7 @@ const EventForm = () => {
 
               <FormGroup>
                 <TextField
-                  label="Description"
+                  placeholder="Description"
                   multiline
                   fullWidth
                   rows={2}
@@ -327,7 +361,9 @@ const EventForm = () => {
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Start Date</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong>start date</strong>
+                    </UploadLabel>
                     <FormInput
                       type="date"
                       {...register('startDate', { required: true })}
@@ -342,7 +378,9 @@ const EventForm = () => {
 
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>End Date</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong>end date</strong>
+                    </UploadLabel>
                     <FormInput
                       type="date"
                       {...register('endDate', { required: true })}
@@ -356,7 +394,9 @@ const EventForm = () => {
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Start Time</UploadLabel>
+                    <UploadLabel>
+                      Set the <strong>start time</strong>
+                    </UploadLabel>
                     <FormInput
                       type="time"
                       {...register('startTime', { required: true })}
@@ -370,7 +410,9 @@ const EventForm = () => {
                 </Column>
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>End Time</UploadLabel>
+                    <UploadLabel>
+                      Set the <strong>end time</strong>
+                    </UploadLabel>
                     <FormInput
                       type="time"
                       {...register('endTime', { required: true })}
@@ -383,28 +425,40 @@ const EventForm = () => {
               </Row>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
-                  <TextField
-                    fullWidth
-                    label="Price"
-                    variant="outlined"
-                    defaultValue={'0'}
-                    {...register('price')}
-                  />
+                  <FormGroup>
+                    <UploadLabel>
+                      Set the <strong>PRICE</strong>
+                    </UploadLabel>
+                    <TextField
+                      fullWidth
+                      placeholder="Price"
+                      variant="outlined"
+                      defaultValue={'0'}
+                      {...register('price')}
+                    />
+                  </FormGroup>
                 </Column>
                 <Column className="only-horizontal-padding">
-                  <TextField
-                    fullWidth
-                    label="Link"
-                    variant="outlined"
-                    defaultValue="www.talentkids.io"
-                    {...register('link', { required: true })}
-                  />
+                  <FormGroup>
+                    <UploadLabel>
+                      Add the <strong>LINK</strong>
+                    </UploadLabel>
+                    <TextField
+                      fullWidth
+                      placeholder="Link"
+                      variant="outlined"
+                      defaultValue="www.talentkids.io"
+                      {...register('link', { required: true })}
+                    />
+                  </FormGroup>
                 </Column>
               </Row>
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
-                    <UploadLabel>Please select button text</UploadLabel>
+                    <UploadLabel>
+                      Choose the <strong> button text</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Button Text</InputLabel> */}
                       <select
@@ -421,11 +475,16 @@ const EventForm = () => {
                         <option value="Visit Us">Visit Us</option>
                         <option value="Buy Now">Buy Now</option>
                       </select>
+                      <span className="selectArrow">
+                        <SelectArrow />
+                      </span>
                     </FormControl>
                   </FormGroup>
                 </Column>
                 <Column className="only-horizontal-padding">
-                  <UploadLabel>Please select venue option</UploadLabel>
+                  <UploadLabel>
+                    Choose the <strong> venue</strong>
+                  </UploadLabel>
                   <FormGroup>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
@@ -441,6 +500,9 @@ const EventForm = () => {
                         <option value="online">Online</option>
                         <option value="both">Online and On Site</option>
                       </select>
+                      <span className="selectArrow">
+                        <SelectArrow />
+                      </span>
                     </FormControl>
                   </FormGroup>
                 </Column>
@@ -552,7 +614,6 @@ const EventForm = () => {
                 {imgSizeErr && <ErrorMsg>{msg}</ErrorMsg>}
 
                 <CoverPictureUploaderWrapper>
-                  <Label>Upload</Label>
                   <TextField
                     style={{ display: 'none' }}
                     fullWidth
@@ -605,7 +666,7 @@ const EventForm = () => {
                         />
                         <SelectCoverPictureButton>
                           <BsCloudArrowUp />
-                          Select a picture
+                          Click to upload an image of the activity
                         </SelectCoverPictureButton>
                       </EditButton>
                     </NoCoverPictureWrapper>
@@ -630,9 +691,14 @@ const EventForm = () => {
                   }}
                 />
               </EditorTextWrapper>
+              <p className="note">
+                *with Standard status the activity will be in the list only for
+                5 days. After that it will be deleted. To create unlimited
+                position, change the option in Settings.
+              </p>
               <FormGroup className="submit-button">
                 <Button
-                  content="Send"
+                  content="Create"
                   type="submit"
                   disabled={submitting}
                   loading={submitting}

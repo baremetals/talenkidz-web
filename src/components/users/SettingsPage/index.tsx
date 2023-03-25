@@ -1,19 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UsersPermissionsUser } from 'generated/graphql';
 import ProfileBase from '../ProfilePage/ProfileBase';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
-import Sidebar from '../Account/Sidebar';
-import Notification from '../../widgets/Notification';
-
-import {
-  Wrapper,
-  HeaderNotifications,
-  NumberNotifications,
-} from './notice.styles';
+import Tabs from '../Account/Tabs/Tabs';
+import Account from './Account';
+import Publishing from './Publishing';
+import MembershipPayment from './MembershipPayment';
+import Notifications from './Notifications';
+import { Wrapper, Headers } from './styles';
 import { Column, Row } from 'styles/common.styles';
 
-function NotificationsPage(props: { props: UsersPermissionsUser }) {
+type TabsType = {
+  label: string;
+  index: number;
+  Component: React.FC<{}>;
+  icon?: any;
+}[];
+
+const tabs: TabsType = [
+  {
+    label: 'Account ',
+    index: 1,
+    Component: Account,
+  },
+  {
+    label: 'Publishing',
+    index: 2,
+    Component: Publishing,
+  },
+  {
+    label: 'Notifications',
+    index: 3,
+    Component: Notifications,
+  },
+  {
+    label: 'Membership and payment ',
+    index: 4,
+    Component: MembershipPayment,
+  },
+];
+
+function SettingsPage(props: { props: UsersPermissionsUser }) {
+  const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
   // const dropdownRef = useRef<any>(null);
@@ -49,14 +78,13 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
       ></ProfileBase>
       <Wrapper>
         <Row>
-          <Column className="column-7">
-            <HeaderNotifications>
-              Notifications <NumberNotifications>6</NumberNotifications>
-            </HeaderNotifications>
-            <Notification />
-          </Column>
-          <Column className="column-5">
-            <Sidebar />
+          <Column>
+            <Headers>Settings</Headers>
+            <Tabs
+              selectedTab={selectedTab}
+              onClick={setSelectedTab}
+              tabs={tabs}
+            />
           </Column>
         </Row>
       </Wrapper>
@@ -64,4 +92,4 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
   );
 }
 
-export default NotificationsPage;
+export default SettingsPage;

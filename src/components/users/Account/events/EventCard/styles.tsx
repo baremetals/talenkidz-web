@@ -5,7 +5,7 @@ export const EventItemBlock = styled.div`
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   padding: 14px 16px;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   height: 100%;
 `;
 export const EventItemImg = styled.div`
@@ -25,7 +25,7 @@ export const EventItemImg = styled.div`
 export const EventInfo = styled.div`
   padding-left: 15px;
   padding-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   h2 {
     color: #39007e;
     font-style: normal;
@@ -33,6 +33,7 @@ export const EventInfo = styled.div`
     font-size: 24px;
     line-height: 110.1%;
     margin-bottom: 15px;
+    min-height: 52px;
   }
 `;
 
@@ -60,6 +61,8 @@ export const TimeBlock = styled.div`
     letter-spacing: -0.01em;
     color: rgba(57, 0, 126, 0.59);
     min-width: 72px;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 23px;
     display: flex;
     align-items: center;
@@ -69,7 +72,7 @@ export const TimeBlock = styled.div`
 `;
 
 export const CourseItem = styled.div`
-  margin: 15px 0;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;

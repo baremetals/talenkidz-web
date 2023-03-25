@@ -17,6 +17,7 @@ import ParticipationModal from './ParticipationModal';
 import ProfileInformationModal from '../../users/EditProfile';
 import FeedbackModal from './FeedbackModal';
 import EditCommentInput from 'components/utilities/comments/EditCommentInput';
+import DeleteComment from 'components/utilities/comments/DeleteComment';
 import EventForm from 'components/users/posts/events/EventForm';
 import ActivityForm from 'components/users/posts/activities/ActivityForm';
 import ArticleForm from 'components/users/posts/articles/ArticleForm';
@@ -37,6 +38,7 @@ const MODAL_COMPONENTS = {
   PARTICIPATION_MODAL: ParticipationModal,
   FEEDBACK_MODAL: FeedbackModal,
   PROFILE_MODAL: ProfileInformationModal,
+  DELETE_COMMENT_MODAL: DeleteComment,
   EDIT_COMMENT_MODAL: EditCommentInput,
   EVENT_FORM_MODAL: EventForm,
   ACTIVITY_FORM_MODAL: ActivityForm,

@@ -240,7 +240,7 @@ export const SubmitButton = styled.button`
 
 export const CoverPictureUploaderWrapper = styled.div`
   padding: 1rem 0.875rem 0.625rem;
-  border: 1px solid #ccc;
+  border: 2px solid #39007e;
   border-radius: 4px;
   margin-bottom: 1.5rem;
   position: relative;
@@ -319,7 +319,7 @@ export const SelectCoverPictureButton = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgba(0, 0, 0, 0.6);
+  color: #39007e;
   font-size: 0.9rem;
   cursor: pointer;
   transition: 0.3s;

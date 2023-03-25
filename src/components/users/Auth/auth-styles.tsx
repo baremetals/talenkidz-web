@@ -9,7 +9,7 @@ export const RadioFormInput = styled(Field)`
   &:checked {
     border-width: 2px;
     border-color: #e4dfdf;
-    background-color: #bc70ad;
+    background-color: #39007e;
     padding: 3px;
     & + label {
     }
