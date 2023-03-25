@@ -1,10 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useSpring, animated } from "react-spring";
-import {
-    ModalContainer,
-    Background,
-} from "./modal.styles";
+import { useSpring, animated } from 'react-spring';
+import { ModalContainer, Background } from './modal.styles';
 
 export const Modal = ({
   showModal,
@@ -51,7 +48,12 @@ export const Modal = ({
   return (
     <>
       {showModal && (
-        <Background onClick={closeModal} ref={modalRef} {...props}>
+        <Background
+          onClick={closeModal}
+          ref={modalRef}
+          {...props}
+          className="demo"
+        >
           <animated.div styled={animation} {...props}>
             <ModalContainer showModal={showModal} {...props}>
               {children}

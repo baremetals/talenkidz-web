@@ -60,6 +60,10 @@ export const Notification = styled.div`
     flex-direction: column;
   }
   .user-name {
+    min-width: 80px;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
     label {
       font-family: 'Syne';
       font-style: normal;
@@ -67,7 +71,7 @@ export const Notification = styled.div`
       font-size: 14px;
       line-height: 17px;
       color: #0f021f;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
       display: flex;
     }
     p {
@@ -75,9 +79,12 @@ export const Notification = styled.div`
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
-      line-height: 79.5%;
+      line-height: normal;
       color: #574e62;
       margin-bottom: 0;
+      span {
+        color: #39007e;
+      }
     }
   }
   .time {
@@ -85,8 +92,11 @@ export const Notification = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
-    line-height: 79.5%;
+    line-height: normal;
     color: #766b83;
+    min-width: 80px;
+    display: flex;
+    justify-content: end;
     @media (max-width: 991px) {
       margin-top: 10px;
     }
@@ -103,9 +113,25 @@ export const Notification = styled.div`
   }
   .notification {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    @media (max-width: 991px) {
+      align-items: flex-start;
+    }
   }
   margin-bottom: 20px;
+  .notification-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    a {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 10px;
+      color: rgba(57, 0, 126, 0.65);
+      text-decoration: underline;
+    }
+  }
 `;
 export const SeeMore = styled.div`
   display: flex;

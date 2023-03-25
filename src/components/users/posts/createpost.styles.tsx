@@ -128,20 +128,33 @@ export const InnerFormWrapper = styled.div`
     color: #39007e;
     margin-bottom: 30px;
   }
-  select {
-    border: 2px solid #39007e !important;
-    position: relative;
+  &.create-post {
+    select {
+      border: 2px solid #39007e !important;
+      position: relative;
+    }
   }
-  input {
-    border: 2px solid #39007e !important;
+  &.create-post {
+    input {
+      border: 2px solid #39007e !important;
+    }
   }
+  &.create-post {
+    .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
+      border: 1px solid #39007e !important;
+      &:focus {
+        border: none;
+      }
+    }
+  }
+
   label {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     color: #0f021f;
-    text-transform: capitalize;
+    text-transform: inherit;
   }
 
   .only-horizontal-padding {
@@ -182,6 +195,11 @@ export const FormGroup = styled.div`
       text-align: center;
       color: #ffffff;
     }
+  }
+  .count-block {
+    position: absolute;
+    bottom: -9px;
+    right: 11px;
   }
 `;
 

@@ -368,4 +368,17 @@ export const DeleteCommentWrapper = styled.div`
       background: transparent;
     }
   }
+  .dismiss-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+`;
+
+export const EditModal = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
 `;

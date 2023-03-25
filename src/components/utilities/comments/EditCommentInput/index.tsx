@@ -6,6 +6,7 @@ import {
   EditBlock,
   ButtonBlock,
   ButtonBlockClose,
+  EditModal,
 } from '../styles';
 import { updateAComment } from 'src/helpers/firebase';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
@@ -35,45 +36,47 @@ const EditCommentInput: React.FC = () => {
     }
   };
   return (
-    <InnerContainer>
-      <EditCommentInputModal>
-        <EditCommentWrapper>
-          <EditBlock>
-            <PencilIcon />
-            Editing
-          </EditBlock>
-          <StyledEditInput
-            id="review"
-            placeholder={'Leave a comment d'}
-            aria-multiline="true"
-            rows={14}
-            cols={50}
-            name="body"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          />
-          <ButtonBlockClose onClick={() => dispatch(closeModal())}>
-            <Button content="" type="submit" disabled={false} loading={false}>
-              <CloseIcon />
-              cancel
-            </Button>
-          </ButtonBlockClose>
-          <ButtonBlock>
-            <Button
-              content=""
-              type="submit"
-              disabled={false}
-              loading={false}
-              aria-label="submit button"
-              onClick={(e) => handleSubmit(e)}
-            >
-              <CheckMark />
-              save edits
-            </Button>
-          </ButtonBlock>
-        </EditCommentWrapper>
-      </EditCommentInputModal>
-    </InnerContainer>
+    <EditModal>
+      <InnerContainer>
+        <EditCommentInputModal>
+          <EditCommentWrapper>
+            <EditBlock>
+              <PencilIcon />
+              Editing
+            </EditBlock>
+            <StyledEditInput
+              id="review"
+              placeholder={'Leave a comment d'}
+              aria-multiline="true"
+              rows={14}
+              cols={50}
+              name="body"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+            />
+            <ButtonBlockClose onClick={() => dispatch(closeModal())}>
+              <Button content="" type="submit" disabled={false} loading={false}>
+                <CloseIcon />
+                cancel
+              </Button>
+            </ButtonBlockClose>
+            <ButtonBlock>
+              <Button
+                content=""
+                type="submit"
+                disabled={false}
+                loading={false}
+                aria-label="submit button"
+                onClick={(e) => handleSubmit(e)}
+              >
+                <CheckMark />
+                save edits
+              </Button>
+            </ButtonBlock>
+          </EditCommentWrapper>
+        </EditCommentInputModal>
+      </InnerContainer>
+    </EditModal>
   );
 };
 
