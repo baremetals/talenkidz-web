@@ -7,10 +7,12 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { closeModal, modalSelector } from 'src/features/modal';
 import { InnerContainer, DeleteCommentInputModal } from 'styles/common.styles';
 import DeleteIcon from 'public/assets/icons/DeleteOutline';
+import { DismissIcon } from 'components/users/Auth/auth-styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 const DeleteCommentInput: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {content, entityId}= useAppSelector(modalSelector);
+  const { content, entityId } = useAppSelector(modalSelector);
   const totalComments = Number(entityId.split('-')[1]);
   const firebaseCommentId = entityId.split('-')[0];
 
@@ -32,6 +34,9 @@ const DeleteCommentInput: React.FC = () => {
     <InnerContainer>
       <DeleteCommentInputModal>
         <DeleteCommentWrapper>
+          <DismissIcon className="dismiss-icon">
+            <CrossRounded onClick={() => dispatch(closeModal())} />
+          </DismissIcon>
           Do you really want to delete the comment?
           <Button
             content=""
