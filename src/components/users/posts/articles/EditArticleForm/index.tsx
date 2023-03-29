@@ -33,6 +33,7 @@ import { TArticleFormProps } from 'src/types';
 import { customeSlugify, handleImgChange } from 'src/utils';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import {
+  DismissIcon,
   EditorTextWrapper,
   FormGroup,
   FormWrap,
@@ -40,6 +41,7 @@ import {
   InnerFormWrapper,
   UploadLabel,
 } from '../../createpost.styles';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 // import { formReducer, INITIAL_STATE } from 'components/list/Create/formReducer';
 
@@ -308,6 +310,9 @@ const EditArticleForm = () => {
     <InnerContainer>
       <FormWrapper>
         <InnerFormWrapper>
+          <DismissIcon className="dismiss-icon">
+            <CrossRounded onClick={() => dispatch(closeModal())} />
+          </DismissIcon>
           <Title
             style={{
               lineHeight: '1.6',
@@ -325,7 +330,7 @@ const EditArticleForm = () => {
                 <TextField
                   fullWidth
                   label=""
-                  variant="outlined"
+                  // variant="outlined"
                   defaultValue={formContent?.title as string}
                   {...register('title', { required: true })}
                 />

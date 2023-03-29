@@ -27,8 +27,19 @@ const CommentBox: React.FC<ICommentBox> = ({
   entityFirebaseId,
 }) => {
   const [body, setBody] = useState('');
+  const [errorText, setErrorText] = useState('');
+  const [showError, setShowError] = useState(false);
 
   // console.log(articleFirebaseId);
+  const handleError = (err: string) => {
+    setErrorText(err)
+    setShowError(true);
+    setTimeout(() => {
+      setErrorText('');
+      setShowError(false);
+    }, 7000)
+  }
+
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -41,11 +52,13 @@ const CommentBox: React.FC<ICommentBox> = ({
       entitySlug,
       body,
     };
+    if (body === "" ) handleError('Text required');
     if (!entityFirebaseId && totalComments === 0) {
       try {
         await addToFirebaseArticle(entitySlug, entityId, totalComments, data);
         setBody('');
       } catch (err) {
+        handleError('Something is wrong please try again later or contact support.');
         console.log(err);
       }
     } else {
@@ -56,6 +69,9 @@ const CommentBox: React.FC<ICommentBox> = ({
         });
         setBody('');
       } catch (err) {
+        handleError(
+          'Something is wrong please try again later or contact support.'
+        );
         console.log(err);
       }
     }
@@ -76,6 +92,8 @@ const CommentBox: React.FC<ICommentBox> = ({
         ></textarea>
         <button type="button">send</button>
       </div> */}
+      {showError ? <p style={{ color: 'red' }}>{errorText}</p>:null}
+      
       <LeaveComment>
         <StyledInput
           id="review"
@@ -86,6 +104,7 @@ const CommentBox: React.FC<ICommentBox> = ({
           name="body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
+          required
         />
         <Button
           content=""

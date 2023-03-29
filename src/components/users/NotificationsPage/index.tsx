@@ -45,7 +45,7 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
     props?.props;
 
   const [notifications, setNotifications] = useState<DocumentData>([]);
-  // console.log(user);
+  // console.log(user.email);
 
   useEffect(() => {
     if (user?.email !== undefined) {

@@ -23,7 +23,7 @@ import {
   EditButton,
   Image,
   ImageActions,
-  Label,
+  // Label,
   NoCoverPictureWrapper,
   SelectCoverPictureButton,
 } from 'components/users/EditProfile/editProfile.styles';
@@ -39,7 +39,7 @@ import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import CreatePost from '../../CreatePost';
 import {
   AlignCentered,
-  DismissIcon,
+  // DismissIcon,
   EditorTextWrapper,
   FormGroup,
   FormInput,
@@ -50,8 +50,8 @@ import {
 } from '../../createpost.styles';
 import Link from 'next/link';
 import SelectArrow from 'public/assets/icons/SelectArrow';
-import PencilIcon from 'components/users/Account/PencilIcon';
-import { CrossRounded } from 'public/assets/icons/CrossRounded';
+// import PencilIcon from 'components/users/Account/PencilIcon';
+// import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 const PostEditor: any = dynamic(
   () => import('components/utilities/Editor/PostEditor'),
@@ -494,7 +494,7 @@ const EventForm = () => {
                     </FormControl>
                   </FormGroup>
                   <GoogleMap>
-                    <SearchBox onPlace={onChangeAddress}></SearchBox>
+                    <SearchBox onPlace={onChangeAddress} />
                   </GoogleMap>
                 </Column>
               </Row>
