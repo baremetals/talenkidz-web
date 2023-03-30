@@ -1,10 +1,13 @@
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/image';
 import Link from 'next/link';
 import DeleteOutline from 'public/assets/icons/DeleteOutline';
 import EyeIcon from 'public/assets/icons/EyeIcon';
-import React, { useState } from 'react';
+import { openModal } from 'src/features/modal';
+import { useAppDispatch } from 'src/app/hooks';
+
 dayjs.extend(relativeTime);
 
 import { DocumentData } from 'src/lib/firebase';
@@ -16,6 +19,8 @@ type TProps = {
 };
 const NotificationPage: React.FC<TProps> = ({ notifications }) => {
   const [show, setShow] = useState(false);
+  const dispatch = useAppDispatch();
+
   // console.log(notifications)
   return (
     <Wrapper>
@@ -110,7 +115,10 @@ const NotificationPage: React.FC<TProps> = ({ notifications }) => {
             <span className="today">seen today</span>
           </div>
           <div className="notification-icon">
-            <span className="DeleteOutline">
+            <span
+              className="DeleteOutline"
+              onClick={() => dispatch(openModal('DELETE_NOTIFICATION_MODAL'))}
+            >
               <DeleteOutline />
             </span>
           </div>
@@ -141,7 +149,10 @@ const NotificationPage: React.FC<TProps> = ({ notifications }) => {
             <small>Read more</small>
           </div>
           <div className="notification-icon">
-            <span className="DeleteOutline">
+            <span
+              className="DeleteOutline"
+              onClick={() => dispatch(openModal('DELETE_NOTIFICATION_MODAL'))}
+            >
               <DeleteOutline />
             </span>
           </div>
@@ -172,7 +183,10 @@ const NotificationPage: React.FC<TProps> = ({ notifications }) => {
             <small>Read more</small>
           </div>
           <div className="notification-icon">
-            <span className="DeleteOutline">
+            <span
+              className="DeleteOutline"
+              onClick={() => dispatch(openModal('DELETE_NOTIFICATION_MODAL'))}
+            >
               <DeleteOutline />
             </span>
             <span>

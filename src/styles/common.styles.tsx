@@ -1371,3 +1371,16 @@ export const DeleteCommentInputModal = styled.div`
   }
 }
 `;
+
+export const DeleteNotificationInputModal = styled.div`
+  border-radius: 20px;
+  max-width: 967px;
+  margin: 0 auto;
+  textarea {
+    &:focus {
+      outline:none;
+      box-shadow: none;
+    }
+  }
+}
+`;

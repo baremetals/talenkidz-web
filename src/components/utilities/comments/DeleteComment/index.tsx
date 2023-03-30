@@ -37,17 +37,28 @@ const DeleteCommentInput: React.FC = () => {
           <DismissIcon className="dismiss-icon">
             <CrossRounded onClick={() => dispatch(closeModal())} />
           </DismissIcon>
-          Do you really want to delete the comment?
+          <h2>Do you really want to delete the comment?</h2>
+          <p>You cannot return it after that</p>
           <Button
-            content=""
-            type="submit"
+            onClick={() => handleDelete()}
+            content={''}
+            type={undefined}
             disabled={false}
             loading={false}
-            onClick={() => handleDelete()}
           >
-            <DeleteIcon />
             Delete
           </Button>
+          <div className="cancel">
+            <Button
+              onClick={() => dispatch(closeModal())}
+              content={''}
+              type={undefined}
+              disabled={false}
+              loading={false}
+            >
+              Cancel
+            </Button>
+          </div>
         </DeleteCommentWrapper>
       </DeleteCommentInputModal>
     </InnerContainer>
