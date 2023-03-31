@@ -12,10 +12,10 @@ const Activities = () => {
           Become a Premium
         </Link>
       </SettingItem>
-      <SettingItem className="setting-item">
+      <SettingItem className="setting-item ">
         <div>Get unlimited posting on TALENTKIDS</div>
         <Link href={'#'} passHref>
-          Become a Premium
+          <span className="active"> Become a Premium</span>
         </Link>
       </SettingItem>
     </Wrapper>

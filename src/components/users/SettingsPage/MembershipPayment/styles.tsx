@@ -8,6 +8,13 @@ export const Wrapper = styled.div`
     font-size: 18px;
     line-height: 22px;
     color: #0f021f;
+    .active {
+      color: #39007e;
+      text-decoration: underline;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+    }
     @media (max-width: 991px) {
       flex-direction: column;
     }
