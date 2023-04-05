@@ -201,8 +201,8 @@ export const ProfileButtons = styled.div`
     justify-content: center;
   }
   .active {
-    border: 1px solid #ffb800;
-    background: #f1faff;
+    border: 1px solid #e4dfeb;
+    background: #e4dfeb;
     border-radius: 10px;
   }
   svg {
@@ -776,7 +776,7 @@ export const EditProfileButton = styled.button`
 
 export const BellWrapper = styled.div`
   position: relative;
-
+  display: flex;
   span {
     position: absolute;
     right: 0;
@@ -1069,18 +1069,35 @@ export const BellDropdown = styled.div`
   border-radius: 20px;
   padding: 0.5rem 0;
   list-style: none;
-  margin-top: 1.5rem;
+  margin-top: 60px;
   box-shadow: 0px 2px 80px rgb(66 66 66 / 8%);
   border-radius: 0.625rem;
   z-index: 10;
   display: none;
-  padding: 15px;
+  padding: 30px;
   &.opened {
     display: block;
   }
   @media (max-width: 991px) {
-    right: -40px;
+    right: -80px;
     min-width: 300px;
+  }
+  .seemore {
+    background: #39007e;
+    border-radius: 15px;
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #ffffff;
+    min-height: 39px;
+    max-width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
   }
 `;
 
@@ -1091,7 +1108,7 @@ export const NotificationWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   &:last-child {
     margin-bottom: 0;
   }
@@ -1139,8 +1156,8 @@ export const UserName = styled.div`
 export const UserDec = styled.div`
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 79.5%;
+  font-size: 12px;
+  line-height: normal;
   color: #574e62;
   span {
     font-weight: 700;

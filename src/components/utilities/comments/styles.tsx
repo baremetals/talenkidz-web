@@ -332,8 +332,8 @@ export const DeleteCommentWrapper = styled.div`
   border-radius: 10px;
   position: relative;
   max-width: 90%;
-  max-width: 235px;
-  min-height: 147px;
+  max-width: 431px;
+  min-height: 298px;
   padding: 20px;
   width: 100%;
   margin-left: auto;
@@ -372,6 +372,68 @@ export const DeleteCommentWrapper = styled.div`
     position: absolute;
     right: 10px;
     top: 10px;
+  }
+  button {
+    background: #39007e;
+    border-radius: 10px;
+    padding: 0 10px;
+    min-width: 105px;
+    height: 29px;
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      margin-right: 4px;
+      background: transparent;
+    }
+  }
+  .dismiss-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  h2 {
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #39007e;
+    margin-bottom: 10px;
+    max-width: 90%;
+  }
+  p {
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(15, 2, 31, 0.7);
+  }
+
+  button {
+    width: 123px;
+    height: 51px;
+    border-radius: 20px;
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .cancel {
+    button {
+      color: #39007e;
+      border: 2px solid #39007e;
+      background: #fff;
+    }
   }
 `;
 

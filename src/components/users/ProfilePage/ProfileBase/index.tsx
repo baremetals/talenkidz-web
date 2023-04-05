@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -22,7 +22,6 @@ import Pencil from 'public/assets/icons/Pencil';
 // import Heart from 'public/assets/icons/Heart';
 import Favourite from 'public/assets/icons/FavouriteInactive';
 import Bell from 'public/assets/icons/Bell';
-
 
 import Notification from '../../ProfilePage/Notification';
 import BackGroundImg from '../BackGroundImg';
@@ -48,8 +47,6 @@ import { openModal } from 'src/features/modal';
 import ProfileImage from '../ProfileImage';
 import { useRouter } from 'next/router';
 import { AuthContext } from 'src/features/auth/AuthContext';
-
-
 
 type TUserProps = {
   username: string;
@@ -108,7 +105,6 @@ const ProfileBase: React.FC<TUserProps> = ({
         listen;
       };
     }
-      
   }, [user?.email]);
 
   const [dropdown, setDropdown] = useState(false);
@@ -243,6 +239,33 @@ const ProfileBase: React.FC<TUserProps> = ({
                   </Link>
                 )}
 
+                <BellDropdown
+                  className={`${dropdown ? 'opened' : ''}`}
+                  onClick={() => setDropdown(!dropdown)}
+                >
+                  <Notification
+                    key={1}
+                    name={'Andrew Swann'}
+                    messageImage={''}
+                    createdAt={'2 hours ago'}
+                  />
+                  <Notification
+                    key={1}
+                    name={'Andrew Swann'}
+                    messageImage={''}
+                    createdAt={'2 hours ago'}
+                  />
+                  <Notification
+                    key={1}
+                    name={'Andrew Swann'}
+                    messageImage={''}
+                    createdAt={'2 hours ago'}
+                  />
+                  <Link passHref href={'#'}>
+                    <div className="seemore">See all the notifications</div>
+                  </Link>
+                </BellDropdown>
+
                 {notifications.length > 0 ? (
                   <BellDropdown
                     className={`${dropdown ? 'opened' : ''}`}
@@ -279,4 +302,4 @@ const ProfileBase: React.FC<TUserProps> = ({
   );
 };
 
-export default ProfileBase
+export default ProfileBase;
