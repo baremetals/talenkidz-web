@@ -14,7 +14,7 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { createFirebaseNotification } from 'src/helpers/firebase';
+// import { createFirebaseNotification } from 'src/helpers/firebase';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { useAppDispatch } from 'src/app/hooks';
 import { openModal } from 'src/features/modal/reducers';
@@ -81,32 +81,7 @@ const CheckoutForm = ({purchaseType, interval}) => {
     setName(user?.fullName);
   }, [user?.fullName]);
 
-  const subscriptionNoteMessage = {
-    sender: 'Admin',
-    recipientEmail: user?.email,
-    recipientName: name,
-    subject: 'Subscription',
-    message: 'Thanks for upgrading your account',
-    messageType: 'subscription',
-    messageImage: 'TK-logo',
-    entityType: 'subscription',
-    entityId: user?.id,
-    // emailNotificationsOn: booleanstring,
-    // appNotificationsOn: booleanstring,
-  };
-  const paymentNoteMessage = {
-    sender: 'Admin',
-    recipientEmail: user?.email,
-    recipientName: name || user?.username,
-    subject: 'Subscription',
-    message: 'Thanks for your payment',
-    messageType: 'subscription',
-    messageImage: 'TK-logo',
-    entityType: 'subscription',
-    entityId: user?.id,
-    // emailNotificationsOn: booleanstring,
-    // appNotificationsOn: booleanstring,
-  };
+  
   // const notice = async function() {
   //   await createFirebaseNotification(subscriptionNoteMessage);
   // }
@@ -139,10 +114,11 @@ const CheckoutForm = ({purchaseType, interval}) => {
           },
         }
       );
-      console.log(confirmPayment);
+      // console.log(confirmPayment);
       const { paymentIntent } = confirmPayment;
       if (paymentIntent.status === 'succeeded') {
-        return console.log(paymentIntent.status);
+        //Todo add create order fuction
+        // return console.log(paymentIntent.status);
       }
     } catch (error) {
       console.log(error);
@@ -153,15 +129,11 @@ const CheckoutForm = ({purchaseType, interval}) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    
-
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
       return;
     }
-
-
     const card = elements.getElement('card');
 
     if (card == null) {
@@ -179,7 +151,7 @@ const CheckoutForm = ({purchaseType, interval}) => {
         },
       });
       if (payload.error) {
-        console.log('[error]', payload.error);
+        // console.log('[error]', payload.error);
         setModalMessage(payload?.error?.message);
         setIsPaymentSuccessful(false);
         setShowModal(true);
@@ -199,22 +171,21 @@ const CheckoutForm = ({purchaseType, interval}) => {
       const data = await response.json();
       // console.log(data);
       if (data.error) {
-        console.log('[error]', data.error);
+        // console.log('[error]', data.error);
         setModalMessage(data?.error?.message);
         setIsPaymentSuccessful(false);
         setShowModal(true);
       } else {
         const confirmed = await stripe.confirmCardPayment(data.clientSecret);
-        await createFirebaseNotification(subscriptionNoteMessage);
-
+        
         if (confirmed.error) {
-          console.log('[error]', confirmed.error);
+          // console.log('[error]', confirmed.error);
           setModalMessage(confirmed?.error?.message);
           setIsPaymentSuccessful(false);
           setShowModal(true);
           return setIsSubmitting(false);
         } else {
-          console.log('[PaymentMethod]', confirmed);
+          // console.log('[PaymentMethod]', confirmed);
           const newSubscription = await fetch('/api/subscriptions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -226,7 +197,6 @@ const CheckoutForm = ({purchaseType, interval}) => {
           });
           const subscribed = await newSubscription.json();
           if (!subscribed.error) {
-            await createFirebaseNotification(paymentNoteMessage);
             setIsPaymentSuccessful(true);
             setModalMessage('Your payment was successful!');
 
@@ -240,7 +210,7 @@ const CheckoutForm = ({purchaseType, interval}) => {
 
       setIsSubmitting(false);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setModalMessage('Sorry something went wrong, Please try again later');
       setShowModal(true);
     }

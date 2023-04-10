@@ -1,23 +1,29 @@
 import { Wrapper } from './styles';
 import Link from 'next/link';
 import { SettingItem } from '../Publishing/styles';
+import { useAppSelector } from 'src/app/hooks';
+import { isUser } from 'src/features/auth';
 
 const Activities = () => {
+  const { user: user } = useAppSelector(isUser);
   return (
     <Wrapper>
       <SettingItem className="setting-item">
-        <div>Current member status </div>
-        <div className="standard">Standard</div>
-        <Link href={'#'} passHref>
-          Become a Premium
-        </Link>
+        <div>Current membership </div>
+        <div className="standard">
+          {user?.membership === 'basic' ? 'Standard' : user?.membership}
+        </div>
+        {/* <Link href={'#'} passHref>
+          Premium Membership
+        </Link> */}
       </SettingItem>
-      <SettingItem className="setting-item ">
-        <div>Get unlimited posting on TALENTKIDS</div>
-        <Link href={'#'} passHref>
-          <span className="active"> Become a Premium</span>
+      {user?.membership === 'basic' && user?.userType !== "organisation" ? <SettingItem className="setting-item ">
+        <div>Get unlimited posting, and more on talenkids</div>
+        <Link href={'/account/subscribe'} passHref>
+          <span className="active"> Upgrade Membership</span>
         </Link>
-      </SettingItem>
+      </SettingItem>: null}
+      
     </Wrapper>
   );
 };

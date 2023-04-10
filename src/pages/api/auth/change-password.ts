@@ -5,7 +5,7 @@ const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 type Data = {
   message?: string;
-  err?: any;
+  error?: any;
 };
 
 export default async function handler(
@@ -24,8 +24,8 @@ export default async function handler(
     });
 
     res.status(response.status).json({ message: 'password changed' });
-  } catch (err) {
-    // console.log('the errors',err);
-    res.status(400).json({ err: err });
+  } catch (err: any) {
+    // console.log('the errors =============>', err?.response.data.error.message);
+    res.status(400).json({ error: err?.response.data.error.message });
   }
 }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { UsersPermissionsUser } from 'generated/graphql';
 import ProfileBase from '../ProfilePage/ProfileBase';
-import { useAppSelector } from 'src/app/hooks';
-import { isUser } from 'src/features/auth/selectors';
+// import { useAppSelector } from 'src/app/hooks';
+// import { isUser } from 'src/features/auth/selectors';
 import Tabs from '../Account/Tabs/Tabs';
 import Account from './Account';
-import Publishing from './Publishing';
+// import Publishing from './Publishing';
 import MembershipPayment from './MembershipPayment';
 import Notifications from './Notifications';
 import { Wrapper, Headers } from './styles';
@@ -24,11 +24,11 @@ const tabs: TabsType = [
     index: 1,
     Component: Account,
   },
-  {
-    label: 'Publishing',
-    index: 2,
-    Component: Publishing,
-  },
+  // {
+  //   label: 'Publishing',
+  //   index: 2,
+  //   Component: Publishing,
+  // },
   {
     label: 'Notifications',
     index: 3,
@@ -43,7 +43,7 @@ const tabs: TabsType = [
 
 function SettingsPage(props: { props: UsersPermissionsUser }) {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
-  const { user: user } = useAppSelector(isUser);
+  // const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
   // const dropdownRef = useRef<any>(null);
   const {
@@ -62,7 +62,6 @@ function SettingsPage(props: { props: UsersPermissionsUser }) {
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
   return (
-    <>
       <ProfileBase
         username={username}
         fullName={fullName as string}
@@ -74,21 +73,20 @@ function SettingsPage(props: { props: UsersPermissionsUser }) {
         createdAt={createdAt as string}
         orgName={organisation?.name as string}
         // eslint-disable-next-line react/no-children-prop
-        children={undefined}
-      ></ProfileBase>
-      <Wrapper>
-        <Row>
-          <Column>
-            <Headers>Settings</Headers>
-            <Tabs
-              selectedTab={selectedTab}
-              onClick={setSelectedTab}
-              tabs={tabs}
-            />
-          </Column>
-        </Row>
-      </Wrapper>
-    </>
+      >
+        <Wrapper>
+          <Row>
+            <Column>
+              <Headers>Settings</Headers>
+              <Tabs
+                selectedTab={selectedTab}
+                onClick={setSelectedTab}
+                tabs={tabs}
+              />
+            </Column>
+          </Row>
+        </Wrapper>
+      </ProfileBase>
   );
 }
 

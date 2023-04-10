@@ -233,39 +233,11 @@ const ProfileBase: React.FC<TUserProps> = ({
                   </BellWrapper>
                 ) : (
                   <Link passHref href={'/account/notifications'}>
-                    <BellWrapper onClick={() => setDropdown(!dropdown)}>
+                    <BellWrapper>
                       <Bell />
                     </BellWrapper>
                   </Link>
                 )}
-
-                <BellDropdown
-                  className={`${dropdown ? 'opened' : ''}`}
-                  onClick={() => setDropdown(!dropdown)}
-                >
-                  <Notification
-                    key={1}
-                    name={'Andrew Swann'}
-                    messageImage={''}
-                    createdAt={'2 hours ago'}
-                  />
-                  <Notification
-                    key={1}
-                    name={'Andrew Swann'}
-                    messageImage={''}
-                    createdAt={'2 hours ago'}
-                  />
-                  <Notification
-                    key={1}
-                    name={'Andrew Swann'}
-                    messageImage={''}
-                    createdAt={'2 hours ago'}
-                  />
-                  <Link passHref href={'#'}>
-                    <div className="seemore">See all the notifications</div>
-                  </Link>
-                </BellDropdown>
-
                 {notifications.length > 0 ? (
                   <BellDropdown
                     className={`${dropdown ? 'opened' : ''}`}
@@ -290,6 +262,9 @@ const ProfileBase: React.FC<TUserProps> = ({
                           />
                         )
                       )}
+                    <Link passHref href={'/account/notifications'}>
+                      <div className="seemore">See all the notifications</div>
+                    </Link>
                   </BellDropdown>
                 ) : null}
               </BellWrapperCard>

@@ -98,6 +98,7 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
           fullName: data.fullName,
           bio: data.bio,
           stripeCustomerId: data.stripeCustomerId,
+          notificationsSettings: data.notificationsSettings,
         };
         setTheCookie(user);
       }
@@ -105,14 +106,8 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
 
       res.status(200).json({ message: 'Details successfully changed.' });
     } catch (err: any) {
-      // console.log(err);
-      if (err.graphQLErrors[0].message) {
-        res.status(401).json({ message: err.graphQLErrors[0].message });
-      } else {
-        res
-          .status(401)
-          .json({ message: 'Something went wrong please try again later.' });
-      }
+      // console.log('the errors =============>', err?.response.data.error.message);
+      res.status(401).json({ error: err?.response.data.error.message });
     }
   }
 }

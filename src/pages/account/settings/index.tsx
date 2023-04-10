@@ -10,6 +10,7 @@ import {
   MeQueryResult,
   UsersPermissionsUser,
 } from 'generated/graphql';
+import { useIsAuth } from 'src/hooks/isAuth';
 
 export type ProfileProps = {
   data: {
@@ -21,7 +22,7 @@ const SettingProfile = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
   //   console.log('the rassssss user', user);
-
+  useIsAuth();
   return (
     <Layout
       title={`${user?.username} Account Page`}

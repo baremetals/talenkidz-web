@@ -138,3 +138,15 @@ export const createFirebaseNotification = async (
     createdAt: Timestamp.fromDate(new Date()),
   });
 };
+
+export const updateNotification = async (docId: string) => {
+  const notificationRef = doc(db, 'notifications', docId);
+  await updateDoc(notificationRef, {
+    read: true,
+    updatedAt: Timestamp.fromDate(new Date()),
+  });
+};
+
+export const deleteNotification = async (docId: string) => {
+  await deleteDoc(doc(db, 'notifications', docId));
+};

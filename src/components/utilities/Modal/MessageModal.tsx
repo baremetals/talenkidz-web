@@ -2,11 +2,13 @@ import React, { useCallback } from 'react';
 import { FeedbackModalContainer } from 'components/utilities/Modal/modal.styles';
 import { DismissIcon } from 'components/users/Auth/auth-styles';
 import { CrossRounded } from 'public/assets/icons/CrossRounded';
-import { useAppDispatch } from 'src/app/hooks';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { closeModal } from 'src/features/modal/reducers';
+import { modalSelector } from 'src/features/modal';
 
-export default function FeedbackModal() {
+export default function MessageModal() {
   const dispatch = useAppDispatch();
+  const { content, entityId } = useAppSelector(modalSelector);
 
   const handleModalClose = useCallback(() => {
     dispatch(closeModal());
@@ -18,8 +20,8 @@ export default function FeedbackModal() {
         <DismissIcon className="dismiss-icon">
           <CrossRounded onClick={handleModalClose} />
         </DismissIcon>
-        <h1>Thank you for leaving a comment!</h1>
-        <p>We do appreciate the feedback you leave</p>
+        <h3>{content}</h3>
+        <p>{entityId}</p>
       </div>
     </FeedbackModalContainer>
   );

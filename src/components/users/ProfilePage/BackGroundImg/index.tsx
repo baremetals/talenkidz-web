@@ -11,7 +11,7 @@ type TBackGroundImgProps = {
 
 const BackGroundImg: React.FC<TBackGroundImgProps> = ({
   backgroundImg,
-  membership,
+  // membership,
 }) => {
   const [uploadImg, setUploadImg] = useState<any>(null);
   const [profileCover, setProfileCover] = useState<string | null>(
@@ -35,12 +35,11 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
   return (
     <ProfileCoverWrapper>
       <ProfileCoverImage
-        src={profileCover as string}
+        src={profileCover? profileCover as string : '/background.jpg'}
         alt="Profile Banner"
         // width={1466.36}
         // height={300}
       />
-      {membership === 'premium' ? (
         <div className="actions">
           <EditCoverButton htmlFor="inputTag">
             Edit the cover
@@ -56,7 +55,6 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
             />
           </EditCoverButton>
         </div>
-      ) : null}
     </ProfileCoverWrapper>
   );
 };

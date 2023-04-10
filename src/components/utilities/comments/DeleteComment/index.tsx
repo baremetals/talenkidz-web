@@ -6,7 +6,7 @@ import { updateStrapiEntity } from 'src/helpers';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { closeModal, modalSelector } from 'src/features/modal';
 import { InnerContainer, DeleteCommentInputModal } from 'styles/common.styles';
-import DeleteIcon from 'public/assets/icons/DeleteOutline';
+// import DeleteIcon from 'public/assets/icons/DeleteOutline';
 import { DismissIcon } from 'components/users/Auth/auth-styles';
 import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
@@ -16,9 +16,11 @@ const DeleteCommentInput: React.FC = () => {
   const totalComments = Number(entityId.split('-')[1]);
   const firebaseCommentId = entityId.split('-')[0];
 
-  const handleDelete = async () => {
+  const handleDelete = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     // console.log('starting', content);
-
     try {
       await deleteAComment(firebaseCommentId);
       await updateStrapiEntity('articles', content, {
@@ -40,9 +42,9 @@ const DeleteCommentInput: React.FC = () => {
           <h2>Do you really want to delete the comment?</h2>
           <p>You cannot return it after that</p>
           <Button
-            onClick={() => handleDelete()}
+            onClick={(e) => handleDelete(e)}
             content={''}
-            type={undefined}
+            type="submit"
             disabled={false}
             loading={false}
           >
@@ -52,7 +54,7 @@ const DeleteCommentInput: React.FC = () => {
             <Button
               onClick={() => dispatch(closeModal())}
               content={''}
-              type={undefined}
+              type="button"
               disabled={false}
               loading={false}
             >

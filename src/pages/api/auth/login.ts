@@ -26,6 +26,17 @@ export type user = {
   orgType?: string;
   website?: string;
   stripeCustomerId: string;
+  notificationsSettings: {
+    likes: boolean;
+    account: boolean;
+    comments: boolean;
+    mailingList: boolean;
+    bookmarkList: boolean;
+    publishedPosts: boolean;
+    recommendations: boolean;
+    publishedEvents: boolean;
+    publishedActivities: boolean;
+  };
 };
 
 
@@ -74,6 +85,7 @@ export default async function login(
       membership: response.data.user.membership,
       stripeCustomerId: response.data.user.stripeCustomerId,
       jwt: response.data.jwt,
+      notificationsSettings: response.data.user.notificationsSettings,
       orgName:
         response.data.user.organisation == null
           ? ''

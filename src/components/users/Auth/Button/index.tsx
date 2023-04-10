@@ -32,7 +32,15 @@ export default function AuthButton({
       onClick={onClick}
     >
       {children} {content}
-      {loading && <Spinner />}
+      {loading && (
+        <Spinner
+          style={{
+            position: 'relative',
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+          }}
+        />
+      )}
     </StyledButton>
   );
 }

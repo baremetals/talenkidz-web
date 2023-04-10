@@ -26,6 +26,17 @@ export interface AuthUser {
   website?: string;
   orgType?: string;
   stripeCustomerId: string;
+  notificationsSettings?: {
+    likes: boolean;
+    account: boolean;
+    comments: boolean;
+    mailingList: boolean;
+    bookmarkList: boolean;
+    publishedPosts: boolean;
+    recommendations: boolean;
+    publishedEvents: boolean;
+    publishedActivities: boolean;
+  };
 }
 
 

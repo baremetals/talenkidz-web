@@ -82,7 +82,6 @@ const AuthProvider: React.FC = ({ children }) => {
         data: {
           ...user,
           mailinglist: true,
-          flag: 'REGISTER',
           firebasePassword: user.password,
         },
       })
@@ -187,17 +186,17 @@ const AuthProvider: React.FC = ({ children }) => {
     provider: string
   ): Promise<returnType | null> {
     return axios
-      .post('/api/auth', {
+      .post('/api/auth/provider-login', {
         data: {
           access_token,
           provider,
-          flag: 'CONNECT',
         },
       })
       .then(async (res: { data: { user: AuthUser } }) => {
         const generatedToken = v4();
         const stripeCustomerId = res.data.user.stripeCustomerId;
-        console.log(stripeCustomerId)
+        const notificationsSettings = res.data.user.notificationsSettings;
+        // console.log(stripeCustomerId)
         const email = res.data.user.email;
         const name = res.data.user.fullName || res.data.user.username;
         if (stripeCustomerId === null) {
@@ -220,6 +219,24 @@ const AuthProvider: React.FC = ({ children }) => {
               },
             });
           }
+        }
+        if (notificationsSettings === null || notificationsSettings === undefined) {
+          await axios.post('/api/user/update', {
+            data: {
+              notificationsSettings: {
+                likes: true,
+                account: true,
+                comments: true,
+                mailingList: true,
+                bookmarkList: true,
+                publishedPosts: true,
+                recommendations: true,
+                publishedEvents: true,
+                publishedActivities: true,
+              },
+              flag: 'settings',
+            },
+          });
         }
         const firebasePassword =
           res.data.user.firebasePassword === null
@@ -251,9 +268,9 @@ const AuthProvider: React.FC = ({ children }) => {
                   'You have been successfully logged in. You will be redirected in a few seconds...',
               };
             })
-            .catch((error) => {
-              const errorMessage = error.message;
-              console.log('firebase catchblock', errorMessage);
+            .catch((_error) => {
+              // const errorMessage = error.message;
+              // console.log('firebase catchblock', errorMessage);
               router.push(router.asPath);
               return null;
             });
@@ -300,9 +317,9 @@ const AuthProvider: React.FC = ({ children }) => {
   async function logUserOut() {
     await axios.get('/api/auth/logout')
     .then(() => {
+      router.push('/');
       dispatch(signOutUser());
       signOutFirebaseUser();
-      router.push('/');
       dispatch(openModal('LOGIN_FORM'))
     }).catch((err) => {
       console.log(err)

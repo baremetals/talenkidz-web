@@ -15,7 +15,7 @@ import PolicyConsent from 'components/service/Policy/PolicyConsent';
 import PolicySettings from 'components/service/Policy/PolicySettings';
 import ParticipationModal from './ParticipationModal';
 import ProfileInformationModal from '../../users/EditProfile';
-import FeedbackModal from './FeedbackModal';
+import MessageModal from './MessageModal';
 import EditCommentInput from 'components/utilities/comments/EditCommentInput';
 import DeleteComment from 'components/utilities/comments/DeleteComment';
 import DeleteNotification from 'components/widgets/Notification/DeleteNotification';
@@ -23,8 +23,8 @@ import EventForm from 'components/users/posts/events/EventForm';
 import ActivityForm from 'components/users/posts/activities/ActivityForm';
 import ArticleForm from 'components/users/posts/articles/ArticleForm';
 import EditArticleForm from 'components/users/posts/articles/EditArticleForm';
-import ChangingEmail from 'components/users/SettingsPage/Modal/ChangingEmail';
-import ChangingUserName from 'components/users/SettingsPage/Modal/ChangingUserName';
+import ChangeMyEmail from 'components/users/SettingsPage/Modal/ChangeMyEmail';
+import ChangeMyPassword from 'components/users/SettingsPage/Modal/ChangeMyPassword';
 import DeactivateAccount from 'components/users/SettingsPage/Modal/DeactivateAccount';
 import DeleteAccount from 'components/users/SettingsPage/Modal/DeleteAccount';
 // import EditEventForm from 'components/users/posts/events/EditEventForm';
@@ -41,12 +41,12 @@ const MODAL_COMPONENTS = {
   POLICY_CONSENT: PolicyConsent,
   POLICY_SETTINGS: PolicySettings,
   PARTICIPATION_MODAL: ParticipationModal,
-  FEEDBACK_MODAL: FeedbackModal,
+  MESSAGE_MODAL: MessageModal,
   PROFILE_MODAL: ProfileInformationModal,
   DELETE_COMMENT_MODAL: DeleteComment,
   DELETE_NOTIFICATION_MODAL: DeleteNotification,
-  CHANGINGEMAIL_MODAL: ChangingEmail,
-  CHANGINGNAME_MODAL: ChangingUserName,
+  CHANGE_EMAIL_MODAL: ChangeMyEmail,
+  CHANGE_PASSWORD_MODAL: ChangeMyPassword,
   DEACTIVEACCOUNT_MODAL: DeactivateAccount,
   DELETEACCOUNT_MODAL: DeleteAccount,
   EDIT_COMMENT_MODAL: EditCommentInput,

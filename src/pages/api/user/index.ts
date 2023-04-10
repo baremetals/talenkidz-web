@@ -19,6 +19,8 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         userType,
         orgName,
         stripeCustomerId,
+        membership,
+        notificationsSettings,
       } = cookies;
       const user = {
         id,
@@ -34,6 +36,8 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         orgType,
         provider,
         stripeCustomerId,
+        membership,
+        notificationsSettings,
       };
       res.send(user);
     } catch (err) {

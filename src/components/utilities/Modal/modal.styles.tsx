@@ -122,7 +122,7 @@ export const FeedbackModalContainer = styled(ModalContainer)`
       right: 19px;
     }
 
-    h1 {
+    h3 {
       font-family: 'Syne';
       font-weight: 700;
       font-size: 20px;

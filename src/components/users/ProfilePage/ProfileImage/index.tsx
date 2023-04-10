@@ -33,7 +33,7 @@ const ProfileImage: React.FC<TProfileImage> = ({membership, avatar, userType}) =
       className={membership === 'premium' ? 'premiumStatus' : ''}
     >
       <UserProfileImage
-        src={profileImg as string}
+        src={profileImg? profileImg as string : "/default.jpg"}
         alt="user profile"
         // width={200}
         // height={200}
