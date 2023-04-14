@@ -201,8 +201,8 @@ export type TFaq = {
 export type TFeatureSlider = {
   id: string;
   attributes: {
-    title: ReactNode;
-    featureImage: string | StaticImport;
+    title: string;
+    featureImage: string;
     buttonText: string;
     question: string;
     answer: string;
