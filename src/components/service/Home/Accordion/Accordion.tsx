@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { AccordionData } from '../types';
 import AccordionItem from './AccordionItem';
 import styles from 'styles/Accordion.module.css';
+import { TFaq } from 'src/types';
 
-function Accordion({ items }: { items: Array<AccordionData> }) {
+function Accordion({ items }: { items: Array<TFaq> }) {
   const [currentIdx, setCurrentIdx] = useState(-1);
   const btnOnClick = (idx: number) => {
     setCurrentIdx((currentValue) => (currentValue !== idx ? idx : -1));
@@ -13,7 +13,7 @@ function Accordion({ items }: { items: Array<AccordionData> }) {
     <ul className={styles.accordion}>
       {items.map((item, idx) => (
         <AccordionItem
-          key={idx}
+          key={item.id}
           data={item}
           isOpen={idx === currentIdx}
           btnOnClick={() => btnOnClick(idx)}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image';
 // import { useRouter } from 'next/router';
 import Button from 'components/users/Auth/Button';
@@ -13,8 +13,11 @@ const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
 import {
   InnerContainer,
 } from 'styles/common.styles';
+// eslint-disable-next-line no-unused-vars
 import { HeroButtonBlock, HeroHeading, HeroInfo, HeroItem, OwlCarouselsBlock, Section } from './hero.styles';
 import { Div, LeftImg, RightImg } from '../home.styles';
+import { TFeatureSlider } from 'src/types';
+import { cutTextToLength } from 'src/utils';
 const options = {
   responsiveClass: true,
   nav: false,
@@ -41,7 +44,10 @@ const options = {
 };
 
 
-const HeroSection: React.FC = () => {
+const HeroSection = (slides: { slides: TFeatureSlider[] }) => {
+  // console.log(slides.slides);
+  // eslint-disable-next-line no-unused-vars
+  const [slidesArray, setSlidesArray] = useState(slides.slides);
   return (
     <Section>
       <InnerContainer>
@@ -54,11 +60,11 @@ const HeroSection: React.FC = () => {
             height={378}
           />
         </LeftImg>
-        <HeroHeading>
+        {/* <HeroHeading>
           find your child’s future{' '}
           <span className="WhiteBg">career prospects</span>
         </HeroHeading>
-        <HeroInfo>stay responsible for shaping their path</HeroInfo>
+        <HeroInfo>stay responsible for shaping their path</HeroInfo> */}
         <OwlCarouselsBlock>
           <OwlCarousel
             className="owl-theme"
@@ -67,7 +73,40 @@ const HeroSection: React.FC = () => {
             margin={1}
             {...options}
           >
-            {[1, 2, 3].map((item, i) => (
+            {slidesArray.map((item) => (
+              <Div className="Takingitem" key={item.id}>
+                <HeroHeading>
+                  {cutTextToLength(item.attributes.title, 40)}
+                  {/* <span className="WhiteBg">career prospects</span> */}
+                </HeroHeading>
+                {/* <HeroInfo>stay responsible for shaping their path</HeroInfo> */}
+                <HeroItem>
+                  <Image
+                    src={item.attributes.featureImage}
+                    alt="slider image"
+                    width={1033}
+                    height={693}
+                  />
+                  <HeroButtonBlock>
+                    <Button
+                      content={item.attributes.buttonText}
+                      type="submit"
+                      disabled={false}
+                      loading={false}
+                    ></Button>
+                  </HeroButtonBlock>
+                </HeroItem>
+              </Div>
+            ))}
+
+            {/* <OwlCarousel
+            className="owl-theme"
+            loop
+            items={1}
+            margin={1}
+            {...options}
+          > */}
+            {/* {[1, 2, 3].map((item, i) => (
               <Div className="Takingitem" key={i}>
                 <HeroItem>
                   <Image
@@ -86,7 +125,7 @@ const HeroSection: React.FC = () => {
                   </HeroButtonBlock>
                 </HeroItem>
               </Div>
-            ))}
+            ))} */}
           </OwlCarousel>
         </OwlCarouselsBlock>
 
@@ -101,6 +140,6 @@ const HeroSection: React.FC = () => {
       </InnerContainer>
     </Section>
   );
-}
+};
 
 export default HeroSection

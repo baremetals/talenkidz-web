@@ -13,16 +13,18 @@ export const useNoAuth = () => {
         .post('/api/user')
         .then((res) => {
           if (res?.data?.id) {
-            router.back();
+            return router.back();
           }
         })
         .catch((_err) => {
           return;
         });
     };
-   return () => {
-      getUser();
-   };
+    const listen = getUser();
+
+    return () => {
+      listen;
+    };
   }, [router]);
 };
 

@@ -57,10 +57,10 @@ const ActivitySection: React.FC = () => {
                   </ShapeImage>
                 </ShapeImageBlock>
                 <h3 className='label'>
-                  Advance their sport <span className="undelineSecond">skills</span>
+                  Advance their sports <span className="undelineSecond">skills</span>
                 </h3>
                 <Button
-                  content="Choose an activity"
+                  content="Choose an event"
                   type="button"
                   BtnNames="BtnPrimery"
                   disabled={false}
@@ -84,7 +84,7 @@ const ActivitySection: React.FC = () => {
                   Put more into <span className="undeline">education</span>
                 </h3>
                 <Button
-                  content="Choose an activity"
+                  content="Read an article"
                   type="button"
                   BtnNames="BtnPrimery"
                   disabled={false}

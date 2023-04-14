@@ -1,6 +1,7 @@
+import Markdown from 'markdown-to-jsx';
 import { useEffect, useRef, useState } from 'react';
 import { getRefValue } from 'src/lib/hooks';
-import { AccordionData } from '../types';
+import { TFaq } from 'src/types';
 import styles from 'styles/AccordionItem.module.css';
 
 function AccordionItem({
@@ -8,7 +9,7 @@ function AccordionItem({
   isOpen,
   btnOnClick,
 }: {
-  data: AccordionData;
+  data: TFaq;
   isOpen: boolean;
   btnOnClick: () => void;
 }) {
@@ -29,12 +30,12 @@ function AccordionItem({
     <li className={`${styles.accordionItem} ${isOpen ? 'active' : ''}`}>
       <h2 className={styles.accordionItemTitle}>
         <button className={styles.accordionItemBtn} onClick={btnOnClick}>
-          {data.title}
+          {data.attributes.question}
         </button>
       </h2>
       <div className={styles.accordionItemContainer} style={{ height }}>
         <div ref={contentRef} className={styles.accordionItemContent}>
-          {data.content}
+          <Markdown>{data.attributes.answer}</Markdown>
         </div>
       </div>
     </li>

@@ -188,3 +188,24 @@ export type TArticleFormProps = {
   readingTime: string;
   keywords: string;
 };
+
+export type TFaq = {
+  id: string;
+  attributes: {
+    question: string;
+    answer: string;
+    createdAt: string;
+  };
+};
+
+export type TFeatureSlider = {
+  id: string;
+  attributes: {
+    title: ReactNode;
+    featureImage: string | StaticImport;
+    buttonText: string;
+    question: string;
+    answer: string;
+    createdAt: string;
+  };
+};

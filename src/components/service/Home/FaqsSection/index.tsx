@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import Accordion from '../Accordion/Accordion';
@@ -7,71 +7,18 @@ import {
   InnerContainer,
 } from 'styles/common.styles';
 import { FaqQuestions, FaqQuestionsInner, FaqSectionHeader, ImageBlock } from './faq.styles';
+import { TFaq } from 'src/types';
 
-const FaqsSection = () => {
-  const accordionItems = [
-    {
-      title: 'Do you have individul classes or group ones only?   ',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-    {
-      title: 'May a parent visit the first class?',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-    {
-      title: 'Is it possible to purchase a season ticket?',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-    {
-      title: 'Do you have individul classes or group ones only?',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-    {
-      title: 'May a parent visit the first class?   ',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-    {
-      title: 'Is it possible to purchase a season ticket?   ',
-      content: (
-        <div>
-          We have both - individual and group classes. You can choose an
-          appropriate one according your own and your child’s preferences.
-        </div>
-      ),
-    },
-  ];
+const FaqsSection = (faqs: { faqs: TFaq[] }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [accordionArray, setAccordionArray] = useState(faqs.faqs);
 
   return (
     <FaqQuestions>
       <InnerContainer>
         <FaqQuestionsInner>
           <FaqSectionHeader>FAQ</FaqSectionHeader>
-          <Accordion items={accordionItems} />
+          <Accordion items={accordionArray} />
           <ImageBlock>
             <Image
               src="/assets/svgs/question.svg"
