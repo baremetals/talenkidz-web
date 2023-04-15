@@ -17,7 +17,7 @@ const PrivacyPage = () => {
   }, []);
 
   const description = "Talentkids Pookie Policy";
-  const url = 'https://talentkids.io/privacy';
+  const url = 'https://www.talentkids.io/privacy';
   return (
     <>
       <Layout

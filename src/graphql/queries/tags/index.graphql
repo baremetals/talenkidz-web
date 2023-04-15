@@ -1,0 +1,20 @@
+query Tags(
+  $filters: TagFiltersInput
+  $sort: [String]
+  $pagination: PaginationArg
+) {
+  tags(filters: $filters, sort: $sort, pagination: $pagination) {
+    meta {
+      pagination {
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        createdAt
+        name
+      }
+    }
+  }
+}

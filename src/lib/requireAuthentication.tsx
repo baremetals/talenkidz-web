@@ -8,7 +8,7 @@ export function requireAuthentication(gssp: GetServerSideProps) {
       return {
         redirect: {
           permanent: false,
-          destination: "/auth/login",
+          destination: "/",
         },
       };
     } else {
@@ -22,7 +22,7 @@ export function requireAuthentication(gssp: GetServerSideProps) {
         return {
           redirect: {
             permanent: false,
-            destination: "/auth/login",
+            destination: "/",
           },
         };
       }

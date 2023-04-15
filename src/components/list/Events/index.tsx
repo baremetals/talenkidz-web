@@ -1,277 +1,177 @@
-import React, { SetStateAction, useEffect, useState } from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import dayjs from "dayjs";
-import { upperCase } from 'src/lib/helpers'
-
-// import { ThumbsUp } from 'public/assets/icons/ThumbsUp'
-// import { BookMark } from 'public/assets/icons/BookMark'
-import { Event, EventEntity, CategoryEntity } from 'generated/graphql';
-
-
 import {
-    InnerBanner,
-    InnerContainer,
-    Title,
-    Text,
-    PageContainer,
-    Row,
-    Column,
-    Image as Img,
-    SearchBar,
-    SearchInput,
-    SearchButton,
+  EventEntity,
+  EventsDocument,
+} from 'generated/graphql';
 
-    WidgetPanel,
-    WidgetPanelTitle,
+import { useCallback, useEffect, useState } from 'react';
 
-    WidgetPanelListing,
-    WidgetPanelLink,
-    Post,
-    PostThumb,
-    PostBody,
-    PostTitle,
-    Bottom,
-    PostDate,
-    // PostMedia,
+import EventItem from 'components/list/EventItem';
+import Button from 'components/users/Auth/Button';
+import ListCategory from 'components/utilities/Categories/ListCategory';
+import Banner from 'components/widgets/Banner';
+import Breadcrumb from 'components/widgets/Breadcrumb';
+import PageTitle from 'components/widgets/PageTitle';
+
+import { CategoriesBlock, EventList } from './styles';
+
+import Search from 'components/utilities/search/HeroSearch';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { eventsSelector, setEvents, totalSelector } from 'src/features/events';
+import { searchingSelector } from 'src/features/search';
+import { useFetchEntities } from 'src/hooks/usefetchEntities';
+import {
+  Column,
+  InnerContainer,
+  PageContainer,
+  Row,
 } from 'styles/common.styles';
+import EventFilters from '../ListFilters';
+import { TFetchEventState } from 'src/types';
 
+const Events = () => {
+  const dispatch = useAppDispatch();
+  const eventEntities = useAppSelector(eventsSelector);
+  const total = useAppSelector(totalSelector) as number;
+  const searching = useAppSelector(searchingSelector);
 
-type eventProps = {
-  id: string;
-  attributes: {
-    // body: string;
-    category: {
-      data: {
-        id: string;
-        attributes: {
-          // name: string;
-          slug: string;
-        };
-      };
-    };
-    startDate: string;
-    startTime: string;
-    endDate: string;
-    createdAt: Date;
-    slug: string;
-    title: string;
-    price: string;
-    listImage: string;
-    Location: {
-        name: string;
-        town: string;
+  const [filteredEvents, setFilteredEvents] = useState<EventEntity[]>([]);
+  // console.log(searching);
+
+  const remaining = total - eventEntities?.length;
+  const fetchData = useFetchEntities<TFetchEventState | null>(
+    {
+      limit: remaining > 4 ? 4 : remaining,
+      start: eventEntities?.length as number,
+      gQDocument: EventsDocument,
+    },
+    null
+  );
+
+  useEffect(() => {
+    setFilteredEvents(eventEntities);
+  }, [eventEntities]);
+
+  const getData = useCallback(async () => {
+    if (filteredEvents.length < total) {
+      const res = fetchData;
+      // console.log(res?.data.events.data);
+      const events = res?.data?.events;
+      dispatch(
+        setEvents({
+          total: events?.meta.pagination.total,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          events: [...eventEntities, ...(events?.data as EventEntity[])],
+        })
+      );
     }
-    host: {
-      data: {
-        id: string;
-        attributes: {
-          logo: string;
-          slug: string;
-          name: string;
-        };
-      };
-    };
-  };
-};
-type pageProps = {
-    events: EventEntity[]
-    categories: CategoryEntity[]
-}
+  }, [eventEntities, dispatch, fetchData, filteredEvents?.length, total]);
 
-const Events = ({ events, categories }: pageProps) => {
-    const router = useRouter();
+  const route = [
+    {
+      name: 'Home',
+      url: '/',
+    },
+    {
+      name: 'Events',
+      url: '/events',
+    },
+  ];
+  return (
+    <>
+      <InnerContainer>
+        <Breadcrumb route={route} />
+      </InnerContainer>
 
-    const [filteredEvents, setFilteredEvents] = useState([]);
-    const [values, setValues] = useState({
-        category: '',
-        search: '',
-    });
-    // console.log(events)
+      <PageContainer>
+        <InnerContainer>
+          {/* banner */}
+          <Banner
+            src={'/assets/images/banner.png'}
+            text={'DIVE INTO THE ATMOSPHERE OF OUR EVENTS'}
+          >
+            <Search
+              placeholder={'Search events that may be interesting for you'}
+              entities={eventEntities}
+              entityType={'event'}
+            />
+          </Banner>
+          {/* event */}
+          {!searching && (
+            <>
+              <EventFilters entityType={'event'} />
 
+              {/* Categories*/}
+              <CategoriesBlock>
+                <ListCategory />
+              </CategoriesBlock>
+            </>
+          )}
 
-    useEffect(() => {
-        setFilteredEvents(events as SetStateAction<never[]>);
-    }, [events]);
-
-    const handleSearch =
-        (name: string) => (event: { target: { value: string } }) => {
-            setValues({ ...values, [name]: event.target.value });
-            // console.log(event.target.value);
-            const searchValue = event.target.value;
-            if (searchValue !== '') {
-                const filteredData = events?.filter((ev) => {
-                    const article = ev?.attributes as Event;
-                    console.log(Object.values(article));
-                    return Object.values(article)
-                        .join(' ')
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase());
-                });
-                setFilteredEvents(filteredData as SetStateAction<never[]>);
-            } else setFilteredEvents(events as SetStateAction<never[]>);
-        };
-    return (
-      <>
-        <InnerBanner>
-          <InnerContainer>
-            <Title>
-              {`${
-                router.query.category === undefined
-                  ? 'Latest'
-                  : upperCase(router.query.category as string)
-              }`}{' '}
-              Events
-            </Title>
-            <Text style={{ marginBottom: '0', color: '#000000' }}>
-              <Link href={'/'}>Home </Link> /{' '}
-              <Link href={'/events'}>Events </Link>{' '}
-              {`${
-                router.query.category === undefined
-                  ? ''
-                  : '/ ' + upperCase(router.query.category as string)
-              }`}
-            </Text>
-          </InnerContainer>
-        </InnerBanner>
-
-        <PageContainer>
-          <InnerContainer>
+          {/*event*/}
+          <EventList>
             <Row>
-              <Column className="column-7">
-                <Row>
-                  {filteredEvents?.map((event: eventProps, id) => (
-                    <Column style={{ minWidth: '50%' }} key={id}>
-                      <Post>
-                        <PostThumb
-                          onClick={() =>
-                            router.push(
-                              `/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`
-                            )
-                          }
-                        >
-                          {/* <Link
-                            href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
-                            passHref
-                          > */}
-                          <Image
-                            src={
-                              event?.attributes?.listImage ||
-                              '/default-list-img.jpg'
-                            }
-                            alt="event image"
-                            width={359.32}
-                            height={269.49}
-                          />
-                          {/* </Link> */}
-                        </PostThumb>
-                        <PostBody>
-                          <Link
-                            href={`/events/${event?.attributes?.category?.data?.attributes?.slug}/${event?.attributes?.slug}`}
-                            passHref
-                          >
-                            <PostTitle>
-                              {event?.attributes?.title.slice(0, 55)}
-                            </PostTitle>
-                          </Link>
-                          {/* <Text>
-                            {event?.attributes?.description.slice(0, 60)}
-                          </Text> */}
-                          <Bottom style={{ marginBottom: '.25rem' }}>
-                            <PostDate style={{ color: '#a40a52' }}>
-                              {/* {dayjs(event?.attributes?.startDate).day()}{' '}
-                              , */}
-                              {dayjs(event?.attributes?.startDate).format(
-                                'DD MMMM YYYY'
-                              )}
-                              , {event?.attributes?.startTime}
-                            </PostDate>
-                          </Bottom>
-                          <Bottom style={{ marginBottom: '.25rem' }}>
-                            <PostDate>
-                              {`${event?.attributes?.Location?.name}` +
-                                ' • ' +
-                                `${event?.attributes?.Location?.town}`}
-                            </PostDate>
-                          </Bottom>
-                          <Bottom style={{ marginBottom: '.25rem' }}>
-                            <PostDate>
-                              {event?.attributes?.price === '0'
-                                ? 'Free'
-                                : `£${event?.attributes?.price}`}{' '}
-                            </PostDate>
-                          </Bottom>
-                          <Bottom>
-                            <PostDate
-                              style={{
-                                fontSize: '14px',
-                                color: '#39364F',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {event?.attributes?.host?.data?.attributes?.name}{' '}
-                            </PostDate>
-
-                            {/* <PostMedia>
-                              <Link href={'/posts'}>
-                                <a>
-                                  <ThumbsUp />
-                                </a>
-                              </Link>
-                              <Link href={'/posts'}>
-                                <a>
-                                  <BookMark />
-                                </a>
-                              </Link>
-                            </PostMedia> */}
-                          </Bottom>
-                          <Bottom></Bottom>
-                        </PostBody>
-                      </Post>
-                    </Column>
-                  ))}
-                </Row>
-              </Column>
-
               <Column>
-                <SearchBar>
-                  <SearchInput
-                    placeholder="Search"
-                    type="text"
-                    name="search"
-                    onChange={handleSearch('search')}
-                    style={{ fontSize: '14px', color: '#39364F' }}
+                {!searching && (
+                  <PageTitle
+                    className="pageTitle"
+                    text={'Events on TALENTKIDS'}
                   />
-                  <SearchButton aria-label="search icon button"></SearchButton>
-                </SearchBar>
-                <WidgetPanel>
-                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                  <WidgetPanelListing>
-                    {categories?.map((cat, id) => (
-                      <WidgetPanelLink
-                        key={id}
-                        style={{ fontSize: '14px', color: '#39364F' }}
-                      >
-                        <Image
-                          src="/checkbox.svg"
-                          alt=""
-                          width={20}
-                          height={20}
-                        />
-                        <Link href={`/events/${cat?.attributes?.slug}`}>
-                          {cat?.attributes?.slug}
-                        </Link>
-                      </WidgetPanelLink>
-                    ))}
-                  </WidgetPanelListing>
-                </WidgetPanel>
+                )}
               </Column>
             </Row>
-          </InnerContainer>
-        </PageContainer>
-      </>
-    );
-}
+            <Row>
+              {filteredEvents?.map((item) => (
+                <Column className="Column-3" key={item?.id}>
+                  <EventItem
+                    id={item?.id as string}
+                    hostName={
+                      item?.attributes?.host?.data?.attributes?.username
+                    }
+                    hostImage={
+                      item?.attributes?.host?.data?.attributes?.avatar as string
+                    }
+                    title={item?.attributes?.title as string}
+                    slug={item?.attributes?.slug as string}
+                    location={item?.attributes?.Location?.town as string}
+                    venue={item?.attributes?.venue as string}
+                    venueName={item?.attributes?.Location?.name as string}
+                    route={`/events/${item?.attributes?.category?.data?.attributes?.slug}/${item?.attributes?.slug}`}
+                    starDate={item?.attributes?.startDate as string}
+                    starTime={item?.attributes?.startTime as string}
+                    price={
+                      item?.attributes?.price === '0'
+                        ? 'Free'
+                        : `£${item?.attributes?.price}`
+                    }
+                    image={
+                      item?.attributes?.listImage || '/default-list-img.jpg'
+                    }
+                    category={
+                      item?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
+                  />
+                </Column>
+              ))}
+            </Row>
+            <Row className="buttonRow">
+              <Column>
+                {eventEntities?.length < total && (
+                  <Button
+                    content="See more events "
+                    type="submit"
+                    disabled={false}
+                    loading={false}
+                    onClick={getData}
+                  />
+                )}
+              </Column>
+            </Row>
+          </EventList>
+        </InnerContainer>
+      </PageContainer>
+    </>
+  );
+};
 
-export default Events
+export default Events;

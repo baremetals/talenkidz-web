@@ -11,6 +11,10 @@ query FilteredArticles(
         title
         slug
         blurb
+        totalComments
+        totalLikes
+        views
+        totalBookmarks
         readingTime
         createdAt
         updatedAt
@@ -22,11 +26,31 @@ query FilteredArticles(
             }
           }
         }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
+            }
+          }
+        }
         author {
           data {
             id
             attributes {
               fullName
+              avatar {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
             }
           }
         }
@@ -38,6 +62,18 @@ query FilteredArticles(
             }
           }
         }
+        likes {
+          id
+          userId
+        }
+        SEO {
+          keywords
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

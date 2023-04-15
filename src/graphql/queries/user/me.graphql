@@ -1,0 +1,60 @@
+query Me(
+  $usersPermissionsUserId: ID
+  $sort: [String]
+  $pagination: PaginationArg
+  $filters: ComponentBookMarksReadingListFiltersInput
+) {
+  usersPermissionsUser(id: $usersPermissionsUserId) {
+    data {
+      id
+      attributes {
+        avatar
+        backgroundImg
+        bio
+        createdAt
+        email
+        firebasePassword
+        firebaseUserId
+        fullName
+        gender
+        mailinglist
+        membership
+        pronoun
+        provider
+        userType
+        username
+        stripeCustomerId
+        organisation {
+          name
+          organisationType
+          website
+        }
+        subscription {
+          data {
+            id
+            attributes {
+              stripeSubscriptionId
+            }
+          }
+        }
+        bookmarklist(sort: $sort, pagination: $pagination, filters: $filters) {
+          itemId
+          id
+          image
+          slug
+          title
+          type
+          category
+          userImage
+          userName
+          date
+          time
+          readingTimeOrPrice
+          venueName
+          venue
+          blurb
+        }
+      }
+    }
+  }
+}

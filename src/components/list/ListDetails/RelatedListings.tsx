@@ -1,69 +1,16 @@
 import React, { ReactElement } from 'react'
-import dayjs from "dayjs";
 import { useFilteredListingsQuery, ListingEntity } from "generated/graphql";
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
 import {
-    MediaObject,
-    MediaObjectItem,
-    MediaObjectThumb,
-    MediaObjectBody,
-    MediaObjectDate,
-    MediaObjectTitle,
-    WidgetPanel,
-    WidgetPanelTitle,
-    WidgetPanelListing,
-    MediaObjectSpan,
+    Column,
 } from "styles/common.styles";
-import Link from 'next/link';
-
-// type articleProps = {
-//     id: string;
-//     attributes: {
-//         body: string;
-//         category: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     // name: string;
-//                     slug: string;
-//                 };
-//             };
-//         };
-//         createdAt: Date;
-//         slug: string;
-//         title: string;
-//         blurb: string;
-//         author: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     fullName: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//         heroImage: {
-//             data: {
-//                 id: string;
-//                 attributes: {
-//                     url: string;
-//                     // slug: string;
-//                     // img: string;
-//                 };
-//             };
-//         };
-//     };
-// };
+import ActivitiesItem from '../ActivitiesItem';
 
 type propType = {
     category: string
 };
 
 function RelatedListings({ category }: propType): ReactElement {
-  const router = useRouter();
+  
     const { data } = useFilteredListingsQuery({
         variables: {
             filters: {
@@ -76,78 +23,41 @@ function RelatedListings({ category }: propType): ReactElement {
         },
     });
 
-    // console.log(data?.articles?.data)
-    // console.log(category)
-    const arty = data?.listings?.data as ListingEntity[]
+    const activities = data?.listings?.data as ListingEntity[]
     
-
     return (
       <>
-        <WidgetPanel>
-          <WidgetPanelTitle>Related Listings</WidgetPanelTitle>
-          <WidgetPanelListing>
-            <MediaObject>
-              {arty?.map((art, id) => (
-                <MediaObjectItem key={id}>
-                  <MediaObjectThumb
-                    onClick={() =>
-                      router.push(
-                        `/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`
-                      )
-                    }
-                  >
-                    {/* <Link
-                      href={`/activities/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                      passHref
-                    > */}
-                      <Image
-                        src={
-                          art?.attributes?.listImage || '/default-list-img.jpg'
-                        }
-                        alt="activity image"
-                        width={80}
-                        height={80}
-                      />
-                    {/* </Link> */}
-                    <MediaObjectSpan
-                      style={{
-                        fontSize: '14px',
-                        color: '#39364F',
-                        fontWeight: '500',
-                        // marginTop: '0.1rem'
-                      }}
-                    >
-                      {art?.attributes?.host?.data?.attributes?.name}{' '}
-                    </MediaObjectSpan>
-                  </MediaObjectThumb>
-                  <MediaObjectBody>
-                    <Link
-                      href={`/activitiess/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                      passHref
-                    >
-                      <MediaObjectTitle>
-                        {art?.attributes?.title?.slice(0, 23)}...
-                      </MediaObjectTitle>
-                    </Link>
-                    <MediaObjectDate>
-                      {dayjs(art?.attributes?.startDate).format('DD MMMM YYYY')}
-                    </MediaObjectDate>
-                    <MediaObjectSpan>
-                      {`${art?.attributes?.Location?.name}` +
-                        ' • ' +
-                        `${art?.attributes?.Location?.town}`}
-                    </MediaObjectSpan>
-                    <MediaObjectSpan>
-                      {art?.attributes?.price === '0'
-                        ? 'Free'
-                        : `£${art?.attributes?.price}`}{' '}
-                    </MediaObjectSpan>
-                  </MediaObjectBody>
-                </MediaObjectItem>
-              ))}
-            </MediaObject>
-          </WidgetPanelListing>
-        </WidgetPanel>
+        {activities?.map((list) => (
+          <Column className="Column-3" key={list?.id}>
+            <ActivitiesItem
+              id={list?.id as string}
+              hostName={list?.attributes?.host?.data?.attributes?.username}
+              hostImage={
+                list?.attributes?.host?.data?.attributes?.avatar as string
+              }
+              title={list?.attributes?.title as string}
+              slug={list?.attributes?.slug as string}
+              location={list?.attributes?.Location?.town as string}
+              venue={list?.attributes?.venue as string}
+              venueName={list?.attributes?.Location?.name as string}
+              route={`/activities/${list?.attributes?.category?.data?.attributes?.slug}/${list?.attributes?.slug}`}
+              startDate={list?.attributes?.startDate}
+              starTime={list?.attributes?.startTime as string}
+              price={
+                list?.attributes?.price === '0'
+                  ? 'Free'
+                  : `£${list?.attributes?.price}`
+              }
+              image={
+                (list?.attributes?.listImage as string) ||
+                '/default-list-img.jpg'
+              }
+              category={
+                list?.attributes?.category?.data?.attributes?.slug as string
+              }              
+            />
+          </Column>
+        ))}
       </>
     );
 }

@@ -24,11 +24,15 @@ query FilteredEvents(
         updatedAt
         host {
           data {
+            id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -44,6 +48,11 @@ query FilteredEvents(
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

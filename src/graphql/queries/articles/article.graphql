@@ -6,6 +6,11 @@ query Article($filters: ArticleFiltersInput) {
         body
         title
         slug
+        totalComments
+        totalLikes
+        views
+        totalBookmarks
+        firebaseId
         readingTime
         heroImage {
           data {
@@ -15,11 +20,31 @@ query Article($filters: ArticleFiltersInput) {
             id
           }
         }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
+            }
+          }
+        }
         author {
           data {
             id
             attributes {
               fullName
+              avatar {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
             }
           }
         }
@@ -31,6 +56,12 @@ query Article($filters: ArticleFiltersInput) {
           image
           type
           locale
+          author
+          keywords
+        }
+        likes {
+          id
+          userId
         }
         category {
           data {

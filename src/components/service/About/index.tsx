@@ -5,179 +5,372 @@ import Image from 'next/image';
 // import { isUser } from "features/auth/selectors";
 
 // import Button from 'components/Auth/Button';
+import PageTitle from 'components/widgets/PageTitle';
 
-import { QuoteIcon } from '../../../../public/assets/icons/QuoteIcon';
 
+import { AboutPage, GameType, ImgBox, SectionBlock, KeepScrolling, ShapeImageBlock, ShapeImage } from './styles';
 
 import {
   Column,
-  InnerBanner,
   InnerContainer,
   Row,
-  Text,
-  Title,
   PageContainer,
-  Quote,
-  H2Title,
 } from 'styles/common.styles';
 import Markdown from 'markdown-to-jsx';
 
 
+
 type Attributes = {
   data: {
-        fifthHeader: string;
-        firstHeader: string;
-        fourthHeader: string;
-        lastHeader: string;
-        secondHeader: string;
-        sectionEight: string;
-        sectionFive: string;
-        sectionFour: string;
-        sectionNine: string;
-        sectionOne: string;
-        sectionSeven: string;
-        sectionSix: string;
-        sectionThree: string;
-        sectionTwo: string;
-        thirdHeader: string;
-        firstQuote: string;
-        firstQuoteAuthor: string;
-        secondQuote: string;
-        secondQuoteAuthor: string
-  }
+    spanKey: string
+    mainTitle: string;
+    puzzleImage: string;
+    cloudImage: string;
+    graphImage: string;
+    firstBlock: {
+      partOne: string;
+      partTwo: string;
+      partThree: string;
+      partFour: string;
+      partFive: string;
+    };
+    secondBlock: {
+      title: string;
+      partOne: string;
+      partTwo: string;
+      partThree: string;
+      partFour: string;
+      partFive: string;
+    };
+    thirdBlock: {
+      title: string;
+      start: string;
+      in: string;
+      birth: string;
+      year: number;
+      partOne: string;
+      partTwo: string;
+      partThree: string;
+    };
+    fourthBlock: string;
+    fithBlock: {
+      title: string;
+      partOne: string;
+      partTwo: string;
+      partThree: string;
+    };
+    lastBlock: {
+      partOne: string;
+      partTwo: string;
+      partThree: string;
+      partFour: string;
+      partFive: string;
+    };
+    firstQuote: string;
+    firstQuoteAuthor: string;
+    secondQuote: string;
+    secondQuoteAuthor: string;
+  };
 };
 
 const AboutUs = ({data}: Attributes) => {
-    // console.log(data.sectionOne)
+    // console.log(data.firstBlock)
     return (
-        <>
-            <InnerBanner style={{ backgroundImage: 'url(/inner-banner.jpg)' }}>
-                <InnerContainer>
-                    <Title style={{ marginBottom: '3rem' }}>{data.firstHeader}</Title>
-                    <Row style={{ textAlign: 'left', alignItems: 'center', marginBottom: '3rem' }}>
-                        <Column style={{ textAlign: 'left', minWidth: '55%' }}>
-                            <Markdown>{data.sectionOne}</Markdown>
-                        </Column>
-                        <Column style={{ textAlign: 'center' }} >
-                            <Image src='/homepage/image1.jpg' alt='' width={410} height={450} />
-                        </Column>
-                    </Row>
+      <PageContainer>
+        <AboutPage>
+          <InnerContainer style={{ maxWidth: '1130px' }}>
+            <PageTitle
+              className="pageTitle aboutpage"
+              text={[<span key={data?.spanKey}>{data?.mainTitle}</span>]}
+            />
 
-                    <Row style={{ textAlign: 'left', alignItems: 'center', flexDirection: 'row-reverse' }}>
-                        <Column style={{ textAlign: 'left', minWidth: '55%' }}>
-                            <Markdown>{data.sectionTwo}</Markdown>
-                        </Column>
-                        <Column style={{ textAlign: 'center' }} >
-                            <Image src='/homepage/image2.jpg' alt='' width={410} height={470} />
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </InnerBanner>
+            <Row className="gametypeBlock">
+              <Column>
+                <GameType>
+                  <ImgBox className="gameImg">
+                    <Image
+                      width={259}
+                      height={259}
+                      src="/assets/svgs/game-one.svg"
+                      alt="puzzle icon"
+                    />
+                  </ImgBox>
+                  <p>{data.puzzleImage}</p>
+                </GameType>
+              </Column>
+              <Column>
+                <GameType>
+                  <ImgBox className="gameImg">
+                    <Image
+                      width={259}
+                      height={259}
+                      src="/assets/svgs/game-two.svg"
+                      alt="cloud icon"
+                    />
+                  </ImgBox>
+                  <p>{data?.cloudImage}</p>
+                </GameType>
+              </Column>
+              <Column>
+                <GameType>
+                  <ImgBox className="gameImg">
+                    <Image
+                      width={198}
+                      height={224}
+                      src="/assets/images/game-three.png"
+                      alt="graph icon"
+                    />
+                  </ImgBox>
+                  <p>{data?.graphImage}</p>
+                </GameType>
+              </Column>
+            </Row>
 
-            {/* <PageContainer style={{ paddingTop: '10rem', paddingBottom: '10rem' }}>
-      <video className='video-wrapper' width='260' height='260' autoPlay loop>
-        <source src="/Deliver-transcode.mp4" type="video/mp4" />
-        <source src="/Deliver-transcode.ogg" type="video/ogg" />
-      </video>
-      <InnerContainer>
-        <H2Title style={{ textAlign: 'center', marginBottom: '0', color: '#fff' }}>Our mission is helping parents unlock a world of possibilities to fulfil their children s potential</H2Title>
-      </InnerContainer>
-    </PageContainer> */}
+            <SectionBlock className="TalentedKidBlock">
+              <Row className="pageHeader">
+                <PageTitle
+                  className="pageTitle"
+                  text={[
+                    data?.firstBlock?.partOne,
+                    <span key={data?.spanKey}>
+                      {data?.firstBlock?.partTwo}
+                    </span>,
+                    data?.firstBlock?.partThree,
+                  ]}
+                />
+              </Row>
+              <Row className="row">
+                <Column>
+                  <div className="TalentedKidInfo">
+                    <p style={{ maxWidth: '400px' }}>
+                      {data?.firstBlock?.partFour}
+                    </p>
+                  </div>
+                </Column>
+                <Column>
+                  <div className="TalentedKidInfo">
+                    <p>{data?.firstBlock?.partFive}</p>
+                  </div>
+                </Column>
+              </Row>
+            </SectionBlock>
 
-            <PageContainer>
-                <InnerContainer style={{ maxWidth: '1000px' }}>
-                    <H2Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{data.secondHeader}</H2Title>
-                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
-                        <Column>
-                            <Image className='rounded' height={248} width={440} src='/homepage/image3.jpg' alt="" />
-                        </Column>
-                        <Column>
-                            {/* <H2Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</H2Title> */}
-                            <Text>{data?.sectionThree}</Text>
-                        </Column>
-                    </Row>
-                    <Row style={{ alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0' }}>
-                        <Column>
-                            <Image className='rounded' height={248} width={440} src='/homepage/image4.jpg' alt="" />
-                        </Column>
-                        <Column>
-                            {/* <H2Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</H2Title> */}
-                            <Text>{data?.sectionFour}</Text>
-                        </Column>
-                    </Row>
-                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
-                        <Column>
-                            <Image className='rounded' height={248} width={440} src='/homepage/image5.jpg' alt="" />
-                        </Column>
-                        <Column>
-                            {/* <H2Title style={{fontSize: '1.75rem'}}>The Problem We Are Solving</H2Title> */}
-                            <Text>{data?.sectionFive}</Text>
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
+            <SectionBlock className="WhyCreativeCareer">
+              <ImgBox className="WhyCreativeCareerIcon">
+                <Image
+                  width={275}
+                  height={275}
+                  src="/assets/svgs/creativeCareer.svg"
+                  alt="toy cube icon"
+                />
+              </ImgBox>
+              <Row>
+                <Column>
+                  <PageTitle
+                    className="pageTitle"
+                    text={[data?.secondBlock?.title]}
+                  />
+                  <p>{data?.secondBlock?.partOne}</p>
+                </Column>
+                <Column>
+                  <p>{data?.secondBlock?.partTwo}</p>
+                  <p>{data?.secondBlock?.partThree}</p>
+                  <p className="blue">{data?.secondBlock?.partFour}</p>
+                  <p className="blue">{data?.secondBlock?.partFive}</p>
+                </Column>
+              </Row>
+            </SectionBlock>
 
-            <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/homepage/breakimage1.jpg)', backgroundPosition: 'center center', backgroundSize: 'cover', }}>
-                <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
-                    <Quote><QuoteIcon /></Quote>
-                    <H2Title style={{ textAlign: 'center', color: '#fff' }}>{data?.firstQuote}</H2Title>
-                    <Text style={{ color: '#fff' }}>{data?.firstQuoteAuthor}</Text>
-                </InnerContainer>
-            </PageContainer>
+            <SectionBlock className="AllStart">
+              <Row className="pageHeader">
+                <PageTitle
+                  className="pageTitle"
+                  text={[
+                    data?.thirdBlock?.title,
+                    <span key={data?.spanKey}>{data?.thirdBlock?.start}</span>,
+                  ]}
+                />
+              </Row>
+              <Row>
+                <Column>
+                  <div className="inYears">
+                    <div className="">
+                      {data?.thirdBlock?.in}{' '}
+                      <span>{data?.thirdBlock?.birth}</span>
+                    </div>
+                    <div className="">{data?.thirdBlock?.year}</div>
+                  </div>
+                  <KeepScrolling>
+                    <label>Keep scrolling</label>
+                    <ImgBox className="downArrow">
+                      <Image
+                        width={47}
+                        height={47}
+                        src="/assets/svgs/downArrow.svg"
+                        alt=""
+                      />
+                    </ImgBox>
+                  </KeepScrolling>
+                </Column>
+                <Column>
+                  <div className="AllStarInfo">
+                    <p>{data?.thirdBlock?.partOne}</p>
+                  </div>
+                  <div className="AllStarInfo">
+                    <p>{data?.thirdBlock?.partTwo}</p>
+                  </div>
+                  <div className="AllStarInfo">
+                    <p>{data?.thirdBlock?.partThree}</p>
+                  </div>
+                </Column>
+              </Row>
+            </SectionBlock>
 
-            <PageContainer>
-                <InnerContainer style={{ maxWidth: '1000px' }}>
-                    <H2Title style={{}}>{data.thirdHeader}</H2Title>
-                    <Markdown>{data?.sectionSix}</Markdown>
-                    
-                    {/* <Text>The vast majority have attempted eventually to be somebody else. Once in a while, this is because we like the change, and at times this is because we feel like we need to change to fit in.</Text>
-                    <Text>When I was a young man, I cherished playing football. While I was a respectable focal protector and traditional back, since I was an area of strength for genuinely having a decent speed and a fierce shot, I wound up as a striker sometimes, as well.</Text>
-                    <Text>However, my strategy and senses let me down while attempting to be a decent striker. I’m more of an issue solver than someone who loves to score. I love to direct a group from the back, and I flourish under tension when I can decide. What’s more, I tend to lead and care for others, which are great resources for safeguarding.</Text>
-                    <Text>A striker, in any case, needs different characteristics. The best strikers show restraint, zeroed in on individual achievement, and perhaps somewhat prideful on occasion.</Text> */}
-                </InnerContainer>
-            </PageContainer>
+            <SectionBlock className="TestimonialBlock">
+              <Row className="row">
+                <Column className="column-7">
+                  <div className="TestimonialInfo">
+                    <Image
+                      width={82}
+                      height={73}
+                      src="/assets/svgs/quotes.svg"
+                      alt=""
+                    />
+                    <p>{data?.firstQuote}</p>
+                    <label>{data?.firstQuoteAuthor}</label>
+                  </div>
+                </Column>
+                <Column className="column-5">
+                  <ShapeImageBlock>
+                    <ShapeImage>
+                      <Image
+                        src="/assets/images/image92.jpg"
+                        alt="question"
+                        width={400}
+                        height={400}
+                      />
+                    </ShapeImage>
+                  </ShapeImageBlock>
+                </Column>
+              </Row>
 
-            <PageContainer style={{ backgroundColor: 'red', backgroundImage: 'url(/homepage/breakimage.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-                <InnerContainer style={{ textAlign: 'center', maxWidth: '1000px' }}>
-                    <Quote><QuoteIcon /></Quote>
-                    <H2Title style={{ textAlign: 'center', color: '#fff' }}>{data?.secondQuote}</H2Title>
-                    <Text style={{ color: '#fff' }}>{data?.secondQuoteAuthor}</Text>
-                </InnerContainer>
-            </PageContainer>
+              <Row className="TestimonialInfoRow">
+                <Column className="column-5">
+                  <ShapeImageBlock>
+                    <ShapeImage>
+                      <Image
+                        src="/assets/images/image90.png"
+                        alt="question"
+                        width={400}
+                        height={400}
+                      />
+                    </ShapeImage>
+                  </ShapeImageBlock>
+                </Column>
+                <Column className="column-7">
+                  <div className="TestimonialText">
+                    <Markdown>{data?.fourthBlock}</Markdown>
+                  </div>
+                </Column>
+              </Row>
 
-            <PageContainer>
-                <InnerContainer style={{ maxWidth: '1000px' }}>
-                    <H2Title style={{}}>{data.fourthHeader}</H2Title>
-                    <Row>
-                        <Column>
-                            <Markdown>{data?.sectionSeven}</Markdown>
-                        </Column>
-                        <Column>
-                            <Markdown>{data?.sectionEight}</Markdown>                            
-                        </Column>
-                    </Row>
+              <Row className="row">
+                <Column className="column-7">
+                  <div className="TestimonialInfo">
+                    <Image
+                      width={82}
+                      height={73}
+                      src="/assets/svgs/quotes.svg"
+                      alt=""
+                    />
+                    <p>{data?.secondQuote}</p>
+                    <label>{data?.secondQuoteAuthor}</label>
+                  </div>
+                </Column>
+                <Column className="column-5">
+                  <ShapeImageBlock>
+                    <ShapeImage>
+                      <Image
+                        src="/assets/images/image91.png"
+                        alt="question"
+                        width={400}
+                        height={400}
+                      />
+                    </ShapeImage>
+                  </ShapeImageBlock>
+                </Column>
+              </Row>
+            </SectionBlock>
 
+            {/*  */}
+            <SectionBlock className="CapacityBlock">
+              <ImgBox className="CapacityIcon">
+                <Image
+                  width={389}
+                  height={382}
+                  src="/assets/svgs/trophy.svg"
+                  alt=""
+                />
+              </ImgBox>
+              <Row>
+                <Column>
+                  <h2>{data?.fithBlock?.title}</h2>
+                </Column>
+              </Row>
+              <Row>
+                <Column>
+                  <p>{data?.fithBlock?.partOne}</p>
+                </Column>
+                <Column>
+                  <p>{data?.fithBlock?.partTwo}</p>
+                </Column>
+              </Row>
+              <Row>
+                <Column>
+                  <p className="ColorBlue">{data?.fithBlock?.partThree}</p>
+                </Column>
+              </Row>
+            </SectionBlock>
 
-                </InnerContainer>
-            </PageContainer>
+            {/*  */}
 
-            <PageContainer style={{ backgroundColor: '#f3f3f3' }}>
-                <InnerContainer style={{ maxWidth: '1000px' }}>
-                    <H2Title style={{ textAlign: 'center', marginBottom: '2.5rem' }}>{data.fifthHeader}</H2Title>
-                    <Row style={{ alignItems: 'center', margin: '1rem 0' }}>
-                        <Column>
-                            <Image className='rounded' height={720} width={534} src='/homepage/image6.jpg' alt=""/>
-                        </Column>
-                        <Column>
-                            <H2Title style={{ fontSize: '1.75rem' }}>{data.lastHeader}</H2Title>
-                            <Markdown>{data?.sectionNine}</Markdown>
-                        </Column>
-                    </Row>
-                </InnerContainer>
-            </PageContainer>
-
-        </>
-    )
+            <SectionBlock className="TalentKidsApproach">
+              <Row className="pageHeader">
+                <PageTitle
+                  className="pageTitle"
+                  text={[
+                    data?.lastBlock?.partOne,
+                    <span key={data?.spanKey}>{data?.lastBlock?.partTwo}</span>,
+                  ]}
+                />
+              </Row>
+              <Row>
+                <Column className="column-6">
+                  <div className="ApproachStep">
+                    <span>1</span>
+                    <p>{data?.lastBlock?.partThree}</p>
+                  </div>
+                </Column>
+                <Column className="column-6">
+                  <div className="ApproachStep">
+                    <span>2</span>
+                    <p>{data?.lastBlock?.partFour}</p>
+                  </div>
+                </Column>
+              </Row>
+              <Row className="LastStep">
+                <Column>
+                  <div className="ApproachStep">
+                    <span>3</span>
+                    <p>{data?.lastBlock?.partFive}</p>
+                  </div>
+                </Column>
+              </Row>
+            </SectionBlock>
+          </InnerContainer>
+        </AboutPage>
+      </PageContainer>
+    );
 }
 
 export default AboutUs

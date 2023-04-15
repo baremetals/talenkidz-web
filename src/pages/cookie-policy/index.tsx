@@ -17,7 +17,7 @@ const CookiePolicy = () => {
   }, []);
 
   const description = "Talentkids Cookie Policy";
-  const url = 'https://talentkids.io/cookie-policy';
+  const url = 'https://www.talentkids.io/cookie-policy';
   return (
     <>
       <Layout

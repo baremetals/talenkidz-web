@@ -1,5 +1,4 @@
-import * as Yup from "yup";
-
+import * as Yup from 'yup';
 
 export const getRegisterValidationSchema = () => {
   return Yup.object().shape({
@@ -29,21 +28,29 @@ export const getLoginValidationSchema = () => {
 
 export const getForgotPasswordValidationSchema = () => {
   return Yup.object().shape({
-    email: Yup.string().required("Email is Required!"),
+    email: Yup.string().required('Email is Required!'),
   });
 };
 
 export const getResetPasswordValidationSchema = () => {
   return Yup.object().shape({
-    newPassword: Yup.string().required("Password is Required!"),
+    newPassword: Yup.string().required('Password is Required!'),
     confirmPassword: Yup.string().test(
-      "passwords-match",
-      "Passwords must match",
+      'passwords-match',
+      'Passwords must match',
       function (value) {
         // eslint-disable-next-line no-invalid-this
         return this.parent.newPassword === value;
       }
     ),
     // .oneOf([Yup.ref('newPassword'), null], "Passwords must match")
+  });
+};
+
+export const getParticipationValidationSchema = () => {
+  return Yup.object().shape({
+    firstname: Yup.string().required('First name is Required!'),
+    surname: Yup.string().required('Surname is Required!'),
+    phone: Yup.string().required('Phone is Required!'),
   });
 };

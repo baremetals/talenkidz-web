@@ -1,8 +1,11 @@
 // @ts-check
+import React from 'react';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import * as NextImage from 'next/image';
+import { AuthProvider } from '../src/features/auth/AuthContext';
+
+
 import '../src/styles/globals.css';
-// import { AuthProvider } from '../state/auth/AuthContext';
 
 const BREAKPOINTS_INT = {
   xs: 375,
@@ -31,10 +34,14 @@ const customViewports = Object.fromEntries(
 // Allow Storybook to handle Next's <Image> component
 const OriginalNextImage = NextImage.default;
 
-// Object.defineProperty(NextImage, 'default', {
-//   configurable: true,
-//   value: (props) => <OriginalNextImage {...props} unoptimized />,
-// });
+Object.defineProperty(NextImage, 'default', {
+  configurable: true,
+  value: (/** @type {JSX.IntrinsicAttributes & Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "src" | "srcSet" | "ref" | "width" | "height" | "loading" | "style"> & { src: any; width?: string | number | undefined; height?: string | number | undefined; layout?: "fixed" | "fill" | "intrinsic" | "responsive" | undefined; loader?: NextImage.ImageLoader | undefined; quality?: string | number | undefined; priority?: boolean | undefined; loading?: "lazy" | "eager" | undefined; lazyBoundary?: string | undefined; placeholder?: ("blur" | "empty") | undefined; blurDataURL?: string | undefined; unoptimized?: boolean | undefined; objectFit?: import("csstype").Property.ObjectFit | undefined; objectPosition?: import("csstype").Property.ObjectPosition<string | number> | undefined; onLoadingComplete?: ((result: { naturalWidth: number; 
+    // Allow Storybook to handle Next's <Image> component
+    naturalHeight: number; }) => void) | undefined; }} */ props) => <OriginalNextImage {...props} unoptimized />,
+});
+
+
 
 // export const decorators = [
 //   (Story) => (

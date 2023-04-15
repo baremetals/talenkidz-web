@@ -8,15 +8,19 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
       const {
         id,
         username,
+        email,
+        bio,
+        website,
+        orgType,
+        provider,
         fullName,
         avatar,
         backgroundImg,
         userType,
-        orgId,
-        slug,
         orgName,
-        logo,
-        fullProfile,
+        stripeCustomerId,
+        membership,
+        notificationsSettings,
       } = cookies;
       const user = {
         id,
@@ -25,17 +29,21 @@ export default async function User(req: NextApiRequest, res: NextApiResponse) {
         avatar,
         backgroundImg,
         userType,
-        orgId: orgId || '',
-        slug: slug || '',
         orgName: orgName || '',
-        logo: logo || '',
-        fullProfile
+        email,
+        bio,
+        website,
+        orgType,
+        provider,
+        stripeCustomerId,
+        membership,
+        notificationsSettings,
       };
       res.send(user);
     } catch (err) {
       return;
     }
   } else {
-    res.send('no user found, please log in.');
+    res.send('nothing');
   }
 }

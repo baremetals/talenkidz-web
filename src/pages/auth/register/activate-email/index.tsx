@@ -30,11 +30,11 @@ const ActivateEmail = () => {
                 <meta property="og:type" content="activate-account" />
                 <link
                     rel="canonical"
-                    href="https://talentkids.io/auth/signup/activate-email"
+                    href="https://www.talentkids.io/auth/signup/activate-email"
                 />
                 <meta
                     property="og:url"
-                    content="https://talentkids.io/auth/signup/activate-email"
+                    content="https://www.talentkids.io/auth/signup/activate-email"
                 />
             </Head>
             <EmailTemplate message={message}></EmailTemplate>

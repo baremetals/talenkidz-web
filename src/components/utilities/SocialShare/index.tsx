@@ -15,7 +15,7 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
-import { SocialDropDown, SocialDropDownItem, SocialDropDownList } from './styles';
+import { SocialDropDown, SocialDropDownItem, SocialDropDownList, SocialShareWrap } from './styles';
 // import { Tiktok } from '../../../../public/assets/icons/Tiktok';
 
 type shareProps = {
@@ -26,37 +26,38 @@ const SocialShare = ({ pathname }: shareProps) => {
   const url: string | undefined = process.env.NEXT_PUBLIC_SITE_URL;
   const shareUrl: string = `${url}${pathname}`;
   return (
-    <SocialDropDown>
-      <SocialDropDownList
-        className="opened"
-      >
-        <SocialDropDownItem>
-          <FacebookShareButton url={shareUrl}>
-            <FaceBook />
-          </FacebookShareButton>
-        </SocialDropDownItem>
-        <SocialDropDownItem>
-          <TwitterShareButton url={shareUrl}>
-            <Twitter />
-          </TwitterShareButton>
-        </SocialDropDownItem>
-        <SocialDropDownItem>
-          <LinkedinShareButton url={shareUrl}>
-            <LinkedIn />
-          </LinkedinShareButton>
-        </SocialDropDownItem>
-        <SocialDropDownItem>
-          <WhatsappShareButton url={shareUrl}>
-            <WhatsApp />
-          </WhatsappShareButton>
-        </SocialDropDownItem>
-        <SocialDropDownItem>
-          <EmailShareButton url={shareUrl}>
-            <Email />
-          </EmailShareButton>
-        </SocialDropDownItem>
-      </SocialDropDownList>
-    </SocialDropDown>
+    <SocialShareWrap>
+      <h2>Share This Article</h2>
+      <SocialDropDown>
+        <SocialDropDownList className="opened">
+          <SocialDropDownItem>
+            <FacebookShareButton url={shareUrl}>
+              <FaceBook />
+            </FacebookShareButton>
+          </SocialDropDownItem>
+          <SocialDropDownItem>
+            <TwitterShareButton url={shareUrl}>
+              <Twitter />
+            </TwitterShareButton>
+          </SocialDropDownItem>
+          <SocialDropDownItem>
+            <LinkedinShareButton url={shareUrl}>
+              <LinkedIn />
+            </LinkedinShareButton>
+          </SocialDropDownItem>
+          <SocialDropDownItem>
+            <WhatsappShareButton url={shareUrl}>
+              <WhatsApp />
+            </WhatsappShareButton>
+          </SocialDropDownItem>
+          <SocialDropDownItem>
+            <EmailShareButton url={shareUrl}>
+              <Email />
+            </EmailShareButton>
+          </SocialDropDownItem>
+        </SocialDropDownList>
+      </SocialDropDown>
+    </SocialShareWrap>
   );
 };
 

@@ -1,26 +1,29 @@
 import Events from 'components/list/Events';
 import Layout from 'components/Layout';
 import {
-  CategoriesDocument,
-  CategoriesQueryResult,
-  CategoryEntity,
   EventEntity,
   EventsDocument,
   EventsQueryResult,
+  // FilteredEventsDocument,
+  // FilteredEventsQueryResult,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
+import { useEffect } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
+import { setEvents } from 'src/features/events';
 
 type pageProps = {
-  eve: { events: { data: EventEntity[] } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+  eve: { events: { data: EventEntity[]; meta: ResponseCollectionMeta } };
 };
 
 const EventsPage = (props: pageProps) => {
-  const { cats, eve } = props;
+  const dispatch = useAppDispatch();
+  const { eve } = props;
   const description = 'Events';
-  const url = 'https://talentkids.io/events';
+  const url = 'https://www.talentkids.io/events';
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {
@@ -39,6 +42,16 @@ const EventsPage = (props: pageProps) => {
   };
   // console.log(eve)
   useNoAuthPages();
+
+  useEffect(() => {
+    dispatch(
+      setEvents({
+        events: eve?.events?.data,
+        total: eve?.events?.meta?.pagination?.total,
+        eventsLength: eve?.events?.data?.length,
+      })
+    );
+  }, [eve?.events?.data, eve?.events?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Events`}
@@ -48,38 +61,26 @@ const EventsPage = (props: pageProps) => {
       type="events"
       pageUrl={url}
     >
-      <Events
-        events={eve?.events?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <Events />
     </Layout>
   );
 };
 
 export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
-  const { data } = await client.query<EventsQueryResult>({
-    query: EventsDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
+  
+    const { data } = await client.query<EventsQueryResult>({
+      query: EventsDocument,
+      variables: {
+        pagination: {
+          start: 0,
+          limit: 6,
+        },
+        sort: 'createdAt:desc',
       },
-      sort: 'createdAt:desc',
-    },
-  });
+    });
 
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
   return {
-    props: { eve: data, cats }, // will be passed to the page component as props
+    props: { eve: data }, // will be passed to the page component as props
   };
 }
 

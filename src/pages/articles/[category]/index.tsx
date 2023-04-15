@@ -1,29 +1,33 @@
-import Articles from 'components/content/Articles';
+
 import Layout from 'components/Layout';
 import {
   ArticleEntity,
-  CategoriesDocument,
-  CategoriesQueryResult,
-  CategoryEntity,
   FilteredArticlesDocument,
   FilteredArticlesQueryResult,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 
+
+import CategoryArticles from 'components/content/CategoryArticles';
+import { useAppDispatch } from 'src/app/hooks';
+import { useEffect } from 'react';
+import { setArticles } from 'src/features/articles';
+
 type pageProps = {
-  art: { articles: { data: ArticleEntity[] } };
-  cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
+  art: { articles: { data: ArticleEntity[]; meta: ResponseCollectionMeta } };
 };
 
 function FilteredArticlesPage(props: pageProps) {
   const router = useRouter();
-  const { cats, art } = props;
+  const dispatch = useAppDispatch();
+  const { art } = props;
   const { category } = router.query;
   const description = 'Articles';
-  const url = `https://talentkids.io/articles/${category}`;
+  const url = `https://www.talentkids.io/articles/${category}`;
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {
@@ -42,6 +46,15 @@ function FilteredArticlesPage(props: pageProps) {
   };
   // console.log(art);
   useNoAuthPages();
+  useEffect(() => {
+    dispatch(
+      setArticles({
+        articles: art?.articles?.data,
+        total: art?.articles?.meta?.pagination?.total,
+        articlesLength: art?.articles?.data?.length,
+      })
+    );
+  }, [art?.articles?.data, art?.articles?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Articles`}
@@ -51,10 +64,7 @@ function FilteredArticlesPage(props: pageProps) {
       type="articles"
       pageUrl={url}
     >
-      <Articles
-        articles={art?.articles?.data}
-        categories={cats?.data?.categories?.data}
-      />
+        <CategoryArticles />
     </Layout>
   );
 }
@@ -78,19 +88,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       sort: 'updatedAt:desc',
     },
   });
-
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
   return {
-    props: { art: data, cats }, // will be passed to the page component as props
+    props: { art: data }, // will be passed to the page component as props
   };
 }
 

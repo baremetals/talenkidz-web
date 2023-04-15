@@ -1,17 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState } from "src/models/User";
+import { IAuthState } from './authSpec';
 
-const isBrowser = typeof window !== "undefined";
 
-const initialState: AuthState = {
+
+export const initialState: IAuthState = {
   user: null,
-  authenticated: isBrowser && !!localStorage.getItem("talentedKid"),
+  firebaseUser: null,
+  authenticated: false,
   loading: false,
+  // error: '',
+  // success: '',
 };
 
 
+
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<any>) => {
@@ -19,6 +23,12 @@ const authSlice = createSlice({
         ...state,
         authenticated: true,
         user: action.payload,
+      };
+    },
+    setFirebaseUser: (state, action) => {
+      return {
+        ...state,
+        firebaseUser: action.payload,
       };
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -31,6 +41,7 @@ const authSlice = createSlice({
       return {
         ...state,
         user: null,
+        firebaseUser: null,
         authenticated: false,
         loading: false,
       };
@@ -38,7 +49,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, setLoading, signOutUser } =
-  authSlice.actions;
+export const { setUser, setFirebaseUser, setLoading, signOutUser } = authSlice.actions;
 
 export default authSlice.reducer;

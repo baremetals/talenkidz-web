@@ -62,7 +62,7 @@ export default async function handler(
   }
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const { jwt } = cookies;
-
+  // console.log('I atleast run up in here')
   try {
     const chunks: never[] = [];
 
@@ -72,16 +72,16 @@ export default async function handler(
       fileWriteStreamHandler: () => fileConsumer(chunks),
     });
 
-    //   console.log('the fields: ',fields);
-    //   console.log('the raaas file: ', files);
+      // console.log('the fields: ',fields);
+      // console.log('the raaas file: ', files);
     const { file } = files;
-    // console.log('the bumba file: ', file.);
+    // console.log('the bumba file: ', file);
 
     const fileData = Buffer.concat(chunks); // or is it from? I always mix these up
-    //   console.log('the fing filedata:', fileData)
+      // console.log('the fing filedata:', fileData)
     const { originalFilename } = file as any;
     const form = new FormData();
-    //   form.append('my_field', 'my value');
+      // form.append('my_field', 'my value');
     form.append('files', fileData, originalFilename);
 
     const apiRes = await fetch(`${baseUrl}/upload`, {

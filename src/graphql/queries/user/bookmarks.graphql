@@ -1,0 +1,26 @@
+query UsersBookMarks($usersPermissionsUserId: ID, $pagination: PaginationArg, $sort: [String]) {
+  usersPermissionsUser(id: $usersPermissionsUserId) {
+    data {
+      attributes {
+        bookmarklist(pagination: $pagination, sort: $sort) {
+          blurb
+          category
+          id
+          date
+          image
+          itemId
+          location
+          readingTimeOrPrice
+          slug
+          time
+          title
+          type
+          userImage
+          userName
+          venue
+          venueName
+        }
+      }
+    }
+  }
+}

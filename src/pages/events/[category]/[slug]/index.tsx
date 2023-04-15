@@ -6,13 +6,13 @@ import {
   EventQueryResult,
 } from 'generated/graphql';
 import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import { GetServerSidePropsContext } from 'next';
 import {
   bothLocationType,
   locationType,
   onlineLocationType,
-} from 'src/utils/types';
+} from 'src/types';
 
 const Event = (props: {
   data: { events: EventEntityResponseCollection };
@@ -23,7 +23,7 @@ const Event = (props: {
   const event = props?.data?.events?.data[0];
   const location = event?.attributes?.Location;
   const meta = event?.attributes?.SEO;
-  const host = event?.attributes?.host?.data?.attributes;
+  // const host = event?.attributes?.host?.data?.attributes;
   // console.log(host)
 
   let place: locationType | onlineLocationType | bothLocationType;
@@ -79,12 +79,12 @@ const Event = (props: {
     image: meta?.image,
     description: meta?.description,
     organizer: [
-      {
-        '@type': 'Organization',
-        name: host?.name,
-        logo: host?.logo,
-        url: host?.website,
-      },
+      // {
+      //   '@type': 'Organization',
+      //   name: host?.name,
+      //   logo: host?.logo,
+      //   url: host?.website,
+      // },
     ],
   };
 
@@ -118,6 +118,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       },
     },
   });
+
   return {
     props: { data }, // will be passed to the page component as props
   };

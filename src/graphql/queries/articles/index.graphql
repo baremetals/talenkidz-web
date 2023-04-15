@@ -8,6 +8,10 @@ query Articles($pagination: PaginationArg, $sort: [String]) {
         slug
         blurb
         readingTime
+        totalComments
+        totalLikes
+        views
+        totalBookmarks
         heroImage {
           data {
             id
@@ -16,11 +20,31 @@ query Articles($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+        creator {
+          data {
+            id
+            attributes {
+              avatar
+              bio
+              backgroundImg
+              fullName
+              username
+            }
+          }
+        }
         author {
           data {
             id
             attributes {
               fullName
+              avatar {
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
             }
           }
         }
@@ -34,6 +58,15 @@ query Articles($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+        likes {
+          id
+          userId
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

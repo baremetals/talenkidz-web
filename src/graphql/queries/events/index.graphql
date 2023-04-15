@@ -20,11 +20,15 @@ query Events($pagination: PaginationArg, $sort: [String]) {
         updatedAt
         host {
           data {
+            id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -40,6 +44,11 @@ query Events($pagination: PaginationArg, $sort: [String]) {
             }
           }
         }
+      }
+    }
+    meta {
+      pagination {
+        total
       }
     }
   }

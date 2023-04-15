@@ -4,7 +4,7 @@ import { withApollo } from 'src/utils/withApollo';
 
 const ResetPassword = () => {
 
-  const url = 'https://talentkids.io/auth/reset-password';
+  const url = 'https://www.talentkids.io/auth/reset-password';
   return (
     <Layout
       title={`Talentkids | Reset Password`}

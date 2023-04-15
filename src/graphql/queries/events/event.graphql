@@ -32,10 +32,13 @@ query Event($filters: EventFiltersInput) {
           data {
             id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }
@@ -56,6 +59,8 @@ query Event($filters: EventFiltersInput) {
           image
           type
           locale
+          author
+          keywords
         }
       }
     }

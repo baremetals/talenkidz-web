@@ -1,28 +1,22 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { addToMailingList } from 'src/lib/helpers';
 
 import Spinner from 'components/utilities/Spinner';
-import {
-  InnerContainer,
-  LoginInner,
-  LoginWrapper,
-  PageContainer,
-  Title,
-} from 'styles/common.styles';
+import { InnerContainer, PageContainer, Title } from 'styles/common.styles';
+import { AuthContext } from 'src/features/auth/AuthContext';
+import { LoginInner, LoginWrapper } from '../auth-styles';
 
 // const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {
   const router = useRouter();
   const [text, setText] = useState('Loading...');
-  const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState(true);
   const { provider, access_token } = router.query;
+  const { loginWithProvider } = useContext(AuthContext);
   // console.log('wait bro find it', router.query)
 
   useEffect(() => {
-    // Successfully logged with the provider
     // Now logging with strapi by using the access_token (given by the provider) in props.location.search
     async function fetchUser() {
       if (
@@ -30,35 +24,26 @@ const ConnectProvider = () => {
         access_token !== undefined
         // id_token !== undefined
       ) {
-        await axios
-          .post('/api/auth', {
-            data: {
-              access_token,
-              provider,
-              flag: 'CONNECT',
-            },
-          })
-          .then(async(res) => {
+        await loginWithProvider(access_token as string, provider as string)
+          .then(async (_res) => {
+            setSpinner(false);
             // console.log('the response', res);
-            await addToMailingList(res.data.email);
-            setText(
-              'You have been successfully logged in. You will be redirected in a few seconds...'
-            );
-            setTimeout(
-              () => router.push(`/user-profile/${res.data.username}`),
-              3000
-            ); //
+            // setText(res?.success as string);
           })
           .catch((err) => {
             console.log(err);
             setSpinner(false);
             setText('An error occurred, Please try again..');
-            setTimeout(() => router.push('/auth/login'), 3000);
+            setTimeout(() => router.push('/'), 3000);
           });
-      } 
+      }
     }
-    fetchUser();
-  }, [provider, access_token, router]);
+    const listen = fetchUser();
+
+    return () => {
+      listen;
+    };
+  }, [provider, access_token, router, loginWithProvider]);
 
   // useEffect(() => {
   //   // Successfully logged with the provider
@@ -113,35 +98,33 @@ const ConnectProvider = () => {
   return (
     <>
       <PageContainer style={{ minHeight: '100vh' }}>
-        <InnerContainer>
-          <LoginWrapper>
-            <LoginInner
+        <LoginWrapper>
+          <LoginInner
+            style={{
+              backgroundColor: '#f3f3f3',
+            }}
+          >
+            <Title
               style={{
-                backgroundColor: '#f3f3f3',
+                lineHeight: '1.6',
+                fontSize: '1.5rem',
+                textAlign: 'center',
+                marginBottom: '1.5rem',
               }}
             >
-              <Title
+              {text}
+            </Title>
+            {spinner && (
+              <Spinner
                 style={{
-                  lineHeight: '1.6',
-                  fontSize: '1.5rem',
-                  textAlign: 'center',
-                  marginBottom: '1.5rem',
+                  position: 'relative',
+                  backgroundColor: 'transparent',
+                  boxShadow: 'none',
                 }}
-              >
-                {text}
-              </Title>
-              {spinner && (
-                <Spinner
-                  style={{
-                    position: 'relative',
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                  }}
-                />
-              )}
-            </LoginInner>
-          </LoginWrapper>
-        </InnerContainer>
+              />
+            )}
+          </LoginInner>
+        </LoginWrapper>
       </PageContainer>
     </>
   );

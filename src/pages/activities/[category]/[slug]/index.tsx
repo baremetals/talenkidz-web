@@ -8,12 +8,12 @@ import {
   ListingEntityResponseCollection,
   ListQueryResult,
 } from 'generated/graphql';
-import { useNoAuthPages } from 'src/lib/noAuth';
+import { useNoAuthPages } from 'src/hooks/noAuth';
 import {
   bothLocationType,
   locationType,
   onlineLocationType,
-} from 'src/utils/types';
+} from 'src/types';
 
 const ListDetailsPage = (props: {
   data: { listings: ListingEntityResponseCollection };
@@ -24,7 +24,7 @@ const ListDetailsPage = (props: {
   const list = props?.data?.listings?.data[0];
   const meta = list?.attributes?.SEO;
   const location = list?.attributes?.Location;
-  const host = list?.attributes?.host?.data?.attributes;
+  // const host = list?.attributes?.host?.data?.attributes;
 
   let place: locationType | onlineLocationType | bothLocationType;
 
@@ -78,14 +78,14 @@ const ListDetailsPage = (props: {
     location: place,
     image: meta?.image,
     description: meta?.description,
-    organizer: [
-      {
-        '@type': 'Organization',
-        name: host?.name,
-        logo: host?.logo,
-        url: host?.website,
-      },
-    ],
+    // organizer: [
+    //   {
+    //     '@type': 'Organization',
+    //     name: host?.name,
+    //     logo: host?.logo,
+    //     url: host?.website,
+    //   },
+    // ],
   };
   return (
     <Layout

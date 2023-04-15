@@ -48,7 +48,7 @@ const FaqPage = ({ ...data }) => {
   };
 
   const description = 'Talentkids faqs';
-  const url = 'https://talentkids.io/faqs';
+  const url = 'https://www.talentkids.io/faqs';
   // console.log(cats?.data?.categories?.data);
   // console.log(data.data)
   return (

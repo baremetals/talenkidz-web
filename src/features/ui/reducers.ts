@@ -7,6 +7,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
      success: string;
 
  }
+ 
 const initialState: uiState = {
   loading: false,
   error: "",

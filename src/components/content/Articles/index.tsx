@@ -1,256 +1,245 @@
+import { useCallback, useEffect, useState } from 'react';
 
-import React, { SetStateAction, useEffect, useState } from 'react'
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import dayjs from "dayjs";
-import { upperCase } from 'src/lib/helpers'
+// import { openModal } from 'src/features/modal/reducers';
 
-// import { useAppSelector } from "app/hooks";
-// import { isUser } from "features/auth/selectors";
+//articles Redux
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { setArticles } from 'src/features/articles/reducers';
+import {
+  articlesSelector,
+  totalSelector,
+} from 'src/features/articles/selectors';
+
+import ArticleCard from 'components/content/Articles/ArticleCard';
+import SmallACards from 'components/content/Articles/SmallACards';
+import Breadcrumb from 'components/widgets/Breadcrumb';
+
+// import {
+//   fetchStrapiUser,
+//   updateStrapiUserBookMarks,
+// } from 'src/helpers';
 
 import {
-    InnerBanner,
-    InnerContainer,
-    Row,
-    Column,
-    Title,
-    Text,
-    PageContainer,
+  ArticleTitle,
+  LinkBlock,
+  MoreArticlesBlock,
+  PageTitle,
+  TrendingBlock,
+} from './styles';
 
-    Post,
-    PostThumb,
-    PostBody,
-    PostTitle,
-    Top,
-    Bottom,
-    PostDate,
-    PostMedia,
-
-    SearchBar,
-    SearchInput,
-    SearchButton,
-
-    WidgetPanel,
-    WidgetPanelTitle,
-
-    WidgetPanelListing,
-    WidgetPanelLink
+import EntitySearch from 'components/utilities/search/EntitySearch';
+import {
+  Column,
+  InnerContainer,
+  PageContainer,
+  Row,
+  Title,
 } from 'styles/common.styles';
 
-// import { ThumbsUp } from '../../../../public/assets/icons/ThumbsUp'
-import { Article, ArticleEntity, CategoryEntity } from 'generated/graphql';
-// import { BookMark } from '../../../../public/assets/icons/BookMark';
+import {
+  ArticleEntity,
+  ArticlesDocument,
+  FilteredArticlesDocument,
+  ResponseCollectionMeta,
+} from 'generated/graphql';
 
-type articleProps = {
-    id: string;
-    attributes: {
-        readingTime: string;
-        body: string;
-        category: {
-            data: {
-                id: string;
-                attributes: {
-                    // name: string;
-                    slug: string;
-                };
-            };
-        };
-        updatedAt: Date;
-        slug: string;
-        title: string;
-        blurb: string;
-        author: {
-            data: {
-                id: string;
-                attributes: {
-                    fullName: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
-        heroImage: {
-            data: {
-                id: string;
-                attributes: {
-                    url: string;
-                    // slug: string;
-                    // img: string;
-                };
-            };
-        };
+import { useFetchEntities } from 'src/hooks/usefetchEntities';
+// import {
+//   INITIAL_STATE as Article_State,
+//   articleReducer,
+// } from './articleReducer';
+
+import { useSearchState } from 'components/utilities/search/searchReducer';
+// import { AuthContext } from 'src/features/auth/AuthContext';
+import { SearchBlock } from 'components/utilities/search/search.styles';
+import Categories from 'components/utilities/Categories';
+// import { TBookMark } from 'src/types';
+
+// type saveFuncProps = {
+//   id: string;
+//   title: string;
+//   slug: string;
+//   image: string;
+// };
+
+type TFetchArticleState = {
+  data: {
+    articles: {
+      data: ArticleEntity[];
+      meta: ResponseCollectionMeta;
     };
+  };
+};
+const route = [
+  {
+    name: 'Home',
+    url: '/',
+  },
+  {
+    name: 'Articles',
+    url: '/articles',
+  },
+];
+
+const Articles = () => {
+  const dispatch = useAppDispatch();
+  const articleEntities = useAppSelector(articlesSelector);
+  const total = useAppSelector(totalSelector) as number;
+  const [filteredArticles, setFilteredArticles] = useState<ArticleEntity[]>([]);
+
+  const searchState = useSearchState();
+
+  // console.log('from the articles page', filteredArticles);
+  const remaining = total - articleEntities?.length;
+  const fetchData = useFetchEntities<TFetchArticleState | null>(
+    {
+      limit: remaining > 4 ? 4 : remaining,
+      start: articleEntities?.length as number,
+      gQDocument: ArticlesDocument,
+    },
+    null
+  );
+
+  useEffect(() => {
+    setFilteredArticles(articleEntities);
+  }, [articleEntities]);
+
+  const getData = useCallback(async () => {
+    if (!searchState.searching && filteredArticles.length < total) {
+      const res = fetchData;
+      // console.log(res);
+      const articles = res?.data?.articles;
+      // setFilteredArticles((filteredArticles) => [
+      //   ...filteredArticles,
+      //   // eslint-disable-next-line no-unsafe-optional-chaining
+      //   ...articles?.data,
+      // ]);
+      // console.log(meta);
+      dispatch(
+        setArticles({
+          // ...state,
+          total: articles?.meta.pagination.total,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          articles: [
+            ...articleEntities,
+            ...(articles?.data as ArticleEntity[]),
+          ],
+        })
+      );
+    }
+  }, [
+    articleEntities,
+    dispatch,
+    fetchData,
+    filteredArticles?.length,
+    searchState.searching,
+    total,
+  ]);
+
+  return (
+    <>
+      <InnerContainer>
+        <Breadcrumb route={route} />
+        <ArticleTitle>
+          <Title className="title">
+            <span>TRENDING</span> ON TALENTKIDS
+          </Title>
+        </ArticleTitle>
+
+        <TrendingBlock>
+          <Row className="rowblock">
+            {articleEntities?.slice(0, 6)?.map((item) => (
+              <Column className="column-4" key={item?.id}>
+                <SmallACards
+                  id={item.id as string}
+                  authorImg={
+                    item?.attributes?.author?.data?.attributes?.avatar?.data
+                      ?.attributes?.url ||
+                    (item?.attributes?.creator?.data?.attributes
+                      ?.avatar as string)
+                  }
+                  authorName={
+                    item?.attributes?.author?.data?.attributes?.fullName ||
+                    (item?.attributes?.creator?.data?.attributes
+                      ?.fullName as string)
+                  }
+                  articleTitle={item?.attributes?.title as string}
+                  slug={item?.attributes?.slug}
+                  readingTime={item?.attributes?.readingTime as string}
+                  createdAt={item?.attributes?.createdAt}
+                  category={
+                    item?.attributes?.category?.data?.attributes?.slug as string
+                  }
+                  articleImage={
+                    item?.attributes?.heroImage?.data?.attributes?.url
+                  }
+                />
+              </Column>
+            ))}
+          </Row>
+        </TrendingBlock>
+      </InnerContainer>
+
+      <PageContainer>
+        <InnerContainer>
+          <Row>
+            <Column>
+              <PageTitle>
+                Find more useful tips from our <span>articles</span>
+              </PageTitle>
+            </Column>
+          </Row>
+          <Row>
+            <Column className="column-7">
+              <MoreArticlesBlock>
+                {filteredArticles?.map((item) => (
+                  <ArticleCard
+                    className="kidsRow"
+                    key={item?.id as string}
+                    id={item.id as string}
+                    authorImg={
+                      item?.attributes?.author?.data?.attributes?.avatar?.data
+                        ?.attributes?.url ||
+                      (item?.attributes?.creator?.data?.attributes
+                        ?.avatar as string)
+                    }
+                    authorName={
+                      item?.attributes?.author?.data?.attributes?.fullName ||
+                      (item?.attributes?.creator?.data?.attributes
+                        ?.fullName as string)
+                    }
+                    articleTitle={item?.attributes?.title as string}
+                    articleIntro={item?.attributes?.blurb as string}
+                    articleImage={
+                      item?.attributes?.heroImage?.data?.attributes?.url
+                    }
+                    readingTime={item?.attributes?.readingTime as string}
+                    createdAt={item?.attributes?.createdAt}
+                    category={
+                      item?.attributes?.category?.data?.attributes
+                        ?.slug as string
+                    }
+                    slug={item?.attributes?.slug}
+                  />
+                ))}
+                <LinkBlock onClick={getData}>
+                  {articleEntities?.length < total && <p>Discover more</p>}
+                </LinkBlock>
+              </MoreArticlesBlock>
+            </Column>
+            <Column className="column-5">
+              <SearchBlock>
+                {/* <Search placeholder={'Search particular information'} /> */}
+                <EntitySearch entities={articleEntities} />
+              </SearchBlock>
+              {/* <Fields /> */}
+              <Categories entityDocument={FilteredArticlesDocument} />
+            </Column>
+          </Row>
+        </InnerContainer>
+      </PageContainer>
+    </>
+  );
 };
 
-type pageProps = {
-    articles: ArticleEntity[]
-    categories: CategoryEntity[]
-}
-// { props: ArticleEntity[] }
-
-
-const Articles = ({ articles, categories }: pageProps) => {
-    const router = useRouter();
-    // console.log(router.query.category)
-    const [filteredArticles, setFilteredArticles] = useState([]);
-    const [values, setValues] = useState({
-        category: "",
-        search: "",
-    });
-    // console.log(props?.props);
-    // const articles = props?.props
-
-    useEffect(() => {
-        setFilteredArticles(articles as SetStateAction<never[]>);
-    }, [articles]);
-
-
-    const handleSearch =
-        (name: string) => (event: { target: { value: string } }) => {
-            setValues({ ...values, [name]: event.target.value });
-            // console.log(event.target.value);
-            const searchValue = event.target.value;
-            if (searchValue !== "") {
-                const filteredData = articles?.filter((post) => {
-                    const article = post?.attributes as Article
-                    console.log(Object.values(article))
-                    return Object.values(article)
-                        .join(" ")
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase());
-                });
-                setFilteredArticles(filteredData as SetStateAction<never[]>);
-            } else setFilteredArticles(articles as SetStateAction<never[]>);
-        };
-    return (
-      <>
-        <InnerBanner>
-          <InnerContainer>
-            <Title>
-              {`${
-                router.query.category === undefined
-                  ? 'Latest'
-                  : upperCase(router.query.category as string)
-              }`}{' '}
-              Articles
-            </Title>
-            <Text style={{ marginBottom: '0', color: '#000000' }}>
-              <Link href={'/'}>Home </Link> /{' '}
-              <Link href={'/articles'}>Articles </Link>{' '}
-              {`${
-                router.query.category === undefined
-                  ? ''
-                  : '/ ' + upperCase(router.query.category as string)
-              }`}
-            </Text>
-          </InnerContainer>
-        </InnerBanner>
-
-        <PageContainer>
-          <InnerContainer>
-            <Row>
-              <Column className="column-7">
-                <Row>
-                  {filteredArticles?.map((art: articleProps, id) => (
-                    <Column style={{ minWidth: '50%' }} key={id}>
-                      <Link
-                        href={`/articles/${art?.attributes?.category?.data?.attributes?.slug}/${art?.attributes?.slug}`}
-                        passHref
-                      >
-                        <Post>
-                          <PostThumb>
-                            <Image
-                              src={
-                                art?.attributes?.heroImage?.data?.attributes
-                                  ?.url
-                              }
-                              alt="article image"
-                              width={359.3}
-                              height={269.47}
-                            />
-                          </PostThumb>
-                          <PostBody>
-                            <Top>
-                              <PostTitle
-                                style={{
-                                  fontSize: '1rem',
-                                  color: '#2e3032',
-                                  marginBottom: '.3rem',
-                                }}
-                              >
-                                {art?.attributes?.title.slice(0, 40)}...
-                              </PostTitle>
-                              <Text>
-                                {art?.attributes?.blurb.slice(0, 80)}...
-                              </Text>
-                            </Top>
-                            <Bottom style={{ fontSize: '.75rem' }}>
-                              {
-                                art?.attributes?.author?.data?.attributes
-                                  ?.fullName
-                              }
-                            </Bottom>
-                            <Bottom>
-                              <PostDate>
-                                {dayjs(art?.attributes?.updatedAt).format(
-                                  'DD MMMM YYYY'
-                                )}{' '}
-                              </PostDate>
-
-                              <PostMedia
-                                style={{ fontSize: '.75rem', color: '#74787C' }}
-                              >
-                                {art?.attributes?.readingTime}
-                              </PostMedia>
-                              {/* <PostMedia>
-                                                            <Link href={'/posts'}><a><ThumbsUp /></a></Link>
-                                                            <PostMedia>
-                                                                <Link href={'/posts'}><a><BookMark /></a></Link>
-                                                            </PostMedia>
-                                                        </PostMedia> */}
-                            </Bottom>
-                          </PostBody>
-                        </Post>
-                      </Link>
-                    </Column>
-                  ))}
-                </Row>
-              </Column>
-              <Column>
-                <SearchBar>
-                  <SearchInput
-                    placeholder="Search"
-                    type="text"
-                    name="search"
-                    onChange={handleSearch('search')}
-                  />
-                  <SearchButton aria-label="search icon button"></SearchButton>
-                </SearchBar>
-                <WidgetPanel>
-                  <WidgetPanelTitle>Categories</WidgetPanelTitle>
-                  <WidgetPanelListing>
-                    {categories?.map((cat, id) => (
-                      <WidgetPanelLink key={id}>
-                        <Image
-                          src={require("public/checkbox.svg")}
-                          alt="checkboxes"
-                          // width={20}
-                          // height={20}
-                        />
-                        <Link href={`/articles/${cat?.attributes?.slug}`}>
-                          {cat?.attributes?.slug}
-                        </Link>
-                      </WidgetPanelLink>
-                    ))}
-                  </WidgetPanelListing>
-                </WidgetPanel>
-              </Column>
-            </Row>
-          </InnerContainer>
-        </PageContainer>
-      </>
-    );
-}
-
-export default Articles
+export default Articles;

@@ -1,7 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import  { RootState }  from "src/app/rootReducer";
 
-
 export const selectAuth = (state: RootState) => state.auth;
 
 export const authenticatedUser = createSelector(selectAuth, (state) => state.authenticated); 
@@ -16,3 +15,4 @@ export const isUser = createSelector(
   selectAuth,
   (state) => state
 );
+

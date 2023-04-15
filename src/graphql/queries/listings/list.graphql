@@ -27,15 +27,20 @@ query List($filters: ListingFiltersInput) {
           image
           type
           locale
+          author
+          keywords
         }
         host {
           data {
             id
             attributes {
-              name
-              slug
-              logo
-              website
+              username
+              avatar
+              organisation {
+                name
+                organisationType
+                website
+              }
             }
           }
         }

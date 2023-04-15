@@ -1,30 +1,35 @@
-import Events from 'components/list/Events';
+import { useEffect } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { useAppDispatch } from 'src/app/hooks';
+import { setEvents } from 'src/features/events';
+import { useNoAuthPages } from 'src/hooks/noAuth';
+import { client } from 'src/lib/initApollo';
 import Layout from 'components/Layout';
+import CategoryEvents from 'components/list/CategoryEvents';
 import {
-  CategoriesDocument,
-  CategoriesQueryResult,
   CategoryEntity,
   EventEntity,
   FilteredEventsDocument,
   FilteredEventsQueryResult,
+  ResponseCollectionMeta,
 } from 'generated/graphql';
-import { client } from 'src/lib/initApollo';
-import { useNoAuthPages } from 'src/lib/noAuth';
-import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
+
+
 
 type pageProps = {
-  eve: { articles: { data: EventEntity[] } };
+  eve: { events: { data: EventEntity[]; meta: ResponseCollectionMeta } };
   cats: { data: { categories: { data: CategoryEntity[] } }; loading: boolean };
 };
 
 function FilteredArticlesPage(props: pageProps) {
   const router = useRouter();
-  const { cats, eve } = props;
+  const dispatch = useAppDispatch();
+  const { eve } = props;
   const { category } = router.query;
 
   const description = 'Events';
-  const url = `https://talentkids.io/events/${category}`;
+  const url = `https://www.talentkids.io/events/${category}`;
   // console.log(cats?.data?.categories?.data);
 
   const structuredData = {
@@ -42,8 +47,17 @@ function FilteredArticlesPage(props: pageProps) {
     // datePublished: article?.attributes?.updatedAt,
   };
   //
-  // console.log(art);
+  // console.log(props);
   useNoAuthPages();
+  useEffect(() => {
+    dispatch(
+      setEvents({
+        events: eve?.events?.data,
+        total: eve?.events?.meta?.pagination?.total,
+        eventsLength: eve?.events?.data?.length,
+      })
+    );
+  }, [eve?.events?.data, eve?.events?.meta?.pagination?.total, dispatch]);
   return (
     <Layout
       title={`Talentkids | Events`}
@@ -53,10 +67,7 @@ function FilteredArticlesPage(props: pageProps) {
       type="events"
       pageUrl={url}
     >
-      <Events
-        events={eve?.articles?.data}
-        categories={cats?.data?.categories?.data}
-      />
+      <CategoryEvents />
     </Layout>
   );
 }
@@ -80,19 +91,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       sort: 'updatedAt:desc',
     },
   });
-
-  const cats = await client.query<CategoriesQueryResult>({
-    query: CategoriesDocument,
-    variables: {
-      pagination: {
-        start: 0,
-        limit: 6,
-      },
-      sort: 'slug:asc',
-    },
-  });
   return {
-    props: { art: data, cats }, // will be passed to the page component as props
+    props: { eve: data }, // will be passed to the page component as props
   };
 }
 
