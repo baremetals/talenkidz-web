@@ -65,7 +65,7 @@ export async function getServerSideProps(_ctx: GetServerSidePropsContext) {
       sort: 'createdAt:desc',
     },
   });
-  // console.log('the fucking data', data);
+  console.log('the fucking data', data);
 
   // if (data?.error?.name) {
   //   return {

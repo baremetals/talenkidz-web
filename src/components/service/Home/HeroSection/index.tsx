@@ -73,7 +73,7 @@ const HeroSection = (slides: { slides: TFeatureSlider[] }) => {
             margin={1}
             {...options}
           >
-            {slidesArray.map((item) => (
+            {slidesArray?.map((item) => (
               <Div className="Takingitem" key={item.id}>
                 <HeroHeading>
                   {cutTextToLength(item.attributes.title, 40)}
