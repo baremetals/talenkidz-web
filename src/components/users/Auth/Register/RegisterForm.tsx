@@ -78,9 +78,9 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
       if (res?.error as string) {
         initialValues.error = res?.error as string;
         setErrorMsg(true);
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 10000);
+        // setTimeout(() => {
+        //   setErrorMsg(false);
+        // }, 10000);
       }
       if (res?.success as string) {
         dispatch(closeModal());
@@ -105,7 +105,13 @@ const RegisterForm: React.FC<IRegisterForm> = () => {
           <LoginWrapper>
             <LoginInner>
               <ModalCloseIcon />
-              {errorMsg && <ErrorMsg>{initialValues.error}</ErrorMsg>}
+              {errorMsg && (
+                <>
+                  <ErrorMsg>{initialValues.error}</ErrorMsg>
+                  <br/>
+                  <div></div>
+                </>
+              )}
               <AuthHeaders subheading={'Get Started'} />
 
               <FormWrap>
