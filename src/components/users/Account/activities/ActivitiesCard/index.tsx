@@ -15,6 +15,7 @@ import {
   Visitors,
 } from './styles';
 import { useRouter } from 'next/router';
+import Tooltip from 'components/widgets/Tooltip';
 
 const ActivitiesCard: React.FC<IActivityCard> = ({
   startDate,
@@ -49,8 +50,11 @@ const ActivitiesCard: React.FC<IActivityCard> = ({
           height={195}
         />
       </ActivitiesItemImg>
+      <Tooltip />
       <ActivitiesInfo>
-        <h2>{cutTextToLength(title, 45)}</h2>
+        <h2 data-tooltip-id="my-tooltip" data-tooltip-content={title}>
+          {cutTextToLength(title, 45)}
+        </h2>
         <TimeBlock>
           <label>{formatTimeAndDate(startDate, starTime)}</label>
           <span className="tag">{venue === 'online' ? venue : location}</span>
@@ -87,13 +91,11 @@ const ActivitiesCard: React.FC<IActivityCard> = ({
             {hostId === userId ? (
               <EditButton
                 onClick={() =>
-                  router.push(
-                    `/account/create/activities/update/${slug}`
-                  )
+                  router.push(`/account/create/activities/update/${slug}`)
                 }
               >
                 Edit
-                  <PencilTwo />
+                <PencilTwo />
               </EditButton>
             ) : (
               <SeeMore href={route}>See More</SeeMore>

@@ -24,6 +24,8 @@ import {
   Datetime,
   IconBlock,
 } from '../styles';
+import Tooltip from 'components/widgets/Tooltip';
+// import { Tooltip } from '@mui/material';
 
 const ArticleCard = ({
   id,
@@ -105,9 +107,12 @@ const ArticleCard = ({
           </div> */}
         </AuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
-          <h3>{cutTextToLength(articleTitle as string, 18)}</h3>
+          <h3 data-tooltip-id="my-tooltip" data-tooltip-content={articleTitle}>
+            {cutTextToLength(articleTitle as string, 18)}
+          </h3>
+          {/* <Tooltip children={undefined} title={undefined} /> */}
         </Link>
-
+        <Tooltip />
         <ArticleBlurb>
           {cutTextToLength(articleIntro as string, 80)}
         </ArticleBlurb>

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import Tooltip from 'components/widgets/Tooltip';
 import { cutTextToLength } from 'src/utils';
 
 import BookMarkIcon from 'components/widgets/BookMarkIcon';
@@ -66,8 +67,11 @@ const SmallACard = ({
           />
         </CardAuthorBlock>
         <Link passHref href={`/articles/${category}/${slug}`}>
-          <h3>{cutTextToLength(articleTitle, 18)}</h3>
+          <h3 data-tooltip-id="my-tooltip" data-tooltip-content={articleTitle}>
+            {cutTextToLength(articleTitle, 18)}
+          </h3>
         </Link>
+        <Tooltip />
         <Datetime>
           <Date>{dayjs(createdAt).format('MMM D')}</Date>
           <span></span>

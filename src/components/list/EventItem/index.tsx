@@ -16,6 +16,7 @@ import {
 import { IEventCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import BookMarkIcon from '../../widgets/BookMarkIcon';
+import Tooltip from 'components/widgets/Tooltip';
 // import { BsTag } from 'react-icons/bs';
 
 const EventItem: React.FC<IEventCard> = ({
@@ -67,8 +68,11 @@ const EventItem: React.FC<IEventCard> = ({
 
       <EventInfo>
         <Link passHref href={route}>
-          <h2>{cutTextToLength(title, 45)}</h2>
+          <h2 data-tooltip-id="my-tooltip" data-tooltip-content={title}>
+            {cutTextToLength(title, 45)}
+          </h2>
         </Link>
+        <Tooltip />
         <TimeBlock>
           <label>{formatTimeAndDate(starDate, starTime)}</label>
           <span className="tag">{venue === 'online' ? venue : location}</span>

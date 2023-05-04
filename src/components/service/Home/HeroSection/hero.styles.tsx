@@ -6,7 +6,7 @@ export const Section = styled.section`
   position: relative;
   overflow: hidden;
   @media (max-width: 991px) {
-   margin-top:60px;
+    margin-top: 60px;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
   }
@@ -103,8 +103,8 @@ export const HeroHeading = styled.h1`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
-    @media (max-width: 991px) { 
-    color: #0f021f;
+    @media (max-width: 991px) {
+      color: #0f021f;
     }
     &::after {
       content: '';
@@ -169,6 +169,24 @@ export const HeroItem = styled.div`
 export const OwlCarouselsBlock = styled.div`
   max-width: 1033px;
   margin: 0 auto;
+  .slick-dots {
+    li {
+      &.slick-active {
+        button {
+          background: #39007e;
+        }
+      }
+      button {
+        background: rgba(57, 0, 126, 0.5);
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
 `;
 
 export const HeroButtonBlock = styled.div`

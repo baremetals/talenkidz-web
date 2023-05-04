@@ -48,11 +48,11 @@ export default async function auth(
       `${baseUrl}/auth/${data?.provider}/callback?access_token=${data?.access_token}`
     );
     const auth = await response.json();
+    // console.log(' auth response ========>', auth);
     const authData = {
       jwt: auth.jwt,
       id: auth.user.id,
     };
-
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/user/org`,
       {
@@ -61,7 +61,7 @@ export default async function auth(
       }
     );
     const org = await resp.json();
-
+    
     const userSettings =
       auth.user.notificationsSettings == null ||
       auth.user.notificationsSettings == undefined
@@ -93,7 +93,7 @@ export default async function auth(
     setTheCookie(user);
     res.status(200).json({ user: auth.user });
   } catch (err: any) {
-    console.log(err);
+    // console.log(err);
     res.send(err.response);
   }
 }

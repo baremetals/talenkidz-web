@@ -271,6 +271,7 @@ const AuthProvider: React.FC = ({ children }) => {
           },
         })
         .then(async (res: { data: { user: AuthUser } }) => {
+          // console.log('=======> cunt');
           const generatedToken = v4();
           const stripeCustomerId = res.data.user.stripeCustomerId;
           const notificationsSettings = res.data.user.notificationsSettings;
@@ -334,6 +335,7 @@ const AuthProvider: React.FC = ({ children }) => {
               firebasePassword
             )
               .then(async (userCredential) => {
+                // console.log('=======> masssa');
                 const firebaseUser = userCredential.user;
                 // console.log(firebaseUser);
                 await axios.post('/api/user/firebaseId', {
@@ -343,16 +345,17 @@ const AuthProvider: React.FC = ({ children }) => {
                     mailinglist: true,
                   },
                 });
-                router.push(router.asPath);
+                router.push(router.asPath === '/' ? '/account' : router.asPath);
                 return {
                   success:
                     'You have been successfully logged in. You will be redirected in a few seconds...',
                 };
               })
               .catch((_error) => {
+                // console.log('=======> jesus christ');
                 // const errorMessage = error.message;
                 // console.log('firebase catchblock', errorMessage);
-                router.push(router.asPath);
+                router.push(router.asPath === '/' ? '/account' : router.asPath);
                 return null;
               });
           } else {
@@ -362,6 +365,7 @@ const AuthProvider: React.FC = ({ children }) => {
               firebasePassword as string
             )
               .then(async (_userCredential) => {
+                // console.log('=======> sleep');
                 // const firebaseUser = userCredential.user;
                 // console.log(firebaseUser);
                 // if (userType === 'organisation') {
@@ -376,15 +380,17 @@ const AuthProvider: React.FC = ({ children }) => {
                     'You have been successfully logged in. You will be redirected in a few seconds...',
                 };
               })
-              .catch((error) => {
-                const errorMessage = error.message;
-                console.log('firebase catchblock', errorMessage);
+              .catch((_error) => {
+                // console.log('=======> fools');
+                // const errorMessage = error.message;
+                // console.log('firebase catchblock', errorMessage);
                 router.push(`/account`);
                 return null;
               });
           }
         })
         .catch((err) => {
+          // console.log('=======> wasteman');
           const errorMessage = err.response.data.message;
           // console.log('strapi catchblock', errorMessage);
           return { error: errorMessage };
