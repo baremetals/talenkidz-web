@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { IActivityCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
 import BookMarkIcon from '../../../widgets/BookMarkIcon';
+import Tooltip from 'components/widgets/Tooltip';
 
 const ListItemCard: React.FC<IActivityCard> = ({
   id,
@@ -40,8 +41,11 @@ const ListItemCard: React.FC<IActivityCard> = ({
     <ActivitiestemBlock>
       <ActivitiesInfo>
         <Link passHref href={route}>
-          <h2>{cutTextToLength(title, 45)}</h2>
+          <h2 data-tooltip-id="my-tooltip" data-tooltip-content={title}>
+            {cutTextToLength(title, 45)}
+          </h2>
         </Link>
+        <Tooltip />
         <TimeBlock>
           {/* <label>Sun, Thus at 10:00 AM</label> */}
           <label>{formatTimeAndDate(startDate, starTime)}</label>

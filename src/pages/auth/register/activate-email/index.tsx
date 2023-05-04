@@ -12,15 +12,15 @@ const ActivateEmail = () => {
     // useNoAuth();
 
     setTimeout(() => {
-        router.push('/auth/login')
+        router.push('/')
     }, 10000)
     return (
         <>
             <Head>
-                <title>Talentkids | Activate Account</title>
+                <title>talentkids | Activate Account</title>
                 <meta
                     property="og:title"
-                    content="Talentkids | Activate Account"
+                    content="talentkids | Activate Account"
                     key="title"
                 />
                 <meta

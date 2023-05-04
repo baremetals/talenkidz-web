@@ -10,7 +10,7 @@ import { LoginInner, LoginWrapper } from '../auth-styles';
 // const backendUrl = process.env.NEXT_PUBLIC_API_URL;
 const ConnectProvider = () => {
   const router = useRouter();
-  const [text, setText] = useState('Loading...');
+  const [text, setText] = useState('Loading please wait...');
   const [spinner, setSpinner] = useState(true);
   const { provider, access_token } = router.query;
   const { loginWithProvider } = useContext(AuthContext);
@@ -25,15 +25,18 @@ const ConnectProvider = () => {
         // id_token !== undefined
       ) {
         await loginWithProvider(access_token as string, provider as string)
-          .then(async (_res) => {
+          .then(async (res) => {
+            // console.log('=======> fuck');
+            // setText('Loading please wait...');
             setSpinner(false);
-            // console.log('the response', res);
+            console.log('the response', res);
             // setText(res?.success as string);
           })
-          .catch((err) => {
-            console.log(err);
+          .catch((_err) => {
+            // console.log('=======> dick');
+            // console.log(err);
             setSpinner(false);
-            setText('An error occurred, Please try again..');
+            setText('An has error occurred, Please try again later.');
             setTimeout(() => router.push('/'), 3000);
           });
       }

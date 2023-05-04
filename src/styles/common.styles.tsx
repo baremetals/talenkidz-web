@@ -931,7 +931,7 @@ export const FooterContact = styled.div`
 export const Inbox = styled.div``;
 
 export const InboxContent = styled.div`
-  background-color: #bc70ad;
+  background-color: #1e0a3c;
   color: #fff;
   max-width: 30rem;
   border-radius: 0.75rem;

@@ -19,6 +19,7 @@ import {
 } from './styles';
 import { useAppDispatch } from 'src/app/hooks';
 import { openEditArticalModal } from 'src/features/modal';
+import Tooltip from 'components/widgets/Tooltip';
 
 interface IArticleItemCard extends IArticleCard {
   totalLikes: number;
@@ -86,9 +87,11 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
           <AuthorName>{authorName}</AuthorName>
         </div>
         <Link passHref href={`/articles/${category}/${slug}`}>
-          <h3>{cutTextToLength(articleTitle, 18)}</h3>
+          <h3 data-tooltip-id="my-tooltip" data-tooltip-content={articleTitle}>
+            {cutTextToLength(articleTitle, 18)}
+          </h3>
         </Link>
-
+        <Tooltip />
         <p>{cutTextToLength(articleIntro as string, 80)}</p>
         <div className="article-footer">
           <div className="article-publish">

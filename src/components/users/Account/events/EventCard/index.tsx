@@ -5,6 +5,7 @@ import Image from 'next/image';
 import PencilTwo from 'public/assets/icons/PencilTwo';
 import { IEventCard } from 'src/interfaces';
 import { cutTextToLength, formatTimeAndDate } from 'src/utils';
+import Tooltip from 'components/widgets/Tooltip';
 const EventCard: React.FC<IEventCard> = ({
   title,
   hostName,
@@ -34,7 +35,10 @@ const EventCard: React.FC<IEventCard> = ({
         />
       </EventItemImg>
       <EventInfo>
-        <h2>{cutTextToLength(title, 45)}</h2>
+        <h2 data-tooltip-id="my-tooltip" data-tooltip-content={title}>
+          {cutTextToLength(title, 45)}
+        </h2>
+        <Tooltip />
         <TimeBlock>
           <label>{formatTimeAndDate(starDate, starTime)}</label>
           <span className="tag">{venue === 'online' ? venue : location}</span>
@@ -60,7 +64,11 @@ const EventCard: React.FC<IEventCard> = ({
               )}
             </Visitors>
             {hostId === userId ? (
-              <EditButton onClick={() => router.push(`/account/create/events/update/${slug}`)}>
+              <EditButton
+                onClick={() =>
+                  router.push(`/account/create/events/update/${slug}`)
+                }
+              >
                 Edit
                 <PencilTwo />
               </EditButton>

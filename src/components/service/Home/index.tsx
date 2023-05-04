@@ -21,7 +21,7 @@ const Home: React.FC<THomeProps> = ({ faqs, slides }) => {
       <ActivitySection />
       {/* <TeachersSection /> */}
       {/* <BestPlaceSection /> */}
-      <FaqQuestion faqs={faqs}/>
+      <FaqQuestion faqs={faqs} />
       {/* <QuestionSection /> */}
       {/* <ServiceSection /> */}
       {/* <DoubtSection /> */}
