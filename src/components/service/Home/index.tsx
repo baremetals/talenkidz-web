@@ -1,14 +1,15 @@
 import React from 'react';
 
-// import QuestionSection from './QuestionSection';
 import FaqQuestion from './FaqsSection';
-// import DoubtSection from './DoubtSection';
-// import BestPlaceSection from './BestPlaceSection';
+import BestPlaceSection from './BestPlaceSection';
 import HeroSection from './HeroSection';
-// import ServiceSection from './ServiceSection';
 import ActivitySection from './ActivitySection';
-// import TeachersSection from './TeachersSection';
+import TeachersSection from './TeachersSection';
 import { TFaq, TFeatureSlider } from 'src/types';
+import QuestionSection from './QuestionSection';
+import ServiceSection from './ServiceSection';
+import DoubtSection from './DoubtSection';
+
 type THomeProps = {
   faqs: TFaq[];
   slides: TFeatureSlider[];
@@ -19,12 +20,12 @@ const Home: React.FC<THomeProps> = ({ faqs, slides }) => {
     <>
       <HeroSection slides={slides} />
       <ActivitySection />
-      {/* <TeachersSection /> */}
-      {/* <BestPlaceSection /> */}
+      <TeachersSection />
+      <BestPlaceSection />
       <FaqQuestion faqs={faqs} />
-      {/* <QuestionSection /> */}
-      {/* <ServiceSection /> */}
-      {/* <DoubtSection /> */}
+      <QuestionSection />
+      <ServiceSection />
+      <DoubtSection />
     </>
   );
 };
