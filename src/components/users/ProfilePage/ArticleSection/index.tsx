@@ -6,17 +6,19 @@ import { isUser } from 'src/features/auth';
 import ArticleItemCard from '../../Account/ArticleItemCard';
 import Editor from '../../Account/Editor';
 import PostLimits from '../../Account/PostLimits';
+import { useRouter } from 'next/router';
 
 const ArticleSection = () => {
+  const router = useRouter();
   const { user: user } = useAppSelector(isUser);
   const [entity, setEntities] = useState<ArticleEntity[]>([]);
-
-  const [loadArticles, { loading, data }] = useFilteredArticlesLazyQuery({
+  const pageOwner = router.query.username? router.query.username :user?.username;
+  const [loadArticles, { data }] = useFilteredArticlesLazyQuery({
     variables: {
       filters: {
         creator: {
-          id: {
-            eq: user?.id?.toString(),
+          username: {
+            eq: pageOwner as string,
           },
         },
       },
@@ -28,7 +30,7 @@ const ArticleSection = () => {
     },
   });
 
-  // console.log(entity);
+  console.log(user?.id);
   useEffect(() => {
     const subscribe = loadArticles();
 
@@ -46,14 +48,22 @@ const ArticleSection = () => {
   }, [data?.articles?.data]);
   return (
     <>
-      {/* Account status notes */}
-      <PostLimits limit={'unlimited'} />
+      {user?.membership == 'basic' &&
+      pageOwner == (user?.username as string) ? (
+        <>
+          {/* Account status notes */}
+          <PostLimits limit={'unlimited'} />
 
-      {/* Become a premium member */}
-      <PremiumBanner />
+          {/* Become a premium member */}
+          <PremiumBanner />
 
-      {/* Write a new article */}
-      <Editor companentName={'ARTICLE_FORM_MODAL'} />
+          {/* Write a new article */}
+          <Editor
+            status={user?.membership == 'basic'? 'basic': 'article'}
+            componentName={'ARTICLE_FORM_MODAL'}
+          />
+        </>
+      ) : null}
 
       {/* Articles */}
       {entity?.map((item) => (
@@ -70,7 +80,7 @@ const ArticleSection = () => {
           }
           authorName={
             item?.attributes?.author?.data?.attributes?.fullName ||
-            (item?.attributes?.creator?.data?.attributes?.fullName as string)
+            (item?.attributes?.creator?.data?.attributes?.username as string)
           }
           articleTitle={item?.attributes?.title}
           articleIntro={item?.attributes?.blurb as string}

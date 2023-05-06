@@ -66,7 +66,7 @@ import GoogleMap from 'components/utilities/Google/GoogleMap';
 import SearchBox from 'components/utilities/Google/SearchBox';
 import { INITIAL_STATE, formReducer } from 'components/users/posts/formReducer';
 import { AuthContext } from 'src/features/auth/AuthContext';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 // import { Modal } from 'components/Modal';
 
 export type EditFormProps = {
@@ -199,7 +199,7 @@ const EditActivityForm = ({ id, attributes, formType }: EditFormProps) => {
     let slug = attributes?.slug as string;
     if (info.title !== attributes?.title) {
       const randomString = uuidv4();
-      slug = customeSlugify(
+      slug = customSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
     }

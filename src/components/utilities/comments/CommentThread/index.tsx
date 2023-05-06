@@ -50,7 +50,7 @@ const CommentThread: React.FC<ICommentThread> = ({
   // const [showEditor, setShowEditor] = useState(true);
   // const [showEditEditor, setShowEditEditor] = useState(false);
   const [comments, setComments] = useState<DocumentData>([]);
-  console.log(firebaseId);
+  // console.log(firebaseId);
 
   const editComment = (body: string, id: string): void => {
     dispatch(

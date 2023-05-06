@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useReducer, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 import { useQuery } from '@apollo/client';
 import { CategoriesDocument } from 'generated/graphql';
 
@@ -137,7 +137,7 @@ const ActivityForm = () => {
       const category = found?.attributes?.name;
       // console.log(found);
 
-      const slug: string = customeSlugify(
+      const slug: string = customSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
       const activityUrl = `${url}/activities/${category?.toLowerCase()}/${slug.toLowerCase()}`;

@@ -27,7 +27,7 @@ function OrganisationPage(props: PropsType) {
   const { id, attributes } = user;
 
   useIsAuth();
-  console.log(props?.data?.usersPermissionsUsers?.data[0]);
+  // console.log(props?.data?.usersPermissionsUsers?.data[0]);
   return (
     <>
       <Head>
@@ -52,7 +52,7 @@ function OrganisationPage(props: PropsType) {
         />
       </Head>
       {attributes?.userType === 'standard' && (
-        <ProfilePage props={attributes as UsersPermissionsUser} />
+        <ProfilePage props={attributes as UsersPermissionsUser} userId={id as string} />
       )}
       {attributes?.userType === 'organisation' && (
         <Org id={id as string} attributes={attributes as Organisation} />

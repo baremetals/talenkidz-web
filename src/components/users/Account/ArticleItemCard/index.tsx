@@ -55,7 +55,6 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
   heroImageId,
 }) => {
   const dispatch = useAppDispatch();
-
   const sendArticleDataWithModal = () => {
     const article = {
       title: articleTitle,

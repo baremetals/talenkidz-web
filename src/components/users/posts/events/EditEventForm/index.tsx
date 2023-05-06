@@ -64,7 +64,7 @@ import { Edit } from 'public/assets/icons/Edit';
 import { FormProps } from 'src/types';
 import GoogleMap from 'components/utilities/Google/GoogleMap';
 import SearchBox from 'components/utilities/Google/SearchBox';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 import { AuthContext } from 'src/features/auth/AuthContext';
 // import { Modal } from 'components/Modal';
 
@@ -199,7 +199,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
     let slug = attributes?.slug as string;
     if (info.title !== attributes?.title) {
       const randomString = uuidv4();
-      slug = customeSlugify(
+      slug = customSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
     }
