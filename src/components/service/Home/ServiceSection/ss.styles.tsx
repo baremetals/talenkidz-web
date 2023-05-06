@@ -121,9 +121,9 @@ export const OurServicePageHeading = styled.h1`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
-      @media (max-width: 991px) { 
-         color: #0f021f;
-      }
+    @media (max-width: 991px) {
+      color: #0f021f;
+    }
     &::after {
       content: '';
       background: #39007e;
@@ -146,7 +146,7 @@ export const OurServicePageHeading = styled.h1`
       height: 100%;
       top: 0;
       left: 0;
-      display:none;
+      display: none;
     }
   }
 `;
@@ -154,6 +154,30 @@ export const OurServicePageHeading = styled.h1`
 export const OwlCarouselBlock = styled.div`
   max-width: 814px;
   margin: 0 auto;
+  .slick-dots {
+    li {
+      &.slick-active {
+        button {
+          background: #39007e;
+        }
+      }
+      button {
+        background: rgba(57, 0, 126, 0.5);
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+  .slick-prev {
+    left: -80px;
+  }
+  .slick-next {
+    right: -80px;
+  }
 `;
 
 export const ButtonBlock = styled.div`
