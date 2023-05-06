@@ -147,6 +147,30 @@ export const BestPlaceItem = styled.div`
 export const OwlCarouselBlock = styled.div`
   max-width: 814px;
   margin: 0 auto;
+  .slick-dots {
+    li {
+      &.slick-active {
+        button {
+          background: #39007e;
+        }
+      }
+      button {
+        background: rgba(57, 0, 126, 0.5);
+        width: 10px;
+        height: 10px;
+        margin: 40px 3px 0;
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+  .slick-prev {
+    left: -90px;
+  }
+  .slick-next {
+    right: -90px;
+  }
 `;
 
 export const BestPlaceHeading = styled.h1`
@@ -164,9 +188,9 @@ export const BestPlaceHeading = styled.h1`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
-     @media (max-width: 991px) { 
-       color: #0f021f;
-     }
+    @media (max-width: 991px) {
+      color: #0f021f;
+    }
     &::after {
       content: '';
       background: #39007e;
@@ -181,7 +205,7 @@ export const BestPlaceHeading = styled.h1`
       transform: rotate(-1.97deg);
       @media (max-width: 991px) {
         min-height: 59px;
-          display: none;
+        display: none;
       }
     }
   }
@@ -193,7 +217,7 @@ export const BestPlaceHeading = styled.h1`
       height: 100%;
       top: 0;
       left: 0;
-       display: none;
+      display: none;
     }
   }
 `;

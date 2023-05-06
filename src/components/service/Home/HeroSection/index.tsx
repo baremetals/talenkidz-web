@@ -60,11 +60,9 @@ import { cutTextToLength } from 'src/utils';
 //   },
 // };
 
-
-
 const HeroSection = (slides: { slides: TFeatureSlider[] }) => {
   // console.log(slides.slides);
-  
+
   const [slidesArray, setSlidesArray] = useState(slides.slides);
 
   let settings = {
@@ -87,11 +85,10 @@ const HeroSection = (slides: { slides: TFeatureSlider[] }) => {
     autoplay: true,
     dots: true,
     infinite: true,
-    speed: 2000,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
 
   return (
     <Section>
