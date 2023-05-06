@@ -46,9 +46,7 @@ export const SliderRight = styled.div`
     left: -14px;
   }
   img {
-    
   }
-  
 `;
 
 export const RightImg = styled.div`
@@ -65,12 +63,26 @@ export const OwlCarouselBlock = styled.div`
   margin: 0 auto;
   .slick-dots {
     li {
-      button {
-        background: rgba(57, 0, 126, 0.5);
-        &.slick-active {
+      &.slick-active {
+        button {
           background: #39007e;
         }
       }
+      button {
+        background: rgba(57, 0, 126, 0.5);
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        &:before {
+          display: none;
+        }
+      }
     }
+  }
+  .slick-prev {
+    left: -90px;
+  }
+  .slick-next {
+    right: -90px;
   }
 `;

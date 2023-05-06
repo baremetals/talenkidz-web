@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { createContext, useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch } from 'src/app/hooks';
+import React, { createContext, useCallback, useEffect, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { setFirebaseUser, signOutUser } from 'src/features/auth';
 import { AuthUser } from 'src/interfaces';
 import {
@@ -15,10 +15,8 @@ import { addToMailingList } from 'src/helpers';
 import { v4 } from 'uuid';
 import { formProps, IAuthContext, returnType } from './authSpec';
 
-import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth/selectors';
 import { openModal } from '../modal';
-import React from 'react';
 
 
 
@@ -258,146 +256,246 @@ const AuthProvider: React.FC = ({ children }) => {
   //     });
   // }
 
+  const createFirebaseAccount = useCallback(async (email: string, firebasePassword: string) => {
+    await addToMailingList(email as string);
+    return createUserWithEmailAndPassword(
+      auth,
+      email as string,
+      firebasePassword
+    )
+      .then(async (userCredential) => {
+        // console.log('=======> masssa');
+        const firebaseUser = userCredential.user;
+        // console.log(firebaseUser);
+        await axios.post('/api/user/firebaseId', {
+          data: {
+            firebaseUserId: firebaseUser.uid,
+            firebasePassword,
+            mailinglist: true,
+          },
+        });
+        
+      })
+      .catch((_error) => {
+        // console.log('=======> jesus christ');
+        // const errorMessage = error.message;
+        // console.log('firebase catchblock', errorMessage);
+        router.push(router.asPath === '/' ? '/account' : router.asPath);
+        return null;
+      });
+  }, [router])
+
+  const logIntoFirebaseAccount = useCallback(
+    async (email: string, firebasePassword: string) => {
+      return signInWithEmailAndPassword(
+        auth,
+        email as string,
+        firebasePassword as string
+      )
+        .then(async (_userCredential) => {
+          // console.log('=======> sleep');
+          // const firebaseUser = userCredential.user;
+          // console.log(firebaseUser);
+          // if (userType === 'organisation') {
+          //   router.push(`/account`);
+          // }
+          // if (userType === 'candidate') {
+          //   router.push(`/user-profile/${username}`);
+          // }
+          
+        })
+        .catch((_error) => {
+          // console.log('=======> fools');
+          // const errorMessage = error.message;
+          // console.log('firebase catchblock', errorMessage);
+          router.push(`/account`);
+          return null;
+        });
+    },
+    [router]
+  );
+
   const loginWithProvider = useCallback(
     async (
       access_token: string,
       provider: string
     ): Promise<returnType | null> => {
-      return axios
-        .post('/api/auth/provider-login', {
-          data: {
-            access_token,
-            provider,
-          },
-        })
-        .then(async (res: { data: { user: AuthUser } }) => {
-          // console.log('=======> cunt');
-          const generatedToken = v4();
-          const stripeCustomerId = res.data.user.stripeCustomerId;
-          const notificationsSettings = res.data.user.notificationsSettings;
-          // console.log(stripeCustomerId)
-          const email = res.data.user.email;
-          const name = res.data.user.fullName || res.data.user.username;
-          if (stripeCustomerId === null) {
-            const stripe = await fetch('/api/user/stripe', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                name,
-                email,
-              }),
+      try {
+            const response = await axios.post('/api/auth/provider-login', {
+              data: {
+                access_token,
+                provider,
+              },
             });
-            const stripeResponse = await stripe.json();
-            // console.log(stripeResponse);
 
-            if (!stripeResponse.error) {
-              await axios.post('/api/user/update', {
-                data: {
-                  stripeCustomerId: stripeResponse.customerid,
-                  flag: 'stripe',
-                },
-              });
-            }
-          }
-          if (
-            notificationsSettings === null ||
-            notificationsSettings === undefined
-          ) {
+        const user = response.data.user;
+        const generatedToken = v4();
+        const stripeCustomerId = user.stripeCustomerId;
+        const notificationsSettings = user.notificationsSettings;
+        const email = user.email;
+        const name = user.fullName || user.username;
+
+        if (stripeCustomerId === null) {
+          const stripeResponse = await fetch('/api/user/stripe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+            }),
+          }).then((res) => res.json());
+
+          if (!stripeResponse.error) {
             await axios.post('/api/user/update', {
               data: {
-                notificationsSettings: {
-                  likes: true,
-                  account: true,
-                  comments: true,
-                  mailingList: true,
-                  bookmarkList: true,
-                  publishedPosts: true,
-                  recommendations: true,
-                  publishedEvents: true,
-                  publishedActivities: true,
-                },
-                flag: 'settings',
+                stripeCustomerId: stripeResponse.customerid,
+                flag: 'stripe',
               },
             });
           }
-          const firebasePassword =
-            res.data.user.firebasePassword === null
-              ? generatedToken
-              : (res.data.user.firebasePassword as string);
-          if (
-            res.data.user.firebasePassword === null &&
-            res.data.user.firebaseUserId == ('not set' as string)
-          ) {
-            await addToMailingList(email as string);
-            return createUserWithEmailAndPassword(
-              auth,
-              email as string,
-              firebasePassword
-            )
-              .then(async (userCredential) => {
-                // console.log('=======> masssa');
-                const firebaseUser = userCredential.user;
-                // console.log(firebaseUser);
-                await axios.post('/api/user/firebaseId', {
-                  data: {
-                    firebaseUserId: firebaseUser.uid,
-                    firebasePassword,
-                    mailinglist: true,
-                  },
-                });
-                router.push(router.asPath === '/' ? '/account' : router.asPath);
-                return {
-                  success:
-                    'You have been successfully logged in. You will be redirected in a few seconds...',
-                };
-              })
-              .catch((_error) => {
-                // console.log('=======> jesus christ');
-                // const errorMessage = error.message;
-                // console.log('firebase catchblock', errorMessage);
-                router.push(router.asPath === '/' ? '/account' : router.asPath);
-                return null;
-              });
-          } else {
-            return signInWithEmailAndPassword(
-              auth,
-              email as string,
-              firebasePassword as string
-            )
-              .then(async (_userCredential) => {
-                // console.log('=======> sleep');
-                // const firebaseUser = userCredential.user;
-                // console.log(firebaseUser);
-                // if (userType === 'organisation') {
-                //   router.push(`/account`);
-                // }
-                // if (userType === 'candidate') {
-                //   router.push(`/user-profile/${username}`);
-                // }
-                router.push(`/account`);
-                return {
-                  success:
-                    'You have been successfully logged in. You will be redirected in a few seconds...',
-                };
-              })
-              .catch((_error) => {
-                // console.log('=======> fools');
-                // const errorMessage = error.message;
-                // console.log('firebase catchblock', errorMessage);
-                router.push(`/account`);
-                return null;
-              });
-          }
-        })
-        .catch((err) => {
-          // console.log('=======> wasteman');
-          const errorMessage = err.response.data.message;
-          // console.log('strapi catchblock', errorMessage);
-          return { error: errorMessage };
-        });
+        }
+        if (
+          notificationsSettings === null ||
+          notificationsSettings === undefined
+        ) {
+          await axios.post('/api/user/update', {
+            data: {
+              notificationsSettings: {
+                likes: true,
+                account: true,
+                comments: true,
+                mailingList: true,
+                bookmarkList: true,
+                publishedPosts: true,
+                recommendations: true,
+                publishedEvents: true,
+                publishedActivities: true,
+              },
+              flag: 'settings',
+            },
+          });
+        }
+
+        const firebasePassword =
+          user.firebasePassword === null
+            ? generatedToken
+            : user.firebasePassword;
+
+        if (
+          user.firebasePassword === null &&
+          user.firebaseUserId === 'not set'
+        ) {
+          await createFirebaseAccount(email as string, firebasePassword);
+          router.push(router.asPath === '/' ? '/account' : router.asPath);
+        } else {
+          await logIntoFirebaseAccount(email as string, firebasePassword);
+          router.push(`/account`);
+        }
+
+        return {
+          success:
+            'You have been successfully logged in. You will be redirected in a few seconds...',
+        };
+        
+      } catch (error: any) {
+        console.log(error);
+        const errorMessage = error.response.data.message;
+        return { error: errorMessage };
+      }
+
+      // return axios
+      //   .post('/api/auth/provider-login', {
+      //     data: {
+      //       access_token,
+      //       provider,
+      //     },
+      //   })
+      //   .then(async (res: { data: { user: AuthUser } }) => {
+      //     // console.log('=======> cunt');
+      //     const generatedToken = v4();
+      //     const stripeCustomerId = res.data.user.stripeCustomerId;
+      //     const notificationsSettings = res.data.user.notificationsSettings;
+      //     // console.log(stripeCustomerId)
+      //     const email = res.data.user.email;
+      //     const name = res.data.user.fullName || res.data.user.username;
+      //     if (stripeCustomerId === null) {
+      //       const stripe = await fetch('/api/user/stripe', {
+      //         method: 'POST',
+      //         headers: { 'Content-Type': 'application/json' },
+      //         body: JSON.stringify({
+      //           name,
+      //           email,
+      //         }),
+      //       });
+      //       const stripeResponse = await stripe.json();
+      //       // console.log(stripeResponse);
+
+      //       if (!stripeResponse.error) {
+      //         await axios.post('/api/user/update', {
+      //           data: {
+      //             stripeCustomerId: stripeResponse.customerid,
+      //             flag: 'stripe',
+      //           },
+      //         });
+      //       }
+      //     }
+      //     if (
+      //       notificationsSettings === null ||
+      //       notificationsSettings === undefined
+      //     ) {
+      //       await axios.post('/api/user/update', {
+      //         data: {
+      //           notificationsSettings: {
+      //             likes: true,
+      //             account: true,
+      //             comments: true,
+      //             mailingList: true,
+      //             bookmarkList: true,
+      //             publishedPosts: true,
+      //             recommendations: true,
+      //             publishedEvents: true,
+      //             publishedActivities: true,
+      //           },
+      //           flag: 'settings',
+      //         },
+      //       });
+      //     }
+      //     const firebasePassword =
+      //       res.data.user.firebasePassword === null
+      //         ? generatedToken
+      //         : (res.data.user.firebasePassword as string);
+      //     if (
+      //       res.data.user.firebasePassword === null &&
+      //       res.data.user.firebaseUserId == ('not set' as string)
+      //     ) {
+      //       // await addToMailingList(email as string);
+      //       await createFirebaseAccount(email as string, firebasePassword);
+      //       router.push(router.asPath === '/' ? '/account' : router.asPath);
+      //       return {
+      //         success:
+      //           'You have been successfully logged in. You will be redirected in a few seconds...',
+      //       };
+            
+      //     } else {
+      //       await logIntoFirebaseAccount(email as string, firebasePassword);
+      //       router.push(`/account`);
+      //       return {
+      //         success:
+      //           'You have been successfully logged in. You will be redirected in a few seconds...',
+      //       };
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     // console.log('=======> wasteman');
+      //     const errorMessage = err.response.data.message;
+      //     // console.log('strapi catchblock', errorMessage);
+      //     return { error: errorMessage };
+      //   });
     },
-    [router]
+    [createFirebaseAccount, logIntoFirebaseAccount, router]
   );
+
+  
 
   // async function loginWithProviders(
   //   access_token: string,

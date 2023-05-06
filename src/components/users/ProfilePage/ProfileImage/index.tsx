@@ -5,6 +5,7 @@ import Pencil from 'public/assets/icons/Pencil';
 import { EditIconButton, Premium, UserProfileImage, UserProfileImageBlock } from '../profile.styles';
 import { handleImgChange, uploadNewImage } from 'src/utils';
 
+
 type TProfileImage = {
   membership: string;
   avatar: string;
@@ -12,22 +13,26 @@ type TProfileImage = {
 };
 
 const ProfileImage: React.FC<TProfileImage> = ({membership, avatar, userType}) => {
-    const [uploadImg, setUploadImg] = useState<any>(null);
+    const [, setUploadImg] = useState<any>(null);
     const [profileImg, setProfileImg] = useState<string | null>(avatar);
+
+    // console.log(uploadImg);
     const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-      // console.log('In the function',uploadImg);
+      // console.log('In the function', event?.target?.files![0]);
       try {
         await handleImgChange({
           event,
           setUploadImg,
           setDisplayImg: setProfileImg,
         });
-        await uploadNewImage(uploadImg, 'profile');
+        // console.log(uploadImg);
+        await uploadNewImage(event?.target?.files![0], 'profile');
         // console.log(resp);
       } catch (error) {
         console.log('The Error Is: ', error);
       }
     };
+
   return (
     <UserProfileImageBlock
       className={membership === 'premium' ? 'premiumStatus' : ''}
@@ -48,10 +53,10 @@ const ProfileImage: React.FC<TProfileImage> = ({membership, avatar, userType}) =
           />
         </Premium>
       )}
-      <EditIconButton htmlFor="inputTag" className="EditButton">
+      <EditIconButton htmlFor="profilePic" className="EditButton">
         <Pencil />
         <input
-          id="inputTag"
+          id="profilePic"
           className="inputTag"
           type="file"
           onChange={(e) => handleImageChange(e)}

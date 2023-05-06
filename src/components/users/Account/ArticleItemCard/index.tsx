@@ -30,6 +30,7 @@ interface IArticleItemCard extends IArticleCard {
   keywords: string;
   body: string;
   categoryId: string;
+  heroImageId: string;
 }
 
 const ArticleItemCard: React.FC<IArticleItemCard> = ({
@@ -51,6 +52,7 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
   body,
   id,
   categoryId,
+  heroImageId,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -61,6 +63,7 @@ const ArticleItemCard: React.FC<IArticleItemCard> = ({
       category,
       body,
       heroImage: articleImage,
+      heroImageId,
       readingTime,
       keywords,
       slug,

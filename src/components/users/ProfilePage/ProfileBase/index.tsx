@@ -41,7 +41,7 @@ import {
   ProfileInfo,
 } from '../profile.styles';
 import { InnerContainer, Title, Text } from 'styles/common.styles';
-import { upperCase } from 'src/utils';
+import { formatDayJSTime, upperCase } from 'src/utils';
 import Link from 'next/link';
 import { openModal } from 'src/features/modal';
 import ProfileImage from '../ProfileImage';
@@ -84,7 +84,7 @@ const ProfileBase: React.FC<TUserProps> = ({
       const getNewNotification = async () => {
         const q = query(
           collection(db, 'notifications'),
-          where('recipientEmail', '==', user?.email),
+          where('entityId', '==', user?.id),
           where('read', '==', false),
           orderBy('createdAt', 'desc')
           // limit(3)
@@ -105,7 +105,7 @@ const ProfileBase: React.FC<TUserProps> = ({
         listen;
       };
     }
-  }, [user?.email]);
+  }, [user?.email, user?.id]);
 
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef<any>(null);
@@ -250,14 +250,14 @@ const ProfileBase: React.FC<TUserProps> = ({
                           id: string;
                           sender: string;
                           messageImage: string;
+                          messageType: string;
                           createdAt: { seconds: number };
                         }) => (
                           <Notification
                             key={item.id}
                             name={item.sender}
-                            createdAt={dayjs
-                              .unix(item.createdAt?.seconds)
-                              .fromNow()}
+                            messageType={item.messageType}
+                            createdAt={formatDayJSTime(item.createdAt)}
                             messageImage={item.messageImage}
                           />
                         )

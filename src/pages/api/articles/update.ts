@@ -14,22 +14,22 @@ export default async function articles(
       return res.status(405).end('Method not allowed');
     }
     try {
-      console.log('i reached here');
+      // console.log('=======> i reached here');
       const response = await axios({
         method: 'PUT',
-        url: `${baseUrl}/articles/${req.body.data.articleId}`,
+        url: `${baseUrl}/articles/${req.body.data.id}`,
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        data: req.body,
+        data: {...req.body},
       });
-      // console.log('i reached here', response);
+      console.log('=======>i reached here', response);
       // console.log(response.data, 'fuck sake');
       res.status(200).json({ data: response.data });
     } catch (err: any) {
       // console.log('am not a dope', err);
-      // console.log('am i dope', err.response.data.error);
+      console.log('am i dope', err.response.data.error);
       res.status(401).json({ data: err.response.data });
     }
   }

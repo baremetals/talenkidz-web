@@ -62,7 +62,7 @@ export default async function handler(
   }
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const { jwt } = cookies;
-  // console.log('I atleast run up in here')
+  // console.log('I at least run up in here')
   try {
     const chunks: never[] = [];
 

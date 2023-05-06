@@ -187,6 +187,7 @@ export type TArticleFormProps = {
   heroImage: File | null | string;
   readingTime: string;
   keywords: string;
+  heroImageId: string;
 };
 
 export type TFaq = {

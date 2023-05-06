@@ -86,6 +86,7 @@ const ArticleSection = () => {
           keywords={item?.attributes?.SEO?.keywords as string}
           body={item?.attributes?.body as string}
           categoryId={item?.attributes?.category?.data?.id as string}
+          heroImageId={item?.attributes?.heroImage?.data?.id as string}
         />
       ))}
     </>
