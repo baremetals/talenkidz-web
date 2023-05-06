@@ -29,6 +29,7 @@ import DeactivateAccount from 'components/users/SettingsPage/Modal/DeactivateAcc
 import DeleteAccount from 'components/users/SettingsPage/Modal/DeleteAccount';
 // import EditEventForm from 'components/users/posts/events/EditEventForm';
 // import EditActivityForm from 'components/users/posts/activities/EditActivityForm';
+import PremiumModal from './PremiumModal';
 
 /** Components Name Constants */
 const MODAL_COMPONENTS = {
@@ -56,6 +57,7 @@ const MODAL_COMPONENTS = {
   EDIT_ARTICALFORM_MODAL: EditArticleForm,
   // EDIT_ACTIVITYFORM_MODAL: EditActivityForm,
   // EDIT_EVENTFORM_MODAL: EditEventForm,
+  PREMIUM_MODAL: PremiumModal,
 };
 
 export default function AuthModal({ ...props }: any) {

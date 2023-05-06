@@ -4,17 +4,21 @@ import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth';
 import { Column, Row } from 'styles/common.styles';
 import EventItem from '../EventCard';
+import { useRouter } from 'next/router';
 
 const MyEvent = () => {
+  const router = useRouter();
   const { user: user } = useAppSelector(isUser);
   const [entity, setEntities] = useState<EventEntity[]>([]);
-
+  const pageOwner = router.query.username
+    ? router.query.username
+    : user?.username;
   const [loadEvents, { loading, data }] = useFilteredEventsLazyQuery({
     variables: {
       filters: {
         host: {
-          id: {
-            eq: user?.id?.toString(),
+          username: {
+            eq: pageOwner as string,
           },
         },
       },

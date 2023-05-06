@@ -6,7 +6,7 @@ export const TeachersService = styled.section`
   position: relative;
   overflow: hidden;
   .TeacherCarouselBlock {
-     max-width: 960px;
+    max-width: 960px;
   }
   @media (max-width: 991px) {
     padding-top: 2.5rem;
@@ -105,8 +105,8 @@ export const TeacherHeading = styled.h1`
     position: relative;
     color: #fff;
     font-family: 'Syne', sans-serif !important;
-    @media (max-width: 991px) { 
-       color: #0f021f;
+    @media (max-width: 991px) {
+      color: #0f021f;
     }
     &::after {
       content: '';
@@ -120,9 +120,9 @@ export const TeacherHeading = styled.h1`
       z-index: -1;
       border-radius: 20px;
       transform: rotate(-1.97deg);
-      @media (max-width: 991px) { 
-           display:none;
-       }
+      @media (max-width: 991px) {
+        display: none;
+      }
     }
   }
   @media (max-width: 991px) {
@@ -133,13 +133,15 @@ export const TeacherHeading = styled.h1`
       height: 100%;
       top: 0;
       left: 0;
-      display:none;
+      display: none;
     }
   }
 `;
 
 export const TeacherItem = styled.div`
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
   Button {
     background: #0f021f;
     border-radius: 20px;
@@ -315,18 +317,18 @@ export const TeacherImgBlock = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding:8px 8px 0px;
+  padding: 8px 8px 0px;
   padding-bottom: 0;
   border: solid 3px #39007e;
   border-bottom: 0;
   border-left: 0;
-  width:408px;
-  height:408px;
-   position: relative;
- @media (max-width: 991px) {
-      width:328px;
-      height:328px;
-    }
+  width: 408px;
+  height: 408px;
+  position: relative;
+  @media (max-width: 991px) {
+    width: 328px;
+    height: 328px;
+  }
 `;
 
 export const TeacherBorder = styled.div`
@@ -334,15 +336,28 @@ export const TeacherBorder = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
-  width:400px;
-  height:400px;
+  width: 400px;
+  height: 400px;
   @media (max-width: 991px) {
-      width:320px;
-      height:320px;
-    }
+    width: 320px;
+    height: 320px;
+  }
 `;
 
 export const OwlCarouselBlock = styled.div`
   max-width: 914px;
   margin: 0 auto;
+  .slick-dots {
+    li {
+      button {
+        background: rgba(57, 0, 126, 0.5);
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        &.slick-active {
+          background: #39007e;
+        }
+      }
+    }
+  }
 `;

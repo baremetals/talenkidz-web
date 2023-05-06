@@ -50,9 +50,7 @@ const CommentThread: React.FC<ICommentThread> = ({
   // const [showEditor, setShowEditor] = useState(true);
   // const [showEditEditor, setShowEditEditor] = useState(false);
   const [comments, setComments] = useState<DocumentData>([]);
-  // console.log(comments);
-
-  
+  // console.log(firebaseId);
 
   const editComment = (body: string, id: string): void => {
     dispatch(
@@ -194,23 +192,25 @@ const CommentThread: React.FC<ICommentThread> = ({
                 <DayBlock>
                   {dayjs.unix(com.updatedAt?.seconds).fromNow()}
                 </DayBlock>
-                {user?.id === com.userId? <div className="icons-block">
-                  <div
-                    className="block-icon"
-                    onClick={() => editComment(com.body, com.id)}
-                  >
-                    <EditIcon />
-                    <ItemText>Edit</ItemText>
+                {user?.id === com.userId ? (
+                  <div className="icons-block">
+                    <div
+                      className="block-icon"
+                      onClick={() => editComment(com.body, com.id)}
+                    >
+                      <EditIcon />
+                      <ItemText>Edit</ItemText>
+                    </div>
+                    <div
+                      className="block-icon"
+                      onClick={() => deleteComment(com.entityStrapiId, com.id)}
+                    >
+                      <DeletesIcon />
+                      <ItemText>Delete</ItemText>
+                    </div>
                   </div>
-                  <div
-                    className="block-icon"
-                    onClick={() => deleteComment(com.entityStrapiId, com.id)}
-                  >
-                    <DeletesIcon />
-                    <ItemText>Delete</ItemText>
-                  </div>
-                </div>: null}
-                
+                ) : null}
+
                 {/* <ReplyBlock> */}
                 {/* <label>reply on</label>
                 <Image
@@ -224,9 +224,11 @@ const CommentThread: React.FC<ICommentThread> = ({
             </CommentWrapper>
           )
         )
-      ) : (
-        <CommentWrapper>Leave a comment</CommentWrapper>
-      )}
+      ) : null
+      // (
+      //   <CommentWrapper>Leave  comment</CommentWrapper>
+      // )
+      }
 
       {/* <CommentBox>
         <CommentUserBox>

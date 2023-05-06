@@ -23,6 +23,7 @@ import {
 import { ErrorMsg } from 'components/widgets/Input';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import { CrossRounded } from 'public/assets/icons/CrossRounded';
 import { Edit } from 'public/assets/icons/Edit';
 import { useForm } from 'react-hook-form';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
@@ -30,7 +31,7 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { articleFormContentSelector, closeModal } from 'src/features/modal';
 import { TArticleFormProps } from 'src/types';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import {
   DismissIcon,
@@ -41,7 +42,6 @@ import {
   InnerFormWrapper,
   UploadLabel,
 } from '../../createpost.styles';
-import { CrossRounded } from 'public/assets/icons/CrossRounded';
 
 // import { formReducer, INITIAL_STATE } from 'components/list/Create/formReducer';
 
@@ -71,8 +71,8 @@ const EditArticleForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState(false);
-  const [image, setImageError] = useState(false);
-  const [body, setBodyError] = useState(false);
+  const [image] = useState(false);
+  const [body] = useState(false);
 
   // console.log(displayImg);
   // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
@@ -117,40 +117,68 @@ const EditArticleForm = () => {
       console.log('The Error Is: ', error);
     }
   };
+
+  // console.log('=====>', formContent)
+
+  const uploadImage = async (heroImage: File) => {
+    const form = new FormData();
+    form.append('file', heroImage, heroImage.name);
+
+    const uploadApi = await axios.post(`/api/upload`, form, {
+      headers: { Accept: 'multipart/form-data' },
+    });
+
+    if (!uploadApi?.data?.content?.id) {
+      throw new Error('Issue uploading image, please try again later');
+    }
+
+    return {
+      heroImage: uploadApi?.data?.content?.id as string,
+      imageURL: uploadApi?.data?.content?.url as string,
+    };
+  };
+
+  const saveArticle = async (data: any, articleUrl: string) => {
+    // console.log('============>data', data);
+    const res = await axios.post('/api/articles/update', { data });
+    // console.log('============>', res)
+    if (res.status === 200) {
+      dispatch(closeModal());
+      router.push(articleUrl);
+    } else {
+      await axios.post('/api/upload/delete', {
+        data: { id: data.heroImage },
+      });
+    }
+  };
   // console.log(user)
   const onSubmit = async (info: TArticleFormProps) => {
-    // console.log(uploadImg);
-    setSubmitting(true);
-
-    if (uploadImg == null && formContent?.heroImage == '') {
-      setImageError(true);
-      setSubmitting(false);
-      setTimeout(() => {
-        setImageError(false);
-      }, 10000);
-    } else if (!info.body && content == '') {
-      setBodyError(true);
-      setSubmitting(false);
-      setTimeout(() => {
-        setBodyError(false);
-      }, 10000);
-    } else {
+    try {
+      const heroImage = uploadImg as File;
       const url = process.env.NEXT_PUBLIC_SITE_URL;
+      setSubmitting(true);
+
+      if (uploadImg == '' && formContent?.heroImage == '') {
+        throw new Error('Please select an image to upload');
+      }
+
+      if (!info.body && content == '') {
+        throw new Error('Please provide article content');
+      }
 
       const randomString = uuidv4();
       let category = formContent?.category;
       let title = formContent?.title as string;
       let slug = formContent?.slug as string;
 
-      slug = customeSlugify(
-        info.title + randomString.slice(0, 6)
-      ).toLowerCase();
       if (title !== info.title) {
         title = info.title;
-        slug = customeSlugify(
+
+        slug = customSlugify(
           info.title + randomString.slice(0, 6)
         ).toLowerCase();
       }
+
       if (info.category !== 'Please select a category') {
         const found = categories.find(
           (element: { id: string }) => element.id === info.category
@@ -158,153 +186,77 @@ const EditArticleForm = () => {
         category = found?.attributes?.name.trim();
       }
 
-      const articleUrl = `${url}/articles/${customeSlugify(
+      const articleUrl = `${url}/articles/${customSlugify(
         category as string
       )}/${slug}`;
 
-      console.log(formContent?.categoryId);
+      let articleData = {
+        id: formContent?.articleId,
+        title,
+        body: content,
+        category:
+          info.category !== 'Please select a category'
+            ? info.category
+            : formContent?.categoryId,
+        slug: slug.toLowerCase(),
+        blurb: info.blurb,
+        readingTime: info.readingTime,
+        creatorId: user?.id,
+      };
 
-      let form = new FormData();
-
-      if (uploadImg !== '') {
-        const heroImage = uploadImg as File;
-        form.append('file', heroImage, heroImage.name);
-        try {
-          const uploadApi = await axios(`/api/upload`, {
-            method: 'post',
-            headers: {
-              Accept: 'multipart/form-data',
-            },
-            data: form,
-          });
-
-          // console.log(uploadApi);
-
-          if (uploadApi?.data?.content?.id) {
-            // console.log(uploadApi?.data)
-            const data = {
-              articleId: formContent?.articleId,
-              title,
-              body: content,
-              category:
-                info.category !== 'Please select a category'
-                  ? info.category
-                  : formContent?.categoryId,
-              slug: slug.toLowerCase(),
-              blurb: info.blurb,
-              readingTime: info.readingTime,
-              heroImage: uploadApi?.data?.content?.id,
-              SEO: {
-                title,
-                description: info.blurb,
-                image: uploadApi?.data?.content?.url,
-                url: articleUrl.toLowerCase(),
-                keywords: info.keywords,
-                type: 'article',
-                author: user?.orgName
-                  ? user?.orgName
-                  : user?.fullName || user?.username,
-              },
-            };
-            await axios
-              .post('/api/articles/update', {
-                data,
-              })
-              .then((res) => {
-                //   console.log(res);
-                if (res.status === 200) {
-                  dispatch(closeModal());
-                  router.push(articleUrl);
-                }
-              })
-              .catch(async (_err) => {
-                //   console.log(err.response.data);
-                setSubmitting(false);
-                setMsg('Sorry something went wrong please try again later.');
-                setError(true);
-                await axios.post('/api/upload/delete', {
-                  data: { id: uploadApi?.data?.content?.id },
-                });
-                setTimeout(() => {
-                  dispatch(closeModal());
-                }, 7000);
-              });
-          } else {
-            setSubmitting(false);
-            setMsg('Issue uploading image, please try again later');
-            setError(true);
-            setTimeout(() => {
-              dispatch(closeModal());
-            }, 7000);
-          }
-        } catch (e) {
-          // console.log(e);
-          setSubmitting(false);
-          setMsg('Issue uploading image, please try again later');
-          setError(true);
-          setTimeout(() => {
-            dispatch(closeModal());
-          }, 7000);
-        }
-      } else {
-        try {
-          const data = {
-            articleId: formContent?.articleId,
+        let seo = {
             title,
-            body: content,
-            category:
-              info.category !== 'Please select a category'
-                ? info.category
-                : formContent?.categoryId,
-            slug: slug.toLowerCase(),
-            blurb: info.blurb,
-            readingTime: info.readingTime,
-            SEO: {
-              title,
-              description: info.blurb,
-              url: articleUrl.toLowerCase(),
-              keywords: info.keywords,
-              image: formContent?.heroImage,
-              type: 'article',
-              author: user?.orgName
-                ? user?.orgName
-                : user?.fullName || user?.username,
-            },
-          };
+            description: info.blurb,
+            url: articleUrl.toLowerCase(),
+            keywords: info.keywords,
+            type: 'article',
+            author: user?.orgName
+              ? user?.orgName
+              : user?.fullName || user?.username,
+          }
 
-          await axios
-            .post('/api/articles/update', {
-              data,
-            })
-            .then((res) => {
-              console.log(res);
-              if (res.status === 200) {
-                dispatch(closeModal());
-                router.push(articleUrl);
-              }
-            })
-            .catch(async (err) => {
-              console.log(err.response.data);
-              setSubmitting(false);
-              setMsg('Sorry something went wrong please try again later.');
-              setError(true);
+      
+      if (uploadImg !== '') {
+        // const heroImage = uploadImg as File;
+        const { heroImage: uploadedHeroImage, imageURL } = await uploadImage(
+          heroImage
+        );
 
-              setTimeout(() => {
-                dispatch(closeModal());
-              }, 7000);
-            });
-        } catch (e) {
-          console.log(e);
-          setSubmitting(false);
-          setMsg('Issue uploading image, please try again later');
-          setError(true);
-          setTimeout(() => {
-            dispatch(closeModal());
-          }, 7000);
-        }
+        const data = {
+          ...articleData,
+          heroImage: uploadedHeroImage,
+          SEO: {
+            ...seo,
+            image: imageURL,
+          },
+        };
+
+        await saveArticle(data, articleUrl);
+      } 
+      else {
+
+        const data = {
+          ...articleData,
+          heroImage: formContent?.heroImageId,
+          SEO: {
+            ...seo,
+            image: formContent?.heroImage,
+          },
+        };
+
+        await saveArticle(data, articleUrl);
       }
+    } catch (error: any) {
+      console.error(error);
+      setSubmitting(false);
+      setMsg(error.message);
+      setError(true);
     }
   };
+
+  
+  
+  
 
   return (
     <InnerContainer>

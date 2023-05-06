@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-dayjs.extend(calendar);
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(calendar, relativeTime);
+// dayjs.extend(relativeTime);
 import { uploadProps } from 'src/types';
 import { toBase64 } from './base64';
 import axios from 'axios';
@@ -10,7 +12,7 @@ export function cutTextToLength(str: string | undefined, maxLength: number): str
   return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
 }
 
-export function customeSlugify(str: string): string {
+export function customSlugify(str: string): string {
   return str
     .toLowerCase()
     .replace(/[^\w ]+/g, '')
@@ -18,7 +20,7 @@ export function customeSlugify(str: string): string {
 }
 
 export function composeArticleSlug(id: string, title: string): string {
-  return `${customeSlugify(title)}-${id}`;
+  return `${customSlugify(title)}-${id}`;
 }
 
 export function extractArticleIdFromSlug(slug: string) {
@@ -31,6 +33,14 @@ export const upperCase = (
   if (word === undefined) return;
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
+
+export const formatDayJSTime = (date: string | Date | any) => {
+  if (typeof date === 'string') {
+    return dayjs(date).fromNow();
+  } else {
+    return dayjs.unix(date?.seconds).fromNow();
+  }
+}
 
 type TErrorType = {
   error: string;
@@ -58,7 +68,7 @@ export const handleImgChange = async ({
 };
 
 export const uploadNewImage = async (upload: File, field: string) => {
-  //   console.log(upload);
+    console.log(upload);
   let form = new FormData();
   form.append('file', upload, upload?.name);
   try {
@@ -70,7 +80,7 @@ export const uploadNewImage = async (upload: File, field: string) => {
       },
       data: form,
     });
-    // console.log(res);
+    console.log(res);
     const data = {
       imagefile: res?.data?.content?.url,
       flag: 'user-image',
@@ -86,13 +96,13 @@ export const uploadNewImage = async (upload: File, field: string) => {
 
 export const formatTimeAndDate = (date: string, time: string): string => {
   const combinedTimeAndDate = date + time;
-  const formatedTimeAndDate = dayjs(combinedTimeAndDate).calendar();
-  const formatedDateAndTime =
+  const formattedTimeAndDate = dayjs(combinedTimeAndDate).calendar();
+  const formattedDateAndTime =
     dayjs(combinedTimeAndDate).format('D MMM - HH:mm A');
-  const testFirstCharacter = formatedTimeAndDate.charAt(0)
+  const testFirstCharacter = formattedTimeAndDate.charAt(0)
   if (!Number.isNaN(Number(testFirstCharacter))) {
-    return formatedDateAndTime;
-  } else return formatedTimeAndDate;
+    return formattedDateAndTime;
+  } else return formattedTimeAndDate;
 };
 
 export const getCurrentWeek = (currentDate: Date) => {

@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
 import Image from 'next/image';
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-import dynamic from 'next/dynamic';
-const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
-  ssr: false,
-});
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-import {
-  InnerContainer,
-  Row,
-  Column,
-} from 'styles/common.styles';
+import Slider from 'react-slick';
+
+// import dynamic from 'next/dynamic';
+// const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
+//   ssr: false,
+// });
+
+import { InnerContainer, Row, Column } from 'styles/common.styles';
 import {
   Div,
   LocationImg,
@@ -23,8 +24,34 @@ import {
   OwlCarouselBlock,
   BestPlaceItem,
 } from './bp.styles';
+import { SliderLeft, SliderRight } from '../home.styles';
 
 const BestPlaceSection: React.FC = () => {
+  let settings = {
+    nav: false,
+    nextArrow: (
+      <SampleNextArrow
+        className={'rightImg'}
+        style={undefined}
+        onClick={undefined}
+      />
+    ),
+    prevArrow: (
+      <SamplePrevArrow
+        className={undefined}
+        style={undefined}
+        onClick={undefined}
+      />
+    ),
+    responsiveClass: true,
+    autoplay: true,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <BestPlaceService>
       <InnerContainer className="bestPlace">
@@ -41,17 +68,18 @@ const BestPlaceSection: React.FC = () => {
           />
         </LocationImg>
         <OwlCarouselBlock>
-          <OwlCarousel
-            className="owl-theme"
-            loop
-            items={1}
-            margin={1}
-            nav
-            navText={[
-              '<img src="/assets/svgs/LeftArrow.svg">',
-              '<img src="/assets/svgs/RightArrow.svg">',
-            ]}
-          >
+          <Slider {...settings}>
+            {/* <OwlCarousel
+              className="owl-theme"
+              loop
+              items={1}
+              margin={1}
+              nav
+              navText={[
+                '<img src="/assets/svgs/LeftArrow.svg">',
+                '<img src="/assets/svgs/RightArrow.svg">',
+              ]}
+            > */}
             <Div className="Takingitem">
               <BestPlaceItem>
                 <Row className="rowItem">
@@ -139,11 +167,42 @@ const BestPlaceSection: React.FC = () => {
                 </Row>
               </BestPlaceItem>
             </Div>
-          </OwlCarousel>
+            {/* </OwlCarousel> */}
+          </Slider>
         </OwlCarouselBlock>
       </InnerContainer>
     </BestPlaceService>
   );
-}
+};
 
 export default BestPlaceSection;
+
+function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
+  const { className, onClick } = props;
+  return (
+    <SliderRight className={className} onClick={onClick}>
+      <Image
+        className="rightImg"
+        src="/assets/svgs/RightArrow.svg"
+        alt="chess icon"
+        width={44}
+        height={24}
+      />
+    </SliderRight>
+  );
+}
+
+function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
+  const { className, onClick } = props;
+  return (
+    <SliderLeft className={className} onClick={onClick}>
+      <Image
+        className="rightImg"
+        src="/assets/svgs/LeftArrow.svg"
+        alt="chess icon"
+        width={44}
+        height={24}
+      />
+    </SliderLeft>
+  );
+}

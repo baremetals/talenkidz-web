@@ -5,33 +5,21 @@ import Content from './PageContent';
 
 import ProfileBase from './ProfileBase';
 
-function Profile(props: { props: UsersPermissionsUser }) {
-  const {
-    username,
-    fullName,
-    avatar,
-    backgroundImg,
-    bio,
-    membership,
-    userType,
-    createdAt,
-    organisation
-  } =
-    // eslint-disable-next-line no-unsafe-optional-chaining
-    props?.props;
-    // console.log(props?.props)
+function Profile(props: { props: UsersPermissionsUser; userId: string }) {
+  // console.log(props?.userId);
 
   return (
     <ProfileBase
-      username={username}
-      fullName={fullName as string}
-      avatar={avatar as string}
-      backgroundImg={backgroundImg as string}
-      bio={bio as string}
-      membership={membership as string}
-      userType={userType as string}
-      createdAt={createdAt as string}
-      orgName={organisation?.name as string}
+      username={props?.props?.username}
+      fullName={props?.props?.fullName as string}
+      avatar={props?.props?.avatar as string}
+      backgroundImg={props?.props?.backgroundImg as string}
+      bio={props?.props?.bio as string}
+      membership={props?.props?.membership as string}
+      userType={props?.props?.userType as string}
+      createdAt={props?.props?.createdAt as string}
+      orgName={props?.props?.organisation?.name as string}
+      userId={Number(props?.userId)}
     >
       <Content />
     </ProfileBase>

@@ -12,8 +12,14 @@ type TProps = {
   name: string;
   createdAt: string;
   messageImage: string;
+  messageType: string;
 };
-const Notification: React.FC<TProps> = ({ name, createdAt, messageImage }) => {
+const Notification: React.FC<TProps> = ({
+  name,
+  createdAt,
+  messageImage,
+  messageType,
+}) => {
   return (
     <>
       <NotificationWrapper>
@@ -31,7 +37,7 @@ const Notification: React.FC<TProps> = ({ name, createdAt, messageImage }) => {
             <span>{createdAt}</span>
           </UserName>
           <UserDec>
-            liked your article <span>“Raise good Humans”</span>
+            <span>{messageType}</span>
           </UserDec>
         </UserInfo>
       </NotificationWrapper>

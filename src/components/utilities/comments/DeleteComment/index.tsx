@@ -39,8 +39,8 @@ const DeleteCommentInput: React.FC = () => {
           <DismissIcon className="dismiss-icon">
             <CrossRounded onClick={() => dispatch(closeModal())} />
           </DismissIcon>
-          <h2>Do you really want to delete the comment?</h2>
-          <p>You cannot return it after that</p>
+          <h2>Do you want to delete the comment?</h2>
+          <p>You cannot undo this action</p>
           <Button
             onClick={(e) => handleDelete(e)}
             content={''}

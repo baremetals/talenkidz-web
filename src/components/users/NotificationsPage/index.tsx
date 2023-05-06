@@ -28,21 +28,7 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
   const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
   // const dropdownRef = useRef<any>(null);
-  const {
-    username,
-    fullName,
-    // email,
-    avatar,
-    backgroundImg,
-    bio,
-    membership,
-    userType,
-    createdAt,
-    organisation,
-    // subscription,
-  } =
-    // eslint-disable-next-line no-unsafe-optional-chaining
-    props?.props;
+
 
   const [notifications, setNotifications] = useState<DocumentData>([]);
   // console.log(user.email);
@@ -52,7 +38,7 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
       const getNewNotification = async () => {
         const q = query(
           collection(db, 'notifications'),
-          where('recipientEmail', '==', user?.email),
+          where('entityId', '==', user?.id),
           orderBy('createdAt', 'desc'),
           limit(10)
         );
@@ -61,7 +47,7 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
         onSnapshot(q, (querySnapshot) => {
           const notices: React.SetStateAction<DocumentData> = [];
           querySnapshot.forEach((doc) => {
-            // console.log(doc.id)
+            // console.log(typeof doc.createdAt)
             notices.push({ id: doc.id, ...doc.data() });
           });
           setNotifications(notices);
@@ -72,18 +58,18 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
         listen;
       };
     }
-  }, [user?.email]);
+  }, [user?.email, user?.id]);
   return (
     <ProfileBase
-      username={username}
-      fullName={fullName as string}
-      avatar={avatar as string}
-      backgroundImg={backgroundImg as string}
-      bio={bio as string}
-      membership={membership as string}
-      userType={userType as string}
-      createdAt={createdAt as string}
-      orgName={organisation?.name as string}
+      username={props?.props?.username}
+      fullName={props?.props?.fullName as string}
+      avatar={props?.props?.avatar as string}
+      backgroundImg={props?.props?.backgroundImg as string}
+      bio={props?.props?.bio as string}
+      membership={props?.props?.membership as string}
+      userType={props?.props?.userType as string}
+      createdAt={props?.props?.createdAt as string}
+      orgName={props?.props?.organisation?.name as string}
       // eslint-disable-next-line react/no-children-prop
       // children={undefined}
     >

@@ -45,7 +45,7 @@ import {
 import Button from 'components/users/Auth/Button';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { Edit } from 'public/assets/icons/Edit';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { useAppDispatch } from 'src/app/hooks';
 import { closeModal } from 'src/features/modal';
@@ -68,8 +68,8 @@ const ArticleForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState(false);
-  const [image, setImageError] = useState(false);
-  const [body, setBodyError] = useState(false);
+  const [image] = useState(false);
+  const [body] = useState(false);
 
   // const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
   const {
@@ -106,114 +106,195 @@ const ArticleForm = () => {
     }
   };
   // console.log(user)
-  const onSubmit = async (info: TArticleFormProps) => {
-    // console.log(uploadImg);
-    // setSubmitting(true);
+  // const onSubmit = async (info: TArticleFormProps) => {
+  //   // console.log(uploadImg);
+  //   // setSubmitting(true);
 
-    if (uploadImg == null || uploadImg == '') {
-      setImageError(true);
-      setSubmitting(false);
-      setTimeout(() => {
-        setImageError(false);
-      }, 10000);
-    } else if (!info.body) {
-      setBodyError(true);
-      setSubmitting(false);
-      setTimeout(() => {
-        setBodyError(false);
-      }, 10000);
-    } else {
+  //   if (uploadImg == null || uploadImg == '') {
+  //     setImageError(true);
+  //     setSubmitting(false);
+  //     setTimeout(() => {
+  //       setImageError(false);
+  //     }, 10000);
+  //   } else if (!info.body) {
+  //     setBodyError(true);
+  //     setSubmitting(false);
+  //     setTimeout(() => {
+  //       setBodyError(false);
+  //     }, 10000);
+  //   } else {
+  //     const heroImage = uploadImg as File;
+  //     const url = process.env.NEXT_PUBLIC_SITE_URL;
+
+  //     const found = categories.find(
+  //       (element: { id: string }) => element.id === info.category
+  //     );
+  //     const randomString = uuidv4();
+  //     const category = found?.attributes?.name;
+  //     const slug: string = customeSlugify(
+  //       info.title + randomString.slice(0, 6)
+  //     ).toLowerCase();
+  //     // '/^[A-Za-z0-9-_.~]*$/';
+  //     const articleUrl = `${url}/articles/${category}/${slug}`;
+  //     // console.log(slug)
+  //     let form = new FormData();
+  //     form.append('file', heroImage, heroImage.name);
+
+  //     try {
+  //       const uploadApi = await axios(`/api/upload`, {
+  //         method: 'post',
+  //         headers: {
+  //           Accept: 'multipart/form-data',
+  //         },
+  //         data: form,
+  //       });
+
+  //       // console.log('============> ', uploadApi);
+
+  //       if (uploadApi?.data?.content?.id) {
+  //         // console.log("============>", uploadApi?.data)
+  //         const data = {
+  //           title: info.title,
+  //           body: info.body,
+  //           category: info.category,
+  //           creator: user?.id,
+  //           slug: slug.toLowerCase(),
+  //           blurb: info.blurb,
+  //           readingTime: info.readingTime,
+  //           heroImage: uploadApi?.data?.content?.id,
+  //           SEO: {
+  //             title: info.title,
+  //             description: info.blurb,
+  //             image: uploadApi?.data?.content?.url,
+  //             url: articleUrl.toLowerCase(),
+  //             type: 'article',
+  //             author: user?.orgName
+  //               ? user?.orgName
+  //               : user?.fullName || user?.username,
+  //             keywords: info.keywords,
+  //           },
+  //         };
+  //         await axios
+  //           .post('/api/articles', {
+  //             data,
+  //           })
+  //           .then((res) => {
+  //             // console.log('from the then callback', res);
+  //             if (res.status === 200) {
+  //               dispatch(closeModal());
+  //               router.push(articleUrl);
+  //             }
+  //           })
+  //           .catch(async (err) => {
+  //             console.log('from the then catch block', err.response.data);
+  //             setSubmitting(false);
+  //             setMsg('Sorry something went wrong please try again later.');
+  //             setError(true);
+              // await axios.post('/api/upload/delete', {
+              //   data: { id: uploadApi?.data?.content?.id },
+              // });
+  //             setTimeout(() => {
+  //               dispatch(closeModal());
+  //             }, 7000);
+  //           });
+  //       } else {
+  //         setSubmitting(false);
+  //         setMsg('Issue uploading image, please try again later');
+  //         setError(true);
+  //         // setTimeout(() => {
+  //         //   dispatch(closeModal());
+  //         // }, 7000);
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //       setSubmitting(false);
+  //       setMsg('Issue uploading image, please try again later');
+  //       setError(true);
+  //       // setTimeout(() => {
+  //       //   dispatch(closeModal());
+  //       // }, 7000);
+  //     }
+  //   }
+  // };
+
+  const onSubmit = async (info: TArticleFormProps) => {
+    try {
       const heroImage = uploadImg as File;
       const url = process.env.NEXT_PUBLIC_SITE_URL;
+
+      if (!heroImage) {
+        throw new Error('Please select an image to upload');
+      }
+
+      if (!info.body) {
+        throw new Error('Please provide article content');
+      }
 
       const found = categories.find(
         (element: { id: string }) => element.id === info.category
       );
       const randomString = uuidv4();
       const category = found?.attributes?.name;
-      const slug: string = customeSlugify(
+      const slug: string = customSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
-      // '/^[A-Za-z0-9-_.~]*$/';
       const articleUrl = `${url}/articles/${category}/${slug}`;
-      // console.log(slug)
       let form = new FormData();
       form.append('file', heroImage, heroImage.name);
 
-      try {
-        const uploadApi = await axios(`/api/upload`, {
-          method: 'post',
-          headers: {
-            Accept: 'multipart/form-data',
-          },
-          data: form,
-        });
+      const uploadApi = await axios(`/api/upload`, {
+        method: 'post',
+        headers: {
+          Accept: 'multipart/form-data',
+        },
+        data: form,
+      });
 
-        // console.log(uploadApi);
-
-        if (uploadApi?.data?.content?.id) {
-          // console.log(uploadApi?.data)
-          const data = {
-            title: info.title,
-            body: info.body,
-            category: info.category,
-            creator: user?.id,
-            slug: slug.toLowerCase(),
-            blurb: info.blurb,
-            readingTime: info.readingTime,
-            heroImage: uploadApi?.data?.content?.id,
-            SEO: {
-              title: info.title,
-              description: info.blurb,
-              image: uploadApi?.data?.content?.url,
-              url: articleUrl.toLowerCase(),
-              type: 'article',
-              author: user?.orgName
-                ? user?.orgName
-                : user?.fullName || user?.username,
-              keywords: info.keywords,
-            },
-          };
-          await axios
-            .post('/api/articles', {
-              data,
-            })
-            .then((res) => {
-              // console.log('from the then callback', res);
-              if (res.status === 200) {
-                dispatch(closeModal());
-                router.push(articleUrl);
-              }
-            })
-            .catch(async (_err) => {
-              // console.log('from the then catch block', err.response.data);
-              setSubmitting(false);
-              setMsg('Sorry something went wrong please try again later.');
-              setError(true);
-              await axios.post('/api/upload/delete', {
-                data: { id: uploadApi?.data?.content?.id },
-              });
-              setTimeout(() => {
-                dispatch(closeModal());
-              }, 7000);
-            });
-        } else {
-          setSubmitting(false);
-          setMsg('Issue uploading image, please try again later');
-          setError(true);
-          setTimeout(() => {
-            dispatch(closeModal());
-          }, 7000);
-        }
-      } catch (e) {
-        console.log(e);
-        setSubmitting(false);
-        setMsg('Issue uploading image, please try again later');
-        setError(true);
-        setTimeout(() => {
-          dispatch(closeModal());
-        }, 7000);
+      if (!uploadApi?.data?.content?.id) {
+        throw new Error('Issue uploading image, please try again later');
       }
+
+      const data = {
+        title: info.title,
+        body: info.body,
+        category: info.category,
+        creator: user?.id,
+        slug: slug.toLowerCase(),
+        blurb: info.blurb,
+        readingTime: info.readingTime,
+        heroImage: uploadApi?.data?.content?.id,
+        SEO: {
+          title: info.title,
+          description: info.blurb,
+          image: uploadApi?.data?.content?.url,
+          url: articleUrl.toLowerCase(),
+          type: 'article',
+          author: user?.orgName
+            ? user?.orgName
+            : user?.fullName || user?.username,
+          keywords: info.keywords,
+        },
+      };
+
+      const res = await axios.post('/api/articles', {
+        data,
+      });
+
+      // console.log('the response =======>>>>>', res)
+
+      if (res.status === 200) {
+        dispatch(closeModal());
+        router.push(articleUrl);
+      } else {
+        await axios.post('/api/upload/delete', {
+          data: { id: uploadApi?.data?.content?.id },
+        });
+      }
+    } catch (error: any) {
+      console.error(error);
+      setSubmitting(false);
+      setMsg(error.message);
+      setError(true);
     }
   };
 
@@ -306,7 +387,7 @@ const ArticleForm = () => {
                   fullWidth
                   label="keywords"
                   variant="outlined"
-                  placeholder=" e.g. kids, children, eductation"
+                  placeholder=" e.g. kids, children, education"
                   {...register('keywords', { required: true })}
                 />
               </Column>

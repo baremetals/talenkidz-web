@@ -13,14 +13,15 @@ import {
 
 export type ProfileProps = {
   data: {
-    usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
+    usersPermissionsUser: { data: { attributes: UsersPermissionsUser, id: number } };
   };
 };
 
 const UserProfile = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
-  //   console.log('the rassssss user', user);
+  const userId = data?.data?.usersPermissionsUser?.data?.id;
+  console.log('the rassssss user', userId);
   useIsAuth();
   return (
     <Layout
@@ -29,7 +30,7 @@ const UserProfile = (data: ProfileProps) => {
       type="account page"
       pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
     >
-      <ProfilePage props={user} />
+      <ProfilePage props={user} userId={userId.toString()} />
     </Layout>
   );
 };

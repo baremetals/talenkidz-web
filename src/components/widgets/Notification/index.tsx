@@ -15,6 +15,7 @@ import { DocumentData } from 'src/lib/firebase';
 import { Notification, SeeMore, Wrapper } from './styles';
 import { updateNotification } from 'src/helpers/firebase';
 import { useRouter } from 'next/router';
+import { formatDayJSTime } from 'src/utils';
 
 type TProps = {
   notifications: DocumentData;
@@ -102,7 +103,8 @@ const NotificationPage: React.FC<TProps> = ({ notifications }) => {
             <div className="notification-action">
               <div className="notification-time">
                 <div className="time">
-                  {dayjs.unix(item.createdAt?.seconds).fromNow()}
+                  {/* {dayjs.unix(item.createdAt?.seconds).fromNow()} */}
+                  {formatDayJSTime(item.createdAt)}
                 </div>
                 {/* <span className="today">seen today</span> */}
                 <small
@@ -116,13 +118,15 @@ const NotificationPage: React.FC<TProps> = ({ notifications }) => {
                 >
                   <DeleteOutline />
                 </span>
-                {item.url !== "" ?<span
-                  onClick={(e) =>
-                    handleRouter(e, item.id, item?.read, item.url)
-                  }
-                >
-                  <EyeIcon />
-                </span>: null}
+                {item.url !== '' ? (
+                  <span
+                    onClick={(e) =>
+                      handleRouter(e, item.id, item?.read, item.url)
+                    }
+                  >
+                    <EyeIcon />
+                  </span>
+                ) : null}
               </div>
             </div>
           </Notification>

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useContext, useReducer, useState } from 'react';
-import { customeSlugify, handleImgChange } from 'src/utils';
+import { customSlugify, handleImgChange } from 'src/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useQuery } from '@apollo/client';
@@ -146,7 +146,7 @@ const EventForm = () => {
       const category = found?.attributes?.name;
       // console.log(found);
 
-      const slug: string = customeSlugify(
+      const slug: string = customSlugify(
         info.title + randomString.slice(0, 6)
       ).toLowerCase();
       const eventUrl = `${url}/events/${category.toLowerCase()}/${slug.toLowerCase()}`;

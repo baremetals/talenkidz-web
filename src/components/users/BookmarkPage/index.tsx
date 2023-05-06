@@ -23,24 +23,9 @@ import { upperCase } from 'src/utils';
 
 function BookmarkPage(props: { props: UsersPermissionsUser }) {
   const { user: user } = useAppSelector(isUser);
-  const {
-    username,
-    fullName,
-    avatar,
-    backgroundImg,
-    bio,
-    membership,
-    userType,
-    createdAt,
-    organisation,
-    bookmarklist,
-  } =
-    // eslint-disable-next-line no-unsafe-optional-chaining
-    props?.props;
-
     
     const [showButton, setShowButton] = useState(true);
-  const [bookmarks, setBookmarks] = useState(bookmarklist);
+  const [bookmarks, setBookmarks] = useState(props?.props?.bookmarklist);
   const [active, setActive] = useState('all');
 
   const [loadBookmarks] = useUsersBookMarksLazyQuery({
@@ -61,36 +46,42 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
     const newBookMarks =
       res.data?.usersPermissionsUser?.data?.attributes?.bookmarklist;
     // console.log(newBookMarks);
-    if (newBookMarks && newBookMarks.length < 1) setShowButton(false);
+    if (newBookMarks && newBookMarks.length < 1) {
+      setShowButton(false);
+    } else {
       setBookmarks(() => [
         ...(bookmarks as ComponentBookMarksReadingList[]),
         ...(newBookMarks as ComponentBookMarksReadingList[]),
       ]);
+    }
+      
     // console.log(meta);
   }, [bookmarks, loadBookmarks]);
 
-  const filterbookmarks = useCallback((type: string) => {
-    setActive(type);
-    const filteredData = bookmarks?.filter((ent) => {
-      return ent?.type === type;
-    });
-    if (type !== 'all'){
-      setBookmarks(filteredData);
-    } else setBookmarks(bookmarklist);
-    
-  },[bookmarklist, bookmarks])
+  const filterbookmarks = useCallback(
+    (type: string) => {
+      setActive(type);
+      const filteredData = bookmarks?.filter((ent) => {
+        return ent?.type === type;
+      });
+      if (type !== 'all') {
+        setBookmarks(filteredData);
+      } else setBookmarks(props?.props?.bookmarklist);
+    },
+    [props?.props?.bookmarklist, bookmarks]
+  );
 
   return (
     <ProfileBase
-      username={username}
-      fullName={fullName as string}
-      avatar={avatar as string}
-      backgroundImg={backgroundImg as string}
-      bio={bio as string}
-      membership={membership as string}
-      userType={userType as string}
-      createdAt={createdAt as string}
-      orgName={organisation?.name as string}
+      username={props?.props?.username}
+      fullName={props?.props?.fullName as string}
+      avatar={props?.props?.avatar as string}
+      backgroundImg={props?.props?.backgroundImg as string}
+      bio={props?.props?.bio as string}
+      membership={props?.props?.membership as string}
+      userType={props?.props?.userType as string}
+      createdAt={props?.props?.createdAt as string}
+      orgName={props?.props?.organisation?.name as string}
     >
       <BookmarkBlock>
         <Row className="row">

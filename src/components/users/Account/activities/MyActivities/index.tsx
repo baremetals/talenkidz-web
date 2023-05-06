@@ -4,29 +4,32 @@ import { ListingEntity, useFilteredListingsLazyQuery } from 'generated/graphql';
 import { useAppSelector } from 'src/app/hooks';
 import { isUser } from 'src/features/auth';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 
 const MyActivities = () => {
+  const router = useRouter();
   const { user: user } = useAppSelector(isUser);
   const [entity, setEntities] = useState<ListingEntity[]>([]);
-
-  const [loadActivities, { loading, data }] =
-    useFilteredListingsLazyQuery({
-      variables: {
-        filters: {
-          host: {
-            id: {
-              eq: user?.id?.toString(),
-            },
+  const pageOwner = router.query.username
+    ? router.query.username
+    : user?.username;
+  const [loadActivities, { loading, data }] = useFilteredListingsLazyQuery({
+    variables: {
+      filters: {
+        host: {
+          username: {
+            eq: pageOwner as string,
           },
         },
-        pagination: {
-          start: 0,
-          limit: 12,
-        },
-        sort: 'createdAt:desc',
       },
-    });
+      pagination: {
+        start: 0,
+        limit: 12,
+      },
+      sort: 'createdAt:desc',
+    },
+  });
   
 // console.log(entity);
   useEffect(() => {

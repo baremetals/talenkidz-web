@@ -3,18 +3,27 @@ import Image from 'next/image';
 // import { useRouter } from 'next/router';
 import Button from 'components/users/Auth/Button';
 
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-import dynamic from 'next/dynamic';
-const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
-  ssr: false,
-});
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
+import Slider from 'react-slick';
+
+// import dynamic from 'next/dynamic';
+// const OwlCarousel = dynamic(() => import('@ntegral/react-owl-carousel'), {
+//   ssr: false,
+// });
+
+import { InnerContainer } from 'styles/common.styles';
 import {
-  InnerContainer,
-} from 'styles/common.styles';
-import { Div, LeftImg, RightImg } from '../home.styles';
+  Div,
+  LeftImg,
+  RightImg,
+  SliderLeft,
+  SliderRight,
+} from '../home.styles';
 import {
   TakingOurService,
   OwlCarouselBlock,
@@ -25,6 +34,30 @@ import {
 
 const ServiceSection: React.FC = () => {
   // const router = useRouter();
+  let settings = {
+    nav: false,
+    nextArrow: (
+      <SampleNextArrow
+        className={'rightImg'}
+        style={undefined}
+        onClick={undefined}
+      />
+    ),
+    prevArrow: (
+      <SamplePrevArrow
+        className={undefined}
+        style={undefined}
+        onClick={undefined}
+      />
+    ),
+    responsiveClass: true,
+    autoplay: true,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <TakingOurService>
       <InnerContainer>
@@ -43,7 +76,8 @@ const ServiceSection: React.FC = () => {
           <span className="WhiteBg"> taking our service </span>
         </OurServicePageHeading>
         <OwlCarouselBlock>
-          <OwlCarousel
+          <Slider {...settings}>
+            {/* <OwlCarousel
             className="owl-theme"
             loop
             items={1}
@@ -53,7 +87,7 @@ const ServiceSection: React.FC = () => {
               '<img src="/assets/svgs/LeftArrow.svg">',
               '<img src="/assets/svgs/RightArrow.svg">',
             ]}
-          >
+          > */}
             <Div className="Takingitem">
               <OurServiceItem>
                 <Image
@@ -108,7 +142,8 @@ const ServiceSection: React.FC = () => {
                 </ButtonBlock>
               </OurServiceItem>
             </Div>
-          </OwlCarousel>
+          </Slider>
+          {/* </OwlCarousel> */}
         </OwlCarouselBlock>
         <RightImg>
           <Image
@@ -124,3 +159,33 @@ const ServiceSection: React.FC = () => {
 };
 
 export default ServiceSection;
+
+function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
+  const { className, onClick } = props;
+  return (
+    <SliderRight className={className} onClick={onClick}>
+      <Image
+        className="rightImg"
+        src="/assets/svgs/RightArrow.svg"
+        alt="chess icon"
+        width={44}
+        height={24}
+      />
+    </SliderRight>
+  );
+}
+
+function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
+  const { className, onClick } = props;
+  return (
+    <SliderLeft className={className} onClick={onClick}>
+      <Image
+        className="rightImg"
+        src="/assets/svgs/LeftArrow.svg"
+        alt="chess icon"
+        width={44}
+        height={24}
+      />
+    </SliderLeft>
+  );
+}
