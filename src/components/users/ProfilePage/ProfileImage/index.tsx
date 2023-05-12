@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 import Image from 'next/image';
+import Skeleton from '@mui/material/Skeleton';
+
 
 import Pencil from 'public/assets/icons/Pencil';
 import { EditIconButton, Premium, UserProfileImage, UserProfileImageBlock } from '../profile.styles';
@@ -22,6 +24,7 @@ const ProfileImage: React.FC<TProfileImage> = ({
 }) => {
   const { user } = useContext(AuthContext);
   const [, setUploadImg] = useState<any>(null);
+  const [loading, setLoading] = useState(false)
   const [profileImg, setProfileImg] = useState<string | null>(avatar);
 
   // console.log(uploadImg);
@@ -34,10 +37,20 @@ const ProfileImage: React.FC<TProfileImage> = ({
         setDisplayImg: setProfileImg,
       });
       // console.log(uploadImg);
-      await uploadNewImage(event?.target?.files![0], 'profile');
-      // console.log(resp);
+      setLoading(true);
+      const response = await uploadNewImage(
+        event?.target?.files![0],
+        'profile'
+      );
+      // console.log(response?.data?.message);
+      if (response?.data?.message === 'Image Successfully changed') {
+        setLoading(false);
+      }
+      setLoading(false);
     } catch (error) {
-      console.log('The Error Is: ', error);
+      setLoading(false);
+      // console.log('The Error Is: ', error);
+      throw new Error('Something is wrong please try again later');
     }
   };
 
@@ -45,12 +58,17 @@ const ProfileImage: React.FC<TProfileImage> = ({
     <UserProfileImageBlock
       className={membership === 'premium' ? 'premiumStatus' : ''}
     >
-      <UserProfileImage
-        src={profileImg ? (profileImg as string) : '/default.jpg'}
-        alt="user profile"
-        // width={200}
-        // height={200}
-      />
+      {!loading ? (
+        <UserProfileImage
+          src={profileImg ? (profileImg as string) : '/default.jpg'}
+          alt="user profile"
+          // width={200}
+          // height={200}
+        />
+      ) : (
+        <Skeleton variant="circular" width={200} height={200} />
+      )}
+
       {userType === 'organisation' && (
         <Premium className="premium-tag">
           <Image
@@ -61,16 +79,17 @@ const ProfileImage: React.FC<TProfileImage> = ({
           />
         </Premium>
       )}
-      {ownerId == user?.id? <EditIconButton htmlFor="profilePic" className="EditButton">
-        <Pencil />
-        <input
-          id="profilePic"
-          className="inputTag"
-          type="file"
-          onChange={(e) => handleImageChange(e)}
-        />
-      </EditIconButton>: null}
-      
+      {ownerId == user?.id ? (
+        <EditIconButton htmlFor="profilePic" className="EditButton">
+          <Pencil />
+          <input
+            id="profilePic"
+            className="inputTag"
+            type="file"
+            onChange={(e) => handleImageChange(e)}
+          />
+        </EditIconButton>
+      ) : null}
     </UserProfileImageBlock>
   );
 };

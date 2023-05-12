@@ -94,12 +94,12 @@ export default async function handler(
     });
 
     const image = await apiRes.json();
-    // console.log(image);
+    // console.log("The fucking upload========>", image);
     const content = image[0];
 
     res.status(200).json({ content });
-  } catch (err) {
-    // console.log('the fucking error: ', err);
+  } catch (err: any) {
+    // console.log('the fucking error========>: ', err.response);
     res.status(400).json({ err: err });
   }
 
