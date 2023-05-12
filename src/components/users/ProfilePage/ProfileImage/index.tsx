@@ -42,14 +42,14 @@ const ProfileImage: React.FC<TProfileImage> = ({
         event?.target?.files![0],
         'profile'
       );
-      // console.log(response?.data?.message);
+      console.log(response);
       if (response?.data?.message === 'Image Successfully changed') {
         setLoading(false);
       }
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      // console.log('The Error Is: ', error);
+      console.log('The Error Is: ', error);
       throw new Error('Something is wrong please try again later');
     }
   };
