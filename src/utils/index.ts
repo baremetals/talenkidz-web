@@ -68,7 +68,7 @@ export const handleImgChange = async ({
 };
 
 export const uploadNewImage = async (upload: File, field: string) => {
-  // console.log('The fucking upload utils function========>', upload);
+  console.log('The fucking upload utils function========>', upload);
   let form = new FormData();
   form.append('file', upload, upload?.name);
   try {
@@ -80,7 +80,7 @@ export const uploadNewImage = async (upload: File, field: string) => {
       },
       data: form,
     });
-    // console.log('The response utils function========>', res);
+    console.log('The response utils function========>', res);
     const data = {
       imagefile: res?.data?.content?.url,
       flag: 'user-image',
