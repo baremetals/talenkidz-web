@@ -41,73 +41,122 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
   // console.log(data);
   // console.log('the request body',req.body);
 
-  if (data.flag === 'user-image') {
-    const profileImage = {
-      avatar: data?.imagefile,
-    };
-    const backgroundImage = {
-      backgroundImg: data?.imagefile,
-    };
-    try {
-      // console.log('profile update');
-      const resp = await axios({
-        method: 'PUT',
-        url: `${baseUrl}/users/${id}`,
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${jwt}`,
-        },
-        data: data.field === 'profile' ? profileImage : backgroundImage,
-      });
+  const profileImage = {
+    avatar: data?.imagefile,
+  };
+  const backgroundImage = {
+    backgroundImg: data?.imagefile,
+  };
 
-      if (resp?.data) {
-        const user: user = {
-          ...cookies,
-          avatar: data.field === 'profile' ? data.imagefile : avatar,
-          backgroundImg: data.field === 'background' ? data.imagefile : backgroundImg,
-        };
-        setTheCookie(user)
-      }
+  try {
+    const resp = await axios({
+      method: 'PUT',
+      url: `${baseUrl}/users/${id}`,
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`,
+      },
+      data:
+        data.flag === 'user-image'
+          ? data.field === 'profile'
+            ? profileImage
+            : backgroundImage
+          : { ...data },
+    });
 
+    if (resp?.data) {
+      const user: user = {
+        ...cookies,
+        avatar: data.field === 'profile' ? data.imagefile : avatar,
+        backgroundImg:
+          data.field === 'background' ? data.imagefile : backgroundImg,
+        username: data.username,
+        fullName: data.fullName,
+        bio: data.bio,
+        stripeCustomerId: data.stripeCustomerId,
+        notificationsSettings: data.notificationsSettings,
+      };
+      setTheCookie(user);
+    }
+
+    if (data.flag === 'user-image') {
       res.status(200).json({ message: 'Image Successfully changed' });
-    } catch (err) {
-      res
-        .status(401)
-        .json({ message: 'Something went wrong please try again later.' });
-    }
-  } else {
-    try {
-      // console.log("profile details update");
-
-      const resp = await axios({
-        method: 'PUT',
-        url: `${baseUrl}/users/${id}`,
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${jwt}`,
-        },
-        data: {
-          ...data,
-        },
-      });
-      
-      if (resp?.data) {
-        const user: user = {
-          ...cookies,
-          username: data.username,
-          fullName: data.fullName,
-          bio: data.bio,
-          stripeCustomerId: data.stripeCustomerId,
-          notificationsSettings: data.notificationsSettings,
-        };
-        setTheCookie(user);
-      }
-      // console.log('fucking response',resp)
-
+    } else {
       res.status(200).json({ message: 'Details successfully changed.' });
-    } catch (err: any) {
-      // console.log('the errors =============>', err?.response.data.error.message);
-      res.status(401).json({ error: err?.response.data.error.message });
     }
+  } catch (err: any) {
+    res
+      .status(401)
+      .json({ message: 'Something went wrong please try again later.' });
   }
+
+  // if (data.flag === 'user-image') {
+  //   const profileImage = {
+  //     avatar: data?.imagefile,
+  //   };
+  //   const backgroundImage = {
+  //     backgroundImg: data?.imagefile,
+  //   };
+  //   try {
+  //     // console.log('profile update');
+  //     const resp = await axios({
+  //       method: 'PUT',
+  //       url: `${baseUrl}/users/${id}`,
+  //       headers: {
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${jwt}`,
+  //       },
+  //       data: data.field === 'profile' ? profileImage : backgroundImage,
+  //     });
+
+  //     if (resp?.data) {
+  //       const user: user = {
+  //         ...cookies,
+  //         avatar: data.field === 'profile' ? data.imagefile : avatar,
+  //         backgroundImg: data.field === 'background' ? data.imagefile : backgroundImg,
+  //       };
+  //       setTheCookie(user)
+  //     }
+
+  //     res.status(200).json({ message: 'Image Successfully changed' });
+  //   } catch (err) {
+  //     res
+  //       .status(401)
+  //       .json({ message: 'Something went wrong please try again later.' });
+  //   }
+  // } else {
+  //   try {
+  //     // console.log("profile details update");
+
+  //     const resp = await axios({
+  //       method: 'PUT',
+  //       url: `${baseUrl}/users/${id}`,
+  //       headers: {
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${jwt}`,
+  //       },
+  //       data: {
+  //         ...data,
+  //       },
+  //     });
+      
+  //     if (resp?.data) {
+  //       const user: user = {
+  //         ...cookies,
+  //         username: data.username,
+  //         fullName: data.fullName,
+  //         bio: data.bio,
+  //         stripeCustomerId: data.stripeCustomerId,
+  //         notificationsSettings: data.notificationsSettings,
+  //       };
+  //       setTheCookie(user);
+  //     }
+  //     // console.log('fucking response',resp)
+
+  //     res.status(200).json({ message: 'Details successfully changed.' });
+  //   } catch (err: any) {
+  //     // console.log('the errors =============>', err?.response.data.error.message);
+  //     res.status(401).json({ error: err?.response.data.error.message });
+  //   }
+  // }
 }
