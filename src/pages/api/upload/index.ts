@@ -75,17 +75,18 @@ export default async function handler(
       // console.log('the fields: ',fields);
       // console.log('the raaas file: ', files);
     const { file } = files;
-    console.log('the bumba file========>: ', file);
+    // console.log('the bumba file========>: ', file);
 
     const fileData = Buffer.concat(chunks); // or is it from? I always mix these up
       // console.log('the fing filedata:', fileData)
-    const { originalFilename } = file as any;
+      const fileBlob = new Blob([fileData]);
+    const { newFilename } = file as any;
     const form = new FormData();
       // form.append('my_field', 'my value');
-    form.append('files', file as any, originalFilename);
-
-    console.log('The fucking originalFilename========>', originalFilename);
-    // console.log('The fucking fileData========>', fileData);
+    form.append('files', fileBlob, newFilename);
+    console.log('the bumba file========>: ', form.entries());
+    console.log('The fucking newFilename========>', newFilename);
+    console.log('The fucking fileData========>', fileBlob);
 
     const apiRes = await fetch(`${baseUrl}/upload`, {
       method: 'POST',
