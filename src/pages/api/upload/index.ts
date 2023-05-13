@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
-import FormData from 'form-data';
+// import FormData from 'form-data';
 import { Writable } from 'stream';
 import formidable from 'formidable';
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
@@ -75,17 +75,17 @@ export default async function handler(
       // console.log('the fields: ',fields);
       // console.log('the raaas file: ', files);
     const { file } = files;
-    // console.log('the bumba file: ', file);
+    console.log('the bumba file========>: ', file);
 
     const fileData = Buffer.concat(chunks); // or is it from? I always mix these up
       // console.log('the fing filedata:', fileData)
     const { originalFilename } = file as any;
     const form = new FormData();
       // form.append('my_field', 'my value');
-    form.append('files', fileData, originalFilename);
+    form.append('files', file as any, originalFilename);
 
     console.log('The fucking originalFilename========>', originalFilename);
-    console.log('The fucking fileData========>', fileData);
+    // console.log('The fucking fileData========>', fileData);
 
     const apiRes = await fetch(`${baseUrl}/upload`, {
       method: 'POST',
