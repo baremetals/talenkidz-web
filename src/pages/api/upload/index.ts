@@ -3,7 +3,7 @@
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
 import FormData from 'form-data';
 // import fetch from 'node-fetch';
-// import { FormData, Blob } from 'formdata-node';
+import { FormData as ProdFormData, Blob as ProdBlob } from 'formdata-node';
 import { Blob } from 'fetch-blob';
 import { Writable } from 'stream';
 import formidable from 'formidable';
@@ -85,7 +85,7 @@ export default async function handler(
       // console.log('the fing filedata:', fileData)
       const fileBlob = new Blob([fileData]);
     const { newFilename } = file as any;
-    const form = new FormData();
+    const form = nodeEnv === 'production' ? new ProdFormData() : new FormData();
       // form.append('my_field', 'my value');
     const finalFile = nodeEnv === 'production' ? fileBlob : fileData;
     form.append('files', finalFile, newFilename);
