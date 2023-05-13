@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
-// import FormData from 'form-data';
+import FormData from 'form-data';
+// import fetch from 'node-fetch';
+// import { FormData, Blob } from 'formdata-node';
+import { Blob } from 'fetch-blob';
 import { Writable } from 'stream';
 import formidable from 'formidable';
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+const nodeEnv = process.env.NEXT_PUBLIC_ENVIRONMENT;
 
 type Data = {
   message?: string;
@@ -83,8 +87,9 @@ export default async function handler(
     const { newFilename } = file as any;
     const form = new FormData();
       // form.append('my_field', 'my value');
-    form.append('files', fileBlob, newFilename);
-    console.log('the bumba file========>:', form.entries());
+    const finalFile = nodeEnv === 'production' ? fileBlob : fileData;
+    form.append('files', finalFile, newFilename);
+    console.log('the bumba file========>:', form);
     console.log('The fucking newFilename========>', newFilename);
     console.log('The fucking fileData========>', fileBlob);
 
@@ -103,7 +108,7 @@ export default async function handler(
 
     res.status(200).json({ content });
   } catch (err: any) {
-    console.log('the fucking error========>: ', err.response);
+    console.log('the fucking error========>: ', err);
     res.status(400).json({ err: err });
   }
 
