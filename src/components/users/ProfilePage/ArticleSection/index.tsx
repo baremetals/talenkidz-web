@@ -1,16 +1,15 @@
 import PremiumBanner from 'components/users/Account/PremiumBanner';
 import { ArticleEntity, useFilteredArticlesLazyQuery } from 'generated/graphql';
-import { useEffect, useState } from 'react';
-import { useAppSelector } from 'src/app/hooks';
-import { isUser } from 'src/features/auth';
+import { useContext, useEffect, useState } from 'react';
 import ArticleItemCard from '../../Account/ArticleItemCard';
 import Editor from '../../Account/Editor';
 import PostLimits from '../../Account/PostLimits';
 import { useRouter } from 'next/router';
+import { AuthContext } from 'src/features/auth/AuthContext';
 
 const ArticleSection = () => {
   const router = useRouter();
-  const { user: user } = useAppSelector(isUser);
+  const { user } = useContext(AuthContext);
   const [entity, setEntities] = useState<ArticleEntity[]>([]);
   const pageOwner = router.query.username? router.query.username :user?.username;
   const [loadArticles, { data }] = useFilteredArticlesLazyQuery({
@@ -30,7 +29,7 @@ const ArticleSection = () => {
     },
   });
 
-  console.log(user?.id);
+  // console.log(user);
   useEffect(() => {
     const subscribe = loadArticles();
 

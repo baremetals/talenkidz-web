@@ -46,7 +46,7 @@ function HomePage(props: {
       metaDescription={description}
       canonicalUrl={url}
       pageUrl={url}
-      image={'/yung-buck.jpg'}
+      image={'/assets/images/young-buck.jpg'}
       data={JSON.stringify(structuredData)}
       imageHeight={'auto'}
       imageWidth={'100%'}

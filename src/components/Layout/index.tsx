@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import NavBar from './NavBar';
 import Modal from 'components/utilities/Modal';
-// import { useAppDispatch } from 'src/app/hooks';
-// import { openModal } from 'src/features/modal/reducers';
+import { useAppDispatch } from 'src/app/hooks';
+import { openModal } from 'src/features/modal/reducers';
 import { openSelector } from 'src/features/modal/selectors';
 import { useAppSelector } from 'src/app/hooks';
 import { useRouter } from 'next/router';
@@ -43,7 +43,7 @@ const Layout = ({
   keywords,
   author,
 }: LayoutProps) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const isOpen = useAppSelector(openSelector);
   const router = useRouter();
   //dispatch(openModal('PROFILE_MODAL'));
@@ -56,7 +56,7 @@ const Layout = ({
       });
 
       if (r.data.name === 'no cookie') {
-        // dispatch(openModal('POLICY_CONSENT'));
+        dispatch(openModal('POLICY_CONSENT'));
       } else {
         // console.log(r.data.policyOptions);
         resolve('Stuff worked!');

@@ -2,9 +2,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
 import FormData from 'form-data';
+import { FormData as ProdFormData, Blob } from 'formdata-node';
 import { Writable } from 'stream';
 import formidable from 'formidable';
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+const nodeEnv = process.env.NEXT_PUBLIC_ENVIRONMENT;
 
 type Data = {
   message?: string;
@@ -71,18 +73,15 @@ export default async function handler(
       // consume this, otherwise formidable tries to save the file to disk
       fileWriteStreamHandler: () => fileConsumer(chunks),
     });
-
-      // console.log('the fields: ',fields);
-      // console.log('the raaas file: ', files);
     const { file } = files;
-    // console.log('the bumba file: ', file);
+    const { newFilename, mimetype } = file as any;
 
     const fileData = Buffer.concat(chunks); // or is it from? I always mix these up
-      // console.log('the fing filedata:', fileData)
-    const { originalFilename } = file as any;
-    const form = new FormData();
-      // form.append('my_field', 'my value');
-    form.append('files', fileData, originalFilename);
+      const fileBlob = new Blob([fileData], { type: mimetype });
+    
+    const form = nodeEnv === 'production' ? new ProdFormData() : new FormData();
+    const finalFile = nodeEnv === 'production' ? fileBlob : fileData;
+    form.append('files', finalFile, newFilename);
 
     const apiRes = await fetch(`${baseUrl}/upload`, {
       method: 'POST',
@@ -99,7 +98,7 @@ export default async function handler(
 
     res.status(200).json({ content });
   } catch (err: any) {
-    // console.log('the fucking error========>: ', err.response);
+    // console.log('the fucking error========>: ', err);
     res.status(400).json({ err: err });
   }
 

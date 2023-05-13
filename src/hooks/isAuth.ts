@@ -18,7 +18,7 @@ export const useIsAuth = () => {
             router.replace(`/${router.pathname}`);
           } else {
             const me = res?.data;
-            // console.log(me);
+            // console.log("================>",me);
             dispatch(setUser(me));
           }
         })

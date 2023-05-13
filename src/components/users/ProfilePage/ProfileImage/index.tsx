@@ -42,7 +42,7 @@ const ProfileImage: React.FC<TProfileImage> = ({
         event?.target?.files![0],
         'profile'
       );
-      // console.log(response?.data?.message);
+      // console.log(response);
       if (response?.data?.message === 'Image Successfully changed') {
         setLoading(false);
       }
