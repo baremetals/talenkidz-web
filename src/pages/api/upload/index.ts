@@ -84,6 +84,9 @@ export default async function handler(
       // form.append('my_field', 'my value');
     form.append('files', fileData, originalFilename);
 
+    console.log('The fucking originalFilename========>', originalFilename);
+    console.log('The fucking fileData========>', fileData);
+
     const apiRes = await fetch(`${baseUrl}/upload`, {
       method: 'POST',
       headers: {
