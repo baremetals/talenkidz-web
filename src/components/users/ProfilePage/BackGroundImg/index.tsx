@@ -40,7 +40,7 @@ const BackGroundImg: React.FC<TBackGroundImgProps> = ({
       if (response?.data?.message === 'Image Successfully changed') {
         setLoading(false);
       }
-      console.log(response);
+      // console.log(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);

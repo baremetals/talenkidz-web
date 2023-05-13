@@ -65,24 +65,30 @@ export default async function updateUser(req: NextApiRequest, res: NextApiRespon
     });
 
     if (resp?.data) {
-      const user: user = {
-        ...cookies,
-        avatar: data.field === 'profile' ? data.imagefile : avatar,
-        backgroundImg:
-          data.field === 'background' ? data.imagefile : backgroundImg,
-        username: data.username,
-        fullName: data.fullName,
-        bio: data.bio,
-        stripeCustomerId: data.stripeCustomerId,
-        notificationsSettings: data.notificationsSettings,
-      };
-      setTheCookie(user);
-    }
-
-    if (data.flag === 'user-image') {
-      res.status(200).json({ message: 'Image Successfully changed' });
-    } else {
-      res.status(200).json({ message: 'Details successfully changed.' });
+      if (data.flag === 'user-image') {
+        const user: user = {
+          ...cookies,
+          avatar: data.field === 'profile' ? data.imagefile : avatar,
+          backgroundImg:
+            data.field === 'background' ? data.imagefile : backgroundImg,
+        };
+        setTheCookie(user);
+        res.status(200).json({ message: 'Image Successfully changed' });
+      } else {
+        const user: user = {
+          ...cookies,
+          avatar: data.field === 'profile' ? data.imagefile : avatar,
+          backgroundImg:
+            data.field === 'background' ? data.imagefile : backgroundImg,
+          username: data.username,
+          fullName: data.fullName,
+          bio: data.bio,
+          stripeCustomerId: data.stripeCustomerId,
+          notificationsSettings: data.notificationsSettings,
+        };
+        setTheCookie(user);
+        res.status(200).json({ message: 'Details successfully changed.' });
+      } 
     }
   } catch (err: any) {
     res
