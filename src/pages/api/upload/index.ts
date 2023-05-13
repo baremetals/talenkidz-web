@@ -3,8 +3,8 @@
 import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
 import FormData from 'form-data';
 // import fetch from 'node-fetch';
-import { FormData as ProdFormData, Blob as ProdBlob } from 'formdata-node';
-import { Blob } from 'fetch-blob';
+import { FormData as ProdFormData, Blob } from 'formdata-node';
+// import { Blob } from 'fetch-blob';
 import { Writable } from 'stream';
 import formidable from 'formidable';
 const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
@@ -66,7 +66,7 @@ export default async function handler(
   }
   const cookies = JSON.parse(req.cookies.talentedKid as string);
   const { jwt } = cookies;
-  console.log('I at least run up in here')
+  // console.log('I at least run up in here')
   try {
     const chunks: never[] = [];
 
@@ -80,18 +80,19 @@ export default async function handler(
       // console.log('the raaas file: ', files);
     const { file } = files;
     // console.log('the bumba file========>: ', file);
+    const { newFilename, mimetype } = file as any;
 
     const fileData = Buffer.concat(chunks); // or is it from? I always mix these up
       // console.log('the fing filedata:', fileData)
-      const fileBlob = new Blob([fileData]);
-    const { newFilename } = file as any;
+      const fileBlob = new Blob([fileData], { type: mimetype });
+    
     const form = nodeEnv === 'production' ? new ProdFormData() : new FormData();
       // form.append('my_field', 'my value');
     const finalFile = nodeEnv === 'production' ? fileBlob : fileData;
     form.append('files', finalFile, newFilename);
-    console.log('the bumba file========>:', form);
-    console.log('The fucking newFilename========>', newFilename);
-    console.log('The fucking fileData========>', fileBlob);
+    // console.log('the bumba file========>:', form.entries());
+    // console.log('The fucking newFilename========>', newFilename);
+    // console.log('The fucking fileData========>', fileBlob);
 
     const apiRes = await fetch(`${baseUrl}/upload`, {
       method: 'POST',
@@ -108,7 +109,7 @@ export default async function handler(
 
     res.status(200).json({ content });
   } catch (err: any) {
-    console.log('the fucking error========>: ', err);
+    // console.log('the fucking error========>: ', err);
     res.status(400).json({ err: err });
   }
 
