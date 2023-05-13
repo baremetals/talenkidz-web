@@ -84,7 +84,7 @@ export default async function handler(
     const form = new FormData();
       // form.append('my_field', 'my value');
     form.append('files', fileBlob, newFilename);
-    console.log('the bumba file========>: ', form.entries());
+    console.log('the bumba file========>:', form.entries());
     console.log('The fucking newFilename========>', newFilename);
     console.log('The fucking fileData========>', fileBlob);
 
