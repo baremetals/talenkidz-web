@@ -56,12 +56,12 @@ export default async function handler(
 
       
     const subscribe = await stripe.subscriptions.create({
-      customer: stripeCustomerId !== null? stripeCustomerId : id as string,
+      customer: stripeCustomerId !== null ? stripeCustomerId : (id as string),
       items: [
         {
           price_data: {
             currency: 'gbp',
-            product: 'prod_NP7AtsIKYPmOZl',
+            product: process.env.NEXT_PUBLIC_SUBSCRIPTION_PRODUCT_ID,
             unit_amount: interval === 'month' ? '500' : '6000',
             recurring: {
               interval: interval,
