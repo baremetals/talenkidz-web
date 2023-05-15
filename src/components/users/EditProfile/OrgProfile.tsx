@@ -214,7 +214,7 @@ const OrgProfile = () => {
                 <Input
                   id=""
                   type="text"
-                  name="organisationType"
+                  name="website"
                   value={profile?.website}
                   onChange={handleChange}
                 />

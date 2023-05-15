@@ -21,7 +21,7 @@ import { isUser } from 'src/features/auth/selectors';
 import ProfileBase from '../ProfilePage/ProfileBase';
 import { upperCase } from 'src/utils';
 
-function BookmarkPage(props: { props: UsersPermissionsUser }) {
+function BookmarkPage(props: { props: UsersPermissionsUser; userId: number }) {
   const { user: user } = useAppSelector(isUser);
     
     const [showButton, setShowButton] = useState(true);
@@ -82,6 +82,7 @@ function BookmarkPage(props: { props: UsersPermissionsUser }) {
       userType={props?.props?.userType as string}
       createdAt={props?.props?.createdAt as string}
       orgName={props?.props?.organisation?.name as string}
+      userId={props.userId}
     >
       <BookmarkBlock>
         <Row className="row">

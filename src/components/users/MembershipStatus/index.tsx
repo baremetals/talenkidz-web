@@ -20,7 +20,7 @@ import { createFirebaseNotification } from 'src/helpers/firebase';
 import { useRouter } from 'next/router';
 // import { UserProfileWapper } from 'components/utilities/Modal/modal.styles';
 
-function MembershipStatus(props: { props: UsersPermissionsUser }) {
+function MembershipStatus(props: { props: UsersPermissionsUser; userId: number }) {
   const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
   // const dropdownRef = useRef<any>(null);
@@ -40,7 +40,7 @@ function MembershipStatus(props: { props: UsersPermissionsUser }) {
     // eslint-disable-next-line no-unsafe-optional-chaining
     props?.props;
   // const dispatch = useAppDispatch();
-  const router = useRouter()
+  const router = useRouter();
   // console.log(subscription);
 
   const handleCancel = useCallback(async () => {
@@ -70,10 +70,17 @@ function MembershipStatus(props: { props: UsersPermissionsUser }) {
     const data = await response.json();
     if (!data.error) {
       await createFirebaseNotification(cancelSubsMessage);
-      router.push(router.asPath)
+      router.push(router.asPath);
     }
-
-  },[email, fullName, router, subscription?.data?.attributes?.stripeSubscriptionId, subscription?.data?.id, user?.id, username])
+  }, [
+    email,
+    fullName,
+    router,
+    subscription?.data?.attributes?.stripeSubscriptionId,
+    subscription?.data?.id,
+    user?.id,
+    username,
+  ]);
 
   return (
     <ProfileBase
@@ -85,6 +92,7 @@ function MembershipStatus(props: { props: UsersPermissionsUser }) {
       membership={membership as string}
       userType={userType as string}
       createdAt={createdAt as string}
+      userId={props.userId}
       orgName={organisation?.name as string}
     >
       <PaymentStatusWrapper>

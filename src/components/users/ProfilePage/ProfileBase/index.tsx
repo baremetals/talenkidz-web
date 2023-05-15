@@ -73,8 +73,9 @@ const ProfileBase: React.FC<TUserProps> = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [notifications, setNotifications] = useState<DocumentData>([]);
-  // console.log(user);
+  // console.log(user, userId);
 
+    // console.log(notifications);
   useEffect(() => {
     if (user?.email !== undefined && userId == (user?.id as number)) {
       const getNewNotification = async () => {

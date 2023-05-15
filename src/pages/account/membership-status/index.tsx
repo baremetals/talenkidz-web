@@ -7,19 +7,21 @@ import { initializeApollo } from 'src/hooks/apolloClient';
 import {
   MeDocument,
   MeQueryResult,
-  UsersPermissionsUser,
+  // UsersPermissionsUser,
 } from 'generated/graphql';
 import Layout from 'components/Layout';
+import { ProfileProps } from '..';
 
-export type ProfileProps = {
-  data: {
-    usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
-  };
-};
+// export type ProfileProps = {
+//   data: {
+//     usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
+//   };
+// };
 
 const UserProfile = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
+  const userId = data?.data?.usersPermissionsUser?.data?.id;
   //   console.log('the rassssss user', user);
   useIsAuth();
   return (
@@ -30,7 +32,7 @@ const UserProfile = (data: ProfileProps) => {
         type="account page"
         pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
       >
-        <MembershipStatus props={user} />
+        <MembershipStatus props={user} userId={userId} />
       </Layout>
     </>
   );

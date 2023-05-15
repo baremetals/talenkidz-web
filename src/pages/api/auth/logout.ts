@@ -11,18 +11,18 @@ export default async function auth(
   res: NextApiResponse<Data>
 ) {
   if (!req.cookies.talentedKid) {
-    return res.json({ message: 'You have already logged out!' });
+    return res.status(200).json({ message: 'You have already logged out!' });
   } else {
     res.setHeader(
       'Set-Cookie',
       cookie.serialize(process.env.COOKIE_NAME as string, '', {
         httpOnly: true,
         secure: process.env.NODE_ENV !== 'development',
-        maxAge: -1, // deletes the cookie
+        maxAge: 0, // deletes the cookie
         sameSite: 'strict',
         path: '/',
       })
     );
-    return res.status(200).json({ message: 'Successfuly logged out!' });
+    return res.status(200).json({ message: 'Successfully logged out!' });
   }
 }

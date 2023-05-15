@@ -84,10 +84,10 @@ const BasicInfo: React.FC<TBasicInfoProps> = ({
       <AccountStatus>
         <span>
           {upperCase(
-            `${membership === 'premium' ? membership : 'Standard'} Member`
+            `${membership !== 'basic' ? membership : 'Standard'} Member`
           )}
         </span>
-        {userType === 'standard' && membership !== 'premium' && (ownerId == user?.id as number) ? (
+        {userType === 'standard' && membership === 'basic' && (ownerId == user?.id as number) ? (
           <Link href="/account/subscribe">upgrade to premium</Link>
         ) : null}
       </AccountStatus>

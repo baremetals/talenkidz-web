@@ -41,7 +41,7 @@ const tabs: TabsType = [
   },
 ];
 
-function SettingsPage(props: { props: UsersPermissionsUser }) {
+function SettingsPage(props: { props: UsersPermissionsUser; userId: number }) {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   // const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
@@ -72,6 +72,7 @@ function SettingsPage(props: { props: UsersPermissionsUser }) {
         userType={userType as string}
         createdAt={createdAt as string}
         orgName={organisation?.name as string}
+        userId={props.userId}
         // eslint-disable-next-line react/no-children-prop
       >
         <Wrapper>
