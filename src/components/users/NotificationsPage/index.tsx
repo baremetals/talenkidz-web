@@ -24,7 +24,7 @@ import {
 } from './notice.styles';
 import { Column, Row } from 'styles/common.styles';
 
-function NotificationsPage(props: { props: UsersPermissionsUser }) {
+function NotificationsPage(props: { props: UsersPermissionsUser, userId: number }) {
   const { user: user } = useAppSelector(isUser);
   // const [dropdown, setDropdown] = useState(false);
   // const dropdownRef = useRef<any>(null);
@@ -68,6 +68,7 @@ function NotificationsPage(props: { props: UsersPermissionsUser }) {
       bio={props?.props?.bio as string}
       membership={props?.props?.membership as string}
       userType={props?.props?.userType as string}
+      userId={props.userId as number}
       createdAt={props?.props?.createdAt as string}
       orgName={props?.props?.organisation?.name as string}
       // eslint-disable-next-line react/no-children-prop

@@ -8,19 +8,21 @@ import Layout from 'components/Layout';
 import {
   MeDocument,
   MeQueryResult,
-  UsersPermissionsUser,
+  // UsersPermissionsUser,
 } from 'generated/graphql';
 import { useIsAuth } from 'src/hooks/isAuth';
+import { ProfileProps } from '..';
 
-export type ProfileProps = {
-  data: {
-    usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
-  };
-};
+// export type ProfileProps = {
+//   data: {
+//     usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
+//   };
+// };
 
 const SettingProfile = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
+  const userId = data?.data?.usersPermissionsUser?.data?.id;
   //   console.log('the rassssss user', user);
   useIsAuth();
   return (
@@ -30,7 +32,7 @@ const SettingProfile = (data: ProfileProps) => {
       type="account page"
       pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
     >
-      <SettingsPage props={user} />
+      <SettingsPage props={user} userId={userId} />
     </Layout>
   );
 };

@@ -633,9 +633,9 @@ const AuthProvider: React.FC = ({ children }) => {
   const logUserOut = useCallback(async() => {
     await axios.get('/api/auth/logout')
     .then(() => {
-      router.push('/');
-      dispatch(signOutUser());
       signOutFirebaseUser();
+      dispatch(signOutUser());
+      router.push('/');
       dispatch(openModal('LOGIN_FORM'))
     }).catch((err) => {
       console.log(err)

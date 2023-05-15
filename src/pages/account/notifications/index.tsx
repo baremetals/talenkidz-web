@@ -14,13 +14,16 @@ import { useIsAuth } from 'src/hooks/isAuth';
 
 export type ProfileProps = {
   data: {
-    usersPermissionsUser: { data: { attributes: UsersPermissionsUser } };
+    usersPermissionsUser: {
+      data: { attributes: UsersPermissionsUser; id: number };
+    };
   };
 };
 
 const Notifications = (data: ProfileProps) => {
   //   console.log('the rassssss data', data);
   const user = data?.data?.usersPermissionsUser?.data?.attributes;
+  const userId = data?.data?.usersPermissionsUser?.data?.id;
   //   console.log('the rassssss user', user);
   useIsAuth();
   return (
@@ -30,7 +33,7 @@ const Notifications = (data: ProfileProps) => {
       type="account page"
       pageUrl={`https://www.talentkids.io/account/${user?.username}/`}
     >
-      <NotificationsPage props={user} />
+      <NotificationsPage props={user} userId={userId} />
     </Layout>
   );
 };
