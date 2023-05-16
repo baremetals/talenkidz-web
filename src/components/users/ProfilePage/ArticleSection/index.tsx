@@ -47,7 +47,7 @@ const ArticleSection = () => {
   }, [data?.articles?.data]);
   return (
     <>
-      {user?.membership == 'basic' &&
+      {user?.membership === 'basic' &&
       pageOwner == (user?.username as string) ? (
         <>
           {/* Account status notes */}
@@ -57,12 +57,12 @@ const ArticleSection = () => {
           <PremiumBanner />
 
           {/* Write a new article */}
-          <Editor
-            status={user?.membership == 'basic'? 'basic': 'article'}
-            componentName={'ARTICLE_FORM_MODAL'}
-          />
         </>
       ) : null}
+      <Editor
+        status={user?.membership === 'basic' ? 'basic' : 'article'}
+        componentName={'ARTICLE_FORM_MODAL'}
+      />
 
       {/* Articles */}
       {entity?.map((item) => (
