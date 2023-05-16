@@ -52,13 +52,13 @@ const EventSection = () => {
           <PremiumBanner />
 
           {/* Write a new article */}
-          <Editor
-            status="events"
-            placeholder="Create an event"
-            componentName={'EVENT_FORM_MODAL'}
-          />
         </>
       ) : null}
+      <Editor
+        status="events"
+        placeholder="Create an event"
+        componentName={'EVENT_FORM_MODAL'}
+      />
       {/*  */}
       <TabsBlock>
         <Tabs selectedTab={selectedTab} onClick={() => null} tabs={tabs} />
