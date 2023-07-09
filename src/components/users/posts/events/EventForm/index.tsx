@@ -34,7 +34,7 @@ import { Edit } from 'public/assets/icons/Edit';
 import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
 import { AuthContext } from 'src/features/auth/AuthContext';
 import { closeModal } from 'src/features/modal';
-import { FormProps } from 'src/types';
+import { FormProps, mimeTypes } from 'src/types';
 import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
 import CreatePost from '../../CreatePost';
 import {
@@ -95,7 +95,18 @@ const EventForm = () => {
   } = useForm<FormProps>();
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log('In the function',uploadImg);
+    const mimeType = event.target.files![0].type;
+    // console.log('In the function', event.target.files![0].type);
+    if (!mimeTypes.includes(mimeType)) {
+      setMsg('wrong file type, please only. jpg, png gif allowed.');
+      setImgSizeErr(true);
+      setTimeout(() => {
+        setDisplayImg('');
+      }, 1000);
+      setTimeout(() => {
+        setImgSizeErr(false);
+      }, 10000);
+    }
     try {
       const res = await handleImgChange({
         event,
@@ -187,7 +198,7 @@ const EventForm = () => {
               street: info.street,
               town: info.town,
               postCode: info.postCode,
-              longtitude: state.longtitude,
+              longitude: state.longitude,
               latitude: state.latitude,
             },
             SEO: {
@@ -199,7 +210,7 @@ const EventForm = () => {
               author: user?.orgName
                 ? user?.orgName
                 : user?.fullName || user?.username,
-              keywords: info.title.split('').join(', '),
+              keywords: info.title.split(' ').join(', '),
             },
           };
           await axios
@@ -207,7 +218,7 @@ const EventForm = () => {
               data,
             })
             .then(async (res) => {
-              console.log(res.data);
+              // console.log(res.data);
               if (res.status === 200) {
                 dispatch(closeModal());
                 router.push(eventUrl);
@@ -235,6 +246,12 @@ const EventForm = () => {
         }
       } catch (err) {
         console.log(err);
+        setSubmitting(false);
+        setMsg('something is wrong. please try again alter');
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 10000);
       }
     }
   };
@@ -250,7 +267,7 @@ const EventForm = () => {
       street: add[0]?.long_name || '',
       town: add[1]?.long_name || '',
       postCode: add[5]?.long_name || '',
-      longtitude: data.geometry.location.lng() || (0 as number),
+      longitude: data.geometry.location.lng() || (0 as number),
       latitude: data.geometry.location.lat() || (0 as number),
     };
     dispatch({
@@ -293,7 +310,9 @@ const EventForm = () => {
 
             {error && <ErrorMsg>{msg}</ErrorMsg>}
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
+              {/* Title and Category */}
               <Row className="horizontal">
+                {/* Title */}
                 <Column className="only-horizontal-padding">
                   <TextField
                     fullWidth
@@ -305,11 +324,14 @@ const EventForm = () => {
                     <span style={{ color: 'red' }}>Title is required</span>
                   )}
                 </Column>
+                {/* Category */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <FormControl fullWidth>
                       {/* <InputLabel>Category</InputLabel> */}
                       <select
+                        // labelId="category-select-label"
+                        // label="Category"
                         defaultValue=""
                         // value=""
                         {...register('category', { required: true })}
@@ -342,10 +364,10 @@ const EventForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
-
+              {/* Description */}
               <FormGroup>
                 <TextField
-                  placeholder="Describe your activity in a few sentences  "
+                  placeholder="Describe your activity in a few sentences"
                   multiline
                   fullWidth
                   rows={4}
@@ -358,7 +380,7 @@ const EventForm = () => {
                   <span style={{ color: 'red' }}>Description is required</span>
                 )}
               </FormGroup>
-
+              {/* Start Date and Start Time */}
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
@@ -376,6 +398,7 @@ const EventForm = () => {
                     )}
                   </FormGroup>
                 </Column>
+
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
@@ -393,6 +416,7 @@ const EventForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
+              {/* End Date and End Time */}
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
@@ -415,7 +439,7 @@ const EventForm = () => {
                     </UploadLabel>
                     <FormInput
                       type="time"
-                      {...register('endTime', { required: true })}
+                      {...register('endTime', { required: false })}
                     />
                     {errors.endTime && (
                       <span style={{ color: 'red' }}>End Time is required</span>
@@ -423,44 +447,36 @@ const EventForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
+              {/* Price and Button Text */}
               <Row className="horizontal">
+                {/* Price */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
                       Set the <strong>PRICE</strong>
                     </UploadLabel>
-                    <TextField
-                      fullWidth
-                      placeholder="Price"
-                      variant="outlined"
-                      defaultValue={'0'}
+                    <input
+                      type="text"
+                      defaultValue={"0"}
                       {...register('price')}
                     />
                   </FormGroup>
-                  <FormGroup>
-                    <UploadLabel>
-                      Add the <strong>LINK</strong>
-                    </UploadLabel>
-                    <TextField
-                      fullWidth
-                      placeholder="Link"
-                      variant="outlined"
-                      defaultValue="www.talentkids.io"
-                      {...register('link', { required: true })}
-                    />
-                  </FormGroup>
                 </Column>
+                {/* Button text */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
+                    <UploadLabel>
+                      Select <strong>Button Text</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
-                      {/* <InputLabel>Button Text</InputLabel> */}
+                      {/* <InputLabel> Choose Button Text</InputLabel> */}
                       <select
                         // labelId="link-button-select-label"
                         // label="Link Button"
                         defaultValue={state.linkButtonText}
                         {...register('linkButtonText', { required: true })}
                       >
-                        <option value="Choose the BUTTON TEXT" selected>
+                        <option value="Choose the BUTTON TEXT">
                           Choose the BUTTON TEXT
                         </option>
                         <option value="Buy Tickets">Buy Tickets</option>
@@ -469,12 +485,18 @@ const EventForm = () => {
                         <option value="Visit Us">Visit Us</option>
                         <option value="Buy Now">Buy Now</option>
                       </select>
-                      <span className="selectArrow">
-                        <SelectArrow />
-                      </span>
                     </FormControl>
                   </FormGroup>
+                </Column>
+              </Row>
+              {/* Event Link and Venue Type */}
+              <Row className="horizontal">
+                {/* Venue type */}
+                <Column className="only-horizontal-padding">
                   <FormGroup>
+                    <UploadLabel>
+                      Select <strong>Venue Type</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
                       <select
@@ -483,27 +505,52 @@ const EventForm = () => {
                         defaultValue={state.venue}
                         {...register('venue')}
                       >
-                        <option selected>Choose the VENUE</option>
+                        <option value="Choose the Venue">
+                          {' '}
+                          Choose the Venue
+                        </option>
                         <option value="location">On Site</option>
                         <option value="online">Online</option>
                         <option value="both">Online and On Site</option>
                       </select>
-                      <span className="selectArrow">
-                        <SelectArrow />
-                      </span>
                     </FormControl>
                   </FormGroup>
-                  <GoogleMap>
-                    <SearchBox onPlace={onChangeAddress} />
-                  </GoogleMap>
+                </Column>
+                {/* Activity Link */}
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Add event <strong>LINK</strong>
+                    </UploadLabel>
+                    <input
+                      defaultValue="www.talentkids.io"
+                      {...register('link', { required: true })}
+                    />
+                  </FormGroup>
                 </Column>
               </Row>
-
+              {/* Location Search */}
+              <Row className="horizontal">
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Search <strong>Location</strong>
+                    </UploadLabel>
+                    <GoogleMap>
+                      <SearchBox onPlace={onChangeAddress}></SearchBox>
+                    </GoogleMap>
+                  </FormGroup>
+                </Column>
+              </Row>
+              {/* Enter Location */}
               {state.showInput && (
                 <>
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          Venue <strong>Name</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="name"
@@ -524,6 +571,9 @@ const EventForm = () => {
                     </Column>
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Street</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Street"
@@ -545,6 +595,9 @@ const EventForm = () => {
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Town</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Town"
@@ -567,6 +620,9 @@ const EventForm = () => {
 
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Post Code</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Post Code"
@@ -588,8 +644,12 @@ const EventForm = () => {
                   </Row>
                 </>
               )}
-              {state.showInput !== true && <br />}
+              {/* {state.showInput !== true && ''} */}
+              {/* Image Upload */}
               <FormGroup style={{ marginTop: '0.5rem' }}>
+                <UploadLabel>
+                  Add an <strong>Image</strong> (No Videos)
+                </UploadLabel>
                 <>
                   {image && (
                     <ErrorMsg style={{ color: 'red' }}>
@@ -664,6 +724,10 @@ const EventForm = () => {
                   <ErrorMsg style={{ color: 'red' }}>Body is required</ErrorMsg>
                 )}
               </>
+              <UploadLabel>
+                Add <strong>Information</strong> (You can add video or YouTube
+                links)
+              </UploadLabel>
               <EditorTextWrapper>
                 <PostEditor
                   // id={user?.id as string}
@@ -677,19 +741,18 @@ const EventForm = () => {
                   }}
                 />
               </EditorTextWrapper>
-              <p className="note">
+              <p>
                 *with Standard status the activity will be in the list only for
                 5 days. After that it will be deleted. To create unlimited
                 position, change the option in Settings.
               </p>
               <FormGroup className="submit-button">
                 <Button
-                  content="Create"
+                  content={submitting ? 'submitting.......' : 'Create'}
                   type="submit"
                   disabled={submitting}
                   loading={submitting}
                 />
-                {submitting && <p>submitting.......</p>}
               </FormGroup>
             </FormWrap>
           </InnerFormWrapper>

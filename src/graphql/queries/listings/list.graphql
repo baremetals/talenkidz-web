@@ -50,7 +50,7 @@ query List($filters: ListingFiltersInput) {
           street
           town
           postCode
-          longtitude
+          longitude
           latitude
         }
         category {

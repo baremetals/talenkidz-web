@@ -1,41 +1,19 @@
-import React, { ChangeEvent, useContext, useReducer, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { customSlugify, handleImgChange } from 'src/utils';
 import { useQuery } from '@apollo/client';
 import { CategoriesDocument } from 'generated/graphql';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useContext, useReducer, useState } from 'react';
+import { customSlugify, handleImgChange } from 'src/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 import { convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 
 import { formReducer, INITIAL_STATE } from 'components/users/posts/formReducer';
 
-import GoogleMap from 'components/utilities/Google/GoogleMap';
-import SearchBox from 'components/utilities/Google/SearchBox';
-
-const PostEditor: any = dynamic(
-  () => import('components/utilities/Editor/PostEditor'),
-  {
-    ssr: false,
-  }
-);
 import { FormControl, TextField } from '@mui/material';
-import { ErrorMsg } from 'components/widgets/Input';
-import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
-import {
-  FormWrap,
-  FormWrapper,
-  InnerFormWrapper,
-  FormGroup,
-  UploadLabel,
-  FormInput,
-  EditorTextWrapper,
-  AlignCentered,
-  DismissIcon,
-} from '../../createpost.styles';
+import Button from 'components/users/Auth/Button';
 import {
   ActionButton,
   CoverPictureUploaderWrapper,
@@ -43,20 +21,48 @@ import {
   EditButton,
   Image,
   ImageActions,
-  Label,
   NoCoverPictureWrapper,
   SelectCoverPictureButton,
 } from 'components/users/EditProfile/editProfile.styles';
-import Button from 'components/users/Auth/Button';
-import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
-import { Edit } from 'public/assets/icons/Edit';
-import { FormProps } from 'src/types';
-import CreatePost from '../../CreatePost';
-import { AuthContext } from 'src/features/auth/AuthContext';
-import { closeModal } from 'src/features/modal';
+import GoogleMap from 'components/utilities/Google/GoogleMap';
+import SearchBox from 'components/utilities/Google/SearchBox';
+import { ErrorMsg } from 'components/widgets/Input';
 import Link from 'next/link';
-import { CrossRounded } from 'public/assets/icons/CrossRounded';
+import { Edit } from 'public/assets/icons/Edit';
 import SelectArrow from 'public/assets/icons/SelectArrow';
+import { BsCloudArrowUp, BsTrash } from 'react-icons/bs';
+import { AuthContext } from 'src/features/auth/AuthContext';
+import { FormProps, mimeTypes } from 'src/types';
+import { Column, InnerContainer, Row, Title } from 'styles/common.styles';
+import CreatePost from '../../CreatePost';
+import {
+  AlignCentered,
+  EditorTextWrapper,
+  FormGroup,
+  FormInput,
+  FormWrap,
+  FormWrapper,
+  InnerFormWrapper,
+  UploadLabel,
+} from '../../createpost.styles';
+import axios from 'axios';
+import { closeModal } from 'src/features/modal';
+
+const PostEditor: any = dynamic(
+  () => import('components/utilities/Editor/PostEditor'),
+  {
+    ssr: false,
+  }
+);
+
+// type imageType = {
+//   lastModified: number;
+//   lastModifiedDate: Date | any;
+//   name: string;
+//   size: number;
+//   type: string;
+//   webkitRelativePath: string;
+// };
 
 const ActivityForm = () => {
   const router = useRouter();
@@ -69,7 +75,7 @@ const ActivityForm = () => {
   );
   const [content, setContent] = useState<string>('');
   const [imgSizeErr, setImgSizeErr] = useState(false);
-  const [uploadImg, setUploadImg] = useState<File | string>('');
+  const [uploadImg, setUploadImg] = useState<File | string >('');
   const [displayImg, setDisplayImg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
@@ -86,17 +92,29 @@ const ActivityForm = () => {
   } = useForm<FormProps>();
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log('In the function',uploadImg);
+    const mimeType = event.target.files![0].type;
+    // console.log('In the function', event.target.files![0].type);
+    if (!mimeTypes.includes(mimeType)) {
+      setMsg('wrong file type, please only. jpg, png gif allowed.');
+      setImgSizeErr(true);
+      setTimeout(() => {
+        setDisplayImg('');
+      }, 1000);
+      setTimeout(() => {
+        setImgSizeErr(false);
+      }, 10000);
+    }
     try {
       const res = await handleImgChange({
         event,
-        setUploadImg,
+        setUploadImg: setUploadImg,
         setDisplayImg,
       });
       if (res?.error) {
         setMsg(res?.error);
         setImgSizeErr(true);
         setTimeout(() => {
+          setDisplayImg('');
           setImgSizeErr(false);
         }, 8000);
       } else {
@@ -128,6 +146,7 @@ const ActivityForm = () => {
       }, 10000);
     } else {
       const { listImage } = info;
+
       const url = process.env.NEXT_PUBLIC_SITE_URL;
 
       const found = categories.find(
@@ -178,7 +197,7 @@ const ActivityForm = () => {
               street: info.street,
               town: info.town,
               postCode: info.postCode,
-              longtitude: state.longtitude,
+              longitude: state.longitude,
               latitude: state.latitude,
             },
             SEO: {
@@ -190,7 +209,7 @@ const ActivityForm = () => {
               author: user?.orgName
                 ? user?.orgName
                 : user?.fullName || user?.username,
-              keywords: info.title.split('').join(', '),
+              keywords: info.title.split(' ').join(', '),
             },
           };
           await axios
@@ -226,6 +245,12 @@ const ActivityForm = () => {
         }
       } catch (err) {
         console.log(err);
+        setSubmitting(false);
+        setMsg('something is wrong. please try again alter');
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 10000);
       }
     }
   };
@@ -242,7 +267,7 @@ const ActivityForm = () => {
       street: add[0]?.long_name || '',
       town: add[1]?.long_name || '',
       postCode: add[5]?.long_name || '',
-      longtitude: data.geometry.location.lng() || (0 as number),
+      longitude: data.geometry.location.lng() || (0 as number),
       latitude: data.geometry.location.lat() || (0 as number),
     };
     dispatch({
@@ -282,7 +307,9 @@ const ActivityForm = () => {
             </AlignCentered>
             {error && <ErrorMsg>{msg}</ErrorMsg>}
             <FormWrap onSubmit={handleSubmit(onSubmit)}>
+              {/* Title and Category */}
               <Row className="horizontal">
+                {/* Title */}
                 <Column className="only-horizontal-padding">
                   <TextField
                     fullWidth
@@ -294,6 +321,7 @@ const ActivityForm = () => {
                     <span style={{ color: 'red' }}>Title is required</span>
                   )}
                 </Column>
+                {/* Category */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <FormControl fullWidth>
@@ -333,7 +361,7 @@ const ActivityForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
-
+              {/* Description */}
               <FormGroup>
                 <TextField
                   placeholder="Describe your activity in a few sentences"
@@ -349,7 +377,7 @@ const ActivityForm = () => {
                   <span style={{ color: 'red' }}>Description is required</span>
                 )}
               </FormGroup>
-
+              {/* Start Date and Start Time */}
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
@@ -385,6 +413,7 @@ const ActivityForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
+              {/* End Date and End Time */}
               <Row className="horizontal">
                 <Column className="only-horizontal-padding">
                   <FormGroup>
@@ -407,7 +436,7 @@ const ActivityForm = () => {
                     </UploadLabel>
                     <FormInput
                       type="time"
-                      {...register('endTime', { required: true })}
+                      {...register('endTime', { required: false })}
                     />
                     {errors.endTime && (
                       <span style={{ color: 'red' }}>End Time is required</span>
@@ -415,35 +444,36 @@ const ActivityForm = () => {
                   </FormGroup>
                 </Column>
               </Row>
+              {/* Price and Button Text */}
               <Row className="horizontal">
+                {/* Price */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
                     <UploadLabel>
                       Set the <strong>PRICE</strong>
                     </UploadLabel>
-                    <input defaultValue={'0'} {...register('price')} />
-                  </FormGroup>
-                  <FormGroup>
-                    <UploadLabel>
-                      Add the <strong>LINK</strong>
-                    </UploadLabel>
                     <input
-                      defaultValue="www.talentkids.io"
-                      {...register('link', { required: true })}
+                      type="text"
+                      defaultValue={"0"}
+                      {...register('price')}
                     />
                   </FormGroup>
                 </Column>
+                {/* Button text */}
                 <Column className="only-horizontal-padding">
                   <FormGroup>
+                    <UploadLabel>
+                      Select <strong>Button Text</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
-                      {/* <InputLabel>Button Text</InputLabel> */}
+                      {/* <InputLabel> Choose Button Text</InputLabel> */}
                       <select
                         // labelId="link-button-select-label"
                         // label="Link Button"
                         defaultValue={state.linkButtonText}
                         {...register('linkButtonText', { required: true })}
                       >
-                        <option selected value="Choose the BUTTON TEXT">
+                        <option value="Choose the BUTTON TEXT">
                           Choose the BUTTON TEXT
                         </option>
                         <option value="Buy Tickets">Buy Tickets</option>
@@ -454,7 +484,16 @@ const ActivityForm = () => {
                       </select>
                     </FormControl>
                   </FormGroup>
+                </Column>
+              </Row>
+              {/* Activity Link and Venue Type */}
+              <Row className="horizontal">
+                {/* Venue type */}
+                <Column className="only-horizontal-padding">
                   <FormGroup>
+                    <UploadLabel>
+                      Select <strong>Venue Type</strong>
+                    </UploadLabel>
                     <FormControl fullWidth>
                       {/* <InputLabel>Venue Options</InputLabel> */}
                       <select
@@ -463,23 +502,52 @@ const ActivityForm = () => {
                         defaultValue={state.venue}
                         {...register('venue')}
                       >
-                        <option selected> Choose the Venue</option>
+                        <option value="Choose the Venue">
+                          {' '}
+                          Choose the Venue
+                        </option>
                         <option value="location">On Site</option>
                         <option value="online">Online</option>
                         <option value="both">Online and On Site</option>
                       </select>
                     </FormControl>
                   </FormGroup>
-                  <GoogleMap>
-                    <SearchBox onPlace={onChangeAddress}></SearchBox>
-                  </GoogleMap>
+                </Column>
+                {/* Activity Link */}
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Add activity <strong>LINK</strong>
+                    </UploadLabel>
+                    <input
+                      defaultValue="www.talentkids.io"
+                      {...register('link', { required: true })}
+                    />
+                  </FormGroup>
                 </Column>
               </Row>
+              {/* Location Search */}
+              <Row className="horizontal">
+                <Column className="only-horizontal-padding">
+                  <FormGroup>
+                    <UploadLabel>
+                      Search <strong>Location</strong>
+                    </UploadLabel>
+                    <GoogleMap>
+                      <SearchBox onPlace={onChangeAddress}></SearchBox>
+                    </GoogleMap>
+                  </FormGroup>
+                </Column>
+              </Row>
+              {/* Enter Location */}
               {state.showInput && (
                 <>
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          Venue <strong>Name</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="name"
@@ -500,6 +568,9 @@ const ActivityForm = () => {
                     </Column>
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Street</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Street"
@@ -521,6 +592,9 @@ const ActivityForm = () => {
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Town</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Town"
@@ -543,6 +617,9 @@ const ActivityForm = () => {
 
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Post Code</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Post Code"
@@ -564,8 +641,12 @@ const ActivityForm = () => {
                   </Row>
                 </>
               )}
-              {state.showInput !== true && ''}
+              {/* {state.showInput !== true && ''} */}
+              {/* Image Upload */}
               <FormGroup style={{ marginTop: '0.5rem' }}>
+                <UploadLabel>
+                  Add an <strong>Image</strong> (No Videos)
+                </UploadLabel>
                 <>
                   {image && (
                     <ErrorMsg style={{ color: 'red' }}>
@@ -640,6 +721,10 @@ const ActivityForm = () => {
                   <ErrorMsg style={{ color: 'red' }}>Body is required</ErrorMsg>
                 )}
               </>
+              <UploadLabel>
+                Add <strong>Information</strong> (You can add video or YouTube
+                links)
+              </UploadLabel>
               <EditorTextWrapper>
                 <PostEditor
                   // id={user?.id as string}
@@ -660,12 +745,11 @@ const ActivityForm = () => {
               </p>
               <FormGroup className="submit-button">
                 <Button
-                  content="Create"
+                  content={submitting ? 'submitting.......' : 'Create'}
                   type="submit"
                   disabled={submitting}
                   loading={submitting}
                 />
-                {submitting && <p>submitting.......</p>}
               </FormGroup>
             </FormWrap>
           </InnerFormWrapper>

@@ -2,8 +2,8 @@
   "name": "client",
   "private": true,
   "engines": {
-    "node": ">=14.0.0",
-    "yarn": ">=1.22.0",
+    "node": ">=16.19.0",
+    "yarn": ">=1.22.17",
     "npm": "please-use-yarn"
   },
   "scripts": {
@@ -71,6 +71,7 @@
     "react-toastify": "^8.0.3",
     "react-tooltip": "^5.11.1",
     "save-dev": "^0.0.1-security",
+    "sharp": "^0.32.1",
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.5",
     "stripe": "^11.13.0",

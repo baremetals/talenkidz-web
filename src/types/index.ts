@@ -210,3 +210,5 @@ export type TFeatureSlider = {
     createdAt: string;
   };
 };
+
+export const mimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];

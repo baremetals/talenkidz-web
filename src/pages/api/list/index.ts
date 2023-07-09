@@ -7,7 +7,7 @@ export default async function list(req: NextApiRequest, res: NextApiResponse) {
   if (talentedKidCookie !== undefined) {
     const token = JSON.parse(req.cookies.talentedKid).jwt;
     const { data } = req.body;
-    // console.log(token);
+    // console.log(data);
     if (data.SEO.type === 'event') {
       try {
         // console.log('i reached here');
