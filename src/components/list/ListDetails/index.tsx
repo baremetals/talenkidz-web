@@ -309,7 +309,7 @@ function ListDetails(props: {
             <GoogleMap>
               <Map
                 lat={location?.latitude as number}
-                lng={location?.longtitude as number}
+                lng={location?.longitude as number}
               />
             </GoogleMap>
           </AddressMap>

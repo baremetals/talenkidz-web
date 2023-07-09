@@ -94,7 +94,7 @@ function EventDetails(props: {
           readingTimeOrPrice={''}
           hostName={host?.organisation?.name || (host?.fullName as string)}
           startDate={event?.attributes?.startDate}
-          startTime={event?.attributes?.startTime}
+          startTime={event?.attributes?.startTime as string}
           category={category}
           type={'event'}
           price={event?.attributes?.price as string}
@@ -275,7 +275,7 @@ function EventDetails(props: {
             <GoogleMap>
               <Map
                 lat={location?.latitude as number}
-                lng={location?.longtitude as number}
+                lng={location?.longitude as number}
               />
             </GoogleMap>
           </AddressMap>
