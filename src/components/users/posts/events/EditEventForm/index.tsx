@@ -109,7 +109,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
       street: (attributes?.Location?.street as string) || '',
       town: (attributes?.Location?.town as string) || '',
       postCode: (attributes?.Location?.postCode as string) || '',
-      longtitude: (attributes?.Location?.longtitude as number) || 0,
+      longitude: (attributes?.Location?.longitude as number) || 0,
       latitude: (attributes?.Location?.latitude as number) || (0 as number),
       //   linkButtonText: action.payload.linkButtonText,
       //   venue: action.payload.venue,
@@ -119,7 +119,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
       type: 'CHANGE_VALUE',
       payload: { ...location },
     });
-  }, [attributes?.Location?.latitude, attributes?.Location?.longtitude, attributes?.Location?.name, attributes?.Location?.postCode, attributes?.Location?.street, attributes?.Location?.town]);
+  }, [attributes?.Location?.latitude, attributes?.Location?.longitude, attributes?.Location?.name, attributes?.Location?.postCode, attributes?.Location?.street, attributes?.Location?.town]);
 
   // console.log(id);
   const {
@@ -224,7 +224,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
         street: info.street,
         town: info.town,
         postCode: info.postCode,
-        longtitude: state.longtitude,
+        longitude: state.longitude,
         latitude: state.latitude,
       },
     };
@@ -336,7 +336,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
       street: add[0]?.long_name || '',
       town: add[1]?.long_name || '',
       postCode: add[5]?.long_name || '',
-      longtitude: data.geometry.location.lng() || (0 as number),
+      longitude: data.geometry.location.lng() || (0 as number),
       latitude: data.geometry.location.lat() || (0 as number),
     };
     // setAddress({ ...location });
@@ -557,7 +557,9 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                 </Column>
               </Row>
               <br />
-              <UploadLabel>Location</UploadLabel>
+              <UploadLabel>
+                Search <strong>Location</strong>
+              </UploadLabel>
               <GoogleMap>
                 <SearchBox onPlace={onChangeAddress}></SearchBox>
               </GoogleMap>
@@ -567,6 +569,9 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          Venue <strong>Name</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="name"
@@ -578,7 +583,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                           // onChange={(e) => handleChange(e)}
                           {...register('name')}
                         />
-                        {state.name === '' && state.venue === 'location' && (
+                        {state.name === '' && state.venue !== 'online' && (
                           <span style={{ color: 'red' }}>
                             Venue name is required
                           </span>
@@ -587,6 +592,9 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                     </Column>
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Street</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Street"
@@ -597,7 +605,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                           // onChange={(e) => handleChange(e)}
                           {...register('street')}
                         />
-                        {state.street === '' && state.venue === 'location' && (
+                        {state.street === '' && state.venue !== 'online' && (
                           <span style={{ color: 'red' }}>
                             Street is required
                           </span>
@@ -608,6 +616,9 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                   <Row className="horizontal">
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Town</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Town"
@@ -620,7 +631,7 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                         />
                         {errors.town &&
                           state.town === '' &&
-                          state.venue === 'location' && (
+                          state.venue !== 'online' && (
                             <span style={{ color: 'red' }}>
                               Town is required
                             </span>
@@ -630,6 +641,9 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
 
                     <Column className="only-horizontal-padding">
                       <FormGroup>
+                        <UploadLabel>
+                          <strong>Post Code</strong>
+                        </UploadLabel>
                         <input
                           // fullWidth
                           // label="Post Code"
@@ -640,12 +654,11 @@ const EditEventForm = ({ id, attributes, formType }: EditFormProps) => {
                           // onChange={(e) => handleChange(e)}
                           {...register('postCode')}
                         />
-                        {state.postCode === '' &&
-                          state.venue === 'location' && (
-                            <span style={{ color: 'red' }}>
-                              Post Code is required
-                            </span>
-                          )}
+                        {state.postCode === '' && state.venue !== 'online' && (
+                          <span style={{ color: 'red' }}>
+                            Post Code is required
+                          </span>
+                        )}
                       </FormGroup>
                     </Column>
                   </Row>

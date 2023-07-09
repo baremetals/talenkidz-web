@@ -3,7 +3,7 @@ export const INITIAL_STATE = {
   street: '',
   town: '',
   postCode: '',
-  longtitude: 0,
+  longitude: 0,
   latitude: 0,
   linkButtonText: 'Learn More',
   venue: 'location',
@@ -23,9 +23,11 @@ export const formReducer = (
         street: action.payload.street,
         town: action.payload.town,
         postCode: action.payload.postCode,
-        longtitude: action.payload.longtitude,
+        longitude: action.payload.longitude,
         latitude: action.payload.latitude,
         showInput: true,
+        linkButtonText: action.payload.linkButtonText,
+        venue: action.payload.venue,
       };
     case 'SHOW_VALUE':
       return {
@@ -34,7 +36,7 @@ export const formReducer = (
         street: action.payload.street,
         town: action.payload.town,
         postCode: action.payload.postCode,
-        longtitude: action.payload.longtitude,
+        longitude: action.payload.longitude,
         latitude: action.payload.latitude,
         linkButtonText: action.payload.linkButtonText,
         venue: action.payload.venue,
